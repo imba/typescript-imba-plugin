@@ -156,6 +156,14 @@ export default class Service
 		if res.definitions
 			for item in res.definitions
 				convertLocationsToImba(item,ls,item.fileName or item.file)
+				
+		if res.fileName and typeof res.name == 'string'
+			res.name = util.toImbaString(res.name)
+			
+		if res.displayParts
+			for dp,i in res.displayParts
+				if dp.text.indexOf('$') >= 0
+					dp.text = util.toImbaString(dp.text,dp,res.displayParts)
 
 		return res
 		
@@ -192,8 +200,6 @@ export default class Service
 				util.log('getQuickInfo',filename,dpos,opos,out)
 				if out
 					return out
-				
-				# pos = convpos
 
 			let res = ls.getQuickInfoAtPosition(filename,opos)
 			return convertLocationsToImba(res,ls,filename)
@@ -202,6 +208,13 @@ export default class Service
 			let {script,dpos,opos} = getFileContext(filename,pos,ls)
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
+			
+			if script and res and res.definitions
+				let hasImbaDefs = res.definitions.some do util.isImba($1.fileName)
+				if hasImbaDefs
+					res.definitions = res.definitions.filter do util.isImba($1.fileName)
+
+			# for convenience - hide certain definitions
 			util.log('getDefinitionAndBoundSpan',script,dpos,opos,filename,res)
 			return res
 			

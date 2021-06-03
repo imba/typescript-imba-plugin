@@ -184,6 +184,7 @@ export default class ImbaScript
 			if typ
 				out[typ] = sym
 			out.sym ||= sym 
+	
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,post] = tok.value.match(/^(@|\.+)([\w\-\d]*)$/)
@@ -203,8 +204,12 @@ export default class ImbaScript
 			
 		if tok.match('tag.event.name')
 			let name = tok.value.replace('@','')
+			hit(checker.sym("ImbaEvents.{name}"),'event')
 			# out.sym ||= 
-				
+			
+		if tok.match('tag.name')
+			let name = tok.value.replace('@','')
+			hit(checker.sym("ImbaHTMLTags.{name}"),'tag')
 		
 		if tok.match('white keyword')
 			return {}

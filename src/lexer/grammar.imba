@@ -280,6 +280,7 @@ export const states = {
 		'type_'
 		[/\s*\=\s*/,'operator','@var_value=']
 		[/\s*\,\s*/,'separator']
+		[/\s/,'white.params']
 	]
 
 	object_: [
@@ -497,8 +498,8 @@ export const states = {
 
 	member_: [
 		# [/static(?=\s+(get|set|def) )/,'keyword.static'] # only in class and tagclass?
-		[/(constructor)@B/, 'entity.name.constructor','@>def_params&def/def']
-		[/(def|get|set)(\s)(@defid)/, ['keyword.$1','white.entity','entity.name.$1','@>def_params&$1/$1']]
+		[/(constructor)@B/, 'entity.name.constructor','@>def_params&def/def=decl-param']
+		[/(def|get|set)(\s)(@defid)/, ['keyword.$1','white.entity','entity.name.$1','@>def_params&$1/$1=decl-param']]
 		[/(def|get|set)(\s)(\[)/, ['keyword.$1','white.entity','$$','@>def_dynamic_name/$1']]
 	]
 
@@ -667,8 +668,8 @@ export const states = {
 	def_params: [
 		# denter({switchTo: '@>_def'},-1,{switchTo: '@>_def'})
 		[/\(/,'(','@def_parens']
-		[/^/,'@rematch',switchTo:'@_def']
-		[/do@B/,'keyword.do',switchTo:'@_def']
+		[/^/,'@rematch',switchTo:'@_def=']
+		[/do@B/,'keyword.do',switchTo:'@_def=']
 		'params_'
 		[/@comment/,'comment']
 	]
@@ -679,7 +680,7 @@ export const states = {
 	]
 
 	def_dynamic_name: [
-		[']',token: 'square.close',switchTo: '@def_params&$/']
+		[']',token: 'square.close',switchTo: '@def_params&$/=decl-param']
 		'expr_'
 	]
 

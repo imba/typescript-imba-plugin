@@ -504,7 +504,7 @@ export default def patcher ts
 			return null
 			
 		get isInternal
-			(/^__@|$\d+$|\$\$\w+\$\$/).test(escapedName)
+			(/^__@|$\d+$|^\$\$\w+\$\$/).test(escapedName)
 			
 		get isTag
 			self.exports..has('$$TAG$$')

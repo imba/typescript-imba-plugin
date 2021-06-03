@@ -97,8 +97,13 @@ export default class ImbaTypeChecker
 	get cssmodifiers
 		props(type('$cssmodule$.css$modifiers'))
 		
+	get allGlobals
+		#allGlobals ||= props('globalThis').slice(0)
+		
 	get globals
-		#globals ||= props('globalThis').slice(0).filter do $1.pascal? or Globals.indexOf($1.escapedName) >= 0
+		#globals ||= allGlobals.filter do $1.pascal? or Globals.indexOf($1.escapedName) >= 0
+
+	
 		
 	def getMappedLocation dpos
 		let res = {dpos: dpos}
@@ -152,6 +157,9 @@ export default class ImbaTypeChecker
 		
 	def getStyleProps
 		props(cssrule)
+		
+	def getGlobalTags
+		allGlobals.filter do $1.escapedName.indexOf('$$TAG$$') >= 0
 		
 	def getLocalTagsInScope
 		let symbols = checker.getSymbolsInScope(sourceFile,32)

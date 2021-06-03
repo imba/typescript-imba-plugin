@@ -44,6 +44,11 @@ export const state = {
 	
 }
 
+export def toImbaString str
+	str = str.replace(/(\w+)\$\$TAG\$\$/g) do $2.replace(/\_/g,'-')
+	str = str.replace(/(_\$SYM\$_)+(\w+)/g) do $1.split("_$SYM$_").join("#")
+	return str
+
 export def normalizePath path
 	path.split(np.sep).join('/')
 	

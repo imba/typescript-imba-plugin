@@ -422,6 +422,7 @@ export default class Completions
 		add(html,o)
 		
 		add(checker.sourceFile.getLocalTags!,o)
+		add(checker.getGlobalTags!,o)
 
 		let autoTags = checker.autoImports.getExportedTags!
 		util.log 'add autoTags',autoTags

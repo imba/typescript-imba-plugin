@@ -33,5 +33,6 @@ export const DefaultConfig = {
 	compilerOptions: {
 		checkJs: true
 		target: 'esnext'
+		moduleResolution: "node"
 	}
 }

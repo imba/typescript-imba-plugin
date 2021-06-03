@@ -3,6 +3,7 @@ interface ImbaRouter {
     path: string;
     hash: string;
     url: URL;
+    pathname: string;
 
     refresh(): void;
     alias(from: string, to: string): void;
