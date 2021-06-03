@@ -9,30 +9,40 @@ declare module "imba_snippets" {
          * @snippet input type='radio'
          */
         'input-radio': void
-        
+
         /**
          * @snippet input type='range'
          */
         'input-range': void
-        
+
         /**
          * @snippet input type='text'
          */
         'input-text': void
-        
+
         /**
          * @snippet input type='color'
          */
         'input-color': void
-        
+
         /**
          * @snippet input type='number'
          */
         'input-number': void
-        
+
         /**
          * @snippet input type='email'
          */
         'input-email': void
+    }
+
+    interface types {
+        any: void
+        string: void
+        number: void
+        boolean: void
+        void: void
+        object: void;
+        unknown: void;
     }
 }

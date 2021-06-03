@@ -78,7 +78,8 @@ export default class ImbaScript
 	def applyOutput result
 		let its = info.textStorage
 		let end = its.svc.getSnapshot!.getLength!
-		util.log('apply output!',result.js,end,its)
+		util.log('compiled',fileName,end,its)
+
 		its.edit(0, end, result.js)
 		let snap = its.svc.getSnapshot!
 		snap.mapper = result
@@ -89,14 +90,15 @@ export default class ImbaScript
 	def editContent start, end, newText
 		svc.edit(start,end - start,newText)
 		# this should just start asynchronously instead
-		util.delay(self,'asyncCompile',250)
+		if global.ils.isSemantic
+			util.delay(self,'asyncCompile',250)
 
 	def compile
 		let snap = svc.getSnapshot!
 		let body = snap.getText(0,snap.getLength!)
 		let result = Compiler.compile(info,body)
 		result.input = snap
-		return result		
+		return result
 		
 	get snapshot
 		svc.getSnapshot!

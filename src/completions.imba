@@ -188,12 +188,13 @@ export class Completion
 		
 	def resolveImportEdits
 		if let ei = exportInfo
+			let asType = ei.exportedSymbolIsTypeOnly or #options.kind == 'type'
 			let path = ei.packageName or util.normalizeImportPath(script.fileName,ei.modulePath)
 			# let specifier = checker.getModuleSpecifierForBestExportInfo(info)
 			# let path = specifier.moduleSpecifier
 			let alias = ei.exportName
 			let name = ei.exportKind == 1 ? 'default' : alias
-			let edits = script.doc.createImportEdit(path,name,alias)
+			let edits = script.doc.createImportEdit(path,name,alias,asType)
 			
 			if edits.changes.length
 				item.additionalTextEdits = edits.changes
@@ -256,6 +257,9 @@ export class SymbolCompletion < Completion
 			kind = 'value'
 			item.filterText = name
 			name = item.insertText = "<{name}>"
+		elif cat == 'type'
+			type = 'type'
+			triggers ' [=,|&'
 		else
 			type = item.kind
 			triggers '!(,. ['
@@ -335,6 +339,10 @@ export default class Completions
 	get checker
 		# should we choose configured project or?
 		#checker ||= script.getTypeChecker!
+	
+	get autoimporter
+		checker.autoImports
+		
 		
 	get triggerCharacter
 		prefs.triggerCharacter
@@ -382,6 +390,9 @@ export default class Completions
 		if flags & CT.TagProp
 			add('tagattrs',name: ctx.tagName)
 			
+		if flags & CT.Type
+			add('types',kind: 'type')
+			
 		if flags & CT.Access
 			let typ = checker.inferType(ctx.target,script.doc)
 			util.log('inferred type??',typ)
@@ -424,10 +435,18 @@ export default class Completions
 		add(checker.sourceFile.getLocalTags!,o)
 		add(checker.getGlobalTags!,o)
 
-		let autoTags = checker.autoImports.getExportedTags!
+		let autoTags = autoimporter.getExportedTags!
 		util.log 'add autoTags',autoTags
 		add(autoTags,o)
 		add(checker.props('$snippets$.tags'),o)
+		
+	def types o = {}
+		add(checker.props('$snippets$.types'),o)
+		# all globally available types
+		let typesymbols = checker.getSymbols('Type')
+		add(typesymbols,o)
+		add(autoimporter.getExportedTypes!,o)
+	
 		
 	def tagattrs o = {}
 		# console.log 'check',"ImbaHTMLTags.{o.name}"

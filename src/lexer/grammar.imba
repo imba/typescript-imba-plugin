@@ -768,7 +768,7 @@ export const states = {
 	]
 
 	type_: [
-		[/\\/, '@rematch','@_type&-_type/0']
+		[/\\(?!\/)/, '@rematch','@_type&-_type/0']
 	]
 
 	_type: [
@@ -1036,6 +1036,7 @@ export const states = {
 		[/\/(?!\ )(?=([^\\\/]|\\.)+\/)/, { token: 'regexp.slash.open', bracket: '@open', next: '@_regexp'}]
 		[/\/\/\//, { token: 'regexp.slash.open', bracket: '@open', next: '@_hereregexp'}]
 		[/(\/)(\/)/, ['regexp.slash.open','regexp.slash.close']]
+		# [/(\/)([^\\\/]|\\.)*(\\\/)(?=($))/, token: 'regexp']
 	]
 	
 	_regexp: [

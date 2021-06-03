@@ -313,8 +313,8 @@ export default class ImbaScriptInfo
 			flags |= CompletionTypes.Access
 			target = tok.prev
 
-		if tok.match("delimiter.type.prefix type")
-			flags |= CompletionTypes.Type
+		
+			
 		if tok.match('tag.name tag.open')
 			flags |= CompletionTypes.TagName
 		elif tok.match('tag.attr tag.white')
@@ -374,6 +374,9 @@ export default class ImbaScriptInfo
 		if mstate.match(/\.decl-(let|var|const|param|for)/) or tok.match(/\.decl-(for|let|var|const|param)/)
 			flags ~= t.Value
 			flags |= t.VarName
+			
+		if tok.match("delimiter.type.prefix type")
+			flags = CompletionTypes.Type
 
 		let kfilter = scope.allowedKeywordTypes
 		suggest.keywords = for own key,v of Keywords when v & kfilter
@@ -683,6 +686,9 @@ export default class ImbaScriptInfo
 		let t0 = Date.now!
 		let entity = null
 		let scope\any = lexed.root = new Root(self,seed,null,'root')
+		let root = scope
+		
+		
 		let log = do yes
 		let lastDecl = null
 		let lastVarKeyword = null
@@ -813,7 +819,9 @@ export default class ImbaScriptInfo
 			# if currScope != scope and currScope.parent == scope
 			# 	console.log 'popped scope!!',currScope,lastDecl,scope.lastDecl
 			prev = tok
-
+		
+		while scope != root
+			scope = scope.pop(eof)
 		# console.log 'astified',Date.now! - t0
 		self
 		
@@ -825,18 +833,21 @@ export default class ImbaScriptInfo
 		tokens = tokens.slice(0).filter do $1.match(filter)
 		return tokens
 	
-	def createImportEdit path, name, alias = name
+	def createImportEdit path, name, alias = name, asType = no
 		path = path.replace(/\.imba$/,'')
-		let nodes = getImportNodes!.filter do $1.sourcePath == path
 		
+		let nodes = getImportNodes!.filter do
+			$1.sourcePath == path and $1.isTypeOnly == asType
+
 		let out = ''
 		let offset = 0
 		
 		let changes = []
 		let result = {
 			changes: changes
-				
 		}
+		
+		let keyword = asType ? "import type" : "import"
 		
 		if true
 			let symbols = getImportedSymbols!.map do $1.importInfo
@@ -899,13 +910,13 @@ export default class ImbaScriptInfo
 		
 		if !out
 			if name == 'default'
-				out = "import {alias} from '{path}'"
+				out = "{keyword} {alias} from '{path}'"
 			elif name == '*'
-				out = "import * as {alias} from '{path}'"
+				out = "{keyword} * as {alias} from '{path}'"
 			elif alias != name
-				out = "import \{ {name} as {alias} \} from '{path}'"
+				out = "{keyword} \{ {name} as {alias} \} from '{path}'"
 			else
-				out = "import \{ {name} \} from '{path}'"
+				out = "{keyword} \{ {name} \} from '{path}'"
 				
 			out += '\n'
 			

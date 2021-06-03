@@ -125,6 +125,7 @@ export default class ImbaTypeChecker
 	
 	def getSymbolDetails symbol
 		ts.Completions.createCompletionDetailsForSymbol(sym(symbol),checker,sourceFile,sourceFile)
+	
 		
 	def getStyleValueTypes propName, index = 0
 		let target = type([cssrule,propName,'set'])
@@ -208,6 +209,10 @@ export default class ImbaTypeChecker
 			return self[name.slice(1,-1)]
 
 		let sym = checker.resolveName(name,location or sourceFile,symbolFlags(types),false)
+		return sym
+		
+	def getSymbols types = ts.SymbolFlags.All, location = null
+		let sym = checker.getSymbolsInScope(location or sourceFile,symbolFlags(types))
 		return sym
 		
 	def symToPath sym

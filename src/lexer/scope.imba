@@ -108,7 +108,7 @@ export class Node
 		$name or ''
 	
 	get value
-		doc.content.slice(start.offset,next ? next.offset : -1)
+		doc.content.slice(start.offset,end ? end.endOffset : -1)
 
 	get next
 		end ? end.next : null
@@ -531,7 +531,7 @@ export class ObjectNode < BracesNode
 export class ImportsNode < Group
 	
 	get isTypeOnly
-		start.prev.match('keyword.type')
+		!!start.prev.match('keyword.type')
 	
 	get sourcePath
 		let path = childNodes.find do $1.match('path')

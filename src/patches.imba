@@ -34,10 +34,31 @@ export class Session
 	def refreshDiagnostics
 		let files = Array.from(projectService.openFiles.keys!)
 		let handler = handlers.get('geterr')
+		# wont send in syntactic mode?
 		let req = {arguments: {files: files, delay: 10}}
 		util.log('sendErrors',req)
 		handler.call(this,req)
+
+	def getFormattingEditsForRange args
+		#getFormattingEditsForRange(args)
+		
+	def getFormattingEditsForRangeFull args
+		#getFormattingEditsForRangeFull(args)
+		
+	def getFormattingEditsForDocumentFull args
+		#getFormattingEditsForDocumentFull(args)
+		
+	def getFormattingEditsAfterKeystroke args
+		#getFormattingEditsAfterKeystroke(args)
+		
+	def getFormattingEditsAfterKeystrokeFull args
+		#getFormattingEditsAfterKeystrokeFull(args)
 	
+	def getOutliningSpans args, simplified
+		if util.isImba(args.file)
+			return null
+		#getOutliningSpans(args,simplified)
+
 	def parseMessage msg
 		let prev = #lastReceived
 		let data = #parseMessage(msg)

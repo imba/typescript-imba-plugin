@@ -30,6 +30,10 @@ export default class Service
 	get ip
 		ps.inferredProjects[0]
 		
+	get isSemantic
+		ps.serverMode == 0
+		
+		
 	def i i
 		let d = m.im.doc
 		let t = m.im.getTypeChecker!
@@ -296,6 +300,12 @@ export default class Service
 				convertLocationsToImba(res.changes,ls)
 				util.log('getCombinedCodeFix',arguments,res)
 			return res
+			
+		intercept.getNavigateToItems = do(val\string, max\number, file\string, excludeDtsFiles\boolean)
+			let res = ls.getNavigateToItems(val,max,file,excludeDtsFiles)
+			convertLocationsToImba(res,ls)
+			return res
+
 
 		if true
 			for own k,v of intercept

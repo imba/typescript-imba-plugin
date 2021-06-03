@@ -52,6 +52,13 @@ export default class AutoImportContext
 			info.isTag = isTag
 			out.push(info)
 		return out
+		
+	def getExportedValues
+		exportInfoEntries.filter do !$1.exportedSymbolIsTypeOnly
+		
+	def getExportedTypes
+		exportInfoEntries.filter do
+			$1.exportedSymbolIsTypeOnly or ($1.symbol.flags & ts.SymbolFlags.Type)
 	
 	def getExportedTags
 		exportInfoEntries.filter do $1.isTag
@@ -61,7 +68,7 @@ export default class AutoImportContext
 		if m = path.match(/\@types\/([\w\.\-]+)\/index\.d\.ts/)
 			return m[1]
 			
-		if m = path.match(/\node_modules\/([\w\.\-]+)\//)
+		if m = path.match(/\/node_modules\/([\w\.\-]+)\//)
 			return m[1]
 			
 		if !ts.pathIsAbsolute(path)
