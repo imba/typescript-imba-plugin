@@ -148,7 +148,7 @@ export default class Service
 			# 	convertSpan(res.applicableSpan,ls,filename,'trigger')
 			if res.textChanges
 				for item in res.textChanges
-					convertSpan(item.span,ls,filename,'edit')
+					convertSpan(item.span,ls,res.fileName or filename,'edit')
 		
 		if res.changes
 			convertLocationsToImba(res.changes, ls,filename)
@@ -261,25 +261,11 @@ export default class Service
 				let script = getImbaScript(file)
 				return null
 			return ls.getOutliningSpans(file)
-			
-		
-		# (
-		#     fileName: string,
-		#     position: number,
-		#     entryName: string,
-		#     formatOptions: FormatCodeOptions | FormatCodeSettings | undefined,
-		#     source: string | undefined,
-		#     preferences: UserPreferences | undefined,
-		#     data: CompletionEntryData | undefined,
-		# )
 		
 		intercept.getCompletionEntryDetails = do(file,pos,name,fmt,source,prefs,data)
 			let {script,dpos,opos} = getFileContext(file,pos,ls)
-			
-			
 			let res = ls.getCompletionEntryDetails(file,opos,name,fmt,source,prefs,data)
 			return res
-
 
 		intercept.getCodeFixesAtPosition = do(file,start,end,code,fmt,prefs)
 			let {script,dpos,opos} = getFileContext(file,start,ls)
@@ -287,6 +273,15 @@ export default class Service
 
 			let res = ls.getCodeFixesAtPosition(file,opos,endopos,code,fmt,prefs)
 			res = convertLocationsToImba(res,ls,file)
+			return res
+		
+		# const res = project.getLanguageService().getCombinedCodeFix({ type: "file", fileName: file }, fixId, this.getFormatOptions(file), this.getPreferences(file));
+		# getCombinedCodeFix(scope: CombinedCodeFixScope, fixId: {}, formatOptions: FormatCodeSettings, preferences: UserPreferences): CombinedCodeActions;
+		intercept.getCombinedCodeFix = do(scope,fixId,fmt,prefs)
+			let res = ls.getCombinedCodeFix(scope,fixId,fmt,prefs)
+			if res.changes
+				convertLocationsToImba(res.changes,ls)
+				util.log('getCombinedCodeFix',arguments,res)
 			return res
 
 		if true
