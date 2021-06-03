@@ -152,7 +152,12 @@ export default class Service
 			# 	convertSpan(res.applicableSpan,ls,filename,'trigger')
 			if res.textChanges
 				for item in res.textChanges
-					convertSpan(item.span,ls,res.fileName or filename,'edit')
+					# this is an imba-native version!!
+					if item.span == undefined and item.start != undefined
+						item.span = {start: item.start, length: item.length}
+						item.span.#ostart = 0
+					else
+						convertSpan(item.span,ls,res.fileName or filename,'edit')
 		
 		if res.changes
 			convertLocationsToImba(res.changes, ls,filename)
@@ -289,6 +294,23 @@ export default class Service
 			let {opos: endopos} = getFileContext(file,end,ls)
 
 			let res = ls.getCodeFixesAtPosition(file,opos,endopos,code,fmt,prefs)
+				
+			# "Add 'TextField' to existing import declaration from "./tags/field""
+			# "Import 'TextField' from module "./tags/field.imba""
+			# 
+			for fix in res
+				let m
+				# rewrite import codefix
+				if script and fix.fixName == 'import'
+					let name = fix.description.split("'")[1]
+					let path = fix.description.split('"')[1].replace(/\.imba$/,'')
+					fix._name = name
+					fix._path = path
+					# experimental
+					let edit = script.doc.createImportEdit(path,name,name)
+					fix._changes = edit.changes
+					fix.changes[0].textChanges = edit.changes
+
 			res = convertLocationsToImba(res,ls,file)
 			return res
 		
@@ -304,6 +326,11 @@ export default class Service
 		intercept.getNavigateToItems = do(val\string, max\number, file\string, excludeDtsFiles\boolean)
 			let res = ls.getNavigateToItems(val,max,file,excludeDtsFiles)
 			convertLocationsToImba(res,ls)
+			return res
+		
+		# fileName: string, positionOrRange: number | TextRange, preferences: UserPreferences | undefined, triggerReason?: RefactorTriggerReason, kind?: string
+		intercept.getApplicableRefactors = do(...args)
+			let res = ls.getApplicableRefactors(...args)
 			return res
 
 
