@@ -3,7 +3,7 @@ import * as util from './utils'
 import { Root, Scope, Group, ScopeTypeMap } from './scope'
 import { Sym, SymbolFlags } from './symbol'
 
-import {SemanticTokenTypes,SemanticTokenModifiers,M,CompletionTypes,Keywords,SymbolKind} from './types'
+import {SemanticTokenTypes,M,CompletionTypes,Keywords} from './types'
 
 import {Range, Position} from './structures'
 
@@ -18,6 +18,7 @@ export default class ImbaScriptInfo
 		seed = new Token(0,'eol','imba')
 		eof = new Token(0,'eof','imba')
 		initialState = lexer.getInitialState!
+		isLegacy = no
 		history = []
 		#lexed = {lines:[]}
 		self.lexer = lexer
@@ -26,7 +27,7 @@ export default class ImbaScriptInfo
 		yes
 
 	def reload text
-		textStorage.reload(text)
+		yes
 
 	def log ...params
 		yes
@@ -132,23 +133,8 @@ export default class ImbaScriptInfo
 			let mods = tok.mods | sym.semanticFlags
 
 			items.push([tok.offset,tok.value.length,typ,mods])
-
 		return items
 
-	def getEncodedSemanticTokens
-		let tokens = getSemanticTokens!
-		let out = []
-		let l = 0
-		let c = 0
-		for item in tokens
-			let pos = positionAt(item[0])
-			let dl = pos.line - l
-			let chr = dl ? pos.character : (pos.character - c)
-			out.push(dl,chr,item[1],item[2],item[3])
-			l = pos.line
-			c = pos.character
-		return out
-		
 	def getDestructuredPath tok, stack = [], root = null
 		if tok.context.type == 'array'
 			getDestructuredPath(tok.context.start,stack,root)
@@ -496,19 +482,6 @@ export default class ImbaScriptInfo
 			let start = Math.min(curr.nameSpan.start,currSpan.start)
 			let end = Math.max(spanEnd(curr.nameSpan),spanEnd(currSpan),tok.endOffset)
 			curr.spans = [{start: start, length: end - start}]
-
-			if false
-				let length = endOffset - start
-				
-						
-				if curr.childItems.length == 0
-					length = curr.nameSpan.length
-
-				let span = {start: start, length: length}
-				
-				
-
-				curr.spans = [{start: start, length: length}]
 			curr = curr.#parent
 
 		for token,i in tokens
@@ -573,16 +546,6 @@ export default class ImbaScriptInfo
 	def ensureParsed
 		parse! # if self.head.offset == 0
 		return self
-
-	def reparse
-		invalidateFromLine(0)
-		parse!
-		
-	def profileReparse
-		let t = Date.now!
-		let res = reparse!
-		# console.log 'took',Date.now! - t
-		return res
 
 
 	def tokenize force = no

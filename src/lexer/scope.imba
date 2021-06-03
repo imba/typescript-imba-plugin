@@ -36,7 +36,7 @@ export class Node
 	static def build doc,tok,scope,typ,types
 		new self(doc,tok,scope,typ,types)
 
-	def constructor doc, token, parent, type
+	def constructor doc, token, parent, type, types = null
 		doc = doc
 		start = token
 		end = null
@@ -422,9 +422,6 @@ export class TagNode < Group
 		"<{name}>"
 		# let name = name
 		# local? ? name : ('globalThis.' + util.pascalCase(name) + 'Component')
-
-	get outline
-		findChildren(/tag\.(reference|name|id|white|flag|event(?!\-))/).join('')
 	
 	get outlineText
 		let inner = findChildren(/tag\.(reference|name|id|white|flag|event(?!\-))/).join('').trim()
