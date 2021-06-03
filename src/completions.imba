@@ -504,6 +504,9 @@ export default class Completions
 		# add('keywords',weight: 650,startsWith: prefix)
 		# add('autoimports',weight: 700,startsWith: prefix, autoImport: yes)
 		
+		if ctx.before.line.match(/^[a-z]*$/)
+			add(checker.props('$snippets$.root'),kind: 'snippet')
+
 		add(Keywords.map(do new KeywordCompletion({name: $1},self,kind: 'keyword', weight: 800)))
 		self
 		
@@ -519,8 +522,6 @@ export default class Completions
 
 		if item isa global.SymbolObject
 			entry = new SymbolCompletion(item,self,opts)
-		elif item.#symbolFile
-			entry = new WorkspaceSymbolCompletion(item,self,opts)
 		elif item isa ImbaSymbol
 			entry = new ImbaSymbolCompletion(item,self,opts)
 		elif item.hasOwnProperty('exportName')

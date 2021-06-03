@@ -45,4 +45,48 @@ declare module "imba_snippets" {
         object: void;
         unknown: void;
     }
+
+    interface root {
+        /**
+         * @snippet export default class ${1:ClassName}\n\t$0\n\n
+         */
+        'export-default-class': void
+
+        /**
+         * @snippet export class ${1:ClassName}\n\t$0\n\n
+         */
+        'export-class': void
+
+        /**
+         * @snippet export tag ${1:Component}\n\t$0\n\n
+         */
+        'export-tag': void
+
+        /**
+         * @snippet tag ${1:Component}\n\t$0\n\n
+         */
+        'tag': void
+    }
+
+    interface values {
+        /**
+         * @snippet export default class ${1:ClassName}\n\t$0\n\n
+         */
+        'export-default-class': void
+
+        /**
+         * @snippet export class ${1:ClassName}\n\t$0\n\n
+         */
+        'export-class': void
+
+        /**
+         * @snippet export tag ${1:Component}\n\t$0\n\n
+         */
+        'export-tag': void
+
+        /**
+         * @snippet tag ${1:Component}\n\t$0\n\n
+         */
+        'tag': void
+    }
 }

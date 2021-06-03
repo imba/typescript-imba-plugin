@@ -33,6 +33,7 @@ export default class AutoImportContext
 		global.ils.ps
 		
 	get exportInfoMap
+		# @ts-ignore
 		#exportInfoMap ||= ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
 	
 	get exportInfoEntries
@@ -70,7 +71,8 @@ export default class AutoImportContext
 			
 		if m = path.match(/\/node_modules\/([\w\.\-]+)\//)
 			return m[1]
-			
+		
+		# @ts-ignore
 		if !ts.pathIsAbsolute(path)
 			return path
 					
@@ -89,6 +91,7 @@ export default class AutoImportContext
 		return packages
 		
 	def getModuleSpecifierForBestExportInfo info
+		# @ts-ignore
 		let result = ts.codefix.getModuleSpecifierForBestExportInfo(info,checker.sourceFile,checker.program,checker.project,userPrefs)
 		return result
 		
