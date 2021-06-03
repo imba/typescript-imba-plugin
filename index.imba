@@ -21,9 +21,12 @@ def patch ts
 def init modules = {}
 	let ts = global.ts = global.TS = modules.typescript
 	
+	# don't patch if there are no imba files here?
 	if ts.#patched =? yes
 		patch(ts)
-
-	return ts.ils = global.ils ||= new Service
+		ts.ils = global.ils ||= new Service
+		util.log('init plugin!!!',modules,arguments)
+	
+	return ts.ils
 
 module.exports = init

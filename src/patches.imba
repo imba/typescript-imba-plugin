@@ -2,6 +2,7 @@ import * as util from './util'
 
 import Compiler from './compiler'
 import ImbaScript from './script'
+import * as Diagnostics from './diagnostics'
 
 let EDITING = no
 global.state = {command: ''}
@@ -75,7 +76,11 @@ export class Session
 		util.log('toFileSpan',file,span,res)
 		return res
 		
-	def executeCommand request		
+	def executeCommand request
+		# we want to intercept some commands on the syntactic server
+		# if request.command.indexOf('navtree') == 0
+		#	return { responseRequired: false }
+			
 		if request.command == 'configurePlugin' and request.arguments.pluginName == 'imba'
 			let data = request.arguments.configuration
 			if global.ils
@@ -102,8 +107,11 @@ export class Session
 				
 				if item.#converted =? yes
 					let mapper = item.file..scriptSnapshot..mapper
-					item.#opos = [item.start,item.start + item.length]
-					item.#mapper = mapper
+					let opos = item.#opos = [item.start,item.start + item.length]
+					item.#otext = mapper.otext(opos[0],opos[1])
+					Diagnostics.filter(item,project,kind)
+					continue if item.#suppress
+
 					let range = mapper.o2iRange(item.start,item.start + item.length,no)
 					# let start = mapper.o2d(item.start)
 					# let end = mapper.o2d(item.start + item.length)
@@ -265,6 +273,8 @@ export class Project
 				global.ils.handleRequest(data)
 		else
 			#onPluginConfigurationChanged(name,data)
+			
+	
 
 		
 export class ProjectService
@@ -283,6 +293,27 @@ export class ProjectService
 		#	script.#imba.initWithContent(origFileContent)
 			
 		return script
+		
+	def ensureConfiguredImbaProjects
+		let configs = []
+		
+		for [configFile,project] of configuredProjects
+			if !project.#imba
+				
+				let imbafiles = host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
+				util.log('ensureImba',project,imbafiles,project.isInitialLoadPending!)
+
+				if imbafiles.length
+					project.#imba = yes
+					configs.push(configFile)
+					setTimeout(&,50) do delayUpdateProjectsFromParsedConfigOnConfigFileChange(configFile,1)
+		
+		
+		# for cfg in configs
+		# 	delayUpdateProjectsFromParsedConfigOnConfigFileChange(cfg,1)
+		self
+				
+		# delayUpdateProjectsFromParsedConfigOnConfigFileChange
 		
 export class ScriptVersionCache
 	

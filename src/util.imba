@@ -22,7 +22,8 @@ class Logger
 		
 		if console.context isa Function
 			console.context!.log(...params)
-		
+			return
+
 		if TRACING
 			TRACING.push(params)
 

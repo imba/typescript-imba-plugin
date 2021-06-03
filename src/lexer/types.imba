@@ -171,5 +171,13 @@ export const SymbolKind = {
 	TypeParameter: 26
 }
 
+export const SymbolKindToNavKind = {}
+
+for own k,v of SymbolKind
+	let navkind = k.replace(/([a-z])([A-Z])/g) do(m,a,b) "{a} {b}"
+	navkind = navkind.toLowerCase!
+	navkind = 'var' if navkind == 'variable'
+	SymbolKindToNavKind[k] = SymbolKindToNavKind[v] = navkind
+
 for own k,v of SymbolKind
 	SymbolKind[v] = k

@@ -25,3 +25,13 @@ export const TokenType = {
 	"member": 11
 	"_": 12
 }
+
+
+export const DefaultConfig = {
+	include: ['**/*.imba']
+	exclude: ['**/node_modules']
+	compilerOptions: {
+		checkJs: true
+		target: 'esnext'
+	}
+}

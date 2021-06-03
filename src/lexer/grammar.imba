@@ -651,11 +651,11 @@ export const states = {
 		'css_'
 		'member_'
 		'comment_'
+		'block_comment_'
 		'decorator_'
 		[/(get|set|def|static|prop|attr)@B/,'keyword.$0']
 		'field_'
 		'common_'
-		
 	]
 
 	_tagclass: [

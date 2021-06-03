@@ -61,6 +61,11 @@ export class Node
 		let nodes = doc.getNodesInScope(self)
 		nodes
 		
+	get span
+		let starts = start.startOffset
+		let ends = end ? end.endOffset : doc.content.length
+		{start: starts, length: (ends - starts)}
+		
 	def findChildren pattern, returnFirst = no
 		let found = []
 		let tok = start
@@ -92,6 +97,9 @@ export class Node
 
 	get top?
 		no
+		
+	get scope?
+		no
 
 	get selfScope
 		(member? or top?) ? self : parent.selfScope
@@ -117,6 +125,18 @@ export class Node
 		elif query isa Function
 			return query(self)
 		return yes
+		
+	get outlineText
+		"item"
+		
+	get outlineKind
+		symbol ? symbol.outlineKind : type
+		
+	def toOutline
+		{
+			name: outlineText
+			kind: outlineKind
+		}
 
 export class Group < Node
 	def constructor doc, token, parent, type, parts = []
@@ -163,6 +183,9 @@ export class Scope < Node
 		indent = (parts[3] && parts[3][0] == '\t') ? parts[3].length : 0
 		setup!
 		return self
+		
+	get outlineText
+		ident ? ident.value : 'something'
 
 	def setup
 		if handler?
@@ -222,6 +245,9 @@ export class Scope < Node
 	get top?
 		self isa Root
 		
+	get scope?
+		yes
+		
 	get class?
 		!!type.match(/^class/) or component?
 
@@ -251,6 +277,13 @@ export class Scope < Node
 
 	get name
 		$name or (ident ? ident.value : '')
+		
+	get span
+		let starts = start.startOffset
+		if ident
+			starts = ident.startOffset
+		let ends = end ? end.endOffset : doc.content.length
+		{start: starts, length: (ends - starts)}
 
 	def visit
 		self
@@ -272,14 +305,7 @@ export class Scope < Node
 			return variable # token.var
 		return null
 
-	def toOutline
-		{
-			kind: type
-			name: name
-			children: []
-			span: ident ? ident.span : start.span
-		}
-
+	
 export class Root < Scope
 
 export class Class < Scope
@@ -399,6 +425,19 @@ export class TagNode < Group
 
 	get outline
 		findChildren(/tag\.(reference|name|id|white|flag|event(?!\-))/).join('')
+	
+	get outlineText
+		let inner = findChildren(/tag\.(reference|name|id|white|flag|event(?!\-))/).join('').trim()
+		inner = inner.replace(/\.\s+/g,'')
+		"<{inner}>"
+		
+	def toOutline
+		return {
+			text: outlineText
+			kind: 'string'
+			nameSpan: span
+		}
+	
 
 export class TagAttrNode < Group
 	get propertyName

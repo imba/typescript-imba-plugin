@@ -12,9 +12,11 @@ line and character are both zero based
 ###
 export default class ImbaScriptInfo
 
-	def constructor svc
+	def constructor owner,svc
+		owner = owner
 		svc = svc
 		seed = new Token(0,'eol','imba')
+		eof = new Token(0,'eof','imba')
 		initialState = lexer.getInitialState!
 		history = []
 		#lexed = {lines:[]}
@@ -95,6 +97,8 @@ export default class ImbaScriptInfo
 		return tokens.map do $1.scope
 		
 	def getNodesInScope scope,includeEnds = no
+		astify!
+		scope ||= #lexed.root
 		let tok = scope.start
 		let end = scope.end # ? tokens.indexOf(scope.end) : tokens.length
 		
@@ -435,7 +439,14 @@ export default class ImbaScriptInfo
 		ensureParsed!
 		let t = Date.now!
 		let all = []
-		let root = {children: []}
+		let root = {
+			childItems: [],
+			kind: 'module',
+			kindModifiers: '',
+			text: JSON.stringify(owner.fileName.split('/').pop()),
+			spans: [{start: 0, length: content.length}]
+		}
+
 		let curr = root
 		let scop = null
 		let last\any = {}
@@ -444,68 +455,112 @@ export default class ImbaScriptInfo
 
 		def add item,tok
 			if item isa Sym
+				let sym = item
 				symbols.add(item)
 				item = {
-					name: item.name
-					kind: item.kind
+					text: item.name
+					kind: item.outlineKind
+					kindModifiers: ""
 				}
+				if sym.body..scope?
+					item.spans = [sym.body.span]
+
+			elif item isa Group
+				symbols.add(item)
+				item = item.toOutline()
+
 			last = item
-			item.token = tok
-			item.children ||= []
-			item.span ||= tok.span
-			item.name ||= tok.value
+			item.#token = tok
+			item.childItems ||= []
+			item.nameSpan ||= tok.span
+			item.kindModifiers ||= ''
+			item.text ||= tok.value
+			item.spans ||= [item.nameSpan]
 			all.push(item)
-			curr.children.push(item)
+			curr.childItems.push(item)
 
 		def push end
-			last.children ||= []
-			last.parent ||= curr
+			last.childItems ||= []
+			last.#parent ||= curr
 			curr = last
-			curr.end = end
+			curr.#end = end
+			
+		def spanEnd span
+			span.start + span.length
 
 		def pop tok
-			curr = curr.parent
+			let currSpan = curr.spans[0]
+			let start = Math.min(curr.nameSpan.start,currSpan.start)
+			let end = Math.max(spanEnd(curr.nameSpan),spanEnd(currSpan),tok.endOffset)
+			curr.spans = [{start: start, length: end - start}]
+
+			if false
+				let length = endOffset - start
+				
+						
+				if curr.childItems.length == 0
+					length = curr.nameSpan.length
+
+				let span = {start: start, length: length}
+				
+				
+
+				curr.spans = [{start: start, length: length}]
+			curr = curr.#parent
 
 		for token,i in tokens
 			let sym = token.symbol
 			let scope = token.scope
 
 			if token.type == 'key'
-				add({kind:SymbolKind.Key},token)
+				add({kind:'property'},token)
 			elif sym
 				continue if sym.parameter?
+				
+				if sym.variable? and sym.node != token
+					continue
 
 				if !symbols.has(sym)
 					add(sym,token)
 				if sym.body
 					awaitScope = sym.body.start
 
-			elif scope and scope.type == 'do'
-				let pre = textBefore(token.offset - 3).replace(/^\s*(return\s*)?/,'')
-				pre += " callback"
-				add({kind:SymbolKind.Function,name:pre},token.prev)
-				awaitScope = token
+			elif scope
+				if scope.type == 'do'
+					let pre = textBefore(token.offset - 3).replace(/^\s*(return\s*)?/,'')
+					pre += " callback"
+					add({kind:'function',text:pre,kindModifiers: 'null'},token.prev)
+					awaitScope = token
 			
-			elif scope and scope.type == 'tag'
-				add({kind:SymbolKind.Field,name:scope.outline},token)
+				elif scope.type == 'tag'
+					add(scope,token)
+				elif scope.type == 'tagcontent'
+					push(scope.end)
 
 			if token == awaitScope
 				push(token.end)
 			
-			if token == curr.end
-				pop!
+			if token == curr.#end
+				pop(token)
+				
+		while curr and curr != root
+			pop(eof)
 
 		for item in all
-			if item.span
-				let len = item.span.length
-				item.span.start = positionAt(item.span.offset)
-				item.span.end = len ? positionAt(item.span.offset + len) : item.span.start
+			if !item.spans
+				item.spans = [item.nameSpan]
+			# if item.span
+			# 	let len = item.span.length
+			# 	# item.span.start = positionAt(item.span.offset)
+			# 	# item.span.end = len ? positionAt(item.span.offset + len) : item.span.start
+			
+			# make sure the containing span of all items always encompass their parent?
+			
 			if walker
 				walker(item,all)
-
-			delete item.parent
-			delete item.end
-			delete item.token
+			# delete item.parent
+			# delete item.end
+			# delete item.token
 		# console.log 'outline took',Date.now! - t
 		return root
 
@@ -599,12 +654,18 @@ export default class ImbaScriptInfo
 			
 			#lexed.lines.push(lexed)
 			nextState = lexed.endState
-
+		
+		eof.offset = index.getLength!
 		return #lexed
 	
 	get tokens
 		astify!
 		return #lexed.tokens
+		
+	get root
+		astify!
+		return #lexed.root
+		
 		
 	# This is essentially the tokenizer
 	def getTokens range = null
@@ -626,7 +687,7 @@ export default class ImbaScriptInfo
 		let lastDecl = null
 		let lastVarKeyword = null
 		let lastVarAssign = null
-		let prev = null
+		let prev = seed
 		let entityFlags = 0
 		
 		for tok,ti in lexed.tokens
@@ -647,7 +708,7 @@ export default class ImbaScriptInfo
 				prev.next = tok
 				
 			tok.prev = prev
-			tok.context = scope
+			let currScope = tok.context = scope
 
 			if typ == '(' and prev
 				# hack [tok.offset - 1]
@@ -682,10 +743,14 @@ export default class ImbaScriptInfo
 					ctor = ScopeTypeMap[scopetype]
 
 				scope = tok.scope = new ctor(self,tok,scope,scopetype,types)
+				
+				let lastDecl = currScope.lastDecl
 				if lastDecl
+					# only for certain types of scopes?
 					lastDecl.body = scope
 					scope.symbol = lastDecl
-					lastDecl = null
+					currScope.lastDecl = null
+
 				if scope == scope.scope
 					lastVarKeyword = null
 					lastVarAssign = null
@@ -717,9 +782,11 @@ export default class ImbaScriptInfo
 				let tokenSymbol = Sym.forToken(tok,tok.type,tok.mods)
 
 				if tokenSymbol
-					lastDecl = tok.symbol = tokenSymbol # new Sym(symFlags,tok.value,tok)
+					tok.symbol = tokenSymbol # new Sym(symFlags,tok.value,tok)
 					tok.symbol.keyword = lastVarKeyword
 					scope.register(tok.symbol)
+					scope.lastDecl = lastDecl = tokenSymbol
+					
 
 				tok.mods |= M.Declaration
 
@@ -742,6 +809,9 @@ export default class ImbaScriptInfo
 							sym.dereference(tok)
 						elif !nextToken or nextToken.match('br')
 							sym.dereference(lft)
+							
+			# if currScope != scope and currScope.parent == scope
+			# 	console.log 'popped scope!!',currScope,lastDecl,scope.lastDecl
 			prev = tok
 
 		# console.log 'astified',Date.now! - t0

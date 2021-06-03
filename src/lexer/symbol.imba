@@ -1,4 +1,4 @@
-import {M,SymbolKind,SemanticTokenTypes} from './types'
+import {M,SymbolKind,SymbolKindToNavKind } from './types'
 import {Converter} from './utils'
 
 export const SymbolFlags = {
@@ -224,6 +224,19 @@ export class Sym
 			'component'
 		else
 			'variable'
+			
+	get outlineKind
+		let kind = SymbolKindToNavKind[self.kind]
+		return kind
+		
+	get outlineText
+		node.value
+		
+	def toOutline stack
+		{
+			kind: outlineKind
+			name: outlineText
+		}
 
 	get semanticFlags
 		let mods = 0

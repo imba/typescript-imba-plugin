@@ -144,6 +144,9 @@ declare class PointerGestureModifiers extends PointerEventModifiers {
     pin(): EventModifiers;
 
     reframe(): EventModifiers;
+    reframe(start: Length, end: Length, snap?: number): EventModifiers;
+    reframe(context: Element | string, snap?: number): EventModifiers;
+    reframe(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
 
     /** Only hand/fingers */
     round(nearest?:number): EventModifiers;

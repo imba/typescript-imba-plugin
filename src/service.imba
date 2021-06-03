@@ -4,6 +4,8 @@ import * as util from './util'
 import Bridge from './bridge'
 import ipc from 'node-ipc'
 
+import {DefaultConfig} from './constants'
+
 let libDir = np.resolve(__realname,'..','..','lib')
 
 global.dirPaths = [__dirname,__filename,__realname]
@@ -65,8 +67,34 @@ export default class Service
 		# util.log('handleRequest',data)
 		bridge ||= new Bridge(id)
 		bridge.handle(data)
+		
+	def ensureConfiguredProject
+		let file = JSON.stringify(DefaultConfig,null,2)
+		let src = resolvePath('jsconfig.json')
+		ps.openClientFile(src,file,ts.ScriptKind.JSON,cwd)
+		
+	def prepareProjectForImba proj
+		# host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
+		let inferred = proj isa ts.server.InferredProject
+		let opts = proj.getCompilerOptions!
+		let libs = opts.lib or ["esnext","dom","dom.iterable"]
+
+		opts.lib =  libs.concat([np.resolve(libDir,'imba.d.ts')])
+		
+		if inferred
+			opts.checkJs = true
+
+		for lib,i in opts.lib
+			let mapped = ts.libMap.get(lib)
+			if mapped
+				opts.lib[i] = mapped
+
+		proj.setCompilerOptions(opts)
+		util.log('compilerOptions',proj,opts)
+		return proj
 
 	def create info
+		#cwd ||= info.project.currentDirectory
 		util.log('create',info)
 		setups.push(info)
 
@@ -78,35 +106,13 @@ export default class Service
 		
 		let inferred = proj isa ts.server.InferredProject
 		# intercept options for inferred project
-	
-		if proj
-			let opts = proj.getCompilerOptions!
-			let libs = opts.lib or ["esnext","dom","dom.iterable"]
-
-			# opts = {
-			# 	...opts,
-			# 	lib: libs.concat([np.resolve(libDir,'imba.d.ts')])
-			# }
+		prepareProjectForImba(proj) if proj
 			
-			opts.lib =  libs.concat([np.resolve(libDir,'imba.d.ts')])
-			
-			if inferred
-				opts.checkJs = true
-
-			for lib,i in opts.lib
-				let mapped = ts.libMap.get(lib)
-				if mapped
-					opts.lib[i] = mapped
-
-			proj.setCompilerOptions(opts)
-			util.log('compilerOptions',proj,opts)
 			
 		setup! if ps.#patched =? yes
 			
 		info.ls = info.languageService
-		# for debugging
-		global.m = self.m
-
+		ps.ensureConfiguredImbaProjects!
 		return decorate(info.languageService)
 		
 	def convertSpan span, ls, filename, kind = null
@@ -238,6 +244,24 @@ export default class Service
 
 			let res = ls.getCompletionsAtPosition(file,opos,prefs)
 			return res
+			
+		intercept.getNavigationTree = do(file)
+			if util.isImba(file)
+				let script = getImbaScript(file)
+				let res1 = ls.getNavigationTree(file)
+				let res2 = script.doc.getOutline!
+				util.log('navtree',res1,res2)
+				return res2
+
+			let res = ls.getNavigationTree(file)
+			return res
+			
+		intercept.getOutliningSpans = do(file)
+			if util.isImba(file)
+				let script = getImbaScript(file)
+				return null
+			return ls.getOutliningSpans(file)
+			
 		
 		# (
 		#     fileName: string,

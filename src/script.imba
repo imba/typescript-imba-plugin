@@ -45,7 +45,7 @@ export default class ImbaScript
 		svc = TS.server.ScriptVersionCache.fromString(orig or '')
 		svc.currentVersionToIndex = do this.currentVersion
 		svc.versionToIndex = do(number) number
-		doc = new ImbaScriptInfo(svc)
+		doc = new ImbaScriptInfo(self,svc)
 		
 		# now do the initial compilation?
 		let result = compile!
