@@ -3,7 +3,7 @@ import fs from 'fs'
 import * as util from './util'
 
 import { TokenModifier, TokenType } from './constants'
-import Compiler from './compiler'
+import Compiler,{Compilation} from './compiler'
 
 import ImbaScriptInfo from './lexer/script'
 import Completions from './completions'
@@ -13,10 +13,12 @@ import ImbaTypeChecker from './checker'
 export default class ImbaScript
 	constructor info
 		self.info = info
+		self.diagnostics = []
 
 		if info.scriptKind == 0
 			info.scriptKind = 1
 			util.log("had to wake script {fileName}")
+			
 
 			
 	def getMapper target
@@ -35,30 +37,43 @@ export default class ImbaScript
 	def typeAt pos
 		let tc = getTypeChecker!
 		tc.typeAtLocation(pos)
+		
+	def openedWithContent content
+		util.log('openedWithContent',fileName)
 
 	def setup
-		util.log("setup {fileName}",info.textStorage.text)	
+			
 		let orig = info.textStorage.text
 		if orig == undefined
+			# if this was already being edited?!
 			orig = fs.readFileSync(fileName,'utf-8')
+			util.log("setup {fileName} - read from disk",orig.length)
+		else
+			util.log("setup {fileName} from existing source",orig.length,info)
 
-		svc = TS.server.ScriptVersionCache.fromString(orig or '')
+		svc = global.ts.server.ScriptVersionCache.fromString(orig or '')
 		svc.currentVersionToIndex = do this.currentVersion
 		svc.versionToIndex = do(number) number
 		doc = new ImbaScriptInfo(self,svc)
 		
+		# if global.ils.isSemantic
 		# now do the initial compilation?
-		let result = compile!
-		let its = info.textStorage
-		let snap = its.svc = TS.server.ScriptVersionCache.fromString(result.js or '\n')
-		its.text = undefined
-		its.reload = do(newText)
-			util.log('reload',fileName,newText)
-			return false
+		try
+			let result = lastCompilation = compile!
+			let its = info.textStorage
+			let snap = its.svc = global.ts.server.ScriptVersionCache.fromString(result.js or '\n')
+			its.text = undefined
+			its.reload = do(newText)
+				util.log('reload',fileName,newText.slice(0,10))
+				return false
+			util.log('resetting the original file',snap)
+			snap.getSnapshot!.mapper = result
+			info.markContainingProjectsAsDirty!
+		catch e
+			util.log('setup error',e,self)
 
-		snap.getSnapshot!.mapper = result
 		return self
-		
+			
 	def lineOffsetToPosition line, offset, editable
 		svc.lineOffsetToPosition(line, offset, editable)
 		
@@ -69,23 +84,49 @@ export default class ImbaScript
 		util.log('async compile!')
 		let snap = svc.getSnapshot!
 		let body = snap.getText(0,snap.getLength!)
-		let output = Compiler.compile(info,body)
-		output.input = snap
-
-		if output.js
-			applyOutput(output)
+		let output = new Compilation(info,snap)
+		# Compiler.compile(info,body)
+		output.compile!
+		applyOutput(output)
 	
 	def applyOutput result
-		let its = info.textStorage
-		let end = its.svc.getSnapshot!.getLength!
-		util.log('compiled',fileName,end,its)
+		lastCompilation = result
+		diagnostics=result.diagnostics
 
-		its.edit(0, end, result.js)
-		let snap = its.svc.getSnapshot!
-		snap.mapper = result
-		info.markContainingProjectsAsDirty!
-		# probably dont want to do this while editing all the time?
-		global.session.refreshDiagnostics!
+		if let js = result.js
+			let its = info.textStorage
+			let end = its.svc.getSnapshot!.getLength!
+			util.log('compiled',fileName,end,its)
+			its.edit(0, end, result.js)
+			let snap = its.svc.getSnapshot!
+			snap.mapper = result
+			info.markContainingProjectsAsDirty!
+			global.session.refreshDiagnostics!
+		else
+			util.log('errors from compilation!!!',result)
+			diagnostics=result.diagnostics
+			global.session.refreshDiagnostics!
+		self
+		
+	def getImbaDiagnostics
+		let mapper = lastCompilation
+		let entries = mapper.diagnostics
+		let diags = []
+		for entry in entries
+			let start = mapper.i2d(entry.range.start.offset)
+			let end = mapper.i2d(entry.range.end.offset)
+			let diag = {
+				category: 1
+				code: 2551
+				messageText: entry.message
+				relatedInformation: []
+				start: start
+				length: (end - start)
+				source: entry.source or 'imba'
+			}
+			diags.push diag
+
+		return diags
 
 	def editContent start, end, newText
 		svc.edit(start,end - start,newText)
@@ -95,10 +136,13 @@ export default class ImbaScript
 
 	def compile
 		let snap = svc.getSnapshot!
-		let body = snap.getText(0,snap.getLength!)
-		let result = Compiler.compile(info,body)
-		result.input = snap
-		return result
+		let output = new Compilation(info,snap)
+		# let body = snap.getText(0,snap.getLength!)
+		# let result = Compiler.compile(info,body)
+		# result.input = snap
+		return output.compile!
+		
+	
 		
 	get snapshot
 		svc.getSnapshot!
@@ -161,10 +205,7 @@ export default class ImbaScript
 	
 	def getCompletionsAtPosition ls, [dpos,opos], prefs
 		return null
-		util.log('imba_getCompletionsAtPosition',[dpos,opos],prefs)
-		let ctx = new Completions(self,[dpos,opos],prefs,ls)
-		return ctx.getResults!
-	
+		
 	def getContextAt pos
 		# retain context?
 		new ImbaScriptContext(self,pos)

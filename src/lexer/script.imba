@@ -1,5 +1,7 @@
 import { lexer, Token, LexedLine } from './lexer'
-import * as util from './utils'
+import {prevToken, fastExtractSymbols} from './utils'
+import * as util from '../util'
+
 import { Root, Scope, Group, ScopeTypeMap } from './scope'
 import { Sym, SymbolFlags } from './symbol'
 
@@ -231,7 +233,7 @@ export default class ImbaScriptInfo
 				ctx = tok.next.scope
 				# console.log 'changed scope!!!',ctx,ctx.scope
 	
-		let tabs = util.prevToken(tok,"white.tabs")
+		let tabs = prevToken(tok,"white.tabs")
 		let indent = tabs ? tabs.value.length : 0
 		let group = ctx
 		let scope = ctx.scope
@@ -423,7 +425,7 @@ export default class ImbaScriptInfo
 	def getOutline walker = null
 
 		if isLegacy
-			let symbols = util.fastExtractSymbols(content)
+			let symbols = fastExtractSymbols(content)
 			for item in symbols.all
 				delete item.parent
 				item.path = item.name
@@ -645,6 +647,7 @@ export default class ImbaScriptInfo
 
 	def astify
 		# now walk the whole token-stream
+		let t0 = Date.now!
 		let lexed = tokenize!
 		return self if lexed.root
 		
@@ -652,7 +655,7 @@ export default class ImbaScriptInfo
 		const openers = {'[': ']','(': ')','{': '}','<': '>'}
 		const callAfter = /[\w\$\)\]\?]/
 
-		let t0 = Date.now!
+		# let t0 = Date.now!
 		let entity = null
 		let scope\any = lexed.root = new Root(self,seed,null,'root')
 		let root = scope
@@ -792,6 +795,8 @@ export default class ImbaScriptInfo
 		while scope != root
 			scope = scope.pop(eof)
 		# console.log 'astified',Date.now! - t0
+		
+		util.log("lexed script {owner..fileName} in {Date.now! - t0}ms")
 		self
 		
 	def parse
@@ -894,4 +899,25 @@ export default class ImbaScriptInfo
 			
 		changes.push({newText: out, start: offset, length: 0})
 		return result
+	
+	def getFormattingEdits prefs = {}
+		# run through tokens backwards?
+		let edits = []
+		let i = tokens.length
+		let raw = content
 		
+		let spaced = do(tok)
+			return true if raw[tok.endOffset - 1] == ' ' or  raw[tok.endOffset] == ' '
+			# return true if tok.next and tok.next.value and tok.next.value[0] == ' '
+			return false
+		
+		while i > 0
+			let tok = tokens[--i]
+			if tok.match('operator.assign operator.declval')
+				console.log tok
+				unless spaced(tok)
+					edits.push([tok.endOffset,0,' '])
+				unless spaced(tok.prev)
+					edits.push([tok.startOffset,0,' '])
+		
+		edits

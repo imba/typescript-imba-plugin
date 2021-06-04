@@ -611,7 +611,7 @@ export default class ImbaTypeChecker
 			if !sym or !sym.desc..datatype
 				# check if sym and sym has datatype(!)
 				let otok = tok.#otok = findExactLocationForToken(tok)
-				util.log('found exact token for identifier?!',tok,otok)
+				# util.log('found exact token for identifier?!',tok,otok)
 				
 				if otok
 					return tok.#otyp = checker.getTypeAtLocation(otok)

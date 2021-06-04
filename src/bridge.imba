@@ -29,15 +29,17 @@ export default class Client
 		host.emit('message',payload)
 	
 	def handle e, sock = null
-		util.log('ipc_handle',e)
+		# util.log('ipc_handle',e)
 		if e.type == 'request'
 			# util.log('call',e.command,e.arguments)
+			util.log("receive request {e.command}")
+			let t0 = Date.now!
 			if let meth = ils[e.command]
 				try
 					let res = await meth.apply(ils,e.arguments)
 					if res
-						util.log('respond',e.command,res)
-
+						util.log("send response {e.command}",Date.now! - t0,e.command,res)
+					
 					host.emit('message',{
 						type: 'response'
 						responseRef: e.requestRef

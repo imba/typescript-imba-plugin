@@ -26,13 +26,25 @@ export class Session
 		
 	def toEvent name, body
 		#toEvent(name,body)
+		
+	def doOutput info, cmdName, reqSeq, success, message
+		#doOutput(info, cmdName, reqSeq, success, message)
 	
 	def send msg
-		util.log("send {msg.type} {msg.event or msg.command}",msg)
+		let log = yes
+		
+		if msg.body and msg.body.diagnostics and msg.body.diagnostics.length == 0
+			log = no
+			
+		if log
+			util.log("send {msg.type} {msg.event or msg.command}",msg)
+
 		#send(msg)
 		
 	def refreshDiagnostics
+		# @ts-ignore
 		let files = Array.from(projectService.openFiles.keys!)
+		# @ts-ignore
 		let handler = handlers.get('geterr')
 		# wont send in syntactic mode?
 		let req = {arguments: {files: files, delay: 10}}
@@ -161,11 +173,29 @@ export class Session
 			
 	def sendDiagnosticsEvent(file, project, diags, kind)
 		diags = filterDiagnostics(file,project,diags,kind)
-		util.log('sendDiagnosticsEvent',file, project, diags, kind)
+		
+		if kind == 'semanticDiag' and util.isImba(file) and global.ils
+			let script = global.ils.getImbaScript(file)
+			let add = script.getImbaDiagnostics()
+			# util.log('sendDiagnosticsEvent for imba',script,add)
+			diags.push(...add)
+			###
+			category: 1
+			code: 2551
+			file: SourceFileObject {pos: 0, end: 1289, flags: 131072, modifierFlagsCache: 0, transformFlags: 10617424, …}
+			length: 7
+			messageText: "Property 'assertz' does not exist on type 'Console'. Did you mean 'assert'?"
+			relatedInformation: [{…}]
+			start: 284
+			###
+			# for item in script.diagnostics
+		
+		if diags.length
+			util.log('sendDiagnosticsEvent',file, project, diags.slice(0,5), kind)
 		#sendDiagnosticsEvent(file,project,diags,kind)
 		
 	def convertToDiagnosticsWithLinePosition diagnostics, script
-		util.log 'convertToDiagnosticsWithLinePosition',diagnostics,script
+		# util.log 'convertToDiagnosticsWithLinePosition',diagnostics,script
 		#convertToDiagnosticsWithLinePosition(diagnostics, script)
 
 export class ScriptInfo
@@ -207,11 +237,13 @@ export class ScriptInfo
 	def positionToImbaLineOffset offset
 		let snap = getSnapshot!
 		let converted = snap.c.o2i(offset)
+		# @ts-ignore
 		util.log('converted',path,offset,converted)
 		let lo = snap.mapper.input.index.positionToLineOffset(converted)
 		return lo
 		
 	def getMapper target
+		# @ts-ignore
 		let snap = target ? target.getSourceFile(path).scriptSnapshot : getSnapshot!
 		return snap.mapper
 
@@ -243,6 +275,7 @@ export class TextStorage
 	# ts.server.ScriptVersionCache.fromString
 	
 	def getFileTextAndSize tempName
+		# @ts-ignore
 		if util.isImba(info.path)
 			# util.log('getFileTextAndSize',info.path,tempName,info.##imba)
 			if #text != undefined
@@ -276,8 +309,8 @@ export class System
 		# if the script doesnt already exist...
 		if util.isImba(path)
 			# first see if script exists?
-			util.log("readFile",path)
-			return Compiler.readFile(path,body)
+			util.log("readFile imba",path,body,global.ils)
+			# return Compiler.readFile(path,body)
 
 		return body
 		
@@ -302,7 +335,7 @@ export class ProjectService
 	def getOrCreateOpenScriptInfo(fileName, fileContent, scriptKind, hasMixedContent, projectRootPath)
 		let origFileContent = fileContent
 		if util.isImba(fileName)
-			util.log("getOrCreateOpenScriptInfo {fileName}",fileContent)
+			util.log("getOrCreateOpenScriptInfo {fileName}")
 			# if fileContent !== undefined
 			#	fileContent = Compiler.readFile(fileName,fileContent)
 
@@ -310,24 +343,26 @@ export class ProjectService
 		
 		script.#imba
 		
-		# if script.#imba and origFileContent !== undefined
-		#	script.#imba.initWithContent(origFileContent)
+		if script.#imba and origFileContent !== undefined
+			script.#imba.openedWithContent(origFileContent)
 			
 		return script
 		
 	def ensureConfiguredImbaProjects
 		let configs = []
-		
+		# @ts-ignore
 		for [configFile,project] of configuredProjects
 			if !project.#imba
-				
+				# @ts-ignore
 				let imbafiles = host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
 				util.log('ensureImba',project,imbafiles,project.isInitialLoadPending!)
 
 				if imbafiles.length
 					project.#imba = yes
 					configs.push(configFile)
-					setTimeout(&,50) do delayUpdateProjectsFromParsedConfigOnConfigFileChange(configFile,1)
+					setTimeout(&,50) do
+						# @ts-ignore
+						delayUpdateProjectsFromParsedConfigOnConfigFileChange(configFile,1)
 		
 		
 		# for cfg in configs
@@ -341,6 +376,7 @@ export class ScriptVersionCache
 	def getRawChangesBetweenVersions oldVersion, newVersion
 		let edits = []
 		while oldVersion < newVersion
+			# @ts-ignore
 			let snap = this.versions[++oldVersion]
 			for edit of snap.changesSincePreviousVersion
 				edits.push([edit.pos,edit.deleteLen,edit.insertedText or ''])
@@ -352,13 +388,16 @@ export class ScriptVersionCache
 		self
 		
 	def getRawChangesSince oldVersion = 0
+		# @ts-ignore
 		let snap = getSnapshot!
 		getRawChangesBetweenVersions(oldVersion,snap.version)
 			
 	get syncedVersion
+		# @ts-ignore
 		getSnapshot!.version
 			
 	def getFullText
+		# @ts-ignore
 		let snap = getSnapshot!
 		snap.getText(0,snap.getLength!)
 		
@@ -422,6 +461,7 @@ export class TS
 		
 		if hit..extension == '.tsx'
 			let name = hit.resolvedFileName.replace('.tsx','.imba')
+			# @ts-ignore
 			if self.sys.fileExists(name)
 				hit.resolvedFileName = name
 				hit.extension = '.ts'
@@ -430,6 +470,7 @@ export class TS
 	
 	def getScriptKindFromFileName fileName
 		const ext = fileName.substr(fileName.lastIndexOf("."))
+		# @ts-ignore
 		return self.ScriptKind.JS if ext == '.imba'
 		return #getScriptKindFromFileName(fileName)
 

@@ -13,19 +13,21 @@ const ImbaOptions = {
 
 export class Compilation
 	
-	constructor script, src, content
+	constructor script, snapshot
 		script = script
-		fileName = src
-		body = content
+		fileName = script.fileName
+		input = snapshot
+		body = snapshot.getText(0,snapshot.getLength!)
 		done = no
 		o2iCache = {}
+		diagnostics = []
 		
 		# i2o - input (frozen/old doc) to output conversion
 		# d2o - live doc to frozen output
 		# d2i - live doc to frozen input
 		# o2d - frozen output to live doc
 		
-		options = {...ImbaOptions, fileName: src, sourcePath: src}
+		options = {...ImbaOptions, fileName: fileName, sourcePath: fileName}
 		
 	def dtext start, end
 		script.im.getText(start,end)
@@ -198,12 +200,6 @@ export class Compilation
 			out.push([ts0,ts1,imba0,imba1,tstr,istr,ipre])
 		return out
 
-	get diagnostics
-		return [] unless result..diagnostics
-
-		#diagnostics ||= result.diagnostics.map do(item)
-			new Diagnostic(item,self)
-	
 	def compileAsync
 		#compiling ||= new Promise do(resolve)
 			ioptions.sourceId = "aa"
@@ -225,8 +221,7 @@ export class Compilation
 		if res.js
 			self.js = res.js # .replace(/\$CARET\$/g,'valueOf') # '       '
 			self.locs = res.locs
-		
-		let errors = res.errors or []
+		diagnostics = res.diagnostics
 		yes
 	
 	get result
@@ -237,10 +232,12 @@ export class Compilation
 
 		try
 			done = yes
+			let t0 = Date.now!
 			self.result = imbac.compile(body,options)
 			#compiling = Promise.resolve(self)
+			util.log("compiled {fileName} in {Date.now! - t0}ms")
 		catch e
-			console.log 'compiler crashed',file.relName
+			util.log 'compiler crashed',script.fileName
 			self.result = {diagnostics: []}
 			yes
 		return self

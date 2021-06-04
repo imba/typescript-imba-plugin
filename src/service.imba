@@ -66,6 +66,14 @@ export default class Service
 				return item.serialize!
 		return 
 		
+	def getExternalFiles proj
+		if proj.#gotImbaFiles =? true
+			# maybe follow up on the configured projects?
+			let files = ps.host.readDirectory(cwd,['.imba'],['node_modules'],[],4)
+			util.log "GET EXTERNAL FILES!!!",arguments,files
+			return files
+		return []	
+		
 		
 	def handleRequest {id,data}
 		# util.log('handleRequest',data)
@@ -108,7 +116,7 @@ export default class Service
 		
 		let proj = info.project
 		
-		let inferred = proj isa ts.server.InferredProject
+		# let inferred = proj isa ts.server.InferredProject
 		# intercept options for inferred project
 		prepareProjectForImba(proj) if proj
 			
@@ -116,7 +124,7 @@ export default class Service
 		setup! if ps.#patched =? yes
 			
 		info.ls = info.languageService
-		ps.ensureConfiguredImbaProjects!
+		# ps.ensureConfiguredImbaProjects!
 		return decorate(info.languageService)
 		
 	def convertSpan span, ls, filename, kind = null
@@ -161,6 +169,12 @@ export default class Service
 		
 		if res.changes
 			convertLocationsToImba(res.changes, ls,filename)
+			
+		if res.references
+			convertLocationsToImba(res.references, ls)
+		
+		if res.defintion
+			convertLocationsToImba(res.defintion, ls,res.fileName)
 			
 		if res.definitions
 			for item in res.definitions
@@ -331,6 +345,13 @@ export default class Service
 		# fileName: string, positionOrRange: number | TextRange, preferences: UserPreferences | undefined, triggerReason?: RefactorTriggerReason, kind?: string
 		intercept.getApplicableRefactors = do(...args)
 			let res = ls.getApplicableRefactors(...args)
+			return res
+			
+		intercept.findReferences = do(file,pos)
+			let {script,dpos,opos} = getFileContext(file,pos,ls)
+			let res = ls.findReferences(file,opos)
+			res = convertLocationsToImba(res,ls)
+			util.log('findReferences',file,dpos,opos,res)
 			return res
 
 
