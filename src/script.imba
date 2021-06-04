@@ -252,7 +252,17 @@ export default class ImbaScript
 			
 		if tok.match('tag.name')
 			let name = tok.value.replace('@','')
-			hit(checker.sym("ImbaHTMLTags.{name}"),'tag')
+			let pascal = util.isPascal(name)
+			
+			if pascal
+				hit(checker.resolve(name),'tag')
+			else
+				hit(checker.sym("ImbaHTMLTags.{name}"),'tag')
+				unless out.sym
+					let path = "globalThis.{name.replace(/\-/g,'_')}$$TAG$$"
+					if let typ = checker.type(path)
+						hit(typ.symbol,'tag')
+			
 		
 		if tok.match('white keyword')
 			return {}
