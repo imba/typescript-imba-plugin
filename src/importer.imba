@@ -33,6 +33,9 @@ export default class AutoImportContext
 		global.ils.ps
 		
 	get exportInfoMap
+		unless ts.codefix.getSymbolToExportInfoMap isa Function
+			return #exportInfoMap ||= new Map()
+		
 		# @ts-ignore
 		#exportInfoMap ||= ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
 	
@@ -101,45 +104,3 @@ export default class AutoImportContext
 			path ||= util.unquote(ms.escapedName or '')
 			return path
 		return null
-		
-	
-		
-	def getImportMap includeBuiltins = no, packageFilter = null
-		let map = exportInfoMap
-
-		let items = []
-		let paths = items.paths = Object.create(null)
-		let tree = items.tree = Object.create(null)
-		for [key,info] of map
-			let [name,ref,ns] = key.split('|')
-			continue if ns != '/' and !includeBuiltins
-			continue if ns.match(/^imba_/)
-			# let name = key.substring(0, key.indexOf("|"))			
-			let best = getModuleSpecifierForBestExportInfo(info)
-			best.ns = ns
-			best.importName = name
-			best.exportKind = best.exportInfo.exportKind
-			best.exportIsTypeOnly = best.exportInfo.exportedSymbolIsTypeOnly
-			best.isFromPackageJson = best.exportInfo.isFromPackageJson
-			
-			if packageFilter and !packageFilter[best.moduleSpecifier]
-				continue	
-			
-			let path = "{best.moduleSpecifier}.{name}"
-			paths[path] = best
-			items.push(best)
-			
-			let group = tree[best.moduleSpecifier] ||= {
-				resolved: ns == '/' ? getResolvePathForExportInfo(best.exportInfo) : null
-				exports: {}
-			}
-			
-			group.exports[name] = {
-				name: name,
-				importKind: best.importKind,
-				exportKind: best.exportKind,
-				isTypeOnly: best.exportIsTypeOnly
-				isFromPackageJson: best.isFromPackageJson
-			}
-
-		return items
