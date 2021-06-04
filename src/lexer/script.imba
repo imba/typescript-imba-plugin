@@ -504,8 +504,8 @@ export default class ImbaScriptInfo
 
 				if !symbols.has(sym)
 					add(sym,token)
-				if sym.body
-					awaitScope = sym.body.start
+					if sym.body
+						awaitScope = sym.body.start
 
 			elif scope
 				if scope.type == 'do'
