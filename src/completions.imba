@@ -50,7 +50,7 @@ export class Completion
 		#context = context
 		#options = options
 		sym = #symbol = symbol
-		weight = 0
+		weight = 1000
 		
 		item = {data: data, label: label, sortText: ""}
 		load(symbol,context,options)
@@ -63,7 +63,7 @@ export class Completion
 		yes
 		self
 		
-	def setup sym
+	def setup
 		Object.assign(item,sym)
 		
 	get id
@@ -181,7 +181,7 @@ export class Completion
 		if o..commitCharacters
 			item.commitCharacters = o.commitCharacters
 		if #weight != undefined
-			item.sortText = util.zerofill(#weight)
+			item.sortText ||= util.zerofill(#weight)
 			data.nr = id
 		# item.data.id ||= "{#context.file.id}|{#context.id}|{id}"
 		return item
@@ -400,12 +400,10 @@ export default class Completions
 				add checker.props(typ), kind: 'access'
 		
 		if flags & CT.Value
-			# variables, self-properties etc in context
-			if ctx.group.closest('tagcontent') and !ctx.tag
-				yes
-				# add('tagnames',kind: 'tag',weight: 300)
-
 			add('values')
+			
+		if flags & CT.ClassBody
+			yes
 		
 		if triggerCharacter == '<' and ctx.after.character == '>'
 			add completionForItem({
@@ -415,6 +413,17 @@ export default class Completions
 				sortText: "0000"
 				kind: 'snippet'
 				textEdit: {start: pos, length: 1, newText: ''}
+				label: {name: ' '}
+			})
+		
+		if triggerCharacter == '.' and tok.match('operator.access') and items.length
+			add completionForItem({
+				filterText: ''
+				commitCharacters: []
+				preselect: yes
+				sortText: "0000"
+				textEdit: {start: pos, length:0, newText: ''}
+				kind: 'snippet'
 				label: {name: ' '}
 			})
 		self

@@ -367,6 +367,12 @@ export default class ImbaScriptInfo
 		let kfilter = scope.allowedKeywordTypes
 		suggest.keywords = for own key,v of Keywords when v & kfilter
 			key
+			
+		if group.class? and before.line.match(/^\t*[a-z]*$/)
+			flags ~= t.Value
+			flags |= t.ClassBody
+			if group.component?
+				flags |= t.ComponentBody
 
 		suggest.flags = flags
 		
