@@ -14,6 +14,7 @@ export default class ImbaScript
 	constructor info
 		self.info = info
 		self.diagnostics = []
+		global.hasImbaScripts = yes
 
 		if info.scriptKind == 0
 			info.scriptKind = 1
@@ -240,10 +241,12 @@ export default class ImbaScript
 			let alternatives = checker.getStyleValues(g.propertyName,idx)
 			let match = alternatives.find do $1.escapedName == tok.value
 			if match
-				hit(match,'value')
+				hit(match,'stylevalue')
+				
 		
 		if g = grp.closest('styleprop')
-			out.sym ||= checker.sym([checker.cssrule,g.propertyName])
+			hit(checker.sym([checker.cssrule,g.propertyName]),'styleprop')
+			# out.sym ||= checker.sym([checker.cssrule,g.propertyName])
 			
 		if tok.match('tag.event.name')
 			let name = tok.value.replace('@','')
@@ -262,13 +265,12 @@ export default class ImbaScript
 					let path = "globalThis.{util.toCustomTagIdentifier(name)}"
 					if let typ = checker.type(path)
 						hit(typ.symbol,'tag')
-			
-		
+
 		if tok.match('white keyword')
-			return {}
+			return {info: {}}
 			
 		if out.sym
-			out.info = checker.getSymbolInfo(out.sym)
+			out.info ||= checker.getSymbolInfo(out.sym)
 		
 		if out.info
 			out.info.textSpan ||= tok.span

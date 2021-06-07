@@ -435,6 +435,7 @@ export default class ImbaScriptInfo
 
 		ensureParsed!
 		let t = Date.now!
+		let raw = content
 		let all = []
 		let root = {
 			childItems: [],
@@ -449,6 +450,15 @@ export default class ImbaScriptInfo
 		let last\any = {}
 		let symbols = new Set
 		let awaitScope = null
+		
+		def shrinkSpan span
+			let s = span.start
+			let k = s + span.length - 1
+			while k > s and (raw[k] == '\n' or raw[k] == '\t')
+				--k
+			span.length = (k - s)
+			return span
+				
 
 		def add item,tok
 			if item isa Sym
@@ -489,7 +499,7 @@ export default class ImbaScriptInfo
 			let currSpan = curr.spans[0]
 			let start = Math.min(curr.nameSpan.start,currSpan.start)
 			let end = Math.max(spanEnd(curr.nameSpan),spanEnd(currSpan),tok.endOffset)
-			curr.spans = [{start: start, length: end - start}]
+			curr.spans = [shrinkSpan({start: start, length: end - start})]
 			curr = curr.#parent
 
 		for token,i in tokens
