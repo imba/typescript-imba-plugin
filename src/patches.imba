@@ -597,10 +597,14 @@ export default def patcher ts
 			let tags = #imbaTags = {}
 			for item in getJsDocTags!
 				let res = item.text or true
-				if res isa Array and res[0] and res[0].kind == 'text'
-					res = res[0].text
-					if res.indexOf('\\') >= 0
-						res = res.replace(/\\n/g,'\n').replace(/\\t/g,'\t')
+				if res isa Array and res[0]
+					res = res[0]
+				
+				if res and res.kind == 'text'
+					res = res.text
+					
+				if typeof res == 'string' and res.indexOf('\\') >= 0
+					res = res.replace(/\\n/g,'\n').replace(/\\t/g,'\t')
 					
 				tags[item.name] = res
 			tags

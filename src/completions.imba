@@ -274,6 +274,8 @@ export class SymbolCompletion < Completion
 				snip = "<{snip}>"
 			item.insertSnippet = snip
 			type = 'snippet'
+			if snip.indexOf('$') >= 0
+				item.commitCharacters = []
 		
 		# check export info
 		if ei
@@ -288,6 +290,7 @@ export class SymbolCompletion < Completion
 			
 		if let docs = details.documentation
 			item.documentation = docs # global.session.mapDisplayParts(docs,checker.project)
+
 		if let dp = details.displayParts
 			item.detail = global.ts.displayPartsToString(dp)
 		# documentation: this.mapDisplayParts(details.documentation, project),
