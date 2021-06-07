@@ -136,6 +136,10 @@ export def toPascalCase str
 export def toCustomTagIdentifier str
 	toPascalCase(str + '-custom-element')
 
+const dasherizeCache = {}
+export def dasherize str
+	dasherizeCache[str] ||= str.replace(/([a-z\d])([A-Z])/g,"$1-$2").toLowerCase!
+
 export class Component
 	def constructor(...params)
 		$timeouts = {}

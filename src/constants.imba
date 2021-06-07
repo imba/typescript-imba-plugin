@@ -29,10 +29,49 @@ export const TokenType = {
 
 export const DefaultConfig = {
 	include: ['**/*.imba']
-	exclude: ['**/node_modules']
+	exclude: ['**/node_modules','**/dist']
 	compilerOptions: {
+		allowJs: true
 		checkJs: true
+		noEmit: true
+		skipLibCheck: true
+		skipDefaultLibCheck: true
+		allowNonTsExtensions: true
+		allowUnreachableCode: true
+		allowSyntheticDefaultImports: true
+		suppressExcessPropertyErrors: true
+		suppressImplicitAnyIndexErrors: true
+		resolveJsonModule: true
+		module: 'esnext'
 		target: 'esnext'
 		moduleResolution: "node"
 	}
 }
+###
+const tsServiceOptions\CompilerOptions = {
+	allowJs: true
+	checkJs: true
+	noEmit: true
+	skipLibCheck: true
+	skipDefaultLibCheck: true
+	allowUmdGlobalAccess: true
+	allowNonTsExtensions: true
+	allowUnreachableCode: true
+	allowUnusedLabels: true
+	strictNullChecks: false
+	noImplicitUseStrict: true
+	noStrictGenericChecks: true
+	allowSyntheticDefaultImports: true
+	assumeChangesOnlyAffectDirectDependencies: false
+	suppressExcessPropertyErrors: true
+	suppressImplicitAnyIndexErrors: true
+	traceResolution: false
+	resolveJsonModule: true
+	maxNodeModuleJsDepth:2
+	incremental: true
+	target: ts.ScriptTarget.ES2020
+	module: ts.ModuleKind.ESNext
+	forceConsistentCasingInFileNames: true
+	moduleResolution: ts.ModuleResolutionKind.NodeJs
+}
+###

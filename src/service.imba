@@ -16,6 +16,7 @@ global.libDir = libDir
 export default class Service
 	setups = []
 	bridge = null
+	virtualFiles = {}
 	ipcid
 	
 	get ts
@@ -89,6 +90,21 @@ export default class Service
 		let src = resolvePath('jsconfig.json')
 		ps.openClientFile(src,file,ts.ScriptKind.JSON,cwd)
 		
+	def createVirtualProjectConfig
+		return false if cp or !ip or !ip.shouldSupportImba!
+		let jspath = resolvePath('jsconfig.json')
+		let tspath = resolvePath('tsconfig.json')
+		return false if ps.host.fileExists(jspath) or virtualFiles[jspath]
+		util.log('createVirtualProjectFile')
+
+		virtualFiles[jspath] = JSON.stringify(DefaultConfig,null,2)
+		ps.onConfigFileChanged(jspath,0)
+
+		self
+		
+	def emitVirtualProjectConfig
+		yes
+		
 	def prepareProjectForImba proj
 		# host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
 		# only if there are imba files there?!
@@ -120,13 +136,14 @@ export default class Service
 		self.ps = project.projectService
 		
 		let proj = info.project
-		
-		# let inferred = proj isa ts.server.InferredProject
-		# intercept options for inferred project
-		prepareProjectForImba(proj) if proj
-			
 			
 		setup! if ps.#patched =? yes
+			
+		for script in imbaScripts
+			script.wake!
+			
+		prepareProjectForImba(proj) if proj
+		
 			
 		info.ls = info.languageService
 		# ps.ensureConfiguredImbaProjects!
@@ -389,12 +406,11 @@ export default class Service
 	def rewriteInboundMessage msg
 		msg
 		
+		
 	def setup
 		let exts = (ps.hostConfiguration.extraFileExtensions ||= [])
 		exts.push('.imba') if exts.indexOf('.imba') == -1
-		
-		for script in imbaScripts
-			script.wake!
+		setTimeout(&,200) do createVirtualProjectConfig!
 		self
 	
 	def getScriptInfo src
@@ -430,4 +446,4 @@ export default class Service
 		src.split(np.sep).join(np.posix.sep)
 		
 	def resolvePath src
-		normalizePath(np.resolve(cwd,src || '__.js'))
+		ps.toPath(normalizePath(np.resolve(cwd,src || '__.js')))

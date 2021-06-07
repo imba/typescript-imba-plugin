@@ -294,6 +294,9 @@ export class System
 		if (/\.tsx$/).test(path)
 			let ipath = path.replace('.tsx','.imba')
 			return yes if #fileExists(ipath)
+		
+		if (/[jt]sconfig\.json/).test(path)
+			util.log('fileExists',path)
 				
 		return #fileExists(path)
 	
@@ -304,7 +307,13 @@ export class System
 		return res
 	
 	def readFile path,encoding = null
+		util.log("readFile",path)
 		const body = #readFile(...arguments)
+		
+		if global.ils and global.ils.virtualFiles[path]
+			if !fileExists(path)
+				return global.ils.virtualFiles[path]
+
 		# if this is an imba file we want to compile it on the spot?
 		# if the script doesnt already exist...
 		if util.isImba(path)
@@ -588,6 +597,8 @@ export default def patcher ts
 			let name = escapedName
 			if name.indexOf('$$TAG$$') > 0
 				name = name.slice(0,-7).replace(/\_/g,'-')
+			elif name.match(/^[\w\-]+CustomElement$/)
+				name = util.dasherize(name.slice(0,-13))
 			elif name.indexOf('_$SYM$_') == 0
 				name = name.split("_$SYM$_").join("#")
 			#imbaName = name
