@@ -287,7 +287,7 @@ export class SymbolCompletion < Completion
 		let details = checker.getSymbolDetails(sym)
 			
 		if let docs = details.documentation
-			item.documentation = global.session.mapDisplayParts(docs,checker.project)
+			item.documentation = docs # global.session.mapDisplayParts(docs,checker.project)
 		if let dp = details.displayParts
 			item.detail = global.ts.displayPartsToString(dp)
 		# documentation: this.mapDisplayParts(details.documentation, project),

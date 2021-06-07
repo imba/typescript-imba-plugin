@@ -1,10 +1,10 @@
 declare module "imba_css" {
-    
+
     type LengthUnit = 'px' | 'rem' | 'em';
     type css$length = `${number}${LengthUnit}` | number;
     type css$time = `${number}ms` | `${number}s` | number;
     type css$percentage = `${number}%`;
-    
+
     type css$number = number;
     type css$integer = number;
     type css$string = string;
@@ -14,35 +14,35 @@ declare module "imba_css" {
     type css$shape = any;
     type css$angle = any;
     type css$geometry_box = any;
-    
+
     type css$padding = number;
     type css$margin = number;
     type css$side = number;
 
     type css$url = 'url';
     type css$image = 'url';
-    
+
     interface css$globals {
         inherit: 'inherit'
         initial: 'initial'
         unset: 'unset'
     }
-    
+
     interface css$prop {
     }
-    
+
     interface css$prop$any {
         set(val: css$globals): void;
     }
-    
+
     interface css$rule {
         [key: string]: css$prop$any
     }
-    
+
     interface css$unicode_range {
-        
+
     }
-    
+
     interface css$position {
         center: 'center'
         top: 'top'
@@ -50,9 +50,8 @@ declare module "imba_css" {
         right: 'right'
         bottom: 'bottom'
     }
-    
+
     interface css$font {
-        /** commenbt about font */
         sans: 'Sans serif'
         mono: 'monospace'
         serif: 'serif'
@@ -86,7 +85,7 @@ declare module "imba_css" {
         medium: 'medium'
         thick: 'thick'
     }
-    
+
     interface css$enum$overflow {
         /** The behavior of the 'auto' value is UA-dependent, but should cause a scrolling mechanism to be provided for overflowing boxes. */
         auto: 'auto'
@@ -99,23 +98,23 @@ declare module "imba_css" {
 
         /** Content is not clipped, i.e., it may be rendered outside the content box. */
         visible: 'visible'
-        
-        
+
+
         clip: 'clip'
     }
-    
+
     interface css$prop$overflow extends css$prop {
         /* [ visible | hidden | clip | scroll | auto ]{1,2} */
         set(x: css$enum$overflow, y: css$enum$overflow): void
     }
-    
+
     interface css$prop$overflow_x extends css$prop {
         set(val: css$enum$overflow): void
     }
     interface css$prop$overflow_y extends css$prop {
         set(val: css$enum$overflow): void
     }
-    
+
     interface css$enum$all {
         /** Specifies behavior that depends on the stylesheet origin to which the declaration belongs */
         revert: 'revert'
@@ -124,12 +123,12 @@ declare module "imba_css" {
     interface css$enum$grid {
 
     }
-    
+
     interface css$enum$alt {
-        
+
     }
-    
+
     interface css$enum$mask_origin {
-        
+
     }
 }

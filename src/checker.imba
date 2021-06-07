@@ -82,10 +82,10 @@ export default class ImbaTypeChecker
 		}
 	
 	get cssmodule
-		checker.tryFindAmbientModule('imba_css')
+		findAmbientModule('imba_css')
 		
 	get snippets
-		checker.tryFindAmbientModule('imba_snippets')
+		findAmbientModule('imba_snippets')
 		
 	get cssrule
 		#cssrule ||= checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$rule'))
@@ -221,13 +221,17 @@ export default class ImbaTypeChecker
 		if sym.parent
 			pre = symToPath(sym.parent) + '.'
 		return pre + checker.symbolToString(sym,undefined,0,0)
+		
+	def findAmbientModule src
+		let mod = checker.tryFindAmbientModuleWithoutAugmentations(src)
+		mod and checker.getMergedSymbol(mod)
 	
 	def pathToSym path
 		if path[0] == '"'
 			let end = path.indexOf('"',1)
 			let src = path.slice(1,end)
 			let abs = ts.pathIsAbsolute(src)
-			let mod = abs ? program.getSourceFile(src).symbol : checker.tryFindAmbientModule(src)
+			let mod = abs ? program.getSourceFile(src).symbol : findAmbientModule(src)
 			return sym([mod].concat(path.slice(end + 2).split('.')))
 		return sym(path)
 		
