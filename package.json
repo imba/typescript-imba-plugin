@@ -1,7 +1,7 @@
 {
     "name": "typescript-imba-plugin",
     "description": "imba plugin for tsserver",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": "Sindre Aarsaether <sindre@identu.no>",
     "main": "dist/index.js",
     "scripts": {
@@ -14,9 +14,7 @@
     },
     "devDependencies": {
         "@types/typescript": "^2.0.0",
-        "imba": "^2.0.0-alpha.137"
-    },
-    "dependencies": {
+        "imba": "^2.0.0-alpha.137",
         "node-ipc": "^9.1.4"
     }
 }
