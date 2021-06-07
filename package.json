@@ -9,7 +9,7 @@
     },
     "dependencies": {
         "@types/typescript": "^2.0.0",
-        "imba": "^2.0.0-alpha.133",
+        "imba": "^2.0.0-alpha.135",
         "node-ipc": "^9.1.4"
     }
 }

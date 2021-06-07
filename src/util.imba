@@ -128,6 +128,12 @@ export def isPascal str
 	let chr = str.charCodeAt(0)
 	return chr >= 65 && 90 >= chr
 
+export def toPascalCase str
+	str.replace(/(^|[\-\_\s])(\w)/g) do(m,v,l) l.toUpperCase!
+
+export def toCustomTagIdentifier str
+	toPascalCase(str + '-custom-element')
+
 export class Component
 	def constructor(...params)
 		$timeouts = {}

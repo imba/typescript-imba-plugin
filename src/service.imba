@@ -67,7 +67,11 @@ export default class Service
 		return 
 		
 	def getExternalFiles proj
+		return []
+		# check for imba files resolved by proj
+		return [] if proj isa ts.server.InferredProject
 		if proj.#gotImbaFiles =? true
+			# ch
 			# maybe follow up on the configured projects?
 			let files = ps.host.readDirectory(cwd,['.imba'],['node_modules'],[],4)
 			util.log "GET EXTERNAL FILES!!!",arguments,files
@@ -87,6 +91,7 @@ export default class Service
 		
 	def prepareProjectForImba proj
 		# host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
+		# only if there are imba files there?!
 		let inferred = proj isa ts.server.InferredProject
 		let opts = proj.getCompilerOptions!
 		let libs = opts.lib or ["esnext","dom","dom.iterable"]
@@ -229,6 +234,11 @@ export default class Service
 			
 		intercept.getDefinitionAndBoundSpan = do(filename,pos)
 			let {script,dpos,opos} = getFileContext(filename,pos,ls)
+			
+			if script
+				# check quick info via imba first?
+				self
+
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
 			
@@ -279,6 +289,13 @@ export default class Service
 				return res
 
 			let res = ls.getCompletionsAtPosition(file,opos,prefs)
+			
+			if res and res.entries
+				res.entries = res.entries.filter do(item)
+					return no if item.source == 'imba_css'
+					return no if item.source and item.source.indexOf('node_modules/imba/') >= 0
+					return yes
+
 			return res
 			
 		intercept.getNavigationTree = do(file)
@@ -373,6 +390,9 @@ export default class Service
 		msg
 		
 	def setup
+		let exts = (ps.hostConfiguration.extraFileExtensions ||= [])
+		exts.push('.imba') if exts.indexOf('.imba') == -1
+		
 		for script in imbaScripts
 			script.wake!
 		self

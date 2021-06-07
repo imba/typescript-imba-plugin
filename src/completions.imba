@@ -462,7 +462,8 @@ export default class Completions
 		let sym = checker.sym("HTMLElementTagNameMap.{o.name}")
 		# let attrs = checker.props("ImbaHTMLTags.{o.name}")
 		let pascal = o.name[0] == o.name[0].toUpperCase!
-		let globalPath = pascal ? o.name : o.name.replace(/\-/g,'_') + '$$TAG$$'
+		let globalPath = pascal ? o.name : util.toCustomTagIdentifier(o.name)
+		# o.name.replace(/\-/g,'_') + '$$TAG$$'
 
 		unless sym
 			sym = try checker.sym("{globalPath}.prototype")

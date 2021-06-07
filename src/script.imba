@@ -259,7 +259,7 @@ export default class ImbaScript
 			else
 				hit(checker.sym("ImbaHTMLTags.{name}"),'tag')
 				unless out.sym
-					let path = "globalThis.{name.replace(/\-/g,'_')}$$TAG$$"
+					let path = "globalThis.{util.toCustomTagIdentifier(name)}"
 					if let typ = checker.type(path)
 						hit(typ.symbol,'tag')
 			

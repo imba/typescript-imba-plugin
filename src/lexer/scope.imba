@@ -1,4 +1,5 @@
-import * as util from './utils'
+import {prevToken} from './utils'
+import * as util from '../util' 
 import {M,KeywordTypes,SemanticTokenTypes,SemanticTokenModifiers} from './types'
 import {Sym,SymbolFlags} from './symbol'
 
@@ -194,7 +195,7 @@ export class Scope < Node
 			# add virtual vars
 
 		if class? or property?
-			ident = token = util.prevToken(start,"entity.")
+			ident = token = prevToken(start,"entity.")
 
 			if ident
 				ident.body = self
@@ -219,7 +220,8 @@ export class Scope < Node
 		
 		if component?
 			if name[0] == name[0].toLowerCase!
-				return name.replace(/\-/g,'_') + '$$TAG$$'
+				return "globalThis.{util.toCustomTagIdentifier(name)}"
+				# return name.replace(/\-/g,'_') + '$$TAG$$'
 			else
 				return name
 

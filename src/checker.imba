@@ -160,7 +160,8 @@ export default class ImbaTypeChecker
 		props(cssrule)
 		
 	def getGlobalTags
-		allGlobals.filter do $1.escapedName.indexOf('$$TAG$$') >= 0
+		# allGlobals.filter do $1.escapedName.indexOf('$$TAG$$') >= 0
+		allGlobals.filter do $1.escapedName.indexOf('CustomElement') > 0
 		
 	def getLocalTagsInScope
 		let symbols = checker.getSymbolsInScope(sourceFile,32)
@@ -195,8 +196,8 @@ export default class ImbaTypeChecker
 			symbol = sym("HTMLElementTagNameMap.{name}")
 			
 			unless symbol
-				let key = name.replace(/\-/g,'_') + '$$TAG$$'
-				symbol = sym("globalThis.{key}")
+				# let key = name.replace(/\-/g,'_') + '$$TAG$$'
+				symbol = sym("globalThis.{util.toCustomTagIdentifier(name)}")
 
 		return symbol
 		
@@ -293,15 +294,6 @@ export default class ImbaTypeChecker
 		let typ = type(item)
 		let signatures = checker.getSignaturesOfType(typ,0)
 		return signatures[0]
-
-	def string item
-		let parts
-		if item isa Signature
-			parts = ts.signatureToDisplayParts(checker,item)
-		
-		if parts isa Array
-			return util.displayPartsToString(parts)
-		return ''
 
 	def fileRef value
 		return undefined unless value

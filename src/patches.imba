@@ -327,11 +327,58 @@ export class Project
 				global.ils.handleRequest(data)
 		else
 			#onPluginConfigurationChanged(name,data)
-			
 	
+	def reloadForImba
+		let path = canonicalConfigFilePath
+		let cfg = projectService.configFileExistenceInfoCache.get(path)
+		let isLoading = !!sendLoadingProjectFinish
+
+		if isLoading
+			return
+
+		if cfg..config
+			cfg.config.reloadLevel = 1
+			projectService.reloadFileNamesOfConfiguredProject(self)
+		yes
+		
+	def shouldSupportImba
+		return true if global.hasImbaScripts
+		let files = projectService.host.readDirectory(currentDirectory,null,['node_modules'],['**/*.imba'],4)
+		return true if files.length > 0
+		return false
 
 		
 export class ProjectService
+
+	def activateProjectForImba project
+		let isLoading = !!project.sendLoadingProjectFinish
+
+		if isLoading
+			return
+		
+		if project.#activatedForImba =? yes
+			let exts = (hostConfiguration.extraFileExtensions ||= [])
+			exts.push('.imba') if exts.indexOf('.imba') == -1
+
+			if project.shouldSupportImba!
+				util.log('activateProjectForImba',project)
+				let path = project.canonicalConfigFilePath
+				let cfg = configFileExistenceInfoCache.get(path)
+				if cfg..config
+					cfg.config.reloadLevel = 1
+					reloadFileNamesOfConfiguredProject(project)
+		self
+	
+	def sendProjectLoadingFinishEvent project
+		#sendProjectLoadingFinishEvent(project)
+		try
+			unless project.#activatedForImba
+				activateProjectForImba(project)
+		catch e
+			util.log('error',e,project)
+	
+
+		
 	def getOrCreateOpenScriptInfo(fileName, fileContent, scriptKind, hasMixedContent, projectRootPath)
 		let origFileContent = fileContent
 		if util.isImba(fileName)

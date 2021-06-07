@@ -21,53 +21,53 @@ declare class EventModifiers {
     /** The wait modifier delays the execution of subsequent modifiers and callback. It defaults to wait for 250ms, which can be overridden by passing a number or time as the first/only argument. 
      * @detail (time = 500ms)
      */
-    wait(time?:Time): EventModifiers;
+    wait(time?: Time): EventModifiers;
 
     /**
      * Hello there
      * @detail (time = 500ms)
      */
-    throttle(time?:Time): EventModifiers;
+    throttle(time?: Time): EventModifiers;
 
     /**
      * Hello there
      * @detail (time = 500ms)
      */
-    debounce(time?:Time): EventModifiers;
+    debounce(time?: Time): EventModifiers;
 
 
     /** Only trigger handler if event.target is the element itself */
-    self():EventModifiers;
+    self(): EventModifiers;
 
     /** Only trigger handler if event.target matches selector */
-    sel(selector:Selector):EventModifiers;
+    sel(selector: Selector): EventModifiers;
 
     /**
      * Only trigger condition is truthy
      * @detail (condition)
      * */
-    if(condition:unknown):EventModifiers;
+    if(condition: unknown): EventModifiers;
 
-    emit(data?:any): EventModifiers;
-    flag(data?:any): EventModifiers;
+    emit(data?: any): EventModifiers;
+    flag(data?: any): EventModifiers;
 
     /** Logs to console */
-    log(...data: any[]):EventModifiers;
+    log(...data: any[]): EventModifiers;
 }
 
 declare class UIEventModifiers extends EventModifiers {
 
     /** Only if ctrl key is pressed */
-    ctrl():EventModifiers;
+    ctrl(): EventModifiers;
 
     /** Only if alt key is pressed */
-    alt():EventModifiers;
+    alt(): EventModifiers;
 
     /** Only if shift key is pressed */
-    shift():EventModifiers;
+    shift(): EventModifiers;
 
     /** Only if meta key is pressed */
-    meta():EventModifiers;
+    meta(): EventModifiers;
 
 }
 
@@ -77,31 +77,31 @@ declare class MouseEventModifiers extends UIEventModifiers {
 
 declare class KeyboardEventModifiers extends UIEventModifiers {
     /** Only if enter key is pressed */
-    enter():EventModifiers;
+    enter(): EventModifiers;
 
     /** Only if left key is pressed */
-    left():EventModifiers;
+    left(): EventModifiers;
 
     /** Only if right key is pressed */
-    right():EventModifiers;
+    right(): EventModifiers;
 
     /** Only if up key is pressed */
-    up():EventModifiers;
+    up(): EventModifiers;
 
     /** Only if down key is pressed */
-    down():EventModifiers;
+    down(): EventModifiers;
 
     /** Only if tab key is pressed */
-    tab():EventModifiers;
+    tab(): EventModifiers;
 
     /** Only if esc key is pressed */
-    esc():EventModifiers;
+    esc(): EventModifiers;
 
     /** Only if space key is pressed */
-    space():EventModifiers;
+    space(): EventModifiers;
 
     /** Only if del key is pressed */
-    del():EventModifiers;
+    del(): EventModifiers;
 }
 
 declare class PointerEventModifiers extends UIEventModifiers {
@@ -132,13 +132,13 @@ declare class PointerGestureModifiers extends PointerEventModifiers {
      * 
      * @see https://imba.io/events/touch-events#modifiers-sync
      */
-    sync(data:object,xName?:string|null,yName?:string|null): EventModifiers;
+    sync(data: object, xName?: string | null, yName?: string | null): EventModifiers;
 
     /** Only hand/fingers */
-    fit(start:Length,end:Length,snap?:number): EventModifiers;
-    fit(context:Element|string,snap?:number): EventModifiers;
-    fit(context:Element|string,start:Length,end:Length,snap?:number): EventModifiers;
-    
+    fit(start: Length, end: Length, snap?: number): EventModifiers;
+    fit(context: Element | string, snap?: number): EventModifiers;
+    fit(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
+
 
     /** Only hand/fingers */
     pin(): EventModifiers;
@@ -148,8 +148,13 @@ declare class PointerGestureModifiers extends PointerEventModifiers {
     reframe(context: Element | string, snap?: number): EventModifiers;
     reframe(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
 
+    in(): EventModifiers;
+    in(start: Length, end: Length, snap?: number): EventModifiers;
+    in(context: Element | string, snap?: number): EventModifiers;
+    in(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
+
     /** Only hand/fingers */
-    round(nearest?:number): EventModifiers;
+    round(nearest?: number): EventModifiers;
 }
 
 
@@ -167,12 +172,12 @@ declare class ImbaIntersectEventModifiers extends EventModifiers {
     out(): EventModifiers;
 
     css(): EventModifiers;
-    
-    ___setup(root?:IntersectRoot,thresholds?:number):void;
-    ___setup(thresholds?:number):void;
-    ___setup(rootMargin:string,thresholds?:number):void;
-    ___setup(rootMargin:string,thresholds?:number):void;
-    ___setup(options:IntersectOptions): void;
+
+    ___setup(root?: IntersectRoot, thresholds?: number): void;
+    ___setup(thresholds?: number): void;
+    ___setup(rootMargin: string, thresholds?: number): void;
+    ___setup(rootMargin: string, thresholds?: number): void;
+    ___setup(options: IntersectOptions): void;
 }
 
 declare class ImbaResizeEventModifiers extends UIEventModifiers {

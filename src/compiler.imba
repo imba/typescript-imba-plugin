@@ -183,6 +183,13 @@ export class Compilation
 				let idx = tstr.indexOf(ipre)
 				if idx >= 0
 					return ts0 + idx + ipre.length
+				
+				if tstr.slice(-7) == '$$TAG$$'
+					return ts0 + idx + ipre.length
+
+				let into = (i - imba0) / (imba1 - imba0)
+				return ts0 + Math.floor(into * (ts1 - ts0))
+
 				# if chr == '\t' or chr == '\n' and ipre.match(/[\n\t]/)
 
 		return null
