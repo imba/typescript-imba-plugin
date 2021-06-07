@@ -14,6 +14,8 @@ class Logger
 		logs[0]
 	
 	def log ...params
+		return unless process.env.TSS_DEBUG
+
 		let ns = params[0]
 		let data = params[1]
 		let id = ++nr
