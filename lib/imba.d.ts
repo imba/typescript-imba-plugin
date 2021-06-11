@@ -26,10 +26,10 @@ interface Element {
     router: ImbaRouter;
     $key: any;
 
-    emit(event:string, params?: any, options?: any): Event;
+    emit(event: string, params?: any, options?: any): Event;
     focus(options?: any): void;
     blur(): void;
-    
+
     [key: string]: any;
 
     setAttribute(name: string, value: boolean): void;
@@ -59,6 +59,12 @@ interface Storage {
     setItem(key: string, value: number): void;
 }
 
+interface HTMLStyleElement {
+    /**
+     * The supplied path will be run through the imba bundler
+     */
+    src: ImbaAsset | string;
+}
 
 declare class ImbaElement extends HTMLElement {
     /**
@@ -120,18 +126,18 @@ declare namespace imba {
     }
 
     let stylemodifiers: ImbaStyleModifiers;
-    let Element:ImbaElement;
+    let Element: ImbaElement;
 
     function createIndexedFragment(...arguments: any[]): DocumentFragment;
     function createKeyedFragment(...arguments: any[]): DocumentFragment;
     function createLiveFragment(...arguments: any[]): DocumentFragment;
-    
-    function emit(source: any, event:string, params: any[]): void;
-    function listen(target: any, event:string, listener:any, path?: any): void;
-    function once(target: any, event:string, listener:any, path?: any): void;
-    function unlisten(target: any, event:string, listener:any, path?: any): void;
-    function indexOf(target: any, source:any): boolean;
-    function serve(target: any, options?:any): any;
+
+    function emit(source: any, event: string, params: any[]): void;
+    function listen(target: any, event: string, listener: any, path?: any): void;
+    function once(target: any, event: string, listener: any, path?: any): void;
+    function unlisten(target: any, event: string, listener: any, path?: any): void;
+    function indexOf(target: any, source: any): boolean;
+    function serve(target: any, options?: any): any;
 }
 
 declare module "data:text/asset;*" {
@@ -144,9 +150,9 @@ declare module "data:text/asset;*" {
 }
 
 declare module "imba/compiler" {
-    export function compile(fileName:string,options:any): any;
+    export function compile(fileName: string, options: any): any;
 }
 
 declare module "imba" {
-    export function compile(fileName:string,options:any): any;
+    export function compile(fileName: string, options: any): any;
 }

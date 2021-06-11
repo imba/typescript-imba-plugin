@@ -636,6 +636,9 @@ export default def patcher ts
 		get isTag
 			self.exports..has('$$TAG$$')
 			
+		get isWebComponent
+			(/^[\w\-]+CustomElement$/).test(escapedName)
+			
 		get isReadonly
 			valueDeclaration.modifierFlagsCache & ts.ModifierFlags.Readonly
 

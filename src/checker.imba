@@ -101,8 +101,8 @@ export default class ImbaTypeChecker
 		#allGlobals ||= props('globalThis').slice(0)
 		
 	get globals
-		#globals ||= allGlobals.filter do $1.pascal? or Globals.indexOf($1.escapedName) >= 0
-
+		#globals ||= allGlobals.filter do
+			($1.pascal? or Globals.indexOf($1.escapedName) >= 0) and !$1.isWebComponent
 	
 		
 	def getMappedLocation dpos
@@ -225,6 +225,10 @@ export default class ImbaTypeChecker
 	def findAmbientModule src
 		let mod = checker.tryFindAmbientModuleWithoutAugmentations(src)
 		mod and checker.getMergedSymbol(mod)
+		
+	def resolveImportInfo
+		# may need to force the checker to re-resolve
+		yes
 	
 	def pathToSym path
 		if path[0] == '"'
