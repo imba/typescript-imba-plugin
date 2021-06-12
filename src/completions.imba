@@ -176,6 +176,9 @@ export class Completion
 		if o.startsWith
 			return null unless key.indexOf(o.startsWith) == 0
 		
+		if o.matchRegex
+			return null unless o.matchRegex.test(key)
+
 		stack[key] = self
 		
 		if o..commitCharacters
@@ -333,9 +336,8 @@ export default class Completions
 		self.pos = pos
 		self.prefs = prefs
 		self.ls = ls or script.ls
-		
-		
-		
+		self.meta = {}
+
 		#prefix = ''
 		#added = {}
 		#uniques = new Map
@@ -353,7 +355,6 @@ export default class Completions
 	get autoimporter
 		checker.autoImports
 		
-		
 	get triggerCharacter
 		prefs.triggerCharacter
 			
@@ -361,12 +362,15 @@ export default class Completions
 		ctx = script.doc.getContextAtOffset(pos)
 		tok = ctx.token
 		flags = ctx.suggest.flags
-		util.log('resolveCompletions',self,ctx,tok)
-		
+		prefix = ''
+
 		if tok.match('identifier')
 			prefix = ctx.before.token
-
-		prefixRegex = new RegExp("^{prefix}","i")
+		
+		if prefix
+			prefixRegex = new RegExp("^[\#\_\$\<]*{prefix[0] or ''}")
+		
+		util.log('resolveCompletions',self,ctx,tok,prefix)
 		
 		if triggerCharacter == '=' and !tok.match('operator.equals.tagop')
 			return
@@ -494,7 +498,6 @@ export default class Completions
 		let vars = script.doc.varsAtOffset(pos)
 		let symbols = []
 		
-		
 		# find our location - want to walk to find a decent alternative
 		# walk backwards to find the closest location known by typescript
 		# let loc = checker.getLocation(pos,opos)
@@ -515,11 +518,11 @@ export default class Completions
 			let selfpath = ctx.selfPath
 			let selfprops = checker.props(selfpath)
 			# || checker.props(loc.thisType)
-			add(selfprops,kind: 'implicitSelf', weight: 300)
+			add(selfprops,kind: 'implicitSelf', weight: 300, matchRegex: prefixRegex)
 		
 		# add('variables',weight: 70)
 		# could also go from the old shared checker?
-		add(checker.globals,weight: 500,startsWith: prefix, implicitGlobal: yes)
+		add(checker.globals,weight: 500,matchRegex: prefixRegex, implicitGlobal: yes)
 		# variables should have higher weight - but not the global variables?
 		# add('properties',value: yes, weight: 100, implicitSelf: yes)
 		# add('keywords',weight: 650,startsWith: prefix)
