@@ -103,7 +103,6 @@ export default class ImbaTypeChecker
 	get globals
 		#globals ||= allGlobals.filter do
 			($1.pascal? or Globals.indexOf($1.escapedName) >= 0) and !$1.isWebComponent
-	
 		
 	def getMappedLocation dpos
 		let res = {dpos: dpos}
@@ -151,7 +150,7 @@ export default class ImbaTypeChecker
 				$1.parent and $1.parent.escapedName.indexOf('css$') == 0
 			symbols.push(...props)
 		
-		if index == 0
+		if index == 0 and !propName.match(/^([xyz]|skew-[xy]|rotate(-[xyz])?|scale(-[xyz])?)$/)
 			symbols.push(...self.props('$cssmodule$.css$globals'))
 
 		return symbols.filter do(item,i,arr) arr.indexOf(item) == i
