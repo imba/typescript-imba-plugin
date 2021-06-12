@@ -235,6 +235,15 @@ export class SymbolCompletion < Completion
 			
 			if type == 'color'
 				kind = 15
+				let shade = name.slice(-1)
+				
+				if shade == '4'
+					item.sortText = "color-0-{name}"
+				else
+					item.sortText = "color-1-{name}"
+
+				item.filterText = "{name}_{name}"
+
 				detail = tags.color
 				
 		elif cat == 'stylemod'
