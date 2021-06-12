@@ -10,7 +10,7 @@ declare module "imba_css" {
     type css$string = string;
     type css$identifier = string;
     type css$property = string;
-    type css$box = any;
+    // type css$box = any;
     type css$shape = any;
     type css$angle = any;
     type css$geometry_box = any;
@@ -83,6 +83,12 @@ declare module "imba_css" {
         left: 'left'
         right: 'right'
         bottom: 'bottom'
+    }
+
+    interface css$box {
+        'border-box': 'border-box'
+        'padding-box': 'padding-box'
+        'content-box': 'content-box'
     }
 
     interface css$font {
