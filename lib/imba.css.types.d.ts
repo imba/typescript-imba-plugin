@@ -35,7 +35,41 @@ declare module "imba_css" {
         set(val: css$globals): void;
     }
 
+    interface css$prop$xyz {
+        set(val: number): void;
+    }
+
+    interface css$prop$scale_x {
+        set(val: number): void;
+    }
+
+    interface css$prop$scale_y {
+        set(val: number): void;
+    }
+
+    interface css$prop$scale_z {
+        set(val: number): void;
+    }
+
+    interface css$prop$skew_x {
+        set(val: number): void;
+    }
+
+    interface css$prop$skew_y {
+        set(val: number): void;
+    }
+
     interface css$rule {
+        // aliases
+        x: css$prop$xyz;
+        y: css$prop$xyz;
+        z: css$prop$xyz;
+
+        'scale-x': css$prop$scale_x
+        'scale-y': css$prop$scale_y
+        'skew-x': css$prop$skew_x
+        'skew-y': css$prop$skew_y
+
         [key: string]: css$prop$any
     }
 
