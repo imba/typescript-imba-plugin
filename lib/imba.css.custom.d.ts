@@ -16,7 +16,7 @@ declare module "imba_css" {
     rdl: ['border-top-left-radius', 'border-bottom-left-radius']
     rdr: ['border-top-right-radius', 'border-bottom-right-radius']
     */
-    
+
     interface css$prop$px extends css$prop {
         set(x: css$padding): void;
         set(left: css$padding, right: css$padding): void;
@@ -37,37 +37,44 @@ declare module "imba_css" {
         set(size: css$side): void;
     }
     interface css$prop$j extends css$prop {
-        set(value: (css$enum$justify_content & css$enum$justify_items)): void;
-
+        set(value: css$enum$justify_content): void;
+        set(value: css$enum$justify_items): void;
     }
     interface css$prop$a extends css$prop {
-        
+        set(value: css$enum$align_items): void;
+        set(value: css$enum$align_content): void;
     }
     interface css$prop$jai extends css$prop {
-        
+        set(value: css$enum$align_items): void;
+        set(value: css$enum$justify_items): void;
     }
     interface css$prop$jac extends css$prop {
-        
+        set(value: css$enum$align_content): void;
+        set(value: css$enum$justify_content): void;
     }
     interface css$prop$jas extends css$prop {
-        
+        set(value: css$enum$align_self): void;
+        set(value: css$enum$justify_self): void;
     }
     interface css$prop$ja extends css$prop {
-        
+        set(value: css$enum$align_content): void;
+        set(value: css$enum$justify_content): void;
+        set(value: css$enum$align_items): void;
+        set(value: css$enum$justify_items): void
     }
     interface css$prop$rdt extends css$prop {
-        
+
     }
     interface css$prop$rdb extends css$prop {
-        
+
     }
     interface css$prop$rdl extends css$prop {
-        
+
     }
     interface css$prop$rdr extends css$prop {
-        
+
     }
-    
+
     interface css$rule {
         /** @proxy padding left & right */
         px: css$prop$px;
@@ -83,13 +90,13 @@ declare module "imba_css" {
         j: css$prop$j;
         /** @proxy align items & content */
         a: css$prop$a;
-        /** @proxy justify & align items */
+        /** @proxy justify&align items */
         jai: css$prop$jai;
-        /** @proxy justify & align content */
+        /** @proxy justify&align content */
         jac: css$prop$jac;
-        /** @proxy justify & align self */
+        /** @proxy justify&align self */
         jas: css$prop$jas;
-        /** @proxy justify & align items & content */
+        /** @proxy justify&align items&content */
         ja: css$prop$ja;
         /** @proxy ◠ border-top-right-radius & border-top-left-radius */
         rdt: css$prop$rdt;
@@ -99,7 +106,7 @@ declare module "imba_css" {
         rdl: css$prop$rdl;
         /** @proxy ⊃ border-top-right-radius & border-bottom-right-radius */
         rdr: css$prop$rdr;
-        
+
     }
-    
+
 }
