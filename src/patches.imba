@@ -601,6 +601,9 @@ export default def patcher ts
 				name = util.dasherize(name.slice(0,-13))
 			elif name.indexOf('_$SYM$_') == 0
 				name = name.split("_$SYM$_").join("#")
+			elif name.indexOf('___') == 0
+				name = name.slice(1)
+
 			#imbaName = name
 			
 		get imbaTags
