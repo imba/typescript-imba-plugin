@@ -799,7 +799,7 @@ export const states = {
 
 	css_: [
 		[/global(?=\s+css@B)/,'keyword.$#']
-		[/css(?:\s+)?/, 'keyword.css','@>css_selector&rule-_sel']
+		[/css(?=\s+|$)/, 'keyword.css','@>css_selector&rule-_sel']
 	]
 
 	sel_: [
