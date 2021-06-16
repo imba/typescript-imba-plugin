@@ -162,22 +162,29 @@ export class Completion
 
 	get uniqueName
 		#uniqueName or item.insertText or name
+		
+	get filterName
+		item.insertText or name
+		
+	def shouldBeIncluded stack
+		yes
 
 	def serialize stack = {}
 		let o = #options
+
 		let key = uniqueName
 		
 		if sym.isInternal
 			return null
+			
+		unless shouldBeIncluded(stack)
+			return null
 		
 		if stack[key]
 			return null
-			
-		if o.startsWith
-			return null unless key.indexOf(o.startsWith) == 0
-		
+
 		if o.matchRegex
-			return null unless o.matchRegex.test(key)
+			return null unless o.matchRegex.test(filterName)
 
 		stack[key] = self
 		
@@ -329,6 +336,18 @@ export class AutoImportCompletion < SymbolCompletion
 		
 	get symName
 		exportInfo.importName or exportInfo.exportName
+		
+	get importPath
+		exportInfo.packagName or exportInfo.modulePath
+		
+	get uniqueName
+		symName + importPath
+		
+	def shouldBeIncluded stack
+		# if there is a variable or other property with this name
+		if stack[symName]
+			return no
+		return yes
 		
 export class ImbaSymbolCompletion < Completion
 	
