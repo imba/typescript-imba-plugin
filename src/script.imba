@@ -156,14 +156,17 @@ export default class ImbaScript
 		info.path
 		
 	get ls
-		info.containingProjects[0].languageService
+		project.languageService
+		
+	get project
+		info.containingProjects[0]
 		
 	def wake
 		yes
 		
 	def getTypeChecker sync = no
 		try
-			let project = info.containingProjects[0]
+			let project = project
 			let program = project.program
 			let checker = program.getTypeChecker!
 			return new ImbaTypeChecker(project,program,checker,self)
@@ -210,6 +213,13 @@ export default class ImbaScript
 	def getContextAt pos
 		# retain context?
 		new ImbaScriptContext(self,pos)
+	
+	def resolveModuleName path
+		let res = project.resolveModuleNames([path],fileName)
+		return res[0] and res[0].resolvedFileName
+		
+	def resolveImport path, withAssets = no
+		global.ts.resolveImportPath(path,fileName,project,withAssets).resolvedModule..resolvedFileName
 		
 	def getInfoAt pos, ls
 		let ctx = doc.getContextAtOffset(pos)
@@ -224,11 +234,20 @@ export default class ImbaScript
 		let tok = ctx.token or {match: (do no)}
 		let checker = getTypeChecker!
 		
+		out.textSpan = tok.span
+		
 		let hit = do(sym,typ)
 			if typ
 				out[typ] = sym
-			out.sym ||= sym 
-	
+			out.sym ||= sym
+		
+		# likely a path?
+		if ctx.suggest.Path
+			let str = tok.value
+			util.log('get info for path?!',str)
+			# ought to take paths from imbaconfig / jsconfig into account?!
+			out.resolvedPath = util.resolveImportPath(fileName,str)
+			out.resolvedModule = resolveImport(str,yes)
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,post] = tok.value.match(/^(@|\.+)([\w\-\d]*)$/)
@@ -276,6 +295,19 @@ export default class ImbaScript
 			out.info.textSpan ||= tok.span
 
 		return out
+		
+	def getDefinitionAndBoundSpan pos, ls
+		let out = getInfoAt(pos,ls)
+		
+		if out.resolvedModule
+			return {
+				definitions: [{
+					fileName: out.resolvedModule
+					textSpan: {start: 0, length: 0}
+				}]
+				textSpan: out.textSpan
+			}
+		return null
 			
 		
 	def getQuickInfo pos, ls

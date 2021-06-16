@@ -54,6 +54,9 @@ export def toImbaString str
 export def normalizePath path
 	path.split(np.sep).join('/')
 	
+export def pathToImportName path
+	np.basename(path).replace(/\.(d\.ts|tsx?|imba|jsx?)$/,'')
+	
 export def normalizeImportPath source, referenced
 	if np.isAbsolute(referenced)
 		let fdir = np.dirname(source)
@@ -64,6 +67,11 @@ export def normalizeImportPath source, referenced
 			path = path.slice(nmi + 13)
 		path = './' + path if !path.match(/^\.\.?\//)
 		return path
+	return referenced
+
+export def resolveImportPath source, referenced
+	if !np.isAbsolute(referenced)
+		return normalizePath( np.resolve(np.dirname(source),referenced) )
 	return referenced
 
 let fillCache = {}

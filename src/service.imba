@@ -84,12 +84,7 @@ export default class Service
 		# util.log('handleRequest',data)
 		bridge ||= new Bridge(id)
 		bridge.handle(data)
-		
-	def ensureConfiguredProject
-		let file = JSON.stringify(DefaultConfig,null,2)
-		let src = resolvePath('jsconfig.json')
-		ps.openClientFile(src,file,ts.ScriptKind.JSON,cwd)
-		
+
 	def createVirtualProjectConfig
 		return false if cp or !ip or !ip.shouldSupportImba!
 		let jspath = resolvePath('jsconfig.json')
@@ -101,11 +96,9 @@ export default class Service
 		ps.onConfigFileChanged(jspath,0)
 
 		self
-		
-	def emitVirtualProjectConfig
-		yes
-		
+
 	def prepareProjectForImba proj
+		# return proj
 		# host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
 		# only if there are imba files there?!
 		let inferred = proj isa ts.server.InferredProject
@@ -122,7 +115,7 @@ export default class Service
 			if mapped
 				opts.lib[i] = mapped
 
-		proj.setCompilerOptions(opts)
+		# proj.setCompilerOptions(opts)
 		util.log('compilerOptions',proj,opts)
 		return proj
 
@@ -143,8 +136,7 @@ export default class Service
 			script.wake!
 			
 		prepareProjectForImba(proj) if proj
-		
-			
+
 		info.ls = info.languageService
 		# ps.ensureConfiguredImbaProjects!
 		return decorate(info.languageService)
@@ -254,15 +246,21 @@ export default class Service
 			
 			if script
 				# check quick info via imba first?
-				self
+				let out = script.getDefinitionAndBoundSpan(dpos,ls)
+				return out if out
 
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
-			
-			if script and res and res.definitions
-				let hasImbaDefs = res.definitions.some do util.isImba($1.fileName)
+			let defs = res..definitions
+			if script and defs
+				let __new = defs.find do $1.name == '__new'
+				if __new and defs.length > 1
+					defs.splice(defs.indexOf(__new),1)
+				
+				let hasImbaDefs = defs.some do util.isImba($1.fileName)
 				if hasImbaDefs
-					res.definitions = res.definitions.filter do util.isImba($1.fileName)
+					# only remove the responses for new Element?!
+					res.definitions = defs.filter do util.isImba($1.fileName)
 
 			# for convenience - hide certain definitions
 			util.log('getDefinitionAndBoundSpan',script,dpos,opos,filename,res)

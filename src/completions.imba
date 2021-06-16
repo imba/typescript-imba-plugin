@@ -195,8 +195,11 @@ export class Completion
 			let path = ei.packageName or util.normalizeImportPath(script.fileName,ei.modulePath)
 			# let specifier = checker.getModuleSpecifierForBestExportInfo(info)
 			# let path = specifier.moduleSpecifier
-			let alias = ei.exportName
-			let name = ei.exportKind == 1 ? 'default' : alias
+			let alias = ei.importName or ei.exportName
+			let name = (ei.exportKind == 1 or ei.exportKind == 2) ? 'default' : ei.exportName
+			if ei.exportKind == 3
+				name = '*'
+
 			let edits = script.doc.createImportEdit(path,name,alias,asType)
 			
 			if edits.changes.length
@@ -205,6 +208,10 @@ export class Completion
 		self
 
 export class SymbolCompletion < Completion
+	
+	get symName
+		sym.imbaName
+
 	def setup
 		let cat = #options.kind
 		let par = sym.parent
@@ -213,7 +220,8 @@ export class SymbolCompletion < Completion
 		let f = sym.flags
 		let ei = exportInfo
 
-		name = sym.imbaName
+		name = symName
+
 		data.kind = cat
 
 		try
@@ -290,9 +298,11 @@ export class SymbolCompletion < Completion
 		# check export info
 		if ei
 			if ei.packageName
-				ns = "from {ei.packageName}"
+				ns = "import from {ei.packageName}"
 			else
-				ns = "from {util.normalizeImportPath(script.fileName,ei.modulePath)}"
+				ns = "import from {util.normalizeImportPath(script.fileName,ei.modulePath)}"
+			if ei.exportName == '*'
+				ns = ns.replace(/^import /,'import * ')
 
 	
 	def resolve
@@ -316,7 +326,9 @@ export class AutoImportCompletion < SymbolCompletion
 		exportInfo = symbol
 		sym = symbol.symbol
 		self
-	
+		
+	get symName
+		exportInfo.importName or exportInfo.exportName
 		
 export class ImbaSymbolCompletion < Completion
 	
@@ -523,6 +535,16 @@ export default class Completions
 		# add('variables',weight: 70)
 		# could also go from the old shared checker?
 		add(checker.globals,weight: 500,matchRegex: prefixRegex, implicitGlobal: yes)
+
+		if prefixRegex
+			let imports = checker.autoImports.getVisibleExportedValues!
+			imports = imports.filter do prefixRegex.test($1.importName or $1.exportName)
+			add(imports)
+			
+			# check for the export paths as well
+			
+			
+
 		# variables should have higher weight - but not the global variables?
 		# add('properties',value: yes, weight: 100, implicitSelf: yes)
 		# add('keywords',weight: 650,startsWith: prefix)

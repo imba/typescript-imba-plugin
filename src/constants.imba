@@ -26,9 +26,22 @@ export const TokenType = {
 	"_": 12
 }
 
+export const Extensions = [
+	'.imba',
+	'.svg',
+	'.png',
+	'.jpg',
+	'.css',
+	'.jpeg',
+	'.gif',
+	'.apng',
+	'.webp',
+	'.avif'
+]
+
 
 export const DefaultConfig = {
-	include: ['**/*.imba']
+	include: ['**/*.imba','**/*']
 	exclude: ['**/node_modules','**/dist']
 	compilerOptions: {
 		allowJs: true
@@ -39,8 +52,9 @@ export const DefaultConfig = {
 		allowNonTsExtensions: true
 		allowUnreachableCode: true
 		allowSyntheticDefaultImports: true
-		suppressExcessPropertyErrors: true
-		suppressImplicitAnyIndexErrors: true
+		esModuleInterop: true
+		suppressExcessPropertyErrors: false
+		suppressImplicitAnyIndexErrors: false
 		resolveJsonModule: true
 		module: 'esnext'
 		target: 'esnext'

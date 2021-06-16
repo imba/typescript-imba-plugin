@@ -1,11 +1,14 @@
 import * as util from './util'
-
+import * as constants from './constants'
 import Compiler from './compiler'
 import ImbaScript from './script'
 import * as Diagnostics from './diagnostics'
 
 let EDITING = no
 global.state = {command: ''}
+
+let EXTRA_HIT = null
+let EXTRA_EXTENSIONS = ['.imba']
 
 def isEditing
 	global.state.command == 'updateOpen'
@@ -290,13 +293,30 @@ export class TextStorage
 
 export class System
 	
+	get virtualFileMap
+		global.ils and global.ils.virtualFiles or {}
+	
+	def readVirtualFile path
+		let body = virtualFileMap[path]
+		if body == undefined
+			body = virtualFileMap[path.toLowerCase!]
+		
+		typeof body == 'string' ? body : undefined
+		 
 	def fileExists path
 		if (/\.tsx$/).test(path)
-			let ipath = path.replace('.tsx','.imba')
-			return yes if #fileExists(ipath)
+			for ext in EXTRA_EXTENSIONS
+				let ipath = path.replace('.tsx',ext).replace(ext + ext,ext)
+				if #fileExists(ipath)
+					util.log "intercepted fileExists",path,ipath
+					EXTRA_HIT = [path,ipath]
+					return yes
 		
 		if (/[jt]sconfig\.json/).test(path)
-			util.log('fileExists',path)
+			util.log('fileExists',path,#fileExists(path),!!readVirtualFile(path))
+
+			if readVirtualFile(path) !== undefined
+				return true
 				
 		return #fileExists(path)
 	
@@ -308,12 +328,13 @@ export class System
 	
 	def readFile path,encoding = null
 		util.log("readFile",path)
-		const body = #readFile(...arguments)
 		
-		if global.ils and global.ils.virtualFiles[path]
-			if !fileExists(path)
-				return global.ils.virtualFiles[path]
-
+		if (/[jt]sconfig\.json/).test(path)
+			if let body = readVirtualFile(path)
+				util.log("return virtual file",path,body)
+				return body
+			
+		const body = #readFile(...arguments)
 		# if this is an imba file we want to compile it on the spot?
 		# if the script doesnt already exist...
 		if util.isImba(path)
@@ -504,6 +525,14 @@ export class ScriptVersionCache
 
 
 export class TS
+
+	def resolveImportPath path, src, project, withAssets = null
+		let args = [path,src,project.getCompilerOptions(),project.directoryStructureHost]
+		if withAssets
+			EXTRA_EXTENSIONS = withAssets isa Array ? withAssets : constants.Extensions
+		let res = resolveModuleName.apply(self,args)
+		EXTRA_EXTENSIONS = ['.imba']
+		return res
 	
 	def getSupportedExtensions options, extra
 		let res = #getSupportedExtensions(options,extra)
@@ -514,13 +543,19 @@ export class TS
 	def resolveModuleName moduleName, containingFile, compilerOptions, host, cache, redirectedReference
 		let res = #resolveModuleName.apply(self,arguments)
 		let hit = res..resolvedModule
+		let name = hit..resolvedFileName
 		
 		if hit..extension == '.tsx'
-			let name = hit.resolvedFileName.replace('.tsx','.imba')
-			# @ts-ignore
-			if self.sys.fileExists(name)
-				hit.resolvedFileName = name
-				hit.extension = '.ts'
+			if EXTRA_HIT and EXTRA_HIT[0] == name
+				# util.log "rewrite resolveModuleName",name,EXTRA_HIT[1]
+				name = EXTRA_HIT[1]
+				# for ext in checkExtraExtensions
+				# 	let name = ext.replace()
+				# 	let name = hit.resolvedFileName.replace('.tsx','.imba')
+				# @ts-ignore
+				if self.sys.fileExists(name)
+					hit.resolvedFileName = name
+					hit.extension = '.ts'
 
 		return res
 	

@@ -75,6 +75,10 @@ declare class ImbaElement extends HTMLElement {
     [key: string]: any;
 }
 
+declare class GlobalCustomElement extends HTMLElement {
+
+}
+
 interface ImbaStyles {
     [key: string]: any;
 }
@@ -91,9 +95,9 @@ interface Event {
     originalEvent: Event | null;
 }
 
-interface Object {
-    [key: string]: any;
-}
+// interface Object {
+//     [key: string]: any;
+// }
 
 declare namespace imba {
 

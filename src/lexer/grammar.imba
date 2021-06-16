@@ -425,7 +425,7 @@ export const states = {
 
 	import_: [
 		[/(import)(?=\s+['"])/,'keyword.import','@>import_source']
-		[/(import)(\s+type)(?=\s[\w\$\@\{])/,['keyword.import','keyword.type','@>import_body&-_imports=decl-import/part']]
+		[/(import)(\s+type)(?=\s[\w\$\@\{])/,['keyword.import','keyword.type','@>import_body&-_imports=decl-import-type/part']]
 		[/(import)@B/,'keyword.import','@>import_body&-_imports=decl-import/part']
 	]
 	

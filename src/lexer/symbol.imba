@@ -30,12 +30,14 @@ export const SymbolFlags = {
 	Optional:                1 << 24,  # Optional property
 	
 	# Modifiers
-	IsSpecial:          1 << 27
-	IsImport:           1 << 28
-	IsStatic:           1 << 29
-	IsGlobal:           1 << 30
-	IsRoot:             1 << 31
-	
+	IsGlobal:           1 << 25
+	IsRoot:             1 << 26
+}
+
+export const SymbolModifiers = {
+	Global: 1 << 0,
+	Root: 1 << 1,
+	Special: 1 << 2
 }
 
 SymbolFlags.Component = SymbolFlags.LocalComponent | SymbolFlags.GlobalComponent
@@ -46,7 +48,6 @@ SymbolFlags.Scoped = SymbolFlags.Function | SymbolFlags.Variable | SymbolFlags.C
 SymbolFlags.Type = SymbolFlags.Component | SymbolFlags.Class
 
 SymbolFlags.GlobalVar = SymbolFlags.ConstVariable | SymbolFlags.IsGlobal
-SymbolFlags.SpecialVar = SymbolFlags.ConstVariable | SymbolFlags.IsSpecial
 
 const Conversions = [
 	['entity.name.component.local',0,SymbolFlags.LocalComponent]
@@ -64,8 +65,11 @@ const Conversions = [
 	['decl-var',0,SymbolFlags.LetVariable]
 	['decl-param',0,SymbolFlags.Parameter]
 	['decl-const',0,SymbolFlags.ConstVariable]
-	['decl-import',0,SymbolFlags.ConstVariable | SymbolFlags.IsImport]
+	['decl-import-type',0,SymbolFlags.TypeAlias]
+	['decl-import',0,SymbolFlags.ConstVariable]
 ]
+
+# decl-import
 
 const ConversionCache = {}
 
@@ -163,10 +167,15 @@ export class Sym
 		flags & SymbolFlags.Type
 
 	get global?
-		flags & SymbolFlags.IsGlobal
+		!#scope
+		# flags & SymbolFlags.IsGlobal
+		
+	get root?
+		#scope and #scope.root?
 		
 	get imported?
-		flags & SymbolFlags.IsImport
+		node and node.match('.decl-import')
+		# flags & SymbolFlags.IsImport
 
 	get component?
 		flags & SymbolFlags.Component
@@ -246,13 +255,14 @@ export class Sym
 		if static?
 			mods |= M.Static
 
-		if flags & SymbolFlags.IsImport
+		if imported?
 			mods |= M.Import
 
-		if flags & SymbolFlags.IsGlobal
+		if self.global?
 			mods |= M.Global
 
-		if flags & SymbolFlags.IsRoot
+		if root?
+			# flags & SymbolFlags.IsRoot
 			mods |= M.Root
 		
 		if flags & SymbolFlags.IsSpecial

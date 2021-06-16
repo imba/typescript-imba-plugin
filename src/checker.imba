@@ -225,9 +225,29 @@ export default class ImbaTypeChecker
 		let mod = checker.tryFindAmbientModuleWithoutAugmentations(src)
 		mod and checker.getMergedSymbol(mod)
 		
-	def resolveImportInfo
+	def resolveModuleName path, containingFile = null
+		let res = project.resolveModuleNames([path],containingFile or sourceFile.fileName)
+		return res[0] and res[0].resolvedFileName
+		
+	def getModuleSymbol src, containingFile = null
+		let path = resolveModuleName(src,containingFile)
+		let file = program.getSourceFile(path)
+		return file..symbol
+		# t.checker.getExportsOfModule(s2.symbol)
+		
+	def resolveImportInfo info, tok, doc
 		# may need to force the checker to re-resolve
-		yes
+		let sym = getModuleSymbol(info.path)
+		# util.log "resolving import",info,sym
+		if sym
+			if info.exportName == '*'
+				return type(sym)
+			elif info.exportName == 'default'
+				if let classic = sym.exports..get('export=')
+					return type(classic)
+			
+			return type(member(sym,info.exportName))
+		return null
 	
 	def pathToSym path
 		if path[0] == '"'
@@ -522,7 +542,7 @@ export default class ImbaTypeChecker
 			let typ = tok.datatype
 
 			if typ and typ.exportName
-				return resolveImportInfo(typ)
+				return resolveImportInfo(typ,tok,doc)
 
 			if typ
 				return inferType(typ,doc)

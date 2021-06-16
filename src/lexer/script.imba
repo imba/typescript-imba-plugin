@@ -278,6 +278,9 @@ export default class ImbaScriptInfo
 		if g = group.closest('tag')
 			meta.tagName = g.tagName
 			contextTokens.push(g.nameNode)
+			
+		if g = group.closest('tagattr')
+			meta.tagAttrName = g.propertyName
 		
 		if g = group.closest('listener')
 			meta.eventName = g.name
@@ -288,6 +291,15 @@ export default class ImbaScriptInfo
 		if tok.type == 'path' or tok.type == 'path.open'
 			flags |= CompletionTypes.Path
 			suggest.paths = 1
+			
+		if tok.type == 'string'
+			if tok.value.match(/^\.\.?\/|\.(svg|html|jpe?g|gif|a?png|avif|webp)$/)
+				flags |= CompletionTypes.Path
+				suggest.paths = 1
+			
+			if meta.tagAttrName == 'src' and meta.tagName..match(/^(script|style|img|svg|link)$/)
+				flags |= CompletionTypes.Path
+				
 
 		if tok.match('identifier tag.operator.equals br white delimiter array operator ( self')
 			flags |= CompletionTypes.Value
@@ -818,10 +830,16 @@ export default class ImbaScriptInfo
 		return tokens
 	
 	def createImportEdit path, name, alias = name, asType = no
-		path = path.replace(/\.imba$/,'')
 		
+		let noext = path.replace(/\.(imba|d\.ts|js|ts)$/,'')
+
 		let nodes = getImportNodes!.filter do
-			$1.sourcePath == path and $1.isTypeOnly == asType
+			($1.sourcePath == path or $1.sourcePath == noext) and $1.isTypeOnly == asType
+		
+		if nodes[0]
+			path = nodes[0].sourcePath
+		else
+			path = path.replace(/\.(imba|d\.ts)$/,'')
 
 		let out = ''
 		let offset = 0

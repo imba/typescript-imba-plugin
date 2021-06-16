@@ -178,7 +178,7 @@ export class Scope < Node
 
 		if self isa Root
 			for own key,val of Globals
-				let tok = {value: key, offset: -1, mods: 0}
+				let tok = {value: key, offset: -1, mods: 0, match: (do no)}
 				varmap[key] = new Sym(SymbolFlags.GlobalVar,key,tok,val)
 
 		indent = (parts[3] && parts[3][0] == '\t') ? parts[3].length : 0
@@ -190,7 +190,7 @@ export class Scope < Node
 
 	def setup
 		if handler?
-			varmap.e = new Sym(SymbolFlags.SpecialVar,'e',null,'eventReference')
+			varmap.e = new Sym(SymbolFlags.ConstVariable,'e',null,'eventReference')
 			# self.declare()
 			# add virtual vars
 
@@ -293,6 +293,8 @@ export class Scope < Node
 	def register symbol
 		if symbol.scoped?
 			varmap[symbol.name] = symbol
+			symbol.#scope ||= self
+
 			if self.root?
 				symbol.flags |= SymbolFlags.IsRoot
 		return symbol
@@ -307,6 +309,8 @@ export class Scope < Node
 			return variable # token.var
 		return null
 
+
+export class GlobalScope < Scope
 	
 export class Root < Scope
 
