@@ -58,6 +58,10 @@ export default class Service
 		
 	def onDidSaveTextDocument file
 		util.log('onDidSaveTextDocument',file)
+		if let script = getImbaScript(file)
+			script.didSave!
+		return
+		
 		
 	def resolveCompletionItem item, data
 		util.log('resolveCompletionItem',item,data)

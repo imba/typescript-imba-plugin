@@ -79,7 +79,6 @@ export default class AutoImportContext
 					symbol: info.moduleSymbol
 					exportedSymbolIsTypeOnly: false
 				}
-				util.log "pushed",gid,ginfo
 				out.push(ginfo)
 			
 			let isTag = try info.symbol.exports..has('$$TAG$$')

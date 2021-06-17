@@ -110,9 +110,16 @@ export default class ImbaScript
 		self
 		
 	def getImbaDiagnostics
+		
 		let mapper = lastCompilation
 		let entries = mapper.diagnostics
 		let diags = []
+		
+		if mapper.input.#saved
+			util.log('imba diagnostics saved!')
+		else
+			return []
+		
 		for entry in entries
 			let start = mapper.i2d(entry.range.start.offset)
 			let end = mapper.i2d(entry.range.end.offset)
@@ -142,8 +149,7 @@ export default class ImbaScript
 		# let result = Compiler.compile(info,body)
 		# result.input = snap
 		return output.compile!
-		
-	
+
 		
 	get snapshot
 		svc.getSnapshot!
@@ -162,6 +168,11 @@ export default class ImbaScript
 		info.containingProjects[0]
 		
 	def wake
+		yes
+		
+	def didSave
+		try
+			snapshot.#saved = yes
 		yes
 		
 	def getTypeChecker sync = no
