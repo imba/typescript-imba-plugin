@@ -48,6 +48,9 @@ const Rules = [
 	---
 	code: 2538 # dynamic asset items
 	message: /unique symbol' cannot be used as an index type/
+	---
+	code: 2307
+	message: /\.(txt|css|a?png|jpe?g|gif|svg)'/
 ]
 
 
