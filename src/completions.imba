@@ -228,7 +228,7 @@ export class SymbolCompletion < Completion
 		let ei = exportInfo
 
 		name = symName
-
+		item.cat = cat
 		data.kind = cat
 
 		try
@@ -290,8 +290,9 @@ export class SymbolCompletion < Completion
 			triggers '!(,.['
 			
 		if cat == 'implicitSelf'
-			item.insertText = item.filterText = name
-			name = "self.{name}"
+			# item.insertText = item.filterText = name
+			# name = "self.{name}"
+			ns = "self"
 			
 		if tags.snippet
 			let snip = tags.snippet
@@ -461,17 +462,16 @@ export default class Completions
 				textEdit: {start: pos, length: 1, newText: ''}
 				label: {name: ' '}
 			})
-		
-		if triggerCharacter == '.' and tok.match('operator.access') and items.length
-			add completionForItem({
-				filterText: ''
-				commitCharacters: []
-				preselect: yes
-				sortText: "0000"
-				textEdit: {start: pos, length:0, newText: ''}
-				kind: 'snippet'
-				label: {name: ' '}
-			})
+		# if triggerCharacter == '.' and tok.match('operator.access') and items.length
+		# 	add completionForItem({
+		# 		filterText: ''
+		# 		commitCharacters: []
+		# 		preselect: yes
+		# 		sortText: "0000"
+		# 		textEdit: {start: pos, length:0, newText: ''}
+		# 		kind: 'snippet'
+		# 		label: {name: ' '}
+		# 	})
 		self
 		
 	def stylevalue o = {}
