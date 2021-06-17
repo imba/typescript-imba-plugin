@@ -310,8 +310,11 @@ export class SymbolCompletion < Completion
 				ns = "import from {ei.packageName}"
 			else
 				ns = "import from {util.normalizeImportPath(script.fileName,ei.modulePath)}"
+			item.source = ns.slice(12)
 			if ei.exportName == '*'
 				ns = ns.replace(/^import /,'import * ')
+			
+			
 
 	
 	def resolve
@@ -462,6 +465,7 @@ export default class Completions
 				kind: 'snippet'
 				textEdit: {start: pos, length: 1, newText: ''}
 				label: {name: ' '}
+				action: 'cleanAngleBrackets'
 			})
 		# if triggerCharacter == '.' and tok.match('operator.access') and items.length
 		# 	add completionForItem({

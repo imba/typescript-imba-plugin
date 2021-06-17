@@ -345,8 +345,16 @@ export default class ImbaScriptInfo
 			flags |= t.StyleProp
 			
 		if scope.closest('rule')
-			flags |= t.StyleProp
 			flags ~= t.Value
+			
+			if tok.match('white')
+				flags |= t.StyleProp
+							
+		if tok.match('style.selector.class-name')
+			flags |= t.TagFlag
+			
+		if tok.match('style.selector.id')
+			flags |= t.TagId
 			
 		if tok.match('style.property.operator')
 			flags ~= t.StyleProp

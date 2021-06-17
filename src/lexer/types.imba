@@ -72,6 +72,7 @@ export const CompletionTypes = {
 	ImportName: 1 << 16
 	ClassBody: 1 << 17
 	ComponentBody: 1 << 18
+	TagId: 1 << 19
 }
 
 export const KeywordTypes = {
