@@ -123,7 +123,25 @@ export default class ImbaTypeChecker
 		self
 	
 	def getSymbolDetails symbol
-		ts.Completions.createCompletionDetailsForSymbol(sym(symbol),checker,sourceFile,sourceFile)
+		symbol = sym(symbol)
+		let details = ts.Completions.createCompletionDetailsForSymbol(symbol,checker,sourceFile,sourceFile)
+		let tags = symbol.getJsDocTags!
+		let md = []
+		
+		for item in details.documentation
+			md.push(item.text)
+			md.push('\n')
+			
+		for item in tags
+			let text = util.jsDocTagTextToString(item.text)
+			continue if item.name.match(/^(detail|color|snippet)$/)
+			# if item.name == 'see'
+			md.push "*@{item.name}* — {text}"
+			
+		
+		details.markdown = md.join('\n')
+		
+		return details
 	
 		
 	def getStyleValueTypes propName, index = 0

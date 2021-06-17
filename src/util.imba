@@ -144,6 +144,16 @@ export def toPascalCase str
 export def toCustomTagIdentifier str
 	toPascalCase(str + '-custom-element')
 
+export def jsDocTagTextToString content
+	let out = ''
+	content = [content] unless content isa Array
+
+	for item in content
+		item = item.text if item.text
+		if typeof item == 'string'
+			out += item
+	return out
+
 const dasherizeCache = {}
 export def dasherize str
 	dasherizeCache[str] ||= str.replace(/([a-z\d])([A-Z])/g,"$1-$2").toLowerCase!

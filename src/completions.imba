@@ -3,6 +3,7 @@ import * as util from './util'
 import Context from './context'
 
 import {Sym as ImbaSymbol,CompletionTypes as CT} from './lexer'
+import type ImbaScript from './script'
 
 
 const Globals = "global imba module window document exports console process parseInt parseFloat setTimeout setInterval setImmediate clearTimeout clearInterval clearImmediate globalThis isNaN isFinite __dirname __filename".split(' ')
@@ -45,7 +46,7 @@ export class Completion
 	label = {}
 	exportInfo = null
 
-	constructor symbol, context, options = {}
+	constructor symbol, context\Completions, options = {}
 		#cache = {}
 		#context = context
 		#options = options
@@ -274,6 +275,10 @@ export class SymbolCompletion < Completion
 		
 		elif cat == 'tageventmod'
 			triggers '.='
+			# check signatures?
+			if tags.detail..match(/^\(/)
+				triggers '('
+
 		elif cat == 'tagname'
 			triggers '> .[#'
 			kind = 'value'
@@ -303,6 +308,9 @@ export class SymbolCompletion < Completion
 			type = 'snippet'
 			if snip.indexOf('$') >= 0
 				item.commitCharacters = []
+				
+		if tags.detail
+			ns ||= tags.detail
 		
 		# check export info
 		if ei
@@ -319,7 +327,9 @@ export class SymbolCompletion < Completion
 	
 	def resolve
 		let details = checker.getSymbolDetails(sym)
-			
+		
+		item.markdown = details.markdown
+
 		if let docs = details.documentation
 			item.documentation = docs # global.session.mapDisplayParts(docs,checker.project)
 
@@ -367,7 +377,7 @@ export class KeywordCompletion < Completion
 
 export default class Completions
 	
-	constructor script, pos, prefs
+	constructor script\ImbaScript, pos, prefs
 		self.script = script
 		self.pos = pos
 		self.prefs = prefs

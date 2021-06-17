@@ -1,6 +1,7 @@
 declare class EventModifiers {
     /**
      Tells the browser that the default action should not be taken. The event will still continue to propagate up the tree. See Event.preventDefault()
+    @see https://imba.io/events/event-modifiers#core-prevent
     */
     prevent(): EventModifiers;
     /**
@@ -36,10 +37,16 @@ declare class EventModifiers {
     debounce(time?: Time): EventModifiers;
 
 
-    /** Only trigger handler if event.target is the element itself */
+    /** 
+     * Only trigger handler if event.target is the element itself 
+     * 
+     */
     self(): EventModifiers;
 
-    /** Only trigger handler if event.target matches selector */
+    /** 
+     * Only trigger handler if event.target matches selector
+     * @detail (selector)
+     * */
     sel(selector: Selector): EventModifiers;
 
     /**
@@ -51,22 +58,37 @@ declare class EventModifiers {
     emit(data?: any): EventModifiers;
     flag(data?: any): EventModifiers;
 
-    /** Logs to console */
+    /**
+     * Logs to console
+     * @detail (...data)
+     */
     log(...data: any[]): EventModifiers;
 }
 
 declare class UIEventModifiers extends EventModifiers {
 
-    /** Only if ctrl key is pressed */
+    /**
+    * Only if ctrl key is pressed 
+    *
+    */
     ctrl(): EventModifiers;
 
-    /** Only if alt key is pressed */
+    /**
+    * Only if alt key is pressed 
+    *
+    */
     alt(): EventModifiers;
 
-    /** Only if shift key is pressed */
+    /**
+    * Only if shift key is pressed 
+    *
+    */
     shift(): EventModifiers;
 
-    /** Only if meta key is pressed */
+    /**
+    * Only if meta key is pressed 
+    *
+    */
     meta(): EventModifiers;
 
 }
@@ -76,84 +98,165 @@ declare class MouseEventModifiers extends UIEventModifiers {
 }
 
 declare class KeyboardEventModifiers extends UIEventModifiers {
-    /** Only if enter key is pressed */
+    /**
+    * Only if enter key is pressed 
+    *
+    */
     enter(): EventModifiers;
 
-    /** Only if left key is pressed */
+    /**
+    * Only if left key is pressed 
+    *
+    */
     left(): EventModifiers;
 
-    /** Only if right key is pressed */
+    /**
+    * Only if right key is pressed 
+    *
+    */
     right(): EventModifiers;
 
-    /** Only if up key is pressed */
+    /**
+    * Only if up key is pressed 
+    *
+    */
     up(): EventModifiers;
 
-    /** Only if down key is pressed */
+    /**
+    * Only if down key is pressed 
+    *
+    */
     down(): EventModifiers;
 
-    /** Only if tab key is pressed */
+    /**
+    * Only if tab key is pressed 
+    *
+    */
     tab(): EventModifiers;
 
-    /** Only if esc key is pressed */
+    /**
+    * Only if esc key is pressed 
+    *
+    */
     esc(): EventModifiers;
 
-    /** Only if space key is pressed */
+    /**
+    * Only if space key is pressed 
+    *
+    */
     space(): EventModifiers;
 
-    /** Only if del key is pressed */
+    /**
+    * Only if del key is pressed 
+    *
+    */
     del(): EventModifiers;
 }
 
 declare class PointerEventModifiers extends UIEventModifiers {
-    /** Only mouse */
+    /**
+    * Only mouse 
+    *
+    */
     mouse(): EventModifiers;
 
-    /** Only pen */
+    /**
+    * Only pen 
+    *
+    */
     pen(): EventModifiers;
 
-    /** Only hand/fingers */
+    /**
+    * Only hand/fingers 
+    *
+    */
     touch(): EventModifiers;
 }
 
+type ModifierElementTarget = Element | string;
+
 declare class PointerGestureModifiers extends PointerEventModifiers {
-    /** Only mouse */
-    moved(): EventModifiers;
+    /**
+    * Only when touch has moved more than threshold
+    * @detail (threshold = 4px)
+    */
+    moved(threshold?: Length): EventModifiers;
 
-    "moved-x"(): EventModifiers;
+    /**
+    * Only when touch has moved left or right more than threshold
+    * @detail (threshold = 4px)
+    */
+    "moved-x"(threshold?: Length): EventModifiers;
 
-    "moved-y"(): EventModifiers;
+    /**
+    * Only when touch has moved up or down more than threshold
+    * @detail (threshold = 4px)
+    */
+    "moved-y"(threshold?: Length): EventModifiers;
 
-    "moved-up"(): EventModifiers;
+    /**
+    * Only when touch has moved up more than threshold
+    * @detail (threshold = 4px)
+    */
+    "moved-up"(threshold?: Length): EventModifiers;
 
-    "moved-down"(): EventModifiers;
+    /**
+    * Only when touch has moved down more than threshold
+    * @detail (threshold = 4px)
+    */
+    "moved-down"(threshold?: Length): EventModifiers;
 
     /**
      * A convenient touch modifier that takes care of updating the x,y values of some data during touch. When touch starts sync will remember the initial x,y values and only add/subtract based on movement of the touch.
      * 
      * @see https://imba.io/events/touch-events#modifiers-sync
+     * @detail (data, xProp?, yProp?)
      */
     sync(data: object, xName?: string | null, yName?: string | null): EventModifiers;
 
-    /** Only hand/fingers */
+    /**
+    * Convert the coordinates of the touch to some other frame of reference.
+    * @detail (target?,snap?)
+    */
+    fit(): EventModifiers;
     fit(start: Length, end: Length, snap?: number): EventModifiers;
-    fit(context: Element | string, snap?: number): EventModifiers;
-    fit(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
+    fit(target: ModifierElementTarget): EventModifiers;
+    fit(target: ModifierElementTarget, snap?: number): EventModifiers;
+    fit(target: ModifierElementTarget, snap?: number): EventModifiers;
+    fit(target: ModifierElementTarget, start: Length, end: Length, snap?: number): EventModifiers;
 
-
-    /** Only hand/fingers */
-    pin(): EventModifiers;
-
+    /**
+    * Just like @touch.fit but without clamping x,y to the bounds of the
+    * target.
+    * @detail (target?, ax?, ay?)
+    */
     reframe(): EventModifiers;
     reframe(start: Length, end: Length, snap?: number): EventModifiers;
     reframe(context: Element | string, snap?: number): EventModifiers;
     reframe(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
 
+    /**
+     * Alias for reframe
+     * @deprecated Use `.reframe` instead!
+     */
     in(): EventModifiers;
     in(start: Length, end: Length, snap?: number): EventModifiers;
     in(context: Element | string, snap?: number): EventModifiers;
     in(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
 
-    /** Only hand/fingers */
+    /**
+    * Allow pinning the touch to a certain point in an element, so that
+    * all future x,y values are relative to this pinned point.
+    * @detail (target?, ax?, ay?)
+    */
+    pin(): EventModifiers;
+    pin(target: ModifierElementTarget): EventModifiers;
+    pin(target: ModifierElementTarget, anchorX?: number, anchorY?: number): EventModifiers;
+
+    /**
+    * Round the x,y coordinates with an option accuracy
+    * @detail (to = 1)
+    */
     round(nearest?: number): EventModifiers;
 }
 
@@ -167,8 +270,14 @@ type IntersectOptions = {
 }
 
 declare class ImbaIntersectEventModifiers extends EventModifiers {
+    /**
+    * @detail only when intersection increases
+    */
     in(): EventModifiers;
 
+    /**
+    * @detail only when intersection decreases
+    */
     out(): EventModifiers;
 
     css(): EventModifiers;
@@ -181,11 +290,11 @@ declare class ImbaIntersectEventModifiers extends EventModifiers {
 }
 
 declare class ImbaResizeEventModifiers extends UIEventModifiers {
+    /*
     in(): EventModifiers;
-
     out(): EventModifiers;
-
     css(): EventModifiers;
+    */
 }
 
 
@@ -218,11 +327,20 @@ declare class PointerGesture extends PointerEvent {
 }
 
 declare class ImbaIntersectEvent extends Event {
-    /** The raw IntersectionObserverEntry */
+    /**
+    * The raw IntersectionObserverEntry 
+    *
+    */
     entry: IntersectionObserverEntry;
-    /** Ratio of the intersectionRect to the boundingClientRect */
+    /**
+    * Ratio of the intersectionRect to the boundingClientRect 
+    *
+    */
     ratio: number;
-    /** Difference in ratio since previous event */
+    /**
+    * Difference in ratio since previous event 
+    *
+    */
     delta: number;
 
     MODIFIERS: ImbaIntersectEventModifiers;
@@ -243,28 +361,55 @@ interface GlobalEventHandlersEventMap {
 }
 
 interface ImbaEvents {
-    /** The loading of a resource has been aborted. */
+    /**
+    * The loading of a resource has been aborted. 
+    *
+    */
     abort: UIEvent;
     animationcancel: AnimationEvent;
-    /** A CSS animation has completed. */
+    /**
+    * A CSS animation has completed. 
+    *
+    */
     animationend: AnimationEvent;
-    /** A CSS animation is repeated. */
+    /**
+    * A CSS animation is repeated. 
+    *
+    */
     animationiteration: AnimationEvent;
-    /** A CSS animation has started. */
+    /**
+    * A CSS animation has started. 
+    *
+    */
     animationstart: AnimationEvent;
 
     auxclick: MouseEvent;
-    /** An element has lost focus (does not bubble). */
+    /**
+    * An element has lost focus (does not bubble). 
+    *
+    */
     blur: FocusEvent;
 
     cancel: Event;
-    /** The user agent can play the media, but estimates that not enough data has been loaded to play the media up to its end without having to stop for further buffering of content. */
+    /**
+    * The user agent can play the media, but estimates that not enough data has been loaded to play the media up to its end without having to stop for further buffering of content. 
+    *
+    */
     canplay: Event;
-    /** The user agent can play the media up to its end without having to stop for further buffering of content. */
+    /**
+    * The user agent can play the media up to its end without having to stop for further buffering of content. 
+    *
+    */
     canplaythrough: Event;
-    /** The change event is fired for <input>, <select>, and <textarea> elements when a change to the element's value is committed by the user. */
+    /**
+    * The change event is fired for <input>, <select>, and <textarea> elements when a change to the element's value is committed by the user. 
+    *
+    */
     change: Event;
-    /** A pointing device button has been pressed and released on an element. */
+    /**
+    * A pointing device button has been pressed and released on an element. 
+    *
+    */
     click: MouseEvent;
     close: Event;
     contextmenu: MouseEvent;
