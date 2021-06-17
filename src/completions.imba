@@ -270,6 +270,7 @@ export class SymbolCompletion < Completion
 		
 		elif cat == 'tagevent'
 			triggers '.='
+			kind = 'event'
 		
 		elif cat == 'tageventmod'
 			triggers '.='
