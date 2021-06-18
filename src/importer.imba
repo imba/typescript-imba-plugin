@@ -150,7 +150,7 @@ export default class AutoImportContext
 		let jsons = getPackageJsonsVisibleToFile(script.fileName)
 		let packages = {}
 		while let pkg = jsons.pop!
-			let deps = Object.fromEntries(pkg.dependencies)
+			let deps = Object.fromEntries(pkg.dependencies or new Map)
 			let devDeps = Object.fromEntries(pkg.devDependencies or new Map)
 			Object.assign(packages,deps,devDeps)
 		return packages
