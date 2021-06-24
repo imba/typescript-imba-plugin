@@ -65,6 +65,10 @@ export default class ImbaTypeChecker
 		script = script
 		mapper = script.getMapper(program)
 		#typecache = {}
+		#caches = {
+			instanceType: new Map
+			type: new Map
+		}
 	
 	get sourceFile
 		#sourceFile ||= program.getSourceFile(script.fileName)
@@ -378,7 +382,7 @@ export default class ImbaTypeChecker
 		return item
 
 
-	def type item
+	def type item, declaredType = no
 		if typeof item == 'string'
 			if item.indexOf('.') >= 0
 				item = item.split('.')
@@ -388,16 +392,24 @@ export default class ImbaTypeChecker
 		if item isa Array
 			let base = type(item[0])
 			for entry,i in item when i > 0
+				
 				base = type(member(base,entry))
 			item = base
 
 		if item isa SymbolObject
 			# console.log 'get the declared type of the symbol',item,item.flags
-			if item.flags & ts.SymbolFlags.Interface
-				item.instanceType_ ||= checker.getDeclaredTypeOfSymbol(item)
+			if (item.flags & ts.SymbolFlags.Interface) or (item.flags & ts.SymbolFlags.Class)
+
+				let itype = #caches.instanceType.get(item)				
+				itype or #caches.instanceType.set(item,itype = checker.getDeclaredTypeOfSymbol(item))
+
+				# item.instanceType_ ||= checker.getDeclaredTypeOfSymbol(item)
 				
 				unless item.flags & ts.SymbolFlags.Value
-					return item.instanceType_
+					return itype
+					
+				if declaredType
+					return itype
 			
 			item.type_ ||= checker.getTypeOfSymbolAtLocation(item,loc(item) or loc(script))
 			return item.type_
@@ -480,8 +492,9 @@ export default class ImbaTypeChecker
 		# console.log 'member',item,name
 		let key = name.replace(/\!$/,'')
 		let typ = type(item)
+
 		unless typ and typ.getProperty isa Function
-			console.warn 'tried getting type',item,key,typ
+			util.log 'tried getting type',item,key,typ
 
 		let sym = typ.getProperty(key)
 		
@@ -645,7 +658,7 @@ export default class ImbaTypeChecker
 				return 'globalThis'
 				
 				
-			if !sym or !sym.desc..datatype
+			if (!sym or !sym.desc..datatype) and !tok.value.match(/\!$/)
 				# check if sym and sym has datatype(!)
 				let otok = tok.#otok = findExactLocationForToken(tok)
 				# util.log('found exact token for identifier?!',tok,otok)
@@ -660,8 +673,9 @@ export default class ImbaTypeChecker
 					return scope.selfPath
 
 				let accessor = tok.value[0] == tok.value[0].toLowerCase!
+				
 				if accessor
-					util.log('selfPath?',scope.selfPath)
+					# util.log('selfPath?',scope.selfPath)
 					return [scope.selfPath,tok.value]
 				else
 					# need to resolve locally though
