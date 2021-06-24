@@ -10,6 +10,7 @@ let libDir = np.resolve(__realname,'..','..','lib')
 
 global.dirPaths = [__dirname,__filename,__realname]
 global.libDir = libDir
+global.utils = util
 
 
 
