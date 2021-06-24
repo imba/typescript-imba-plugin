@@ -400,10 +400,16 @@ export class ProjectService
 		self
 	
 	def sendProjectLoadingFinishEvent project
+		util.log('sendProjectLoadingFinishEvent',project,!!project.#activatedForImba)
 		#sendProjectLoadingFinishEvent(project)
 		try
 			unless project.#activatedForImba
 				activateProjectForImba(project)
+			else
+				let ils = global.ils
+				if ils and !ils.#vdts
+					ils.refreshVirtualDefinitions!
+				
 		catch e
 			util.log('error',e,project)
 	

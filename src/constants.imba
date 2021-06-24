@@ -47,7 +47,7 @@ export const DefaultConfig = {
 		allowJs: true
 		checkJs: true
 		noEmit: true
-		skipLibCheck: true
+		skipLibCheck: false
 		skipDefaultLibCheck: true
 		allowNonTsExtensions: true
 		allowUnreachableCode: true

@@ -61,8 +61,55 @@ export default class Service
 		if let script = getImbaScript(file)
 			script.didSave!
 		return
-		
-		
+	
+	def refreshVirtualDefinitions
+		try
+			let proj = cp
+			let prog = proj.program
+			let checker = prog.getTypeChecker()
+			let symbols = checker.resolveName('globalThis',null,ts.SymbolFlags.Value).type.getProperties!
+			
+			let out = new util.Writer
+			
+			out.push('declare global')
+
+			for sym in symbols
+				continue if sym.escapedName.indexOf('$$EXT$$') == -1
+				let [m,pre,target,name,mods] = sym.escapedName.split('$$')
+				let typ = "interface {target}"
+				out.push(typ)
+				out.w "{name}: typeof globalThis.{sym.escapedName}"
+				util.log "found {target}.{name} {mods}"
+				out.pop!
+
+			out.popAll!
+			out.w 'export { }'
+			let body = String(out)
+			let src = resolvePath('_global.d.ts')
+			
+			if #vdts
+				let prev = #vdts.textStorage.text
+				if body == prev
+					return false
+
+			ps.openClientFile(src,body,ts.ScriptKind.TS,proj.currentDirectory)
+			let script = ps.getScriptInfo(src)
+			#vdts = script
+
+			if !proj.isRoot(script)
+				proj.addRoot(script)
+				
+			proj.markAsDirty!
+			proj.updateGraph!
+
+			return {script: script, body: body, path: src}
+		catch e
+			util.log 'refreshVirtualDefinitions error',e
+			
+	get vdts
+		refreshVirtualDefinitions! unless #vdts
+		return #vdts
+			
 	def resolveCompletionItem item, data
 		util.log('resolveCompletionItem',item,data)
 		if let ctx = #lastCompletions
@@ -168,14 +215,6 @@ export default class Service
 			for key in ['text','context','trigger','applicable']
 				if let span = res[key + 'Span']
 					convertSpan(span,ls,filename,key)
-			# if res.textSpan
-			# 	convertSpan(res.textSpan,ls,filename,'text')
-			# if res.contextSpan
-			# 	convertSpan(res.contextSpan,ls,filename,'context')
-			# if res.triggerSpan
-			# 	convertSpan(res.triggerSpan,ls,filename,'trigger')
-			# if res.applicableSpan
-			# 	convertSpan(res.applicableSpan,ls,filename,'trigger')
 			if res.textChanges
 				for item in res.textChanges
 					# this is an imba-native version!!
@@ -255,19 +294,29 @@ export default class Service
 
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
+			
 			let defs = res..definitions
 			if script and defs
 				let __new = defs.find do $1.name == '__new'
 				if __new and defs.length > 1
 					defs.splice(defs.indexOf(__new),1)
-				
+					
 				let hasImbaDefs = defs.some do util.isImba($1.fileName)
 				if hasImbaDefs
-					# only remove the responses for new Element?!
-					res.definitions = defs.filter do util.isImba($1.fileName)
+					defs = res.definitions = defs.filter do util.isImba($1.fileName)
+					
+				let augmentation = defs.find do #vdts and #vdts.fileName == $1.fileName
+
+				if augmentation and filename != #vdts.fileName
+					let span = augmentation.contextSpan
+					let proxied = intercept.getDefinitionAndBoundSpan(augmentation.fileName,span.start + span.length)
+					let replace = proxied ? proxied.definitions : []
+					util.log('found augmentation definition!',augmentation,proxied)
+					defs.splice(defs.indexOf(augmentation),1,...replace)
 
 			# for convenience - hide certain definitions
 			util.log('getDefinitionAndBoundSpan',script,dpos,opos,filename,res)
+			
 			return res
 			
 		intercept.getDocumentHighlights = do(filename,pos,filesToSearch)

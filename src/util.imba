@@ -218,4 +218,55 @@ export class Component
 		if config.get('verbose')
 			console.dir(object, depth: 10)
 		return
+
+export def flagsToString num, flags
+	let out = {
+		toString: do this.#string
+		valueOf: do flags
+	}
+	let m = {}
+
+	for own k,v of flags when typeof v == 'number'
+		if num & v and k.indexOf('Excludes') == -1 and k != 'All'
+			m[k] = yes
+	Object.assign(out,m)
+	out.#string = Object.keys(m).join(' ')
+	return out
+
+export class Writer
+	name
+	stack = []
+	out = ''
+	pre = ''
+	
+	def w ln
+		out += pre + ln + '\n'
+	
+	def ind wrap,cb
+		push(wrap)
+		cb()
+		pop!
+
+	def push wrap, state = wrap
+		w(wrap + ' {') if wrap
+		stack.unshift(state)
+		pre += '\t'
+	
+	def pop wrap
+		pre = pre.slice(0,-1)
+		stack.shift!
+		w('}\n')
 		
+	def popAll
+		while stack.length
+			pop!
+		return self
+		
+	get state
+		stack[0]
+		
+	def save
+		yes
+		
+	def toString
+		out
