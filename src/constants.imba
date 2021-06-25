@@ -46,7 +46,9 @@ export const DefaultConfig = {
 	compilerOptions: {
 		allowJs: true
 		checkJs: true
-		noEmit: true
+		noEmit: false
+		declarations: true
+		emitDeclarationOnly: true
 		skipLibCheck: false
 		skipDefaultLibCheck: true
 		allowNonTsExtensions: true

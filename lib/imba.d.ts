@@ -30,7 +30,7 @@ interface Element {
     focus(options?: any): void;
     blur(): void;
 
-    [key: string]: any;
+    // [key: string]: any;
 
     setAttribute(name: string, value: boolean): void;
     setAttribute(name: string, value: number): void;
@@ -72,7 +72,6 @@ declare class ImbaElement extends HTMLElement {
   */
     suspend(): this;
     unsuspend(): this;
-    [key: string]: any;
 }
 
 declare class GlobalCustomElement extends HTMLElement {

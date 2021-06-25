@@ -12,7 +12,7 @@ global.dirPaths = [__dirname,__filename,__realname]
 global.libDir = libDir
 global.utils = util
 
-
+global.ils\Service = null
 
 export default class Service
 	setups = []
@@ -62,54 +62,6 @@ export default class Service
 		if let script = getImbaScript(file)
 			script.didSave!
 		return
-	
-	def refreshVirtualDefinitions
-		try
-			let proj = cp
-			let prog = proj.program
-			let checker = prog.getTypeChecker()
-			let symbols = checker.resolveName('globalThis',null,ts.SymbolFlags.Value).type.getProperties!
-			
-			let out = new util.Writer
-			
-			out.push('declare global')
-
-			for sym in symbols
-				continue if sym.escapedName.indexOf('$$EXT$$') == -1
-				let [m,pre,target,name,mods] = sym.escapedName.split('$$')
-				let typ = "interface {target}"
-				out.push(typ)
-				out.w "{name}: typeof globalThis.{sym.escapedName}"
-				util.log "found {target}.{name} {mods}"
-				out.pop!
-
-			out.popAll!
-			out.w 'export { }'
-			let body = String(out)
-			let src = resolvePath('_global.d.ts')
-			
-			if #vdts
-				let prev = #vdts.textStorage.text
-				if body == prev
-					return false
-
-			ps.openClientFile(src,body,ts.ScriptKind.TS,proj.currentDirectory)
-			let script = ps.getScriptInfo(src)
-			#vdts = script
-
-			if !proj.isRoot(script)
-				proj.addRoot(script)
-				
-			proj.markAsDirty!
-			proj.updateGraph!
-
-			return {script: script, body: body, path: src}
-		catch e
-			util.log 'refreshVirtualDefinitions error',e
-			
-	get vdts
-		refreshVirtualDefinitions! unless #vdts
-		return #vdts
 			
 	def resolveCompletionItem item, data
 		util.log('resolveCompletionItem',item,data)
@@ -121,16 +73,6 @@ export default class Service
 		
 	def getExternalFiles proj
 		return []
-		# check for imba files resolved by proj
-		return [] if proj isa ts.server.InferredProject
-		if proj.#gotImbaFiles =? true
-			# ch
-			# maybe follow up on the configured projects?
-			let files = ps.host.readDirectory(cwd,['.imba'],['node_modules'],[],4)
-			util.log "GET EXTERNAL FILES!!!",arguments,files
-			return files
-		return []	
-		
 		
 	def handleRequest {id,data}
 		# util.log('handleRequest',data)
@@ -150,9 +92,6 @@ export default class Service
 		self
 
 	def prepareProjectForImba proj
-		# return proj
-		# host.readDirectory(project.currentDirectory,null,['node_modules'],['*.imba'],4)
-		# only if there are imba files there?!
 		let inferred = proj isa ts.server.InferredProject
 		let opts = proj.getCompilerOptions!
 		let libs = opts.lib or ["esnext","dom","dom.iterable"]
@@ -203,8 +142,21 @@ export default class Service
 			span.length = end - start
 		return span
 		
+	def convertImbaDtsDefinition item
+		try
+			let file = item.fileName.replace("._.d.ts",'')
+			let script = getImbaScript(file)
+			let path = "{item.containerName}.prototype.{item.name}"
+			let token = script.doc.findPath(path)
+			util.log "converting path!?",item,path,token
+			if token
+				item.textSpan = token.span
+				item.contextSpan = token.body ? script.doc.expandSpanToLines(token.body.contextSpan) : token.span
+			item.fileName = file
+		return item
 		
-	def convertLocationsToImba res, ls, filename
+		
+	def convertLocationsToImba res, ls, filename, kind = null
 		if res isa Array
 			for item in res
 				convertLocationsToImba(item,ls,item.fileName)
@@ -237,6 +189,11 @@ export default class Service
 		if res.definitions
 			for item in res.definitions
 				convertLocationsToImba(item,ls,item.fileName or item.file)
+		
+		# convert definitions from _.d.ts
+		if util.isImbaDts(res.fileName)
+			if res.containerName != undefined
+				convertImbaDtsDefinition(res)
 				
 		if res.fileName and typeof res.name == 'string'
 			res.name = util.toImbaString(res.name)
@@ -305,15 +262,6 @@ export default class Service
 				let hasImbaDefs = defs.some do util.isImba($1.fileName)
 				if hasImbaDefs
 					defs = res.definitions = defs.filter do util.isImba($1.fileName)
-					
-				let augmentation = defs.find do #vdts and #vdts.fileName == $1.fileName
-
-				if augmentation and filename != #vdts.fileName
-					let span = augmentation.contextSpan
-					let proxied = intercept.getDefinitionAndBoundSpan(augmentation.fileName,span.start + span.length)
-					let replace = proxied ? proxied.definitions : []
-					util.log('found augmentation definition!',augmentation,proxied)
-					defs.splice(defs.indexOf(augmentation),1,...replace)
 
 			# for convenience - hide certain definitions
 			util.log('getDefinitionAndBoundSpan',script,dpos,opos,filename,res)
@@ -457,7 +405,14 @@ export default class Service
 	
 	def rewriteInboundMessage msg
 		msg
-		
+	
+	def awakenProjectForImba proj
+		util.warn "service awakenProjectForImba"
+		# what if it happens multiple times?
+		# now we should block / delay the mark project as dirty stuff
+		for item in imbaScripts
+			item.syncDts!
+		self
 		
 	def setup
 		let exts = (ps.hostConfiguration.extraFileExtensions ||= [])

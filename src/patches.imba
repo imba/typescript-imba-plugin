@@ -386,7 +386,7 @@ export class ProjectService
 		if isLoading
 			return
 		
-		if project.#activatedForImba =? yes
+		if project.#patchedForImba =? yes
 			let exts = (hostConfiguration.extraFileExtensions ||= [])
 			exts.push('.imba') if exts.indexOf('.imba') == -1
 
@@ -398,17 +398,20 @@ export class ProjectService
 					cfg.config.reloadLevel = 1
 					reloadFileNamesOfConfiguredProject(project)
 		self
+		
+	def awakenProjectForImba project
+		util.warn('awakenProjectForImba',project)
+		
 	
 	def sendProjectLoadingFinishEvent project
-		util.log('sendProjectLoadingFinishEvent',project,!!project.#activatedForImba)
+		util.log('sendProjectLoadingFinishEvent',project,!!project.#patchedForImba)
 		#sendProjectLoadingFinishEvent(project)
 		try
-			unless project.#activatedForImba
+			if !project.#patchedForImba
 				activateProjectForImba(project)
-			else
-				let ils = global.ils
-				if ils and !ils.#vdts
-					ils.refreshVirtualDefinitions!
+			elif !project.#awakenedForImba and global.ils
+				project.#awakenedForImba = yes
+				global.ils.awakenProjectForImba(project)
 				
 		catch e
 			util.log('error',e,project)

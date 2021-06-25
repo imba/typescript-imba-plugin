@@ -9,6 +9,7 @@ import ImbaScriptInfo from './lexer/script'
 import Completions from './completions'
 import ImbaScriptContext from './context'
 import ImbaTypeChecker from './checker'
+import ImbaScriptDts from './dts'
 
 export default class ImbaScript
 	constructor info
@@ -20,7 +21,11 @@ export default class ImbaScript
 			info.scriptKind = 1
 			util.log("had to wake script {fileName}")
 			
-
+	get ils
+		global.ils
+		
+	get dts
+		#dts ||= new ImbaScriptDts(self)
 			
 	def getMapper target
 		let snap = target ? target.getSourceFile(fileName).scriptSnapshot : info.getSnapshot!
@@ -101,13 +106,31 @@ export default class ImbaScript
 			its.edit(0, end, result.js)
 			let snap = its.svc.getSnapshot!
 			snap.mapper = result
-			info.markContainingProjectsAsDirty!
-			global.session.refreshDiagnostics!
+			result.#applied = yes
+	
+			result.script.markContainingProjectsAsDirty!
+			let needDts = result.js.indexOf('class Extend$') >= 0
+			util.log('onDidCompileScript',result,needDts)
+			if ils.isSemantic
+				global.session.refreshDiagnostics!
 		else
 			util.log('errors from compilation!!!',result)
 			diagnostics=result.diagnostics
 			global.session.refreshDiagnostics!
 		self
+		
+	def syncDts
+		if lastCompilation..shouldGenerateDts
+			util.log "syncDts"
+			let prog = project.program
+			let script = prog.getSourceFile(fileName)
+			let out = {}
+			let body\string
+			let writer = do(path,b) out[path] = body = b
+			let res = prog.emit(script,writer,null,true,[],true)
+			util.log 'emitted dts',out,res,body
+			dts.update(body) 
+		return self
 		
 	def getImbaDiagnostics
 		
@@ -139,7 +162,7 @@ export default class ImbaScript
 	def editContent start, end, newText
 		svc.edit(start,end - start,newText)
 		# this should just start asynchronously instead
-		if global.ils.isSemantic
+		if ils.isSemantic
 			util.delay(self,'asyncCompile',250)
 
 	def compile
@@ -172,7 +195,11 @@ export default class ImbaScript
 		
 	def didSave
 		try
-			snapshot.#saved = yes
+			let snap = snapshot
+			snap.#saved = yes
+			if lastCompilation..input == snap
+				util.log 'saved compilation that was already applied',lastCompilation
+				syncDts!
 		yes
 		
 	def getTypeChecker sync = no

@@ -12,6 +12,17 @@ class Logger
 		
 	get last
 		logs[0]
+		
+	def warn ...params
+		return unless process.env.TSS_DEBUG
+		call('warn',...params)
+	
+	def call typ, ...params
+		return unless process.env.TSS_DEBUG
+		
+		if console.context isa Function
+			console.context![typ](...params)
+			return
 	
 	def log ...params
 		return unless process.env.TSS_DEBUG
@@ -110,9 +121,17 @@ export def log ...params
 	return unless DEBUGGING
 	global.logger.log(...params)
 	
+export def warn ...params
+	return unless DEBUGGING
+	global.logger.warn(...params)
+	
 export def isImba src
 	return false unless src
 	src.substr(src.lastIndexOf(".")) == '.imba'
+	
+export def isImbaDts src
+	return false unless src
+	return src.indexOf(".imba._.d.ts") > 0
 
 export def delay target, name, timeout = 500, params = []
 	let meta = target.#timeouts ||= {}
