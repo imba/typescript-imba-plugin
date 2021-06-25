@@ -193,6 +193,14 @@ export default class ImbaScriptInfo
 			num += amount
 			return [start + pre.length,word.length - pre.length - post.length,String(num)]
 		return null
+		
+	def expandSpanToLines span
+		let start = index.positionToColumnAndLineText(span.start)
+		let end = index.positionToColumnAndLineText(span.start + span.end)
+		
+		span.start = span.start - start.zeroBasedColumn
+		span.length = span.length + start.zeroBasedColumn
+		return span
 	
 	def contextAtOffset offset
 		ensureParsed!
@@ -836,6 +844,17 @@ export default class ImbaScriptInfo
 		let tokens = getTokens!
 		tokens = tokens.slice(0).filter do $1.match(filter)
 		return tokens
+		
+	def findPath path
+		let parts = path.split('.')
+		let name = parts[parts.length - 1]
+
+		for sym in getSymbols!
+			if sym.name == name
+				# console.log "found!",sym,sym.body.path
+				if sym.body and sym.body.path == path
+					return sym.node
+		return
 	
 	def createImportEdit path, name, alias = name, asType = no
 		

@@ -45,6 +45,7 @@ SymbolFlags.Variable = SymbolFlags.LetVariable | SymbolFlags.ConstVariable | Sym
 SymbolFlags.Accessor = SymbolFlags.GetAccessor | SymbolFlags.SetAccessor
 SymbolFlags.ClassMember = SymbolFlags.Method | SymbolFlags.Accessor | SymbolFlags.Property
 SymbolFlags.Scoped = SymbolFlags.Function | SymbolFlags.Variable | SymbolFlags.Class | SymbolFlags.Enum | SymbolFlags.LocalComponent
+SymbolFlags.Entity = SymbolFlags.ClassMember | SymbolFlags.Function
 SymbolFlags.Type = SymbolFlags.Component | SymbolFlags.Class
 
 SymbolFlags.GlobalVar = SymbolFlags.ConstVariable | SymbolFlags.IsGlobal
@@ -147,6 +148,9 @@ export class Sym
 
 	get static?
 		node && node.mods & M.Static
+		
+	get entity?
+		flags & SymbolFlags.Entity
 
 	get itervar?
 		node && node.match('.decl-for')

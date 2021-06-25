@@ -66,7 +66,10 @@ export class Node
 		let starts = start.startOffset
 		let ends = end ? end.endOffset : doc.content.length
 		{start: starts, length: (ends - starts)}
-		
+	
+	get contextSpan
+		span
+
 	def findChildren pattern, returnFirst = no
 		let found = []
 		let tok = start
