@@ -7,12 +7,21 @@ const userPrefs = {
 	includePackageJsonAutoImports:"on"
 	includeAutomaticOptionalChainCompletions:false
 }
+# Array.from(t.autoImports.exportInfoMap.keys()).map(v=>v.split('|')[2]).filter((v,i,s)=>s.indexOf(v)==i)
 
-const ambientMap = {
-	fs: 'fs'
-	child_process: 'cp'
-	os: 'os'
-	crypto: 'crypto'
+const builtinMap = {
+	fs: {ns: 'fs'}
+	
+	'fs/promises': {ns: 'fs'}
+	child_process: {ns: 'cp'}
+	os: {ns: 'os'}
+	v8: {ns: 'v8'}
+	crypto: {ns: 'crypto'}
+	http: {ns: 'http'}
+	https: {ns: 'https'}
+	http2: {ns: 'http2'}
+	net: {ns: 'net'}
+	sys: {ns: 'sys'}
 }
 
 export default class AutoImportContext
@@ -48,8 +57,10 @@ export default class AutoImportContext
 		let t = Date.now!
 		for [key,[info]] of map
 			let [name,ref,ns] = key.split('|')
-			continue if ns.match(/^imba_/)
+			# continue if ns.match(/^imba_/)	
+			continue if ns[0] != '/' and !builtinMap[ns]
 			let path = getResolvePathForExportInfo(info) or ns
+			continue if util.isImbaDts(path)
 			info.modulePath = path
 			info.packageName = getPackageNameForPath(path)
 			info.#key = key
