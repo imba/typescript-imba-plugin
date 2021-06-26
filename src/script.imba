@@ -349,9 +349,9 @@ export default class ImbaScript
 			
 		
 	def getQuickInfo pos, ls
-		let out = getInfoAt(pos,ls)
-		
-		if out.info
-			return out.info
-
+		try
+			let out = getInfoAt(pos,ls)
+			
+			if out.info
+				return out.info
 		return null

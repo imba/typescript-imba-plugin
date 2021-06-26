@@ -49,7 +49,7 @@ export const DefaultConfig = {
 		noEmit: false
 		declarations: true
 		emitDeclarationOnly: true
-		skipLibCheck: false
+		skipLibCheck: true
 		skipDefaultLibCheck: true
 		allowNonTsExtensions: true
 		allowUnreachableCode: true

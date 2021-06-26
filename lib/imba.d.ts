@@ -26,6 +26,21 @@ interface Element {
     router: ImbaRouter;
     $key: any;
 
+    // itemid: any;
+    // itemprop: any;
+    // itemref: any;
+    // itemscope: any;
+    // itemtype: any;
+    // enterkeyhint: any;
+    // autofocus: any;
+    // autocapitalize: any;
+    // autocomplete: any;
+    // accesskey: any;
+    // inputmode: any;
+    // spellcheck: any;
+    // translate: any;
+    // is: any;
+
     emit(event: string, params?: any, options?: any): Event;
     focus(options?: any): void;
     blur(): void;
@@ -72,6 +87,20 @@ declare class ImbaElement extends HTMLElement {
   */
     suspend(): this;
     unsuspend(): this;
+
+    isRender: boolean;
+    isMounting: boolean;
+    isMounted: boolean;
+    isAwakened: boolean;
+    isRendered: boolean;
+    isSuspended: boolean;
+    isRendering: boolean;
+    isScheduled: boolean;
+    isHydrated: boolean;
+
+    schedule(): this;
+    unschedule(): this;
+
 }
 
 declare class GlobalCustomElement extends HTMLElement {

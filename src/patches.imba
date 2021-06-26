@@ -46,7 +46,8 @@ export class Session
 		
 	def refreshDiagnostics
 		# @ts-ignore
-		let files = Array.from(projectService.openFiles.keys!)
+		let files = Array.from(projectService.openFiles.keys!).filter do !util.isImbaDts($1)
+
 		# @ts-ignore
 		let handler = handlers.get('geterr')
 		# wont send in syntactic mode?
