@@ -1,4 +1,5 @@
 import np from 'path'
+export {tagNameToClassName} from './schemas'
 
 const DEBUGGING = process.env.TSS_DEBUG
 let TRACING = null
@@ -57,11 +58,6 @@ export const state = {
 	
 }
 
-export def toImbaString str
-	str = str.replace(/(\w+)\$\$TAG\$\$/g) do $2.replace(/\_/g,'-')
-	str = str.replace(/(_\$SYM\$_)+(\w+)/g) do $1.split("_$SYM$_").join("#")
-	return str
-
 export def normalizePath path
 	path.split(np.sep).join('/')
 	
@@ -93,6 +89,12 @@ export def trace cb
 	TRACING = null
 	return {result: res, logs: t}
 	
+
+# export def fromJSIdentifier str
+# 	str[0] + str.slice(1).replace(/\$$/,'?').replace(/\$/g,'-')
+# 
+# export def toJSIdentifier str
+# 	str.replace(/[-\?]/g,'$')
 
 export def zerofill num, digits = 4
 	return fillCache[num] if fillCache[num]
@@ -152,6 +154,56 @@ export def call target,name,params
 export def flush target, name,...params
 	let meta = target.#timeouts ||= {}
 	call(target,name,params) if meta[name]
+	
+	
+
+# To avoid collisions etc with symbols we are using
+# greek characters to convert special imba identifiers
+# to valid js identifiers.
+export const ToJSMap = {
+	'-': 'Ξ'
+	'?': 'Φ'
+	'#': 'Ψ'
+}
+
+const toJSregex = new RegExp("[\-\?\#]","gu")
+const toJSreplacer = do(m) ToJSMap[m]
+
+export def toJSIdentifier raw
+	raw.replace(toJSregex,toJSreplacer)
+
+export const ToImbaMap = {
+	'Ξ': '-'
+	'Φ': '?'
+	'Ψ': '#'
+	'Γ': ''
+}
+
+const toImbaRegex = new RegExp("[ΞΦΨΓ]","gu")
+const toImbaReplacer = do(m) ToImbaMap[m]
+
+export def toImbaIdentifier raw
+	raw.replace(toImbaRegex,toImbaReplacer)
+	
+export def toImbaString str
+	unless typeof str == 'string'
+		log('cannot convert to imba string',str)
+		return str
+
+	str = str.replace(toImbaRegex,toImbaReplacer)
+	return str
+
+export def fromJSIdentifier raw
+	toImbaIdentifier(raw)
+	
+export def displayPartsToString parts
+	fromJSIdentifier(global.ts.displayPartsToString(parts))
+
+export def toImbaDisplayParts parts
+	for part in parts
+		part.text = part.text.replace(toImbaRegex,toImbaReplacer)
+	return parts
+
 
 export def isPascal str
 	let chr = str.charCodeAt(0)
@@ -161,7 +213,8 @@ export def toPascalCase str
 	str.replace(/(^|[\-\_\s])(\w)/g) do(m,v,l) l.toUpperCase!
 
 export def toCustomTagIdentifier str
-	toPascalCase(str + '-custom-element')
+	'Γ' + toJSIdentifier(str)
+	# toPascalCase(str + '-custom-element')
 
 export def jsDocTagTextToString content
 	let out = ''

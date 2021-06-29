@@ -143,11 +143,15 @@ export class Session
 				continue unless mapper
 				
 				if item.#converted =? yes
+					item.messageText = util.toImbaString(item.messageText)
 					let mapper = item.file..scriptSnapshot..mapper
 					let opos = item.#opos = [item.start,item.start + item.length]
 					item.#otext = mapper.otext(opos[0],opos[1])
 					Diagnostics.filter(item,project,kind)
 					continue if item.#suppress
+					
+					for rel in item.relatedInformation
+						rel.messageText = util.toImbaString(rel.messageText)
 
 					let range = mapper.o2iRange(item.start,item.start + item.length,no)
 					# let start = mapper.o2d(item.start)
@@ -640,14 +644,14 @@ export default def patcher ts
 		get imbaName
 			return #imbaName if #imbaName
 			let name = escapedName
-			if name.indexOf('$$TAG$$') > 0
-				name = name.slice(0,-7).replace(/\_/g,'-')
-			elif name.match(/^[\w\-]+CustomElement$/)
-				name = util.dasherize(name.slice(0,-13))
-			elif name.indexOf('_$SYM$_') == 0
-				name = name.split("_$SYM$_").join("#")
-			elif name.indexOf('___') == 0
+			# elif name.match(/^[\w\-]+CustomElement$/)
+			#	name = util.dasherize(name.slice(0,-13))
+			# elif name.indexOf('_$SYM$_') == 0
+			#	name = name.split("_$SYM$_").join("#")
+			if name.indexOf('___') == 0
 				name = name.slice(1)
+			
+			name = util.fromJSIdentifier(name)
 
 			#imbaName = name
 			

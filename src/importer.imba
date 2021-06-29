@@ -46,15 +46,24 @@ export default class AutoImportContext
 			return #exportInfoMap ||= new Map()
 		
 		# @ts-ignore
-		#exportInfoMap ||= ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
+		return #exportInfoMap if #exportInfoMap
+			
+		let debugs = ts.Debug.isDebugging
+		ts.Debug.isDebugging = true
+		map = ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
+		ts.Debug.isDebugging = debugs
+		#exportInfoMap = map
 	
 	get exportInfoEntries
 		return #exportInfoEntries if #exportInfoEntries
 		let map = exportInfoMap
+		
+		map = map.__cache or map
 		let groups = {}
 		let out = #exportInfoEntries = []
 		
 		let t = Date.now!
+
 		for [key,[info]] of map
 			let [name,ref,ns] = key.split('|')
 			# continue if ns.match(/^imba_/)	

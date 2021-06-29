@@ -12,7 +12,7 @@ extend class ImbaSymbol
 		let F = global.ts.SymbolFlags
 		if parameter?
 			f |= F.FunctionScopedVariable
-		elif varaible?
+		elif variable?
 			f |= F.BlockScopedVariable
 		if member?
 			f |= F.Property
@@ -141,8 +141,10 @@ export default class ImbaTypeChecker
 			continue if item.name.match(/^(detail|color|snippet)$/)
 			# if item.name == 'see'
 			md.push "*@{item.name}* — {text}"
-			
 		
+		if typeof details.detail == 'string'
+			details.detail = util.fromJSIdentifier(details.detail)
+
 		details.markdown = md.join('\n')
 		
 		return details
@@ -181,8 +183,8 @@ export default class ImbaTypeChecker
 		props(cssrule)
 		
 	def getGlobalTags
-		# allGlobals.filter do $1.escapedName.indexOf('$$TAG$$') >= 0
-		allGlobals.filter do $1.escapedName.indexOf('CustomElement') > 0
+		# allGlobals.filter do $1.escapedName.indexOf('CustomElement') > 0
+		allGlobals.filter do $1.escapedName[0] == 'Γ'
 		
 	def getLocalTagsInScope
 		let symbols = checker.getSymbolsInScope(sourceFile,32)
@@ -197,6 +199,7 @@ export default class ImbaTypeChecker
 		symbol = sym(symbol)
 		let out = ts.SymbolDisplay.getSymbolDisplayPartsDocumentationAndSymbolKind(checker,symbol,sourceFile,sourceFile,sourceFile)
 		if out
+			out.displayParts &&= util.toImbaDisplayParts(out.displayParts)
 			out.kindModifiers = ts.SymbolDisplay.getSymbolModifiers(checker, symbol)
 			out.kind = out.symbolKind
 		return out
@@ -208,17 +211,24 @@ export default class ImbaTypeChecker
 		}
 		
 	
-	def getTagSymbol name
+	def getTagSymbol name, forAttributes = no
 		let symbol
 		if util.isPascal(name)
 			symbol = local(name)
 		else
 			# check in global html types
-			symbol = sym("HTMLElementTagNameMap.{name}")
+			let root = forAttributes ? 'ImbaHTMLTags' : 'HTMLElementTagNameMap'
+			symbol = sym("{root}.{name}")
 			
 			unless symbol
 				# let key = name.replace(/\-/g,'_') + '$$TAG$$'
-				symbol = sym("globalThis.{util.toCustomTagIdentifier(name)}")
+				if let typ = type("globalThis.{util.toCustomTagIdentifier(name)}")
+					symbol = typ.symbol
+				# symbol = sym("globalThis.{util.toCustomTagIdentifier(name)}")
+				
+			unless symbol
+				if let cname = util.tagNameToClassName(name)
+					symbol = sym("globalThis.{cname}")
 
 		return symbol
 		
@@ -479,6 +489,8 @@ export default class ImbaTypeChecker
 		yes
 		
 		# checker.getSymbolAtLocation(f0.checker.loc(25))
+		
+	def t
 
 	def member item, name
 		return unless item
@@ -492,6 +504,11 @@ export default class ImbaTypeChecker
 		# console.log 'member',item,name
 		let key = name.replace(/\!$/,'')
 		let typ = type(item)
+		
+		if name == 'prototype' and typ and typ.symbol and typ.objectFlags & ts.ObjectFlags.Interface
+			util.log 'skip prototype',item,typ
+			return typ.symbol
+			
 
 		unless typ and typ.getProperty isa Function
 			util.log 'tried getting type',item,key,typ

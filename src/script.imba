@@ -286,6 +286,24 @@ export default class ImbaScript
 			# ought to take paths from imbaconfig / jsconfig into account?!
 			out.resolvedPath = util.resolveImportPath(fileName,str)
 			out.resolvedModule = resolveImport(str,yes)
+			
+		if ctx.tagName
+			out.tag = checker.getTagSymbol(ctx.tagName,yes)
+			# hit(checker.getTagSymbol(ctx.tagName,yes),'tag')
+			# if util.isPascal(ctx.tagName)
+			# 	hit(checker.resolve(ctx.tagName),'tag')
+			# else
+			# 	hit(checker.sym("ImbaHTMLTags.{ctx.tagName}"),'tag')
+			# 	unless out.sym
+			# 		let path = "globalThis.{util.toCustomTagIdentifier(ctx.tagName)}"
+			# 		if let typ = checker.type(path)
+			# 			hit(typ.symbol,'tag')
+			# out.sym = null
+			
+		if ctx.tagAttrName and out.tag
+			out.tagattr = checker.member([out.tag,'prototype'],util.toJSIdentifier(ctx.tagAttrName))
+			
+		util.log "prepopulate?",out
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,post] = tok.value.match(/^(@|\.+)([\w\-\d]*)$/)
@@ -309,20 +327,15 @@ export default class ImbaScript
 			let name = tok.value.replace('@','')
 			hit(checker.sym("ImbaEvents.{name}"),'event')
 			# out.sym ||= 
-			
+		
+		
+		util.log('context for quick info',ctx)
 		if tok.match('tag.name')
-			let name = tok.value.replace('@','')
-			let pascal = util.isPascal(name)
+			out.sym = out.tag
+		
+		if tok.match('tag.attr') and out.tag
+			out.sym = out.tagattr
 			
-			if pascal
-				hit(checker.resolve(name),'tag')
-			else
-				hit(checker.sym("ImbaHTMLTags.{name}"),'tag')
-				unless out.sym
-					let path = "globalThis.{util.toCustomTagIdentifier(name)}"
-					if let typ = checker.type(path)
-						hit(typ.symbol,'tag')
-
 		if tok.match('white keyword')
 			return {info: {}}
 			

@@ -322,6 +322,10 @@ export class SymbolCompletion < Completion
 			if ei.exportName == '*'
 				ns = ns.replace(/^import /,'import * ')
 			
+			# dont be trigger-happy with commitCharacters for imports
+			item.commitCharacters = item.commitCharacters.filter do(item)
+				".!([, ".indexOf(item) == -1
+			
 			
 
 	
@@ -334,7 +338,7 @@ export class SymbolCompletion < Completion
 			item.documentation = docs # global.session.mapDisplayParts(docs,checker.project)
 
 		if let dp = details.displayParts
-			item.detail = global.ts.displayPartsToString(dp)
+			item.detail = util.displayPartsToString(dp)
 		# documentation: this.mapDisplayParts(details.documentation, project),
 		# tags: this.mapJSDocTagInfo(details.tags, project, useDisplayParts),
 		# item.documentation = details.documentation
@@ -524,7 +528,6 @@ export default class Completions
 		# let attrs = checker.props("ImbaHTMLTags.{o.name}")
 		let pascal = o.name[0] == o.name[0].toUpperCase!
 		let globalPath = pascal ? o.name : util.toCustomTagIdentifier(o.name)
-		# o.name.replace(/\-/g,'_') + '$$TAG$$'
 
 		unless sym
 			sym = try checker.sym("{globalPath}.prototype")

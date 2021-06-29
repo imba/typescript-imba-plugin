@@ -62,6 +62,8 @@ export default class ImbaScriptDts
 		
 		# replace extends field
 		body = body.replace(/^[\t\s]+__extends__\:.+;/gm,'')
+		
+		body = body + '\nexport {}'
 	
 	
 		if #body =? body

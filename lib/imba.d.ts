@@ -65,6 +65,10 @@ interface Element {
     log(...arguments: any[]): void;
 }
 
+interface HTMLMetaElement {
+    property?: string;
+}
+
 interface EventListenerOptions {
     passive?: boolean;
     once?: boolean;
@@ -81,6 +85,13 @@ interface HTMLStyleElement {
     src: ImbaAsset | string;
 }
 
+interface SVGSVGElement {
+    /**
+     * Reference to svg asset that will be inlined
+     */
+    src: ImbaAsset | string;
+}
+
 declare class ImbaElement extends HTMLElement {
     /**
   * Creates an instance of documenter.
@@ -88,22 +99,37 @@ declare class ImbaElement extends HTMLElement {
     suspend(): this;
     unsuspend(): this;
 
-    isRender: boolean;
-    isMounting: boolean;
-    isMounted: boolean;
-    isAwakened: boolean;
-    isRendered: boolean;
-    isSuspended: boolean;
-    isRendering: boolean;
-    isScheduled: boolean;
-    isHydrated: boolean;
+    /** Return false if component should not render */
+    get renderΦ(): boolean;
+    /** True if component is currently being mounted */
+    get mountingΦ(): boolean;
+    /** True if component is currently mounted in document */
+    get mountedΦ(): boolean;
+    /** True if component has been awakened */
+    get awakenedΦ(): boolean;
+    /** True if component has been rendered */
+    get renderedΦ(): boolean;
+    /** True if component has been suspended */
+    get suspendedΦ(): boolean;
+    /** True if component is currently rendering */
+    get renderingΦ(): boolean;
+    /** True if component is scheduled to automatically render */
+    get scheduledΦ(): boolean;
+    /** True if component has been hydrated on the client */
+    get hydratedΦ(): boolean;
+    /** True if component was originally rendered on the server */
+    get ssrΦ(): boolean;
 
     schedule(): this;
     unschedule(): this;
 
 }
 
-declare class GlobalCustomElement extends HTMLElement {
+
+/** Portal to declare window/document event handlers from
+ * inside custom tags.
+ */
+declare class Γglobal extends HTMLElement {
 
 }
 

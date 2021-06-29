@@ -189,7 +189,15 @@ export default class Service
 		if res.definitions
 			for item in res.definitions
 				convertLocationsToImba(item,ls,item.fileName or item.file)
+				
+		if res.description
+			res.description = util.toImbaString(res.description)
 		
+		if res.changes
+			for item in res.changes
+				for tc in item.textChanges
+					tc.newText = util.toImbaString(tc.newText)
+
 		# convert definitions from _.d.ts
 		if util.isImbaDts(res.fileName)
 			if res.containerName != undefined
@@ -199,9 +207,11 @@ export default class Service
 			res.name = util.toImbaString(res.name)
 			
 		if res.displayParts
-			for dp,i in res.displayParts
-				if dp.text.indexOf('$') >= 0
-					dp.text = util.toImbaString(dp.text,dp,res.displayParts)
+			res.displayParts = util.toImbaDisplayParts(res.displayParts)
+			# for dp,i in res.displayParts
+			# 	dp.text = util.toImbaIdentifier(dp.text)
+			# 	if dp.text.indexOf('$') >= 0
+			# 		dp.text = util.toImbaString(dp.text,dp,res.displayParts)
 
 		return res
 		
