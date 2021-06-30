@@ -68,7 +68,7 @@ def denter indent,outdent,stay,o = {}
 export const states = {
 
 	root: [
-		[/^@comment/,'comment','@>_comment'] # want to push this state _ before the token
+		# [/^@comment/,'comment','@>_comment'] # want to push this state _ before the token
 		[/^(\t+)(?=[^\t\n])/,{cases: {
 			'$1==$S2\t': {token: 'white.indent',next: '@>_indent*$1'}
 			'@default': 'white.indent'
@@ -335,7 +335,8 @@ export const states = {
 	]
 
 	comment_: [
-		[/#(\s.*)?(\n|$)/, 'comment']
+		[/#(\s.*)?(?=\n)/, 'comment']
+		# [/#(\s.*)?(\n|$)/, 'comment']
 	]
 
 	block_comment_: [
@@ -1244,7 +1245,8 @@ export const grammar = {
 	math: ['+', '-', '*', '/', '++', '--']
 
 	unspaced_ops: regexify('... . .. + * ++ --')
-	comment: /#(\s.*)?(\n|$)/
+	# comment: /#(\s.*)?(\n|$)/
+	comment: /#(\s.*)?(?=\n|$)/
 	# we include these common regular expressions
 	symbols: /[=><!~?&%|+\-*\^,]+/,
 	escapes: /\\(?:[abfnrtv\\"'$]|x[0-9A-Fa-f]{1,4}|u[0-9A-Fa-f]{4}|U[0-9A-Fa-f]{8})/,

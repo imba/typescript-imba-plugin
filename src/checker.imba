@@ -489,8 +489,6 @@ export default class ImbaTypeChecker
 		yes
 		
 		# checker.getSymbolAtLocation(f0.checker.loc(25))
-		
-	def t
 
 	def member item, name
 		return unless item
@@ -503,6 +501,7 @@ export default class ImbaTypeChecker
 
 		# console.log 'member',item,name
 		let key = name.replace(/\!$/,'')
+		let jskey = util.toJSIdentifier(key)
 		let typ = type(item)
 		
 		if name == 'prototype' and typ and typ.symbol and typ.objectFlags & ts.ObjectFlags.Interface
@@ -514,6 +513,9 @@ export default class ImbaTypeChecker
 			util.log 'tried getting type',item,key,typ
 
 		let sym = typ.getProperty(key)
+		
+		if !sym and key != jskey
+			sym = typ.getProperty(jskey)
 		
 		if key == '__@iterable'
 			# console.log "CHECK TYPE",item,name
@@ -533,7 +535,7 @@ export default class ImbaTypeChecker
 		if sym == undefined
 			let resolvedType = checker.getApparentType(typ)
 			return null unless resolvedType.members
-			sym = resolvedType.members.get(name)
+			sym = resolvedType.members.get(key) or resolvedType.members.get(jskey)
 			
 			if name.match(/^\d+$/)
 				sym ||= typ.getNumberIndexType!
@@ -708,7 +710,7 @@ export default class ImbaTypeChecker
 			
 
 	def resolveType tok, doc, ctx = null
-		let paths = inferType(tok,doc,ctx)
+		let paths = inferType(tok,doc || script.doc,ctx)
 		return type(paths)
 		
 	def findExactLocationForToken token
@@ -735,12 +737,44 @@ export default class ImbaTypeChecker
 	
 	# type at imba location	
 	def typeAtLocation offset
+		
 		let tok = script.doc.tokenAtOffset(offset)
 		# let ctx = script.doc.getContextAtOffset(offset)
 		util.log('typeAtLocation',offset,tok)
 		# let loc = getLocation(offset)
 		let inferred = inferType(tok,script.doc,tok)
 		return inferred
+		
+	def getSignatureHelpForType typ, name
+		typ = type(typ)
+		let sign = checker.getSignaturesOfType(typ,0)
+		let prev = checker.getResolvedSignatureForSignatureHelp
+		let predOfSign = checker.getTypePredicateOfSignature
+		let res
+		return unless typ and sign and sign.length
+
+		checker.getResolvedSignatureForSignatureHelp = do(node,candidates,argCount)
+			candidates.push(...sign)
+			util.log('quick return signature',node,candidates,argCount,sign)
+			return sign
+			# util.log('checker getContextualType',...args)
+			# return prev.call(checker,...args)
+			
+		checker.getTypePredicateOfSignature = do undefined
+		
+		try
+			let cancel = {throwIfCancellationRequested: do yes}
+			res = ts.SignatureHelp.getSignatureHelpItems(program,sourceFile,17,{kind: 'invoked', triggerCharacter: "("},cancel)
+		
+		checker.getTypePredicateOfSignature = predOfSign
+		checker.getResolvedSignatureForSignatureHelp = prev
+		
+		if res and name
+			for item in res.items
+				item.prefixDisplayParts[0].text = name
+
+		return res
+		
 		
 	get autoImports
 		#autoImports ||= new AutoImportContext(self)

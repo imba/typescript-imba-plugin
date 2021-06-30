@@ -55,8 +55,11 @@ declare class EventModifiers {
      * */
     if(condition: unknown): EventModifiers;
 
-    emit(data?: any): EventModifiers;
-    flag(data?: any): EventModifiers;
+    emit(name: string, data?: any): EventModifiers;
+    emitΞname(data?: any): EventModifiers;
+
+    flag(name: string): EventModifiers;
+    flagΞname(): EventModifiers;
 
     /**
      * Logs to console
@@ -182,29 +185,30 @@ declare class PointerGestureModifiers extends PointerEventModifiers {
     */
     moved(threshold?: Length): EventModifiers;
 
+
     /**
     * Only when touch has moved left or right more than threshold
     * @detail (threshold = 4px)
     */
-    "moved-x"(threshold?: Length): EventModifiers;
+    movedΞx(threshold?: Length): EventModifiers;
 
     /**
     * Only when touch has moved up or down more than threshold
     * @detail (threshold = 4px)
     */
-    "moved-y"(threshold?: Length): EventModifiers;
+    movedΞy(threshold?: Length): EventModifiers;
 
     /**
     * Only when touch has moved up more than threshold
     * @detail (threshold = 4px)
     */
-    "moved-up"(threshold?: Length): EventModifiers;
+    movedΞup(threshold?: Length): EventModifiers;
 
     /**
     * Only when touch has moved down more than threshold
     * @detail (threshold = 4px)
     */
-    "moved-down"(threshold?: Length): EventModifiers;
+    movedΞdown(threshold?: Length): EventModifiers;
 
     /**
      * A convenient touch modifier that takes care of updating the x,y values of some data during touch. When touch starts sync will remember the initial x,y values and only add/subtract based on movement of the touch.

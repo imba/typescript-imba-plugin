@@ -42,7 +42,7 @@ export const Extensions = [
 
 export const DefaultConfig = {
 	include: ['**/*.imba','**/*']
-	exclude: ['**/node_modules','**/dist']
+	exclude: ['node_modules/**/*','node_modules/**/*.imba','dist/**/*']
 	compilerOptions: {
 		allowJs: true
 		checkJs: true
@@ -60,6 +60,7 @@ export const DefaultConfig = {
 		resolveJsonModule: true
 		module: 'esnext'
 		target: 'esnext'
+		newLine: 'lf'
 		moduleResolution: "node"
 	}
 }

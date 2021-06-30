@@ -56,13 +56,14 @@ export default class AutoImportContext
 	
 	get exportInfoEntries
 		return #exportInfoEntries if #exportInfoEntries
+		let t0 = Date.now!
+
 		let map = exportInfoMap
+		let t1 = Date.now!
 		
 		map = map.__cache or map
 		let groups = {}
-		let out = #exportInfoEntries = []
-		
-		let t = Date.now!
+		let out = #exportInfoEntries = []		
 
 		for [key,[info]] of map
 			let [name,ref,ns] = key.split('|')
@@ -108,7 +109,7 @@ export default class AutoImportContext
 			if info.exportKind == 2
 				info.exportName = util.pathToImportName(info.packageName or info.modulePath)
 				
-		util.log "exportInfoEntries in {Date.now! - t}"
+		util.log "exportInfoEntries in {Date.now! - t0}ms {Date.now! - t1}ms"
 		return out
 		
 	get exportPaths
@@ -174,11 +175,6 @@ export default class AutoImportContext
 			let devDeps = Object.fromEntries(pkg.devDependencies or new Map)
 			Object.assign(packages,deps,devDeps)
 		return packages
-		
-	def getModuleSpecifierForBestExportInfo info
-		# @ts-ignore
-		let result = ts.codefix.getModuleSpecifierForBestExportInfo(info,checker.sourceFile,checker.program,checker.project,userPrefs)
-		return result
 		
 	def getResolvePathForExportInfo info
 		if let ms = info.moduleSymbol

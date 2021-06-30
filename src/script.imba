@@ -46,13 +46,15 @@ export default class ImbaScript
 		
 	def openedWithContent content
 		util.log('openedWithContent',fileName)
+		
+	def getFromDisk
+		fs.readFileSync(fileName,'utf-8')
 
 	def setup
-			
 		let orig = info.textStorage.text
 		if orig == undefined
 			# if this was already being edited?!
-			orig = fs.readFileSync(fileName,'utf-8')
+			orig = getFromDisk!
 			util.log("setup {fileName} - read from disk",orig.length)
 		else
 			util.log("setup {fileName} from existing source",orig.length,info)
@@ -64,13 +66,21 @@ export default class ImbaScript
 		
 		# if global.ils.isSemantic
 		# now do the initial compilation?
+		
+		# how do we handle if file changes on disk?
 		try
 			let result = lastCompilation = compile!
 			let its = info.textStorage
 			let snap = its.svc = global.ts.server.ScriptVersionCache.fromString(result.js or '\n')
 			its.text = undefined
+			
+			its.getFileTextAndSize = do(tempFileName)
+				util.log('getFileTextAndSize',fileName,tempFileName)
+				{text: lastCompilation..js or ''}
+				
 			its.reload = do(newText)
 				util.log('reload',fileName,newText.slice(0,10))
+			
 				return false
 			util.log('resetting the original file',snap)
 			snap.getSnapshot!.mapper = result
@@ -229,7 +239,7 @@ export default class ImbaScript
 			if sym.static?
 				mod |= 1 << TokenModifier.static
 			
-			if sym.imported?
+			if sym.imported? or sym.root?
 				typ = TokenType.namespace
 
 			result.push(tok.offset, tok.endOffset - tok.offset, ((typ + 1) << typeOffset) + mod)
@@ -237,13 +247,9 @@ export default class ImbaScript
 		# util.log("semantic!",result)
 		return result
 		
-	
-		
 	def getCompletions pos, options
-		util.log('getCompletionsScript',pos,options)
 		let ctx = new Completions(self,pos,options)
-		return ctx
-		
+		return ctx		
 	
 	def getCompletionsAtPosition ls, [dpos,opos], prefs
 		return null
@@ -282,28 +288,14 @@ export default class ImbaScript
 		# likely a path?
 		if ctx.suggest.Path
 			let str = tok.value
-			util.log('get info for path?!',str)
-			# ought to take paths from imbaconfig / jsconfig into account?!
 			out.resolvedPath = util.resolveImportPath(fileName,str)
 			out.resolvedModule = resolveImport(str,yes)
 			
 		if ctx.tagName
 			out.tag = checker.getTagSymbol(ctx.tagName,yes)
-			# hit(checker.getTagSymbol(ctx.tagName,yes),'tag')
-			# if util.isPascal(ctx.tagName)
-			# 	hit(checker.resolve(ctx.tagName),'tag')
-			# else
-			# 	hit(checker.sym("ImbaHTMLTags.{ctx.tagName}"),'tag')
-			# 	unless out.sym
-			# 		let path = "globalThis.{util.toCustomTagIdentifier(ctx.tagName)}"
-			# 		if let typ = checker.type(path)
-			# 			hit(typ.symbol,'tag')
-			# out.sym = null
 			
 		if ctx.tagAttrName and out.tag
 			out.tagattr = checker.member([out.tag,'prototype'],util.toJSIdentifier(ctx.tagAttrName))
-			
-		util.log "prepopulate?",out
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,post] = tok.value.match(/^(@|\.+)([\w\-\d]*)$/)
@@ -367,4 +359,21 @@ export default class ImbaScript
 			
 			if out.info
 				return out.info
+		return null
+		
+	def getSignatureHelpItems pos, opts, ls
+		let ctx = doc.getContextAtOffset(pos)
+		util.log "context for signature",ctx,ctx.token.match('parens.(')
+		
+		if ctx.token.match('parens') and ctx.token.value == '('
+			let checker = getTypeChecker!
+			let meth = checker.resolveType(ctx.token.prev)
+			util.log "inferred type!",meth
+			let name = meth..symbol..escapedName
+			let res = checker.getSignatureHelpForType(meth,name)
+			if res
+				res.applicableSpan = {start: pos, length: 0, #ostart: -1}
+
+			return res
+			
 		return null

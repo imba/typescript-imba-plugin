@@ -32,14 +32,16 @@ export default class Client
 		# util.log('ipc_handle',e)
 		if e.type == 'request'
 			# util.log('call',e.command,e.arguments)
-			util.log("receive request {e.command}")
+			
 			let t0 = Date.now!
 			if let meth = ils[e.command]
 				try
+					util.group("call rpc {e.command}",...e.arguments)
 					let res = await meth.apply(ils,e.arguments)
 					if res
-						util.log("send response {e.command}",Date.now! - t0,e.command,res)
-					
+						util.warn("return rpc {e.command}",Date.now! - t0,res)
+					util.groupEnd!
+
 					host.emit('message',{
 						type: 'response'
 						responseRef: e.requestRef

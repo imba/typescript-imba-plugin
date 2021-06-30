@@ -51,7 +51,7 @@ export class Completion
 		#context = context
 		#options = options
 		sym = #symbol = symbol
-		weight = 1000
+		weight = options.weight or 1000
 		
 		item = {data: data, label: label, sortText: ""}
 		load(symbol,context,options)
@@ -201,8 +201,7 @@ export class Completion
 		if let ei = exportInfo
 			let asType = ei.exportedSymbolIsTypeOnly or #options.kind == 'type'
 			let path = ei.packageName or util.normalizeImportPath(script.fileName,ei.modulePath)
-			# let specifier = checker.getModuleSpecifierForBestExportInfo(info)
-			# let path = specifier.moduleSpecifier
+
 			let alias = ei.importName or ei.exportName
 			let name = (ei.exportKind == 1 or ei.exportKind == 2) ? 'default' : ei.exportName
 			if ei.exportKind == 3
@@ -326,8 +325,8 @@ export class SymbolCompletion < Completion
 			item.commitCharacters = item.commitCharacters.filter do(item)
 				".!([, ".indexOf(item) == -1
 			
-			
-
+			# make filter-text longer for imports to let variables rank eariler
+			item.filterText = (item.filterText or name) + "        "
 	
 	def resolve
 		let details = checker.getSymbolDetails(sym)
@@ -519,8 +518,7 @@ export default class Completions
 		# all globally available types
 		let typesymbols = checker.getSymbols('Type')
 		add(typesymbols,o)
-		add(autoimporter.getExportedTypes!,o)
-	
+		add(autoimporter.getExportedTypes!,{kind: 'type', weight: 2000})
 		
 	def tagattrs o = {}
 		# console.log 'check',"ImbaHTMLTags.{o.name}"
@@ -576,7 +574,7 @@ export default class Completions
 		if prefixRegex
 			let imports = checker.autoImports.getVisibleExportedValues!
 			imports = imports.filter do prefixRegex.test($1.importName or $1.exportName)
-			add(imports)
+			add(imports, weight: 2000)
 			
 			# check for the export paths as well
 			

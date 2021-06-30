@@ -83,8 +83,10 @@ export default class Service
 		return false if cp or !ip or !ip.shouldSupportImba!
 		let jspath = resolvePath('jsconfig.json')
 		let tspath = resolvePath('tsconfig.json')
-		return false if ps.host.fileExists(jspath) or virtualFiles[jspath]
+		return false if ps.host.fileExists(jspath) or virtualFiles[jspath] or ps.host.fileExists(tspath)
 		util.log('createVirtualProjectFile')
+		
+		# notify about configuring their own tspath
 
 		virtualFiles[jspath] = JSON.stringify(DefaultConfig,null,2)
 		ps.onConfigFileChanged(jspath,0)
@@ -302,9 +304,16 @@ export default class Service
 			res = convertLocationsToImba(res,ls)
 			return res
 		
-		intercept.getSignatureHelpItems = do(file, pos, args)
+		intercept.getSignatureHelpItems = do(file, pos, prefs)
 			let {script,dpos,opos} = getFileContext(file,pos,ls)
-			let res = ls.getSignatureHelpItems(file,opos,args)
+			let res = null
+			
+			if script
+				res = script.getSignatureHelpItems(pos,prefs,ls)
+				if res
+					util.log('actually returned res from script!',res)
+				
+			res ||= ls.getSignatureHelpItems(file,opos,prefs)
 			res = convertLocationsToImba(res,ls,file)
 			return res
 		
@@ -404,8 +413,9 @@ export default class Service
 				let orig = v
 				intercept[k] = do
 					try
+						util.warn("call {k}",...arguments)
 						let res = v.apply(intercept,arguments)
-						util.log(k,arguments,res)
+						util.warn("return {k}",res)
 						return res
 					catch e
 						util.log('error',k,e)

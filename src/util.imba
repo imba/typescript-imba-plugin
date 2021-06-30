@@ -13,6 +13,12 @@ class Logger
 		
 	get last
 		logs[0]
+	
+	def group ...params
+		call('group',...params)
+		
+	def groupEnd ...params
+		call('groupEnd',...params)
 		
 	def warn ...params
 		return unless process.env.TSS_DEBUG
@@ -127,6 +133,14 @@ export def warn ...params
 	return unless DEBUGGING
 	global.logger.warn(...params)
 	
+export def group ...params
+	return unless DEBUGGING
+	global.logger.group(...params)
+
+export def groupEnd ...params
+	return unless DEBUGGING
+	global.logger.groupEnd(...params)
+	
 export def isImba src
 	return false unless src
 	src.substr(src.lastIndexOf(".")) == '.imba'
@@ -192,6 +206,15 @@ export def toImbaString str
 
 	str = str.replace(toImbaRegex,toImbaReplacer)
 	return str
+	
+export def toImbaMessageText str
+	if typeof str == 'string'
+		return toImbaString(str)
+	if str.messageText
+		str.messageText = toImbaMessageText(str.messageText)
+	
+	return str
+	
 
 export def fromJSIdentifier raw
 	toImbaIdentifier(raw)

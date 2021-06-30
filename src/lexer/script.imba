@@ -220,7 +220,7 @@ export default class ImbaScriptInfo
 		let content = index.getText(0,index.getLength!)		
 
 		const before = {
-			character: lineText[col - 1]
+			character: lineText[col - 1] or ''
 			line: lineText.slice(0,col)
 			token: tok.value.slice(0,tokPos)
 		}

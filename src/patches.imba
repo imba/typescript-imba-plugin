@@ -32,6 +32,7 @@ export class Session
 		
 	def doOutput info, cmdName, reqSeq, success, message
 		#doOutput(info, cmdName, reqSeq, success, message)
+
 	
 	def send msg
 		let log = yes
@@ -41,7 +42,9 @@ export class Session
 			
 		if log
 			util.log("send {msg.type} {msg.event or msg.command}",msg)
-
+		
+		msg = JSON.parse(util.toImbaString(JSON.stringify(msg)))
+		
 		#send(msg)
 		
 	def refreshDiagnostics
@@ -143,15 +146,15 @@ export class Session
 				continue unless mapper
 				
 				if item.#converted =? yes
-					item.messageText = util.toImbaString(item.messageText)
+					# item.messageText = util.toImbaMessageText(item.messageText)
 					let mapper = item.file..scriptSnapshot..mapper
 					let opos = item.#opos = [item.start,item.start + item.length]
 					item.#otext = mapper.otext(opos[0],opos[1])
 					Diagnostics.filter(item,project,kind)
 					continue if item.#suppress
 					
-					for rel in item.relatedInformation
-						rel.messageText = util.toImbaString(rel.messageText)
+					# for rel in item.relatedInformation
+					#	rel.messageText = util.toImbaMessageText(rel.messageText)
 
 					let range = mapper.o2iRange(item.start,item.start + item.length,no)
 					# let start = mapper.o2d(item.start)
@@ -550,7 +553,7 @@ export class TS
 	
 	def getSupportedExtensions options, extra
 		let res = #getSupportedExtensions(options,extra)
-		util.log 'getSupportedExtensions',options,extra,res
+		# util.log 'getSupportedExtensions',options,extra,res
 		res.unshift('.imba') if res.indexOf('.imba') == -1
 		return res
 
@@ -578,6 +581,8 @@ export class TS
 		# @ts-ignore
 		return self.ScriptKind.JS if ext == '.imba'
 		return #getScriptKindFromFileName(fileName)
+		
+		
 
 export def subclasses ts
 	let O = {}
