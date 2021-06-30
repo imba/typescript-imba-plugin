@@ -92,6 +92,10 @@ interface SVGSVGElement {
     src: ImbaAsset | string;
 }
 
+declare class ΤObject {
+    [key: string]: any;
+}
+
 declare class ImbaElement extends HTMLElement {
     /**
   * Creates an instance of documenter.
