@@ -330,6 +330,8 @@ export class ForScope < Scope
 	get forvars
 		Object.values(varmap).filter do $1.itervar?
 
+export class BlockScope < Scope
+
 export class WeakScope < Scope
 	# get varmap
 	#	parent.varmap
@@ -466,7 +468,7 @@ export class TagAttrValueNode < Group
 	# get completionPath
 	#	"<>"
 
-export class TagContent < WeakScope
+export class TagContent < BlockScope
 
 	get ownerTag
 		start.prev.pops
