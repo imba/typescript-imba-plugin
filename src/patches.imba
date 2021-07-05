@@ -655,6 +655,9 @@ export default def patcher ts
 			#	name = name.split("_$SYM$_").join("#")
 			if name.indexOf('___') == 0
 				name = name.slice(1)
+				
+			if name == 'globalThis'
+				name = 'global'
 			
 			name = util.fromJSIdentifier(name)
 
