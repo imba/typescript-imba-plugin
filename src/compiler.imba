@@ -44,12 +44,30 @@ export class Compilation
 			return [0,body.length]
 			# return doc.rangeAt(0,ibody.length)
 		
+		let istart = null
+		let iend = null
+		
 		for [ts0,ts1,imba0,imba1] in locs.spans
+			if start == ts0
+				istart = imba0
+				
+			if ts0 == end
+				iend = imba0
+				
+			if end == ts1
+				iend = imba1
+
 			if start == ts0 and end == ts1
 				return [imba0,imba1]
 				# return doc.rangeAt(imba0,imba1)
+		
+		if istart != null and iend != null
+			return [istart,iend]
 	
 		if fuzzy
+			# let text = otext(start,end)
+			# look for the text
+
 			let i0 = o2i(start)
 			let i1 = o2i(end)
 			return [i0,i1]
