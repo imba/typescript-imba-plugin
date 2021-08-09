@@ -507,10 +507,12 @@ export default class Completions
 		
 		add(checker.sourceFile.getLocalTags!,o)
 		add(checker.getGlobalTags!,o)
+		try
+			let autoTags = autoimporter.getExportedTags!
+			add(autoTags,o)
+		catch e
+			util.log "autoimport error",e
 
-		let autoTags = autoimporter.getExportedTags!
-		util.log 'add autoTags',autoTags
-		add(autoTags,o)
 		add(checker.props('$snippets$.tags'),o)
 		
 	def types o = {}

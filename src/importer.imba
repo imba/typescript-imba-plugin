@@ -42,7 +42,7 @@ export default class AutoImportContext
 		global.ils.ps
 		
 	get exportInfoMap
-		unless ts.codefix.getSymbolToExportInfoMap isa Function
+		unless ts.codefix.getSymbolToExportInfoMap isa Function or ts.getExportInfoMap isa Function
 			return #exportInfoMap ||= new Map()
 		
 		# @ts-ignore
@@ -50,7 +50,10 @@ export default class AutoImportContext
 			
 		let debugs = ts.Debug.isDebugging
 		ts.Debug.isDebugging = true
-		map = ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
+		if ts.getExportInfoMap
+			map = ts.getExportInfoMap(checker.sourceFile,checker.project,checker.program)
+		else
+			map = ts.codefix.getSymbolToExportInfoMap(checker.sourceFile,checker.project,checker.program)
 		ts.Debug.isDebugging = debugs
 		#exportInfoMap = map
 	
@@ -61,54 +64,107 @@ export default class AutoImportContext
 		let map = exportInfoMap
 		let t1 = Date.now!
 		
-		map = map.__cache or map
+		
 		let groups = {}
-		let out = #exportInfoEntries = []		
+		let out = #exportInfoEntries = []
+		
+		try
+			if true
+				let nr = 0
+				let action = do(info,name,isAmbient)
+					# continue if ns.match(/^imba_/)
+					info = info[0] if info isa Array
+					return if isAmbient and !builtinMap[info.moduleName]
+					let path = getResolvePathForExportInfo(info) or info.moduleName
+					util.log("got",nr++,name,path,info.moduleName,info)
+					return if util.isImbaDts(path)
+					info.modulePath = path
+					info.packageName = getPackageNameForPath(path)
+					# info.#key = key
+					info.exportName = name
+					
+					let gid = info.packageName or info.modulePath
+					let group = groups[gid] ||= {
+						symbol: info.moduleSymbol
+						modulePath: gid,
+						name: util.pathToImportName(gid)
+						exports: []
+					}
+					
+					group.exports.push(info)
+					
+					if info.exportKind == 2 or info.exportKind == 1
+						group.default = info
+						
+					if group.exports.length == 2
+						# now we are ready to add a shared export for this whole file
+						let ginfo = {
+							exportKind: 3
+							exportName: '*'
+							importName: group.name
+							modulePath: info.modulePath
+							packageName: info.packageName
+							symbol: info.moduleSymbol
+							exportedSymbolIsTypeOnly: false
+						}
+						out.push(ginfo)
+					
+					let isTag = try info.symbol.exports..has('$$TAG$$')
+					info.isTag = isTag
+					out.push(info)
+					
+					if info.exportKind == 2
+						info.exportName = util.pathToImportName(info.packageName or info.modulePath)
+						
+				map.forEach(checker.sourceFile.path,action)
+			else
+				map = map.__cache or map
 
-		for [key,[info]] of map
-			let [name,ref,ns] = key.split('|')
-			# continue if ns.match(/^imba_/)	
-			continue if ns[0] != '/' and !builtinMap[ns]
-			let path = getResolvePathForExportInfo(info) or ns
-			continue if util.isImbaDts(path)
-			info.modulePath = path
-			info.packageName = getPackageNameForPath(path)
-			info.#key = key
-			info.exportName = name
-			
-			let gid = info.packageName or info.modulePath
-			let group = groups[gid] ||= {
-				symbol: info.moduleSymbol
-				modulePath: gid,
-				name: util.pathToImportName(gid)
-				exports: []
-			}
-			
-			group.exports.push(info)
-			
-			if info.exportKind == 2 or info.exportKind == 1
-				group.default = info
-				
-			if group.exports.length == 2
-				# now we are ready to add a shared export for this whole file
-				let ginfo = {
-					exportKind: 3
-					exportName: '*'
-					importName: group.name
-					modulePath: info.modulePath
-					packageName: info.packageName
-					symbol: info.moduleSymbol
-					exportedSymbolIsTypeOnly: false
-				}
-				out.push(ginfo)
-			
-			let isTag = try info.symbol.exports..has('$$TAG$$')
-			info.isTag = isTag
-			out.push(info)
-			
-			if info.exportKind == 2
-				info.exportName = util.pathToImportName(info.packageName or info.modulePath)
-				
+				for [key,[info]] of map
+					let [name,ref,ns] = key.split('|')
+					# continue if ns.match(/^imba_/)	
+					continue if ns[0] != '/' and !builtinMap[ns]
+					let path = getResolvePathForExportInfo(info) or ns
+					continue if util.isImbaDts(path)
+					info.modulePath = path
+					info.packageName = getPackageNameForPath(path)
+					info.#key = key
+					info.exportName = name
+					
+					let gid = info.packageName or info.modulePath
+					let group = groups[gid] ||= {
+						symbol: info.moduleSymbol
+						modulePath: gid,
+						name: util.pathToImportName(gid)
+						exports: []
+					}
+					
+					group.exports.push(info)
+					
+					if info.exportKind == 2 or info.exportKind == 1
+						group.default = info
+						
+					if group.exports.length == 2
+						# now we are ready to add a shared export for this whole file
+						let ginfo = {
+							exportKind: 3
+							exportName: '*'
+							importName: group.name
+							modulePath: info.modulePath
+							packageName: info.packageName
+							symbol: info.moduleSymbol
+							exportedSymbolIsTypeOnly: false
+						}
+						out.push(ginfo)
+					
+					let isTag = try info.symbol.exports..has('$$TAG$$')
+					info.isTag = isTag
+					out.push(info)
+					
+					if info.exportKind == 2
+						info.exportName = util.pathToImportName(info.packageName or info.modulePath)
+		catch e
+			util.log "error in exportInfoEntries",e
 		util.log "exportInfoEntries in {Date.now! - t0}ms {Date.now! - t1}ms"
 		return out
 		
@@ -135,7 +191,7 @@ export default class AutoImportContext
 		return items
 		
 	def getExportedValues
-		let entries = exportInfoEntries.filter do !$1.exportedSymbolIsTypeOnly
+		let entries = exportInfoEntries.filter do !$1.exportedSymbolIsTypeOnly and !$1.isTypeOnly
 	
 	def getVisibleExportedValues
 		let entries = getExportedValues!
@@ -145,7 +201,7 @@ export default class AutoImportContext
 		
 	def getExportedTypes
 		exportInfoEntries.filter do
-			$1.exportedSymbolIsTypeOnly or ($1.symbol.flags & ts.SymbolFlags.Type)
+			$1.exportedSymbolIsTypeOnly or $1.isTypeOnly or ($1.symbol.flags & ts.SymbolFlags.Type)
 	
 	def getExportedTags
 		exportInfoEntries.filter do $1.isTag
