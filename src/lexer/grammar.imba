@@ -109,6 +109,7 @@ export const states = {
 		[/^(\t+)(?=[\r\n]|$)/,'white.tabs']
 		'class_'
 		'tagclass_'
+		'augmentation_'		
 		'var_'
 		'func_'
 		'import_'
@@ -252,11 +253,31 @@ export const states = {
 			'$2~[A-Z].*': ['operator.access','accessor.uppercase','@implicit_call_body']
 			'@default': ['operator.access','accessor','@implicit_call_body']
 		}]
-		[/(@propid)@implicitCall/,cases: {
-			'$2~[A-Z].*': ['identifier.uppercase','@implicit_call_body']
-			'@default': ['identifier','@implicit_call_body']
-		}]
+		# [/(@constant)@implicitCall/,'identifier.uppercase','@implicit_call_start']
+		# [/(@symbol)@implicitCall/,'identifier.uppercase','@implicit_call_start']
+		[/(@propid)@implicitCall/,'@rematch','@implicit_call_start']
+		// [/(@propid)@implicitCall/,'@rematch','@implicit_call_start']
+		# [/(@propid)@implicitCall/,cases: {
+		# 	'$1~[A-Z].*': ['identifier.uppercase','@implicit_call_body']
+		# 	'@default': ['identifier','@implicit_call_body']
+		# }]
 	]
+	implicit_call_start: [
+		'identifier_'
+		[/@implicitCall/,'@rematch',switchTo: '@implicit_call_body']
+	]
+	
+	# [/\$\w+\$/, 'identifier.env']
+	# 	[/\$\d+/, 'identifier.special']
+	# 	[/\#+@id/, 'identifier.symbol']
+	# 	[/\¶@id/, 'ivar'] # imba1
+	# 	[/@id\!?/,cases: {
+	# 		'this': 'this'
+	# 		'self': 'self'
+	# 		'@keywords': 'keyword.$#'
+	# 		'$0~[A-Z].*': 'identifier.uppercase.$F'
+	# 		'@default': 'identifier.$F'
+	# 	}]
 
 	implicit_call_body: [
 		eolpop
@@ -403,6 +424,18 @@ export const states = {
 		[/(global)(?=\s+class )/,'keyword.$1']
 		[/(class)(\s)(@id)/, ['keyword.$1','white.$1name','entity.name.class.decl-const','@class_start=']]
 		[/(class)(?=\n)/, 'keyword.$1','@>_class&class=']
+	]
+	
+	augmentation_: [
+		[/(extend)(?=\s+@id)/,'keyword.$1','@augmentation_start=']
+	]
+	
+	augmentation_start: [
+		denter({switchTo: '@>_class&class='},-1,-1)
+		# denter({switchTo: '@>_flow&-body'},-1,-1)
+		# denter('@>_flow&block',-1,-1)
+		[/[ \t]+/, 'white']
+		'expr_'
 	]
 
 	class_start: [
@@ -1266,7 +1299,9 @@ export const grammar = {
 	defid: /[\@\#]*@plainid/
 	decid: /\@@plainid/
 	symid: /\#+@plainid/
-	symref: /\#\#@plainid/
+	envvar: /\$+[\w\-]+\$/
+	symref: /\#+@plainid/
+	
 	optid: /(?:@id)?/
 	# (?:\-+[\w\$]+)*\??
 	esmIdentifier: /[A-Za-z_\$\@][\w\$]*(?:\-+[\w\$]+)*\??/
