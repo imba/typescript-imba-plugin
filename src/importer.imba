@@ -76,7 +76,7 @@ export default class AutoImportContext
 					info = info[0] if info isa Array
 					return if isAmbient and !builtinMap[info.moduleName]
 					let path = getResolvePathForExportInfo(info) or info.moduleName
-					util.log("got",nr++,name,path,info.moduleName,info)
+					# util.log("got",nr++,name,path,info.moduleName,info)
 					return if util.isImbaDts(path)
 					info.modulePath = path
 					info.packageName = getPackageNameForPath(path)

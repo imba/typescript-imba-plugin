@@ -636,6 +636,8 @@ export default def patcher ts
 			
 		def getLocalTags
 			for [key,item] of locals
+				if item.exportSymbol and !item.exports
+					item = item.exportSymbol
 				continue unless item..exports..has('$$TAG$$')
 				item
 	
