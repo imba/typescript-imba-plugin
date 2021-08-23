@@ -178,9 +178,10 @@ export const ToJSMap = {
 	'-': 'Ξ'
 	'?': 'Φ'
 	'#': 'Ψ'
+	'@': 'α'
 }
 
-const toJSregex = new RegExp("[\-\?\#]","gu")
+const toJSregex = new RegExp("[\-\?\#\@]","gu")
 const toJSreplacer = do(m) ToJSMap[m]
 
 export def toJSIdentifier raw
@@ -191,13 +192,14 @@ export const ToImbaMap = {
 	'Φ': '?'
 	'Ψ': '#'
 	'Γ': ''
+	'α': '@'
 }
 
-const toImbaRegex = new RegExp("[ΞΦΨΓ]","gu")
+const toImbaRegex = new RegExp("[ΞΦΨΓα]","gu")
 const toImbaReplacer = do(m) ToImbaMap[m]
 
 export def toImbaIdentifier raw
-	raw.replace(toImbaRegex,toImbaReplacer)
+	raw ? raw.replace(toImbaRegex,toImbaReplacer) : raw
 	
 export def toImbaString str
 	unless typeof str == 'string'

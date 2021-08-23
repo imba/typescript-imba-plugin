@@ -282,6 +282,16 @@ export default class ImbaScriptInfo
 		if tok.match('entity string regexp comment style.')
 			flags = 0
 		
+		# if we are at a a single #
+		if tok.match('comment') and before.token == '#' and after.line == ''
+			flags = CompletionTypes.Access
+			suggest.prefix = '#'
+			target = null
+			
+			if tok.prev and tok.prev.match('operator.access')
+				flags = CompletionTypes.Access
+				target = tok.prev
+		
 		# if we are in an accessor
 		if g = group.closest('tag')
 			meta.tagName = g.tagName
@@ -292,6 +302,9 @@ export default class ImbaScriptInfo
 		
 		if g = group.closest('listener')
 			meta.eventName = g.name
+		
+		if tok.match('decorator')
+			flags = CompletionTypes.Decorator
 
 		if tok.match('tag.event.name tag.event-modifier.name')
 			target = tok.prev

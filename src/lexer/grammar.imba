@@ -124,6 +124,7 @@ export const states = {
 		'do_'
 		'block_comment_'
 		'expr_'
+		'decorator_'
 		[/[ ]+/, 'white']
 		'common_'
 		
@@ -1297,7 +1298,7 @@ export const grammar = {
 	fieldid: /[\@\#]*@plainid/ 
 	propid: /[\@\#]*@plainid/
 	defid: /[\@\#]*@plainid/
-	decid: /\@@plainid/
+	decid: /\@(?:@plainid)?/
 	symid: /\#+@plainid/
 	envvar: /\$+[\w\-]+\$/
 	symref: /\#+@plainid/

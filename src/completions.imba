@@ -207,7 +207,7 @@ export class Completion
 			if ei.exportKind == 3
 				name = '*'
 
-			let edits = script.doc.createImportEdit(path,name,alias,asType)
+			let edits = script.doc.createImportEdit(path,util.toImbaIdentifier(name),util.toImbaIdentifier(alias),asType)
 			
 			if edits.changes.length
 				item.additionalTextEdits = edits.changes
@@ -267,10 +267,12 @@ export class SymbolCompletion < Completion
 		elif cat == 'stylemod'
 			ns = tags.detail
 			triggers ': '
+			name = '@' + name # always?
 		
 		elif cat == 'tagevent'
 			triggers '.='
 			kind = 'event'
+			name = '@' + name
 		
 		elif cat == 'tageventmod'
 			triggers '.='
@@ -353,7 +355,7 @@ export class AutoImportCompletion < SymbolCompletion
 		self
 		
 	get symName
-		exportInfo.importName or exportInfo.exportName
+		util.toImbaIdentifier(exportInfo.importName or exportInfo.exportName)
 		
 	get importPath
 		exportInfo.packagName or exportInfo.modulePath
@@ -415,6 +417,9 @@ export default class Completions
 
 		if tok.match('identifier')
 			prefix = ctx.before.token
+			
+		if ctx.suggest.prefix
+			prefix = ctx.suggest.prefix
 		
 		if prefix
 			prefixRegex = new RegExp("^[\#\_\$\<]*{prefix[0] or ''}")
@@ -433,7 +438,7 @@ export default class Completions
 			add('tagnames',kind: 'tagname')
 			
 		if flags & CT.StyleModifier
-			add checker.cssmodifiers, kind: 'stylemod'
+			add checker.props(checker.cssmodifiers), kind: 'stylemod'
 			
 		if flags & CT.StyleSelector
 			add checker.props('ImbaHTMLTags',yes), kind: 'stylesel'
@@ -443,6 +448,9 @@ export default class Completions
 			
 		if flags & CT.StyleValue
 			add 'stylevalue', kind: 'styleval'
+			
+		if flags & CT.Decorator
+			add 'decorators', kind: 'decorator'
 			
 		if flags & CT.TagEvent
 			add checker.props("ImbaEvents"), kind: 'tagevent'
@@ -457,11 +465,17 @@ export default class Completions
 			add('types',kind: 'type')
 			
 		if flags & CT.Access
-			let typ = checker.inferType(ctx.target,script.doc)
-			util.log('inferred type??',typ)
-			if typ
-				let props = checker.props(typ).filter do !$1.isWebComponent
-				add props, kind: 'access'
+			if ctx.target == null
+				let selfpath = ctx.selfPath
+				let selfprops = checker.props(selfpath)
+				# || checker.props(loc.thisType)
+				add(selfprops,kind: 'implicitSelf', weight: 300, matchRegex: prefixRegex)
+			else	
+				let typ = checker.inferType(ctx.target,script.doc)
+				util.log('inferred type??',typ)
+				if typ
+					let props = checker.props(typ).filter do !$1.isWebComponent
+					add props, kind: 'access', matchRegex: prefixRegex
 		
 		if flags & CT.Value
 			add('values')
@@ -501,12 +515,28 @@ export default class Completions
 		add symbols,o
 		self
 		
+	def decorators o = {}
+		# should include both global (auto-import) and local decorators
+		# just do the locals for now?
+		let vars = script.doc.varsAtOffset(pos).filter do $1.name[0] == '@'
+		add(vars,o)
+		
+		let imports = checker.autoImports.getExportedDecorators!
+		add(imports, o)
+		self
+		
 	def tagnames o = {}
 		let html = checker.props('HTMLElementTagNameMap')
 		add(html,o)
 		
-		add(checker.sourceFile.getLocalTags!,o)
+		let locals = checker.sourceFile.getLocalTags!
+		
+		add(locals,o)
 		add(checker.getGlobalTags!,o)
+		
+		util.log "local tags",locals
+
+		
 		try
 			let autoTags = autoimporter.getExportedTags!
 			add(autoTags,o)
@@ -552,7 +582,9 @@ export default class Completions
 		# let loc = checker.getLocation(pos,opos)
 	
 		for item in vars
-			# what 
+			# hide decorators
+			continue if item.name[0] == '@'
+
 			let found = checker.findExactSymbolForToken(item.node)
 			symbols.push(found or item)
 
@@ -579,8 +611,6 @@ export default class Completions
 			add(imports, weight: 2000)
 			
 			# check for the export paths as well
-			
-			
 
 		# variables should have higher weight - but not the global variables?
 		# add('properties',value: yes, weight: 100, implicitSelf: yes)

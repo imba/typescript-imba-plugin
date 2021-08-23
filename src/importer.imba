@@ -111,6 +111,9 @@ export default class AutoImportContext
 					
 					let isTag = try info.symbol.exports..has('$$TAG$$')
 					info.isTag = isTag
+					
+					info.isDecorator = name and name[0] == 'α'
+
 					out.push(info)
 					
 					if info.exportKind == 2
@@ -198,6 +201,9 @@ export default class AutoImportContext
 		let packages = getVisiblePackages!
 		entries.filter do(entry)
 			!entry.packageName or packages[entry.packageName]
+			
+	def getExportedDecorators
+		exportInfoEntries.filter do $1.isDecorator
 		
 	def getExportedTypes
 		exportInfoEntries.filter do

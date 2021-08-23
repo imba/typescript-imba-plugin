@@ -298,10 +298,15 @@ export default class ImbaScript
 			out.tagattr = checker.member([out.tag,'prototype'],util.toJSIdentifier(ctx.tagAttrName))
 
 		if tok.match("style.property.modifier style.selector.modifier")
-			let [m,pre,post] = tok.value.match(/^(@|\.+)([\w\-\d]*)$/)
+			let [m,pre,neg,post] = tok.value.match(/^(@|\.+)(\!?)([\w\-\d]*)$/)
+			util.log("style prop modifier",[m,pre,neg,post,tok],post.match(/^\d+$/))
 
 			if pre == '@' or pre == ''
 				out.sym ||= checker.sym([checker.cssmodifiers,post])
+
+			if post.match(/^\d+$/)
+				util.log("this is a numeric thing(!!!)",tok)
+				
 				
 		if g = grp.closest('stylevalue')
 			let idx = (ctx..before..group or '').split(' ').length - 1
@@ -314,7 +319,10 @@ export default class ImbaScript
 		if g = grp.closest('styleprop')
 			hit(checker.sym([checker.cssrule,g.propertyName]),'styleprop')
 			# out.sym ||= checker.sym([checker.cssrule,g.propertyName])
-			
+		
+		if tok.match('tag.event.start')
+			tok = tok.next
+
 		if tok.match('tag.event.name')
 			let name = tok.value.replace('@','')
 			hit(checker.sym("ImbaEvents.{name}"),'event')

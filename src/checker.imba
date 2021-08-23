@@ -97,7 +97,8 @@ export default class ImbaTypeChecker
 		#csstypes ||= checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$types'))
 	
 	get cssmodifiers
-		props(type('$cssmodule$.css$modifiers'))
+		type('$cssmodule$.css$modifiers')
+		# props(type('$cssmodule$.css$modifiers'))
 		
 	get allGlobals
 		#allGlobals ||= props('globalThis').slice(0)
