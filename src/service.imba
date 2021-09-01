@@ -256,14 +256,17 @@ export default class Service
 			
 		intercept.getDefinitionAndBoundSpan = do(filename,pos)
 			let {script,dpos,opos} = getFileContext(filename,pos,ls)
-			
+			let out
 			if script
 				# check quick info via imba first?
-				let out = script.getDefinitionAndBoundSpan(dpos,ls)
-				return out if out
+				out = script.getDefinitionAndBoundSpan(dpos,ls)
+				return out if out..definitions
 
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
+			
+			if out and out.textSpan
+				res.textSpan = out.textSpan
 			
 			let defs = res..definitions
 			if script and defs

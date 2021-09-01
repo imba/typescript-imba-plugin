@@ -360,7 +360,8 @@ export default class ImbaScript
 				}]
 				textSpan: out.textSpan
 			}
-		return null
+		else
+			return out
 			
 		
 	def getQuickInfo pos, ls

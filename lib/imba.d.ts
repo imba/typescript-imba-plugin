@@ -136,6 +136,17 @@ declare class ImbaElement extends HTMLElement {
     schedule(): this;
     unschedule(): this;
 
+    /**
+    Schedule the element to update itself
+    yes = render on events / imba.commit
+    no = force manual render
+    null / undefined = render via parent
+    (n)s = render every n s
+    (n)ms = render every n ms
+    (n)fps = render n times per second
+     */
+    autorender: any;
+
 }
 
 
