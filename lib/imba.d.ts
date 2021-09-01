@@ -187,6 +187,15 @@ declare namespace imba {
 
     function mount<T>(element: T): T;
 
+    interface Scheduler {
+        add(target: any, force?: boolean): void;
+        on(group: string, target: any): void;
+        un(group: string, target: any): void;
+
+        /** Milliseconds since previous tick */
+        dt: number;
+    }
+
     let styles: ImbaStyles;
     let colors: string[];
     let router: ImbaRouter;
@@ -208,6 +217,7 @@ declare namespace imba {
 
     let stylemodifiers: ImbaStyleModifiers;
     let Element: ImbaElement;
+    let scheduler: Scheduler;
 
     function createIndexedFragment(...arguments: any[]): DocumentFragment;
     function createKeyedFragment(...arguments: any[]): DocumentFragment;
