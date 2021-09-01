@@ -295,7 +295,9 @@ export default class ImbaScript
 			out.tag = checker.getTagSymbol(ctx.tagName,yes)
 			
 		if ctx.tagAttrName and out.tag
-			out.tagattr = checker.member([out.tag,'prototype'],util.toJSIdentifier(ctx.tagAttrName))
+			# util.log('get tagattgr?!',ctx.tagAttrName,ctx.tagName,tok,ctx)
+			let taginst = checker.getTagSymbolInstance(ctx.tagName,yes)
+			out.tagattr = checker.sym([taginst,util.toJSIdentifier(ctx.tagAttrName)])
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,neg,post] = tok.value.match(/^(@|\.+)(\!?)([\w\-\d]*)$/)

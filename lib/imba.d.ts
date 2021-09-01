@@ -41,6 +41,15 @@ interface Element {
     // translate: any;
     // is: any;
 
+    flags: {
+        contains(flag: string): boolean;
+        add(flag: string): void;
+        remove(flag: string): void;
+        toggle(flag: string, toggler: boolean): void;
+        incr(flag: string): number;
+        decr(flag: string): number;
+    }
+
     emit(event: string, params?: any, options?: any): Event;
     focus(options?: any): void;
     blur(): void;
@@ -135,6 +144,16 @@ declare class ImbaElement extends HTMLElement {
  */
 declare class Γglobal extends HTMLElement {
 
+}
+
+declare class Γteleport extends HTMLElement {
+    /** The element (or selector) you want to add listeners and content to */
+    to: Selector | Element;
+}
+
+interface HTMLElementTagNameMap {
+    "global": Γglobal,
+    "teleport": Γteleport
 }
 
 interface ImbaStyles {

@@ -603,7 +603,8 @@ export const states = {
 
 	_decorator_params: [
 		[/\)/,')','@pop']
-		'params_'
+		'expr_'
+		[/\s*\,\s*/,'delimiter.comma']
 	]
 
 	field_: [

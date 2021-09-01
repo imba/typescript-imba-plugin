@@ -183,7 +183,8 @@ export default class ImbaTypeChecker
 		
 	def getGlobalTags
 		# allGlobals.filter do $1.escapedName.indexOf('CustomElement') > 0
-		allGlobals.filter do $1.escapedName[0] == 'Γ'
+		checker.getSymbolsInScope(sourceFile,4).filter do $1.escapedName[0] == 'Γ'
+		# allGlobals.filter do $1.escapedName[0] == 'Γ'
 		
 	def getLocalTagsInScope
 		let symbols = checker.getSymbolsInScope(sourceFile,32)
@@ -217,7 +218,7 @@ export default class ImbaTypeChecker
 		else
 			# check in global html types
 			let root = forAttributes ? 'ImbaHTMLTags' : 'HTMLElementTagNameMap'
-			symbol = sym("{root}.{name}")
+			symbol = sym("{root}.{name}") or sym("HTMLElementTagNameMap.{name}")
 			
 			unless symbol
 				# let key = name.replace(/\-/g,'_') + '$$TAG$$'
@@ -230,6 +231,12 @@ export default class ImbaTypeChecker
 					symbol = sym("globalThis.{cname}")
 
 		return symbol
+	
+	def getTagSymbolInstance name, forAttributes = no
+		let res = getTagSymbol(name,forAttributes)
+		if !sym("HTMLElementTagNameMap.{name}")
+			res = sym([res,'prototype'])
+		return res
 		
 
 	def arraytype inner
@@ -439,7 +446,12 @@ export default class ImbaTypeChecker
 		if item isa Array
 			let base = sym(item[0])
 			for entry,i in item when i > 0
-				base = sym(member(base,entry))
+				let mem = member(base,entry)
+				if !mem and entry == 'prototype'
+					continue
+				
+				base = sym(mem)
+
 			item = base
 		
 		if item isa SourceFile
@@ -450,6 +462,8 @@ export default class ImbaTypeChecker
 
 		if item isa TypeObject and item.symbol
 			return item.symbol
+			
+		return null
 
 	def locals source = #file
 		let file = fileRef(source)
@@ -504,7 +518,7 @@ export default class ImbaTypeChecker
 		let typ = type(item)
 		
 		if name == 'prototype' and typ and typ.symbol and typ.objectFlags & ts.ObjectFlags.Interface
-			util.log 'skip prototype',item,typ
+			# util.log 'skip prototype',item,typ
 			return typ.symbol
 			
 
