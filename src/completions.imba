@@ -543,10 +543,10 @@ export default class Completions
 		catch e
 			util.log "autoimport error",e
 
-		add(checker.props('$snippets$.tags'),o)
+		add(checker.snippets('tags'),o)
 		
 	def types o = {}
-		add(checker.props('$snippets$.types'),o)
+		add(checker.snippets('types'),o)
 		# all globally available types
 		let typesymbols = checker.getSymbols('Type')
 		add(typesymbols,o)
@@ -618,7 +618,7 @@ export default class Completions
 		# add('autoimports',weight: 700,startsWith: prefix, autoImport: yes)
 		
 		if ctx.before.line.match(/^[a-z]*$/)
-			add(checker.props('$snippets$.root'),kind: 'snippet')
+			add(checker.snippets('root'),kind: 'snippet')
 
 		add(Keywords.map(do new KeywordCompletion({name: $1},self,kind: 'keyword', weight: 800)))
 		self

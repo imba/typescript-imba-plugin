@@ -1,5 +1,5 @@
 
-declare module "imba_snippets" {
+declare namespace imba_snippets {
     interface tags {
         /** 
          * @snippet input type='checkbox'

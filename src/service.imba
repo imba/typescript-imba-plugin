@@ -240,7 +240,7 @@ export default class Service
 			return ls.getEncodedSemanticClassifications(filename,span,format)
 		
 		intercept.getEncodedSyntacticClassifications = do(filename,span)
-			return ls.getEncodedSyntacticClassifications(filename,span)
+			return ls.getEpncodedSyntacticClassifications(filename,span)
 			
 		intercept.getQuickInfoAtPosition = do(filename,pos)
 			let {script,dpos,opos} = getFileContext(filename,pos,ls)
@@ -265,7 +265,7 @@ export default class Service
 			let res = ls.getDefinitionAndBoundSpan(filename,opos)
 			res = convertLocationsToImba(res,ls,filename)
 			
-			if out and out.textSpan
+			if out and out.textSpan and res
 				res.textSpan = out.textSpan
 			
 			let defs = res..definitions

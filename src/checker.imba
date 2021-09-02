@@ -87,9 +87,8 @@ export default class ImbaTypeChecker
 		resolve('imba_css')
 		# findAmbientModule('imba_css')
 		
-		
-	get snippets
-		findAmbientModule('imba_snippets')
+	# get snippets
+	#	resolve('imba_snippets') # findAmbientModule('imba_snippets')
 		
 	get cssrule
 		#cssrule ||= csstype('rule') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$rule'))
@@ -402,6 +401,9 @@ export default class ImbaTypeChecker
 	
 	def csstype name
 		checker.getDeclaredTypeOfSymbol(cssmodule.exports.get("css${name}"))
+		
+	def snippets name
+		props(checker.getDeclaredTypeOfSymbol(resolve('imba_snippets').exports.get(name)))
 
 	def type item, declaredType = no
 		if typeof item == 'string'
