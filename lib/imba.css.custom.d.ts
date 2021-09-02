@@ -1,4 +1,4 @@
-declare module "imba_css" {
+declare namespace imba_css {
     /*
     px: ['pl', 'pr']
     py: ['pt', 'pb']

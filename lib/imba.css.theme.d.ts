@@ -1,4 +1,4 @@
-declare module "imba_css" {
+declare namespace imba_css {
 	interface css$color {
 		/** The current color */
 		current: 'current';

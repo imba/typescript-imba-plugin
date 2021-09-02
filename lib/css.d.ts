@@ -1,4 +1,4 @@
-declare module "imba_css" {
+declare namespace imba_css {
 	interface css$enum$width {
 		/** The width depends on the values of other properties. */
 		auto: 'auto'
@@ -16,7 +16,7 @@ declare module "imba_css" {
 
 	interface css$prop$width extends css$prop {
 		/* auto | <length> | <percentage> | min-content | max-content | fit-content(<length-percentage>) */
-		set(val:css$enum$width|css$length|css$percentage): void
+		set(val: css$enum$width | css$length | css$percentage): void
 
 	}
 
@@ -37,7 +37,7 @@ declare module "imba_css" {
 
 	interface css$prop$height extends css$prop {
 		/* [ <length> | <percentage> ] && [ border-box | content-box ]? | available | min-content | max-content | fit-content | auto */
-		set(val:css$enum$height|css$length|css$percentage): void
+		set(val: css$enum$height | css$length | css$percentage): void
 
 	}
 
@@ -174,13 +174,13 @@ declare module "imba_css" {
 
 	interface css$prop$display extends css$prop {
 		/* [ <display-outside> || <display-inside> ] | <display-listitem> | <display-internal> | <display-box> | <display-legacy> */
-		set(val:css$enum$display): void
+		set(val: css$enum$display): void
 
 	}
 
 	interface css$prop$padding extends css$prop {
 		/* [ <length> | <percentage> ]{1,4} */
-		set(val:css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -210,13 +210,13 @@ declare module "imba_css" {
 
 	interface css$prop$position extends css$prop {
 		/* static | relative | absolute | sticky | fixed */
-		set(val:css$enum$position): void
+		set(val: css$enum$position): void
 
 	}
 
 	interface css$prop$border extends css$prop {
 		/* <br-width> || <br-style> || <color> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -227,13 +227,13 @@ declare module "imba_css" {
 
 	interface css$prop$margin extends css$prop {
 		/* [ <length> | <percentage> | auto ]{1,4} */
-		set(val:css$enum$margin|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$margin | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$svg extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -245,7 +245,7 @@ declare module "imba_css" {
 
 	interface css$prop$top extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$top|css$length|css$percentage): void
+		set(val: css$enum$top | css$length | css$percentage): void
 
 	}
 
@@ -257,7 +257,7 @@ declare module "imba_css" {
 
 	interface css$prop$left extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$left|css$length|css$percentage): void
+		set(val: css$enum$left | css$length | css$percentage): void
 
 	}
 
@@ -268,13 +268,13 @@ declare module "imba_css" {
 
 	interface css$prop$margin_top extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$margin_top|css$length|css$percentage): void
+		set(val: css$enum$margin_top | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -301,13 +301,13 @@ declare module "imba_css" {
 
 	interface css$prop$font_size extends css$prop {
 		/* <absolute-size> | <relative-size> | <length-percentage> */
-		set(val:css$enum$font_size|css$length|css$percentage): void
+		set(val: css$enum$font_size | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$background_color extends css$prop {
 		/* <color> */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -334,13 +334,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_align extends css$prop {
 		/* start | end | left | right | center | justify | match-parent */
-		set(val:css$enum$text_align|css$string): void
+		set(val: css$enum$text_align | css$string): void
 
 	}
 
 	interface css$prop$opacity extends css$prop {
 		/* <alpha-value> */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
@@ -361,7 +361,7 @@ declare module "imba_css" {
 
 	interface css$prop$background extends css$prop {
 		/* [ <bg-layer> , ]* <final-bg-layer> */
-		set(val:css$enum$background|css$image|css$color|css$position|css$length|css$repeat|css$percentage|css$box, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background | css$image | css$color | css$position | css$length | css$repeat | css$percentage | css$box, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -409,7 +409,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_weight extends css$prop {
 		/* <font-weight-absolute> | bolder | lighter */
-		set(val:css$enum$font_weight): void
+		set(val: css$enum$font_weight): void
 
 	}
 
@@ -428,7 +428,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_family extends css$prop {
 		/* [ <family-name> | <generic-family> ]# */
-		set(val:css$enum$font_family|css$font, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$font_family | css$font, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -452,7 +452,7 @@ declare module "imba_css" {
 
 	interface css$prop$float extends css$prop {
 		/* left | right | none | inline-start | inline-end */
-		set(val:css$enum$float): void
+		set(val: css$enum$float): void
 
 	}
 
@@ -464,7 +464,7 @@ declare module "imba_css" {
 
 	interface css$prop$line_height extends css$prop {
 		/* normal | <number> | <length> | <percentage> */
-		set(val:css$enum$line_height|css$number|css$length|css$percentage): void
+		set(val: css$enum$line_height | css$number | css$length | css$percentage): void
 
 	}
 
@@ -479,7 +479,7 @@ declare module "imba_css" {
 
 	interface css$prop$box_sizing extends css$prop {
 		/* content-box | border-box */
-		set(val:css$enum$box_sizing): void
+		set(val: css$enum$box_sizing): void
 
 	}
 
@@ -515,7 +515,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_decoration extends css$prop {
 		/* <'text-decoration-line'> || <'text-decoration-style'> || <'text-decoration-color'> || <'text-decoration-thickness'> */
-		set(val:css$enum$text_decoration|css$color): void
+		set(val: css$enum$text_decoration | css$color): void
 
 	}
 
@@ -527,7 +527,7 @@ declare module "imba_css" {
 
 	interface css$prop$z_index extends css$prop {
 		/* auto | <integer> */
-		set(val:css$enum$z_index|css$integer): void
+		set(val: css$enum$z_index | css$integer): void
 
 	}
 
@@ -565,7 +565,7 @@ declare module "imba_css" {
 
 	interface css$prop$vertical_align extends css$prop {
 		/* baseline | sub | super | text-top | text-bottom | middle | top | bottom | <percentage> | <length> */
-		set(val:css$enum$vertical_align|css$percentage|css$length): void
+		set(val: css$enum$vertical_align | css$percentage | css$length): void
 
 	}
 
@@ -706,7 +706,7 @@ declare module "imba_css" {
 
 	interface css$prop$cursor extends css$prop {
 		/* [ [ <url> [ <integer> <integer> ]? , ]* [ auto | default | none | context-menu | help | pointer | progress | wait | cell | crosshair | text | vertical-text | alias | copy | move | no-drop | not-allowed | e-resize | n-resize | ne-resize | nw-resize | s-resize | se-resize | sw-resize | w-resize | ew-resize | ns-resize | nesw-resize | nwse-resize | col-resize | row-resize | all-scroll | zoom-in | zoom-out | grab | grabbing ] ] */
-		set(val:css$enum$cursor|css$url|css$number): void
+		set(val: css$enum$cursor | css$url | css$number): void
 
 	}
 
@@ -717,13 +717,13 @@ declare module "imba_css" {
 
 	interface css$prop$margin_left extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$margin_left|css$length|css$percentage): void
+		set(val: css$enum$margin_left | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$border_radius extends css$prop {
 		/* <length-percentage>{1,4} [ / <length-percentage>{1,4} ]? */
-		set(val:css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -734,7 +734,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_bottom extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$margin_bottom|css$length|css$percentage): void
+		set(val: css$enum$margin_bottom | css$length | css$percentage): void
 
 	}
 
@@ -745,7 +745,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_right extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$margin_right|css$length|css$percentage): void
+		set(val: css$enum$margin_right | css$length | css$percentage): void
 
 	}
 
@@ -757,19 +757,19 @@ declare module "imba_css" {
 
 	interface css$prop$right extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$right|css$length|css$percentage): void
+		set(val: css$enum$right | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$padding_left extends css$prop {
 		/* <length> | <percentage> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
 	interface css$prop$padding_top extends css$prop {
 		/* <length> | <percentage> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -790,7 +790,7 @@ declare module "imba_css" {
 
 	interface css$prop$max_width extends css$prop {
 		/* <length> | <percentage> | none | max-content | min-content | fit-content | fill-available */
-		set(val:css$enum$max_width|css$length|css$percentage): void
+		set(val: css$enum$max_width | css$length | css$percentage): void
 
 	}
 
@@ -802,7 +802,7 @@ declare module "imba_css" {
 
 	interface css$prop$bottom extends css$prop {
 		/* <length> | <percentage> | auto */
-		set(val:css$enum$bottom|css$length|css$percentage): void
+		set(val: css$enum$bottom | css$length | css$percentage): void
 
 	}
 
@@ -828,7 +828,7 @@ declare module "imba_css" {
 
 	interface css$prop$content extends css$prop {
 		/* normal | none | [ <content-replacement> | <content-list> ] [/ <string> ]? */
-		set(val:css$enum$content|css$string|css$url): void
+		set(val: css$enum$content | css$string | css$url): void
 
 	}
 
@@ -843,7 +843,7 @@ declare module "imba_css" {
 
 	interface css$prop$box_shadow extends css$prop {
 		/* none | <shadow># */
-		set(val:css$enum$box_shadow|css$length|css$color): void
+		set(val: css$enum$box_shadow | css$length | css$color): void
 
 	}
 
@@ -855,13 +855,13 @@ declare module "imba_css" {
 
 	interface css$prop$background_image extends css$prop {
 		/* <bg-image># */
-		set(val:css$enum$background_image|css$image, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background_image | css$image, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$padding_right extends css$prop {
 		/* <length> | <percentage> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -885,13 +885,13 @@ declare module "imba_css" {
 
 	interface css$prop$white_space extends css$prop {
 		/* normal | pre | nowrap | pre-wrap | pre-line | break-spaces */
-		set(val:css$enum$white_space): void
+		set(val: css$enum$white_space): void
 
 	}
 
 	interface css$prop$padding_bottom extends css$prop {
 		/* <length> | <percentage> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -911,7 +911,7 @@ declare module "imba_css" {
 
 	interface css$prop$min_height extends css$prop {
 		/* <length> | <percentage> | none | max-content | min-content | fit-content | fill-available */
-		set(val:css$enum$min_height|css$length|css$percentage): void
+		set(val: css$enum$min_height | css$length | css$percentage): void
 
 	}
 
@@ -976,13 +976,13 @@ declare module "imba_css" {
 
 	interface css$prop$transform extends css$prop {
 		/* none | <transform-list> */
-		set(val:css$enum$transform): void
+		set(val: css$enum$transform): void
 
 	}
 
 	interface css$prop$border_bottom extends css$prop {
 		/* <br-width> || <br-style> || <color> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -1000,19 +1000,19 @@ declare module "imba_css" {
 
 	interface css$prop$visibility extends css$prop {
 		/* visible | hidden | collapse */
-		set(val:css$enum$visibility): void
+		set(val: css$enum$visibility): void
 
 	}
 
 	interface css$prop$background_position extends css$prop {
 		/* <bg-position># */
-		set(val:css$position|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$position | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_top extends css$prop {
 		/* <br-width> || <br-style> || <color> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -1032,7 +1032,7 @@ declare module "imba_css" {
 
 	interface css$prop$min_width extends css$prop {
 		/* auto | <length> | <percentage> | min-content | max-content | fit-content(<length-percentage>) */
-		set(val:css$enum$min_width|css$length|css$percentage): void
+		set(val: css$enum$min_width | css$length | css$percentage): void
 
 	}
 
@@ -1047,7 +1047,7 @@ declare module "imba_css" {
 
 	interface css$prop$outline extends css$prop {
 		/* [ <'outline-color'> || <'outline-style'> || <'outline-width'> ] */
-		set(val:css$enum$outline|css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$enum$outline | css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -1071,19 +1071,19 @@ declare module "imba_css" {
 
 	interface css$prop$transition extends css$prop {
 		/* <single-transition># */
-		set(val:css$enum$transition|css$time|css$property|css$timing_function, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$transition | css$time | css$property | css$timing_function, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_color extends css$prop {
 		/* <color>{1,4} */
-		set(val:css$color, arg1: any, arg2: any, arg3: any): void
+		set(val: css$color, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$background_repeat extends css$prop {
 		/* <repeat-style># */
-		set(val:css$repeat, arg1: any, arg2: any, arg3: any): void
+		set(val: css$repeat, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -1104,7 +1104,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_transform extends css$prop {
 		/* none | capitalize | uppercase | lowercase | full-width | full-size-kana */
-		set(val:css$enum$text_transform): void
+		set(val: css$enum$text_transform): void
 
 	}
 
@@ -1122,7 +1122,7 @@ declare module "imba_css" {
 
 	interface css$prop$background_size extends css$prop {
 		/* <bg-size># */
-		set(val:css$enum$background_size|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background_size | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -1143,7 +1143,7 @@ declare module "imba_css" {
 
 	interface css$prop$clear extends css$prop {
 		/* none | left | right | both | inline-start | inline-end */
-		set(val:css$enum$clear): void
+		set(val: css$enum$clear): void
 
 	}
 
@@ -1164,7 +1164,7 @@ declare module "imba_css" {
 
 	interface css$prop$max_height extends css$prop {
 		/* <length> | <percentage> | none | max-content | min-content | fit-content | fill-available */
-		set(val:css$enum$max_height|css$length|css$percentage): void
+		set(val: css$enum$max_height | css$length | css$percentage): void
 
 	}
 
@@ -1217,7 +1217,7 @@ declare module "imba_css" {
 
 	interface css$prop$list_style extends css$prop {
 		/* <'list-style-type'> || <'list-style-position'> || <'list-style-image'> */
-		set(val:css$enum$list_style|css$image|css$url): void
+		set(val: css$enum$list_style | css$image | css$url): void
 
 	}
 
@@ -1235,7 +1235,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_style extends css$prop {
 		/* normal | italic | oblique */
-		set(val:css$enum$font_style): void
+		set(val: css$enum$font_style): void
 
 	}
 
@@ -1328,19 +1328,19 @@ declare module "imba_css" {
 
 	interface css$prop$font extends css$prop {
 		/* [ [ <'font-style'> || <font-variant-css21> || <'font-weight'> || <'font-stretch'> ]? <'font-size'> [ / <'line-height'> ]? <'font-family'> ] | caption | icon | menu | message-box | small-caption | status-bar */
-		set(val:css$enum$font|css$font): void
+		set(val: css$enum$font | css$font): void
 
 	}
 
 	interface css$prop$border_left extends css$prop {
 		/* <br-width> || <br-style> || <color> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
 	interface css$prop$border_right extends css$prop {
 		/* <br-width> || <br-style> || <color> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -1355,13 +1355,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_overflow extends css$prop {
 		/* [ clip | ellipsis | <string> ]{1,2} */
-		set(val:css$enum$text_overflow|css$string, arg1: any): void
+		set(val: css$enum$text_overflow | css$string, arg1: any): void
 
 	}
 
 	interface css$prop$border_width extends css$prop {
 		/* <br-width>{1,4} */
-		set(val:css$length|css$line_width, arg1: any, arg2: any, arg3: any): void
+		set(val: css$length | css$line_width, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -1418,7 +1418,7 @@ declare module "imba_css" {
 
 	interface css$prop$justify_content extends css$prop {
 		/* normal | <content-distribution> | <overflow-position>? [ <content-position> | left | right ] */
-		set(val:css$enum$justify_content): void
+		set(val: css$enum$justify_content): void
 
 	}
 
@@ -1442,7 +1442,7 @@ declare module "imba_css" {
 
 	interface css$prop$align_items extends css$prop {
 		/* normal | stretch | <baseline-position> | [ <overflow-position>? <self-position> ] */
-		set(val:css$enum$align_items): void
+		set(val: css$enum$align_items): void
 
 	}
 
@@ -1493,13 +1493,13 @@ declare module "imba_css" {
 
 	interface css$prop$pointer_events extends css$prop {
 		/* auto | none | visiblePainted | visibleFill | visibleStroke | visible | painted | fill | stroke | all | inherit */
-		set(val:css$enum$pointer_events): void
+		set(val: css$enum$pointer_events): void
 
 	}
 
 	interface css$prop$border_style extends css$prop {
 		/* [object Object] */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
@@ -1511,7 +1511,7 @@ declare module "imba_css" {
 
 	interface css$prop$letter_spacing extends css$prop {
 		/* normal | <length> */
-		set(val:css$enum$letter_spacing|css$length): void
+		set(val: css$enum$letter_spacing | css$length): void
 
 	}
 
@@ -1547,7 +1547,7 @@ declare module "imba_css" {
 
 	interface css$prop$animation extends css$prop {
 		/* <single-animation># */
-		set(val:css$enum$animation|css$time|css$timing_function|css$identifier|css$number, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$animation | css$time | css$timing_function | css$identifier | css$number, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -1583,7 +1583,7 @@ declare module "imba_css" {
 
 	interface css$prop$flex_direction extends css$prop {
 		/* row | row-reverse | column | column-reverse */
-		set(val:css$enum$flex_direction): void
+		set(val: css$enum$flex_direction): void
 
 	}
 
@@ -1598,7 +1598,7 @@ declare module "imba_css" {
 
 	interface css$prop$word_wrap extends css$prop {
 		/* normal | break-word | anywhere */
-		set(val:css$enum$word_wrap): void
+		set(val: css$enum$word_wrap): void
 
 	}
 
@@ -1616,7 +1616,7 @@ declare module "imba_css" {
 
 	interface css$prop$flex extends css$prop {
 		/* none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] */
-		set(val:css$enum$flex|css$length|css$number|css$percentage): void
+		set(val: css$enum$flex | css$length | css$number | css$percentage): void
 
 	}
 
@@ -1631,7 +1631,7 @@ declare module "imba_css" {
 
 	interface css$prop$border_collapse extends css$prop {
 		/* collapse | separate */
-		set(val:css$enum$border_collapse): void
+		set(val: css$enum$border_collapse): void
 
 	}
 
@@ -1642,7 +1642,7 @@ declare module "imba_css" {
 
 	interface css$prop$zoom extends css$prop {
 		/* undefined */
-		set(val:css$enum$zoom|css$integer|css$number|css$percentage): void
+		set(val: css$enum$zoom | css$integer | css$number | css$percentage): void
 
 	}
 
@@ -1699,13 +1699,13 @@ declare module "imba_css" {
 
 	interface css$prop$list_style_type extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$list_style_type|css$string): void
+		set(val: css$enum$list_style_type | css$string): void
 
 	}
 
 	interface css$prop$border_bottom_left_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val:css$length|css$percentage, arg1: any): void
+		set(val: css$length | css$percentage, arg1: any): void
 
 	}
 
@@ -1720,13 +1720,13 @@ declare module "imba_css" {
 
 	interface css$prop$fill extends css$prop {
 		/* undefined */
-		set(val:css$enum$fill|css$color|css$url): void
+		set(val: css$enum$fill | css$color | css$url): void
 
 	}
 
 	interface css$prop$transform_origin extends css$prop {
 		/* [ <length-percentage> | left | center | right | top | bottom ] | [ [ <length-percentage> | left | center | right ] && [ <length-percentage> | top | center | bottom ] ] <length>? */
-		set(val:css$position|css$length|css$percentage): void
+		set(val: css$position | css$length | css$percentage): void
 
 	}
 
@@ -1744,7 +1744,7 @@ declare module "imba_css" {
 
 	interface css$prop$flex_wrap extends css$prop {
 		/* nowrap | wrap | wrap-reverse */
-		set(val:css$enum$flex_wrap): void
+		set(val: css$enum$flex_wrap): void
 
 	}
 
@@ -1756,13 +1756,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_shadow extends css$prop {
 		/* none | <shadow-t># */
-		set(val:css$enum$text_shadow|css$length|css$color): void
+		set(val: css$enum$text_shadow | css$length | css$color): void
 
 	}
 
 	interface css$prop$border_top_left_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val:css$length|css$percentage, arg1: any): void
+		set(val: css$length | css$percentage, arg1: any): void
 
 	}
 
@@ -1785,7 +1785,7 @@ declare module "imba_css" {
 
 	interface css$prop$user_select extends css$prop {
 		/* undefined */
-		set(val:css$enum$user_select): void
+		set(val: css$enum$user_select): void
 
 	}
 
@@ -1800,13 +1800,13 @@ declare module "imba_css" {
 
 	interface css$prop$clip extends css$prop {
 		/* undefined */
-		set(val:css$enum$clip): void
+		set(val: css$enum$clip): void
 
 	}
 
 	interface css$prop$border_bottom_right_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val:css$length|css$percentage, arg1: any): void
+		set(val: css$length | css$percentage, arg1: any): void
 
 	}
 
@@ -1824,37 +1824,37 @@ declare module "imba_css" {
 
 	interface css$prop$word_break extends css$prop {
 		/* normal | break-all | keep-all | break-word */
-		set(val:css$enum$word_break): void
+		set(val: css$enum$word_break): void
 
 	}
 
 	interface css$prop$border_top_right_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val:css$length|css$percentage, arg1: any): void
+		set(val: css$length | css$percentage, arg1: any): void
 
 	}
 
 	interface css$prop$flex_grow extends css$prop {
 		/* [object Object] */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
 	interface css$prop$border_top_color extends css$prop {
 		/* <color> */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$border_bottom_color extends css$prop {
 		/* <color> */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$flex_shrink extends css$prop {
 		/* [object Object] */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
@@ -1874,7 +1874,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_rendering extends css$prop {
 		/* auto | optimizeSpeed | optimizeLegibility | geometricPrecision */
-		set(val:css$enum$text_rendering): void
+		set(val: css$enum$text_rendering): void
 
 	}
 
@@ -1901,25 +1901,25 @@ declare module "imba_css" {
 
 	interface css$prop$align_self extends css$prop {
 		/* auto | normal | stretch | <baseline-position> | <overflow-position>? <self-position> */
-		set(val:css$enum$align_self): void
+		set(val: css$enum$align_self): void
 
 	}
 
 	interface css$prop$text_indent extends css$prop {
 		/* <length-percentage> && hanging? && each-line? */
-		set(val:css$percentage|css$length): void
+		set(val: css$percentage | css$length): void
 
 	}
 
 	interface css$prop$animation_timing_function extends css$prop {
 		/* <single-timing-function># */
-		set(val:css$timing_function, arg1: any, arg2: any, arg3: any): void
+		set(val: css$timing_function, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_spacing extends css$prop {
 		/* <length> <length>? */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
@@ -1934,19 +1934,19 @@ declare module "imba_css" {
 
 	interface css$prop$direction extends css$prop {
 		/* ltr | rtl */
-		set(val:css$enum$direction): void
+		set(val: css$enum$direction): void
 
 	}
 
 	interface css$prop$background_clip extends css$prop {
 		/* <box># */
-		set(val:css$box, arg1: any, arg2: any, arg3: any): void
+		set(val: css$box, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_left_color extends css$prop {
 		/* <color> */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -1964,7 +1964,7 @@ declare module "imba_css" {
 
 	interface css$prop$src extends css$prop {
 		/* undefined */
-		set(val:css$enum$src|css$url|css$identifier, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$src | css$url | css$identifier, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -1996,13 +1996,13 @@ declare module "imba_css" {
 
 	interface css$prop$touch_action extends css$prop {
 		/* auto | none | [ [ pan-x | pan-left | pan-right ] || [ pan-y | pan-up | pan-down ] || pinch-zoom ] | manipulation */
-		set(val:css$enum$touch_action): void
+		set(val: css$enum$touch_action): void
 
 	}
 
 	interface css$prop$border_right_color extends css$prop {
 		/* <color> */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -2017,7 +2017,7 @@ declare module "imba_css" {
 
 	interface css$prop$transition_property extends css$prop {
 		/* none | <single-transition-property># */
-		set(val:css$enum$transition_property|css$property): void
+		set(val: css$enum$transition_property | css$property): void
 
 	}
 
@@ -2029,7 +2029,7 @@ declare module "imba_css" {
 
 	interface css$prop$animation_name extends css$prop {
 		/* [ none | <keyframes-name> ]# */
-		set(val:css$enum$animation_name|css$identifier, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$animation_name | css$identifier, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2074,13 +2074,13 @@ declare module "imba_css" {
 
 	interface css$prop$filter extends css$prop {
 		/* undefined */
-		set(val:css$enum$filter|css$url): void
+		set(val: css$enum$filter | css$url): void
 
 	}
 
 	interface css$prop$animation_duration extends css$prop {
 		/* <time># */
-		set(val:css$time, arg1: any, arg2: any, arg3: any): void
+		set(val: css$time, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2095,13 +2095,13 @@ declare module "imba_css" {
 
 	interface css$prop$overflow_wrap extends css$prop {
 		/* normal | break-word | anywhere */
-		set(val:css$enum$overflow_wrap): void
+		set(val: css$enum$overflow_wrap): void
 
 	}
 
 	interface css$prop$transition_delay extends css$prop {
 		/* <time># */
-		set(val:css$time, arg1: any, arg2: any, arg3: any): void
+		set(val: css$time, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2116,7 +2116,7 @@ declare module "imba_css" {
 
 	interface css$prop$stroke extends css$prop {
 		/* undefined */
-		set(val:css$enum$stroke|css$color|css$url): void
+		set(val: css$enum$stroke | css$color | css$url): void
 
 	}
 
@@ -2131,31 +2131,31 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant extends css$prop {
 		/* normal | none | [ <common-lig-values> || <discretionary-lig-values> || <historical-lig-values> || <contextual-alt-values> || stylistic( <feature-value-name> ) || historical-forms || styleset( <feature-value-name># ) || character-variant( <feature-value-name># ) || swash( <feature-value-name> ) || ornaments( <feature-value-name> ) || annotation( <feature-value-name> ) || [ small-caps | all-small-caps | petite-caps | all-petite-caps | unicase | titling-caps ] || <numeric-figure-values> || <numeric-spacing-values> || <numeric-fraction-values> || ordinal || slashed-zero || <east-asian-variant-values> || <east-asian-width-values> || ruby ] */
-		set(val:css$enum$font_variant): void
+		set(val: css$enum$font_variant): void
 
 	}
 
 	interface css$prop$border_bottom_width extends css$prop {
 		/* <br-width> */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$animation_delay extends css$prop {
 		/* <time># */
-		set(val:css$time, arg1: any, arg2: any, arg3: any): void
+		set(val: css$time, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_top_width extends css$prop {
 		/* <br-width> */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$transition_duration extends css$prop {
 		/* <time># */
-		set(val:css$time, arg1: any, arg2: any, arg3: any): void
+		set(val: css$time, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2170,7 +2170,7 @@ declare module "imba_css" {
 
 	interface css$prop$flex_basis extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$flex_basis|css$length|css$number|css$percentage): void
+		set(val: css$enum$flex_basis | css$length | css$number | css$percentage): void
 
 	}
 
@@ -2188,7 +2188,7 @@ declare module "imba_css" {
 
 	interface css$prop$will_change extends css$prop {
 		/* auto | <animateable-feature># */
-		set(val:css$enum$will_change|css$identifier): void
+		set(val: css$enum$will_change | css$identifier): void
 
 	}
 
@@ -2209,13 +2209,13 @@ declare module "imba_css" {
 
 	interface css$prop$animation_fill_mode extends css$prop {
 		/* <single-animation-fill-mode># */
-		set(val:css$enum$animation_fill_mode, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$animation_fill_mode, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$outline_width extends css$prop {
 		/* [object Object] */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
@@ -2230,7 +2230,7 @@ declare module "imba_css" {
 
 	interface css$prop$table_layout extends css$prop {
 		/* auto | fixed */
-		set(val:css$enum$table_layout): void
+		set(val: css$enum$table_layout): void
 
 	}
 
@@ -2254,19 +2254,19 @@ declare module "imba_css" {
 
 	interface css$prop$object_fit extends css$prop {
 		/* fill | contain | cover | none | scale-down */
-		set(val:css$enum$object_fit): void
+		set(val: css$enum$object_fit): void
 
 	}
 
 	interface css$prop$order extends css$prop {
 		/* <integer> */
-		set(val:css$integer): void
+		set(val: css$integer): void
 
 	}
 
 	interface css$prop$transition_timing_function extends css$prop {
 		/* <timing-function># */
-		set(val:css$timing_function, arg1: any, arg2: any, arg3: any): void
+		set(val: css$timing_function, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2287,7 +2287,7 @@ declare module "imba_css" {
 
 	interface css$prop$resize extends css$prop {
 		/* none | both | horizontal | vertical | block | inline */
-		set(val:css$enum$resize): void
+		set(val: css$enum$resize): void
 
 	}
 
@@ -2299,19 +2299,19 @@ declare module "imba_css" {
 
 	interface css$prop$outline_style extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$outline_style|css$line_style): void
+		set(val: css$enum$outline_style | css$line_style): void
 
 	}
 
 	interface css$prop$border_right_width extends css$prop {
 		/* <br-width> */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$stroke_width extends css$prop {
 		/* undefined */
-		set(val:css$percentage|css$length): void
+		set(val: css$percentage | css$length): void
 
 	}
 
@@ -2323,7 +2323,7 @@ declare module "imba_css" {
 
 	interface css$prop$animation_iteration_count extends css$prop {
 		/* <single-animation-iteration-count># */
-		set(val:css$enum$animation_iteration_count|css$number, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$animation_iteration_count | css$number, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2350,13 +2350,13 @@ declare module "imba_css" {
 
 	interface css$prop$align_content extends css$prop {
 		/* normal | <baseline-position> | <content-distribution> | <overflow-position>? <content-position> */
-		set(val:css$enum$align_content): void
+		set(val: css$enum$align_content): void
 
 	}
 
 	interface css$prop$outline_offset extends css$prop {
 		/* <length> */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
@@ -2371,13 +2371,13 @@ declare module "imba_css" {
 
 	interface css$prop$backface_visibility extends css$prop {
 		/* undefined */
-		set(val:css$enum$backface_visibility): void
+		set(val: css$enum$backface_visibility): void
 
 	}
 
 	interface css$prop$border_left_width extends css$prop {
 		/* <br-width> */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
@@ -2407,13 +2407,13 @@ declare module "imba_css" {
 
 	interface css$prop$flex_flow extends css$prop {
 		/* <'flex-direction'> || <'flex-wrap'> */
-		set(val:css$enum$flex_flow): void
+		set(val: css$enum$flex_flow): void
 
 	}
 
 	interface css$prop$appearance extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -2440,7 +2440,7 @@ declare module "imba_css" {
 
 	interface css$prop$unicode_bidi extends css$prop {
 		/* normal | embed | isolate | bidi-override | isolate-override | plaintext */
-		set(val:css$enum$unicode_bidi): void
+		set(val: css$enum$unicode_bidi): void
 
 	}
 
@@ -2452,13 +2452,13 @@ declare module "imba_css" {
 
 	interface css$prop$stroke_dasharray extends css$prop {
 		/* undefined */
-		set(val:css$enum$stroke_dasharray|css$length|css$percentage|css$number): void
+		set(val: css$enum$stroke_dasharray | css$length | css$percentage | css$number): void
 
 	}
 
 	interface css$prop$stroke_dashoffset extends css$prop {
 		/* undefined */
-		set(val:css$percentage|css$length): void
+		set(val: css$percentage | css$length): void
 
 	}
 
@@ -2680,7 +2680,7 @@ declare module "imba_css" {
 
 	interface css$prop$unicode_range extends css$prop {
 		/* undefined */
-		set(val:css$enum$unicode_range|css$unicode_range): void
+		set(val: css$enum$unicode_range | css$unicode_range): void
 
 	}
 
@@ -2692,25 +2692,25 @@ declare module "imba_css" {
 
 	interface css$prop$word_spacing extends css$prop {
 		/* normal | <length-percentage> */
-		set(val:css$enum$word_spacing|css$length|css$percentage): void
+		set(val: css$enum$word_spacing | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$text_size_adjust extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_top_style extends css$prop {
 		/* <br-style> */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$border_bottom_style extends css$prop {
 		/* <br-style> */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
@@ -2731,7 +2731,7 @@ declare module "imba_css" {
 
 	interface css$prop$animation_direction extends css$prop {
 		/* <single-animation-direction># */
-		set(val:css$enum$animation_direction, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$animation_direction, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2757,7 +2757,7 @@ declare module "imba_css" {
 
 	interface css$prop$image_rendering extends css$prop {
 		/* undefined */
-		set(val:css$enum$image_rendering): void
+		set(val: css$enum$image_rendering): void
 
 	}
 
@@ -2769,7 +2769,7 @@ declare module "imba_css" {
 
 	interface css$prop$perspective extends css$prop {
 		/* none | <length> */
-		set(val:css$enum$perspective|css$length): void
+		set(val: css$enum$perspective | css$length): void
 
 	}
 
@@ -2799,7 +2799,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_template_columns extends css$prop {
 		/* none | <track-list> | <auto-track-list> */
-		set(val:css$enum$grid_template_columns|css$identifier|css$length|css$percentage): void
+		set(val: css$enum$grid_template_columns | css$identifier | css$length | css$percentage): void
 
 	}
 
@@ -2814,7 +2814,7 @@ declare module "imba_css" {
 
 	interface css$prop$list_style_position extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$list_style_position): void
+		set(val: css$enum$list_style_position): void
 
 	}
 
@@ -2832,7 +2832,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_feature_settings extends css$prop {
 		/* normal | <feature-tag-value># */
-		set(val:css$enum$font_feature_settings|css$string|css$integer): void
+		set(val: css$enum$font_feature_settings | css$string | css$integer): void
 
 	}
 
@@ -2862,7 +2862,7 @@ declare module "imba_css" {
 
 	interface css$prop$contain extends css$prop {
 		/* undefined */
-		set(val:css$enum$contain): void
+		set(val: css$enum$contain): void
 
 	}
 
@@ -2880,7 +2880,7 @@ declare module "imba_css" {
 
 	interface css$prop$background_position_x extends css$prop {
 		/* undefined */
-		set(val:css$enum$background_position_x|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background_position_x | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -2895,25 +2895,25 @@ declare module "imba_css" {
 
 	interface css$prop$transform_style extends css$prop {
 		/* flat | preserve-3d */
-		set(val:css$enum$transform_style): void
+		set(val: css$enum$transform_style): void
 
 	}
 
 	interface css$prop$background_origin extends css$prop {
 		/* <box># */
-		set(val:css$box, arg1: any, arg2: any, arg3: any): void
+		set(val: css$box, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_left_style extends css$prop {
 		/* <br-style> */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$font_display extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -2928,7 +2928,7 @@ declare module "imba_css" {
 
 	interface css$prop$clip_path extends css$prop {
 		/* <clip-source> | [ <basic-shape> || <geometry-box> ] | none */
-		set(val:css$enum$clip_path|css$url|css$shape|css$geometry_box): void
+		set(val: css$enum$clip_path | css$url | css$shape | css$geometry_box): void
 
 	}
 
@@ -2946,7 +2946,7 @@ declare module "imba_css" {
 
 	interface css$prop$hyphens extends css$prop {
 		/* none | manual | auto */
-		set(val:css$enum$hyphens): void
+		set(val: css$enum$hyphens): void
 
 	}
 
@@ -2964,13 +2964,13 @@ declare module "imba_css" {
 
 	interface css$prop$background_attachment extends css$prop {
 		/* <attachment># */
-		set(val:css$enum$background_attachment, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background_attachment, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$border_right_style extends css$prop {
 		/* <br-style> */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
@@ -2982,7 +2982,7 @@ declare module "imba_css" {
 
 	interface css$prop$outline_color extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$outline_color|css$color): void
+		set(val: css$enum$outline_color | css$color): void
 
 	}
 
@@ -2993,7 +2993,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_block_end extends css$prop {
 		/* undefined */
-		set(val:css$enum$margin_block_end|css$length|css$percentage): void
+		set(val: css$enum$margin_block_end | css$length | css$percentage): void
 
 	}
 
@@ -3008,7 +3008,7 @@ declare module "imba_css" {
 
 	interface css$prop$animation_play_state extends css$prop {
 		/* running | paused */
-		set(val:css$enum$animation_play_state): void
+		set(val: css$enum$animation_play_state): void
 
 	}
 
@@ -3020,7 +3020,7 @@ declare module "imba_css" {
 
 	interface css$prop$quotes extends css$prop {
 		/* none | auto | [ <string> <string> ]+ */
-		set(val:css$enum$quotes|css$string): void
+		set(val: css$enum$quotes | css$string): void
 
 	}
 
@@ -3038,7 +3038,7 @@ declare module "imba_css" {
 
 	interface css$prop$background_position_y extends css$prop {
 		/* undefined */
-		set(val:css$enum$background_position_y|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$background_position_y | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -3071,7 +3071,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_stretch extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$font_stretch): void
+		set(val: css$enum$font_stretch): void
 
 	}
 
@@ -3089,13 +3089,13 @@ declare module "imba_css" {
 
 	interface css$prop$stroke_linecap extends css$prop {
 		/* undefined */
-		set(val:css$enum$stroke_linecap): void
+		set(val: css$enum$stroke_linecap): void
 
 	}
 
 	interface css$prop$object_position extends css$prop {
 		/* <position> */
-		set(val:css$position|css$length|css$percentage): void
+		set(val: css$position | css$length | css$percentage): void
 
 	}
 
@@ -3107,7 +3107,7 @@ declare module "imba_css" {
 
 	interface css$prop$counter_reset extends css$prop {
 		/* [ <custom-ident> <integer>? ]+ | none */
-		set(val:css$enum$counter_reset|css$identifier|css$integer): void
+		set(val: css$enum$counter_reset | css$identifier | css$integer): void
 
 	}
 
@@ -3118,7 +3118,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_block_start extends css$prop {
 		/* undefined */
-		set(val:css$enum$margin_block_start|css$length|css$percentage): void
+		set(val: css$enum$margin_block_start | css$length | css$percentage): void
 
 	}
 
@@ -3130,19 +3130,19 @@ declare module "imba_css" {
 
 	interface css$prop$counter_increment extends css$prop {
 		/* [ <custom-ident> <integer>? ]+ | none */
-		set(val:css$enum$counter_increment|css$identifier|css$integer): void
+		set(val: css$enum$counter_increment | css$identifier | css$integer): void
 
 	}
 
 	interface css$prop$size extends css$prop {
 		/* undefined */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
 	interface css$prop$text_decoration_color extends css$prop {
 		/* [object Object] */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -3154,7 +3154,7 @@ declare module "imba_css" {
 
 	interface css$prop$list_style_image extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$list_style_image|css$image): void
+		set(val: css$enum$list_style_image | css$image): void
 
 	}
 
@@ -3166,7 +3166,7 @@ declare module "imba_css" {
 
 	interface css$prop$column_count extends css$prop {
 		/* <integer> | auto */
-		set(val:css$enum$column_count|css$integer): void
+		set(val: css$enum$column_count | css$integer): void
 
 	}
 
@@ -3198,7 +3198,7 @@ declare module "imba_css" {
 
 	interface css$prop$border_image extends css$prop {
 		/* <'border-image-source'> || <'border-image-slice'> [ / <'border-image-width'> | / <'border-image-width'>? / <'border-image-outset'> ]? || <'border-image-repeat'> */
-		set(val:css$enum$border_image|css$length|css$percentage|css$number|css$url): void
+		set(val: css$enum$border_image | css$length | css$percentage | css$number | css$url): void
 
 	}
 
@@ -3210,7 +3210,7 @@ declare module "imba_css" {
 
 	interface css$prop$column_gap extends css$prop {
 		/* normal | <length-percentage> */
-		set(val:css$enum$column_gap|css$length): void
+		set(val: css$enum$column_gap | css$length): void
 
 	}
 
@@ -3225,19 +3225,19 @@ declare module "imba_css" {
 
 	interface css$prop$page_break_inside extends css$prop {
 		/* undefined */
-		set(val:css$enum$page_break_inside): void
+		set(val: css$enum$page_break_inside): void
 
 	}
 
 	interface css$prop$fill_opacity extends css$prop {
 		/* undefined */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
 	interface css$prop$padding_inline_start extends css$prop {
 		/* <'padding-left'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -3254,7 +3254,7 @@ declare module "imba_css" {
 
 	interface css$prop$empty_cells extends css$prop {
 		/* show | hide */
-		set(val:css$enum$empty_cells): void
+		set(val: css$enum$empty_cells): void
 
 	}
 
@@ -3299,13 +3299,13 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_ligatures extends css$prop {
 		/* normal | none | [ <common-lig-values> || <discretionary-lig-values> || <historical-lig-values> || <contextual-alt-values> ] */
-		set(val:css$enum$font_variant_ligatures): void
+		set(val: css$enum$font_variant_ligatures): void
 
 	}
 
 	interface css$prop$text_decoration_skip extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -3354,7 +3354,7 @@ declare module "imba_css" {
 
 	interface css$prop$justify_self extends css$prop {
 		/* auto | normal | stretch | <baseline-position> | <overflow-position>? [ <self-position> | left | right ] */
-		set(val:css$enum$justify_self): void
+		set(val: css$enum$justify_self): void
 
 	}
 
@@ -3378,7 +3378,7 @@ declare module "imba_css" {
 
 	interface css$prop$page_break_after extends css$prop {
 		/* undefined */
-		set(val:css$enum$page_break_after): void
+		set(val: css$enum$page_break_after): void
 
 	}
 
@@ -3408,25 +3408,25 @@ declare module "imba_css" {
 
 	interface css$prop$grid_template_rows extends css$prop {
 		/* none | <track-list> | <auto-track-list> */
-		set(val:css$enum$grid_template_rows|css$identifier|css$length|css$percentage|css$string): void
+		set(val: css$enum$grid_template_rows | css$identifier | css$length | css$percentage | css$string): void
 
 	}
 
 	interface css$prop$padding_inline_end extends css$prop {
 		/* <'padding-left'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
 	interface css$prop$grid_gap extends css$prop {
 		/* <'row-gap'> <'column-gap'>? */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
 	interface css$prop$all extends css$prop {
 		/* revert */
-		set(val:css$enum$all): void
+		set(val: css$enum$all): void
 
 	}
 
@@ -3441,13 +3441,13 @@ declare module "imba_css" {
 
 	interface css$prop$grid_column extends css$prop {
 		/* <grid-line> [ / <grid-line> ]? */
-		set(val:css$enum$grid_column|css$identifier|css$integer): void
+		set(val: css$enum$grid_column | css$identifier | css$integer): void
 
 	}
 
 	interface css$prop$stroke_opacity extends css$prop {
 		/* undefined */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
@@ -3458,7 +3458,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_inline_start extends css$prop {
 		/* undefined */
-		set(val:css$enum$margin_inline_start|css$length|css$percentage): void
+		set(val: css$enum$margin_inline_start | css$length | css$percentage): void
 
 	}
 
@@ -3469,7 +3469,7 @@ declare module "imba_css" {
 
 	interface css$prop$margin_inline_end extends css$prop {
 		/* undefined */
-		set(val:css$enum$margin_inline_end|css$length|css$percentage): void
+		set(val: css$enum$margin_inline_end | css$length | css$percentage): void
 
 	}
 
@@ -3481,13 +3481,13 @@ declare module "imba_css" {
 
 	interface css$prop$caret_color extends css$prop {
 		/* auto | <color> */
-		set(val:css$enum$caret_color|css$color): void
+		set(val: css$enum$caret_color | css$color): void
 
 	}
 
 	interface css$prop$orphans extends css$prop {
 		/* <integer> */
-		set(val:css$integer): void
+		set(val: css$integer): void
 
 	}
 
@@ -3502,25 +3502,25 @@ declare module "imba_css" {
 
 	interface css$prop$caption_side extends css$prop {
 		/* top | bottom */
-		set(val:css$enum$caption_side): void
+		set(val: css$enum$caption_side): void
 
 	}
 
 	interface css$prop$perspective_origin extends css$prop {
 		/* <position> */
-		set(val:css$position|css$percentage|css$length): void
+		set(val: css$position | css$percentage | css$length): void
 
 	}
 
 	interface css$prop$stop_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$widows extends css$prop {
 		/* <integer> */
-		set(val:css$integer): void
+		set(val: css$integer): void
 
 	}
 
@@ -3535,13 +3535,13 @@ declare module "imba_css" {
 
 	interface css$prop$scroll_behavior extends css$prop {
 		/* auto | smooth */
-		set(val:css$enum$scroll_behavior): void
+		set(val: css$enum$scroll_behavior): void
 
 	}
 
 	interface css$prop$grid_column_gap extends css$prop {
 		/* undefined */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
@@ -3553,7 +3553,7 @@ declare module "imba_css" {
 
 	interface css$prop$columns extends css$prop {
 		/* <'column-width'> || <'column-count'> */
-		set(val:css$enum$columns|css$length|css$integer): void
+		set(val: css$enum$columns | css$length | css$integer): void
 
 	}
 
@@ -3565,7 +3565,7 @@ declare module "imba_css" {
 
 	interface css$prop$column_width extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$column_width|css$length): void
+		set(val: css$enum$column_width | css$length): void
 
 	}
 
@@ -3622,7 +3622,7 @@ declare module "imba_css" {
 
 	interface css$prop$mix_blend_mode extends css$prop {
 		/* <blend-mode> */
-		set(val:css$enum$mix_blend_mode): void
+		set(val: css$enum$mix_blend_mode): void
 
 	}
 
@@ -3640,7 +3640,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_kerning extends css$prop {
 		/* auto | normal | none */
-		set(val:css$enum$font_kerning): void
+		set(val: css$enum$font_kerning): void
 
 	}
 
@@ -3652,7 +3652,7 @@ declare module "imba_css" {
 
 	interface css$prop$border_image_slice extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$border_image_slice|css$number|css$percentage): void
+		set(val: css$enum$border_image_slice | css$number | css$percentage): void
 
 	}
 
@@ -3673,7 +3673,7 @@ declare module "imba_css" {
 
 	interface css$prop$border_image_repeat extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$border_image_repeat): void
+		set(val: css$enum$border_image_repeat): void
 
 	}
 
@@ -3685,7 +3685,7 @@ declare module "imba_css" {
 
 	interface css$prop$border_image_width extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$border_image_width|css$length|css$percentage|css$number): void
+		set(val: css$enum$border_image_width | css$length | css$percentage | css$number): void
 
 	}
 
@@ -3700,19 +3700,19 @@ declare module "imba_css" {
 
 	interface css$prop$grid_row extends css$prop {
 		/* <grid-line> [ / <grid-line> ]? */
-		set(val:css$enum$grid_row|css$identifier|css$integer): void
+		set(val: css$enum$grid_row | css$identifier | css$integer): void
 
 	}
 
 	interface css$prop$tab_size extends css$prop {
 		/* <integer> | <length> */
-		set(val:css$integer|css$length): void
+		set(val: css$integer | css$length): void
 
 	}
 
 	interface css$prop$grid_row_gap extends css$prop {
 		/* normal | <length-percentage> */
-		set(val:css$length): void
+		set(val: css$length): void
 
 	}
 
@@ -3739,7 +3739,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_decoration_style extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$text_decoration_style): void
+		set(val: css$enum$text_decoration_style): void
 
 	}
 
@@ -3760,19 +3760,19 @@ declare module "imba_css" {
 
 	interface css$prop$line_break extends css$prop {
 		/* auto | loose | normal | strict */
-		set(val:css$enum$line_break): void
+		set(val: css$enum$line_break): void
 
 	}
 
 	interface css$prop$border_image_outset extends css$prop {
 		/* [object Object] */
-		set(val:css$length|css$number): void
+		set(val: css$length | css$number): void
 
 	}
 
 	interface css$prop$column_rule extends css$prop {
 		/* <'column-rule-width'> || <'column-rule-style'> || <'column-rule-color'> */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
@@ -3823,7 +3823,7 @@ declare module "imba_css" {
 
 	interface css$prop$justify_items extends css$prop {
 		/* normal | stretch | <baseline-position> | <overflow-position>? [ <self-position> | left | right ] | legacy | legacy && [ left | right | center ] */
-		set(val:css$enum$justify_items): void
+		set(val: css$enum$justify_items): void
 
 	}
 
@@ -3838,13 +3838,13 @@ declare module "imba_css" {
 
 	interface css$prop$grid_area extends css$prop {
 		/* <grid-line> [ / <grid-line> ]{0,3} */
-		set(val:css$enum$grid_area|css$identifier|css$integer): void
+		set(val: css$enum$grid_area | css$identifier | css$integer): void
 
 	}
 
 	interface css$prop$stroke_miterlimit extends css$prop {
 		/* undefined */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
@@ -3868,13 +3868,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_align_last extends css$prop {
 		/* auto | start | end | left | right | center | justify */
-		set(val:css$enum$text_align_last): void
+		set(val: css$enum$text_align_last): void
 
 	}
 
 	interface css$prop$backdrop_filter extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -3895,7 +3895,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_auto_rows extends css$prop {
 		/* <track-size>+ */
-		set(val:css$enum$grid_auto_rows|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$grid_auto_rows | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -3913,7 +3913,7 @@ declare module "imba_css" {
 
 	interface css$prop$stroke_linejoin extends css$prop {
 		/* undefined */
-		set(val:css$enum$stroke_linejoin): void
+		set(val: css$enum$stroke_linejoin): void
 
 	}
 
@@ -3928,7 +3928,7 @@ declare module "imba_css" {
 
 	interface css$prop$shape_outside extends css$prop {
 		/* none | <shape-box> || <basic-shape> | <image> */
-		set(val:css$enum$shape_outside|css$image|css$box|css$shape): void
+		set(val: css$enum$shape_outside | css$image | css$box | css$shape): void
 
 	}
 
@@ -3949,13 +3949,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_decoration_line extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$text_decoration_line): void
+		set(val: css$enum$text_decoration_line): void
 
 	}
 
 	interface css$prop$scroll_snap_align extends css$prop {
 		/* [ none | start | end | center ]{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
@@ -3970,7 +3970,7 @@ declare module "imba_css" {
 
 	interface css$prop$fill_rule extends css$prop {
 		/* undefined */
-		set(val:css$enum$fill_rule): void
+		set(val: css$enum$fill_rule): void
 
 	}
 
@@ -3988,7 +3988,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_auto_flow extends css$prop {
 		/* [ row | column ] || dense */
-		set(val:css$enum$grid_auto_flow): void
+		set(val: css$enum$grid_auto_flow): void
 
 	}
 
@@ -4006,7 +4006,7 @@ declare module "imba_css" {
 
 	interface css$prop$scroll_snap_type extends css$prop {
 		/* none | [ x | y | block | inline | both ] [ mandatory | proximity ]? */
-		set(val:css$enum$scroll_snap_type): void
+		set(val: css$enum$scroll_snap_type): void
 
 	}
 
@@ -4030,7 +4030,7 @@ declare module "imba_css" {
 
 	interface css$prop$page_break_before extends css$prop {
 		/* undefined */
-		set(val:css$enum$page_break_before): void
+		set(val: css$enum$page_break_before): void
 
 	}
 
@@ -4045,7 +4045,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_column_start extends css$prop {
 		/* <grid-line> */
-		set(val:css$enum$grid_column_start|css$identifier|css$integer): void
+		set(val: css$enum$grid_column_start | css$identifier | css$integer): void
 
 	}
 
@@ -4057,7 +4057,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_template_areas extends css$prop {
 		/* none | <string>+ */
-		set(val:css$enum$grid_template_areas|css$string): void
+		set(val: css$enum$grid_template_areas | css$string): void
 
 	}
 
@@ -4078,7 +4078,7 @@ declare module "imba_css" {
 
 	interface css$prop$break_inside extends css$prop {
 		/* auto | avoid | avoid-page | avoid-column | avoid-region */
-		set(val:css$enum$break_inside): void
+		set(val: css$enum$break_inside): void
 
 	}
 
@@ -4093,7 +4093,7 @@ declare module "imba_css" {
 
 	interface css$prop$column_fill extends css$prop {
 		/* auto | balance | balance-all */
-		set(val:css$enum$column_fill): void
+		set(val: css$enum$column_fill): void
 
 	}
 
@@ -4108,7 +4108,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_column_end extends css$prop {
 		/* <grid-line> */
-		set(val:css$enum$grid_column_end|css$identifier|css$integer): void
+		set(val: css$enum$grid_column_end | css$identifier | css$integer): void
 
 	}
 
@@ -4120,13 +4120,13 @@ declare module "imba_css" {
 
 	interface css$prop$border_image_source extends css$prop {
 		/* [object Object] */
-		set(val:css$enum$border_image_source|css$image): void
+		set(val: css$enum$border_image_source | css$image): void
 
 	}
 
 	interface css$prop$overflow_anchor extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -4141,7 +4141,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_row_start extends css$prop {
 		/* <grid-line> */
-		set(val:css$enum$grid_row_start|css$identifier|css$integer): void
+		set(val: css$enum$grid_row_start | css$identifier | css$integer): void
 
 	}
 
@@ -4156,7 +4156,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_row_end extends css$prop {
 		/* <grid-line> */
-		set(val:css$enum$grid_row_end|css$identifier|css$integer): void
+		set(val: css$enum$grid_row_end | css$identifier | css$integer): void
 
 	}
 
@@ -4192,7 +4192,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_numeric extends css$prop {
 		/* normal | [ <numeric-figure-values> || <numeric-spacing-values> || <numeric-fraction-values> || ordinal || slashed-zero ] */
-		set(val:css$enum$font_variant_numeric): void
+		set(val: css$enum$font_variant_numeric): void
 
 	}
 
@@ -4249,19 +4249,19 @@ declare module "imba_css" {
 
 	interface css$prop$background_blend_mode extends css$prop {
 		/* normal | multiply | screen | overlay | darken | lighten | color-dodge | color-burn | hard-light | soft-light | difference | exclusion | hue | saturation | color | luminosity */
-		set(val:css$enum$background_blend_mode): void
+		set(val: css$enum$background_blend_mode): void
 
 	}
 
 	interface css$prop$text_decoration_skip_ink extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$column_rule_color extends css$prop {
 		/* [object Object] */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -4276,7 +4276,7 @@ declare module "imba_css" {
 
 	interface css$prop$isolation extends css$prop {
 		/* auto | isolate */
-		set(val:css$enum$isolation): void
+		set(val: css$enum$isolation): void
 
 	}
 
@@ -4297,25 +4297,25 @@ declare module "imba_css" {
 
 	interface css$prop$shape_rendering extends css$prop {
 		/* undefined */
-		set(val:css$enum$shape_rendering): void
+		set(val: css$enum$shape_rendering): void
 
 	}
 
 	interface css$prop$column_rule_style extends css$prop {
 		/* [object Object] */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$border_inline_end_width extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$border_inline_start_width extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
@@ -4336,7 +4336,7 @@ declare module "imba_css" {
 
 	interface css$prop$grid_auto_columns extends css$prop {
 		/* <track-size>+ */
-		set(val:css$enum$grid_auto_columns|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$grid_auto_columns | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -4360,7 +4360,7 @@ declare module "imba_css" {
 
 	interface css$prop$writing_mode extends css$prop {
 		/* horizontal-tb | vertical-rl | vertical-lr | sideways-rl | sideways-lr */
-		set(val:css$enum$writing_mode): void
+		set(val: css$enum$writing_mode): void
 
 	}
 
@@ -4375,7 +4375,7 @@ declare module "imba_css" {
 
 	interface css$prop$clip_rule extends css$prop {
 		/* undefined */
-		set(val:css$enum$clip_rule): void
+		set(val: css$enum$clip_rule): void
 
 	}
 
@@ -4405,7 +4405,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_caps extends css$prop {
 		/* normal | small-caps | all-small-caps | petite-caps | all-petite-caps | unicase | titling-caps */
-		set(val:css$enum$font_variant_caps): void
+		set(val: css$enum$font_variant_caps): void
 
 	}
 
@@ -4423,19 +4423,19 @@ declare module "imba_css" {
 
 	interface css$prop$text_anchor extends css$prop {
 		/* undefined */
-		set(val:css$enum$text_anchor): void
+		set(val: css$enum$text_anchor): void
 
 	}
 
 	interface css$prop$stop_opacity extends css$prop {
 		/* undefined */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
 	interface css$prop$mask extends css$prop {
 		/* <mask-layer># */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -4450,7 +4450,7 @@ declare module "imba_css" {
 
 	interface css$prop$column_span extends css$prop {
 		/* none | all */
-		set(val:css$enum$column_span): void
+		set(val: css$enum$column_span): void
 
 	}
 
@@ -4489,7 +4489,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_east_asian extends css$prop {
 		/* normal | [ <east-asian-variant-values> || <east-asian-width-values> || ruby ] */
-		set(val:css$enum$font_variant_east_asian): void
+		set(val: css$enum$font_variant_east_asian): void
 
 	}
 
@@ -4506,7 +4506,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_underline_position extends css$prop {
 		/* auto | from-font | [ under || [ left | right ] ] */
-		set(val:css$enum$text_underline_position): void
+		set(val: css$enum$text_underline_position): void
 
 	}
 
@@ -4542,7 +4542,7 @@ declare module "imba_css" {
 
 	interface css$prop$break_after extends css$prop {
 		/* auto | avoid | avoid-page | page | left | right | recto | verso | avoid-column | column | avoid-region | region */
-		set(val:css$enum$break_after): void
+		set(val: css$enum$break_after): void
 
 	}
 
@@ -4578,7 +4578,7 @@ declare module "imba_css" {
 
 	interface css$prop$break_before extends css$prop {
 		/* auto | avoid | avoid-page | page | left | right | recto | verso | avoid-column | column | avoid-region | region */
-		set(val:css$enum$break_before): void
+		set(val: css$enum$break_before): void
 
 	}
 
@@ -4593,19 +4593,19 @@ declare module "imba_css" {
 
 	interface css$prop$mask_type extends css$prop {
 		/* luminance | alpha */
-		set(val:css$enum$mask_type): void
+		set(val: css$enum$mask_type): void
 
 	}
 
 	interface css$prop$column_rule_width extends css$prop {
 		/* [object Object] */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$row_gap extends css$prop {
 		/* [object Object] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -4623,13 +4623,13 @@ declare module "imba_css" {
 
 	interface css$prop$text_orientation extends css$prop {
 		/* mixed | upright | sideways */
-		set(val:css$enum$text_orientation): void
+		set(val: css$enum$text_orientation): void
 
 	}
 
 	interface css$prop$scroll_padding extends css$prop {
 		/* [ auto | <length-percentage> ]{1,4} */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -4659,49 +4659,49 @@ declare module "imba_css" {
 
 	interface css$prop$grid_template extends css$prop {
 		/* none | [ <'grid-template-rows'> / <'grid-template-columns'> ] | [ <line-names>? <string> <track-size>? <line-names>? ]+ [ / <explicit-track-list> ]? */
-		set(val:css$enum$grid_template|css$identifier|css$length|css$percentage|css$string): void
+		set(val: css$enum$grid_template | css$identifier | css$length | css$percentage | css$string): void
 
 	}
 
 	interface css$prop$border_inline_end_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$border_inline_start_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scroll_snap_stop extends css$prop {
 		/* normal | always */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$shape_margin extends css$prop {
 		/* <length-percentage> */
-		set(val:css$url|css$length|css$percentage): void
+		set(val: css$url | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$shape_image_threshold extends css$prop {
 		/* <alpha-value> */
-		set(val:css$number): void
+		set(val: css$number): void
 
 	}
 
 	interface css$prop$gap extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$min_inline_size extends css$prop {
 		/* <'min-width'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -4716,7 +4716,7 @@ declare module "imba_css" {
 
 	interface css$prop$image_orientation extends css$prop {
 		/* undefined */
-		set(val:css$enum$image_orientation|css$angle): void
+		set(val: css$enum$image_orientation | css$angle): void
 
 	}
 
@@ -4728,25 +4728,25 @@ declare module "imba_css" {
 
 	interface css$prop$inline_size extends css$prop {
 		/* undefined */
-		set(val:css$enum$inline_size|css$length|css$percentage): void
+		set(val: css$enum$inline_size | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$padding_block_start extends css$prop {
 		/* <'padding-left'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
 	interface css$prop$padding_block_end extends css$prop {
 		/* <'padding-left'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
 	interface css$prop$text_combine_upright extends css$prop {
 		/* none | all | [ digits <integer>? ] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -4758,73 +4758,73 @@ declare module "imba_css" {
 
 	interface css$prop$block_size extends css$prop {
 		/* undefined */
-		set(val:css$enum$block_size|css$length|css$percentage): void
+		set(val: css$enum$block_size | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$min_block_size extends css$prop {
 		/* <'min-width'> */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
 	interface css$prop$scroll_padding_top extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_inline_end_style extends css$prop {
 		/* undefined */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$border_block_start_width extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$border_block_end_width extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width): void
+		set(val: css$length | css$line_width): void
 
 	}
 
 	interface css$prop$border_block_end_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$border_inline_start_style extends css$prop {
 		/* undefined */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$border_block_start_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$border_block_end_style extends css$prop {
 		/* undefined */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$border_block_start_style extends css$prop {
 		/* undefined */
-		set(val:css$line_style): void
+		set(val: css$line_style): void
 
 	}
 
 	interface css$prop$font_variation_settings extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -4842,7 +4842,7 @@ declare module "imba_css" {
 
 	interface css$prop$paint_order extends css$prop {
 		/* undefined */
-		set(val:css$enum$paint_order): void
+		set(val: css$enum$paint_order): void
 
 	}
 
@@ -4860,7 +4860,7 @@ declare module "imba_css" {
 
 	interface css$prop$color_interpolation_filters extends css$prop {
 		/* undefined */
-		set(val:css$enum$color_interpolation_filters): void
+		set(val: css$enum$color_interpolation_filters): void
 
 	}
 
@@ -4875,31 +4875,31 @@ declare module "imba_css" {
 
 	interface css$prop$marker_end extends css$prop {
 		/* undefined */
-		set(val:css$enum$marker_end|css$url): void
+		set(val: css$enum$marker_end | css$url): void
 
 	}
 
 	interface css$prop$scroll_padding_left extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$flood_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$flood_opacity extends css$prop {
 		/* undefined */
-		set(val:css$number|css$percentage): void
+		set(val: css$number | css$percentage): void
 
 	}
 
 	interface css$prop$lighting_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
@@ -4914,7 +4914,7 @@ declare module "imba_css" {
 
 	interface css$prop$marker_start extends css$prop {
 		/* undefined */
-		set(val:css$enum$marker_start|css$url): void
+		set(val: css$enum$marker_start | css$url): void
 
 	}
 
@@ -4929,7 +4929,7 @@ declare module "imba_css" {
 
 	interface css$prop$marker_mid extends css$prop {
 		/* undefined */
-		set(val:css$enum$marker_mid|css$url): void
+		set(val: css$enum$marker_mid | css$url): void
 
 	}
 
@@ -4944,43 +4944,43 @@ declare module "imba_css" {
 
 	interface css$prop$marker extends css$prop {
 		/* undefined */
-		set(val:css$enum$marker|css$url): void
+		set(val: css$enum$marker | css$url): void
 
 	}
 
 	interface css$prop$place_content extends css$prop {
 		/* <'align-content'> <'justify-content'>? */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$offset_path extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$offset_rotate extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$offset_distance extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$transform_box extends css$prop {
 		/* content-box | border-box | fill-box | stroke-box | view-box */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$place_items extends css$prop {
 		/* <'align-items'> <'justify-items'>? */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -4992,7 +4992,7 @@ declare module "imba_css" {
 
 	interface css$prop$max_inline_size extends css$prop {
 		/* undefined */
-		set(val:css$enum$max_inline_size|css$length|css$percentage): void
+		set(val: css$enum$max_inline_size | css$length | css$percentage): void
 
 	}
 
@@ -5004,7 +5004,7 @@ declare module "imba_css" {
 
 	interface css$prop$max_block_size extends css$prop {
 		/* undefined */
-		set(val:css$enum$max_block_size|css$length|css$percentage): void
+		set(val: css$enum$max_block_size | css$length | css$percentage): void
 
 	}
 
@@ -5024,115 +5024,115 @@ declare module "imba_css" {
 
 	interface css$prop$ruby_position extends css$prop {
 		/* undefined */
-		set(val:css$enum$ruby_position): void
+		set(val: css$enum$ruby_position): void
 
 	}
 
 	interface css$prop$scroll_padding_right extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_padding_bottom extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_padding_inline_start extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_padding_block_start extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_padding_block_end extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_padding_inline_end extends css$prop {
 		/* auto | <length-percentage> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$place_self extends css$prop {
 		/* <'align-self'> <'justify-self'>? */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$font_optical_sizing extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$grid extends css$prop {
 		/* <'grid-template'> | <'grid-template-rows'> / [ auto-flow && dense? ] <'grid-auto-columns'>? | [ auto-flow && dense? ] <'grid-auto-rows'>? / <'grid-template-columns'> */
-		set(val:css$identifier|css$length|css$percentage|css$string|css$enum$grid): void
+		set(val: css$identifier | css$length | css$percentage | css$string | css$enum$grid): void
 
 	}
 
 	interface css$prop$border_inline_start extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
 	interface css$prop$border_inline_end extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
 	interface css$prop$border_block_end extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
 	interface css$prop$offset extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_block_start extends css$prop {
 		/* undefined */
-		set(val:css$length|css$line_width|css$line_style|css$color): void
+		set(val: css$length | css$line_width | css$line_style | css$color): void
 
 	}
 
 	interface css$prop$scroll_padding_block extends css$prop {
 		/* [ auto | <length-percentage> ]{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$scroll_padding_inline extends css$prop {
 		/* [ auto | <length-percentage> ]{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$overscroll_behavior_block extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overscroll_behavior_inline extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -5153,7 +5153,7 @@ declare module "imba_css" {
 
 	interface css$prop$motion extends css$prop {
 		/* undefined */
-		set(val:css$enum$motion|css$url|css$length|css$percentage|css$angle|css$shape|css$geometry_box): void
+		set(val: css$enum$motion | css$url | css$length | css$percentage | css$angle | css$shape | css$geometry_box): void
 
 	}
 
@@ -5165,13 +5165,13 @@ declare module "imba_css" {
 
 	interface css$prop$font_size_adjust extends css$prop {
 		/* none | <number> */
-		set(val:css$enum$font_size_adjust|css$number): void
+		set(val: css$enum$font_size_adjust | css$number): void
 
 	}
 
 	interface css$prop$inset extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -5202,7 +5202,7 @@ declare module "imba_css" {
 
 	interface css$prop$text_justify extends css$prop {
 		/* auto | inter-character | inter-word | none */
-		set(val:css$enum$text_justify): void
+		set(val: css$enum$text_justify): void
 
 	}
 
@@ -5217,127 +5217,127 @@ declare module "imba_css" {
 
 	interface css$prop$motion_path extends css$prop {
 		/* undefined */
-		set(val:css$enum$motion_path|css$url|css$shape|css$geometry_box): void
+		set(val: css$enum$motion_path | css$url | css$shape | css$geometry_box): void
 
 	}
 
 	interface css$prop$inset_inline_start extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$inset_inline_end extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scale extends css$prop {
 		/* none | <number>{1,3} */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$rotate extends css$prop {
 		/* none | <angle> | [ x | y | z | <number>{3} ] && <angle> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$translate extends css$prop {
 		/* none | <length-percentage> [ <length-percentage> <length>? ]? */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$offset_anchor extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$offset_position extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$padding_block extends css$prop {
 		/* <'padding-left'>{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$orientation extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$user_zoom extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$margin_block extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$margin_inline extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$padding_inline extends css$prop {
 		/* <'padding-left'>{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$inset_block extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$inset_inline extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_block_color extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_block extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_inline extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$inset_block_start extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$inset_block_end extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -5352,13 +5352,13 @@ declare module "imba_css" {
 
 	interface css$prop$enable_background extends css$prop {
 		/* undefined */
-		set(val:css$enum$enable_background|css$integer|css$length|css$percentage): void
+		set(val: css$enum$enable_background | css$integer | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$glyph_orientation_horizontal extends css$prop {
 		/* undefined */
-		set(val:css$angle|css$number): void
+		set(val: css$angle | css$number): void
 
 	}
 
@@ -5370,7 +5370,7 @@ declare module "imba_css" {
 
 	interface css$prop$glyph_orientation_vertical extends css$prop {
 		/* undefined */
-		set(val:css$enum$glyph_orientation_vertical|css$angle|css$number): void
+		set(val: css$enum$glyph_orientation_vertical | css$angle | css$number): void
 
 	}
 
@@ -5382,31 +5382,31 @@ declare module "imba_css" {
 
 	interface css$prop$kerning extends css$prop {
 		/* undefined */
-		set(val:css$enum$kerning|css$length): void
+		set(val: css$enum$kerning | css$length): void
 
 	}
 
 	interface css$prop$image_resolution extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$max_zoom extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$min_zoom extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$motion_offset extends css$prop {
 		/* undefined */
-		set(val:css$length|css$percentage): void
+		set(val: css$length | css$percentage): void
 
 	}
 
@@ -5421,7 +5421,7 @@ declare module "imba_css" {
 
 	interface css$prop$motion_rotation extends css$prop {
 		/* undefined */
-		set(val:css$enum$motion_rotation|css$angle): void
+		set(val: css$enum$motion_rotation | css$angle): void
 
 	}
 
@@ -5436,7 +5436,7 @@ declare module "imba_css" {
 
 	interface css$prop$scroll_snap_points_x extends css$prop {
 		/* undefined */
-		set(val:css$enum$scroll_snap_points_x): void
+		set(val: css$enum$scroll_snap_points_x): void
 
 	}
 
@@ -5451,7 +5451,7 @@ declare module "imba_css" {
 
 	interface css$prop$scroll_snap_points_y extends css$prop {
 		/* undefined */
-		set(val:css$enum$scroll_snap_points_y): void
+		set(val: css$enum$scroll_snap_points_y): void
 
 	}
 
@@ -5463,73 +5463,73 @@ declare module "imba_css" {
 
 	interface css$prop$scroll_snap_coordinate extends css$prop {
 		/* undefined */
-		set(val:css$enum$scroll_snap_coordinate|css$position|css$length|css$percentage): void
+		set(val: css$enum$scroll_snap_coordinate | css$position | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$scroll_snap_destination extends css$prop {
 		/* undefined */
-		set(val:css$position|css$length|css$percentage): void
+		set(val: css$position | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$viewport_fit extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_block_style extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_block_width extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_inline_color extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_inline_style extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_inline_width extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overflow_block extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$additive_symbols extends css$prop {
 		/* undefined */
-		set(val:css$integer|css$string|css$image|css$identifier): void
+		set(val: css$integer | css$string | css$image | css$identifier): void
 
 	}
 
 	interface css$prop$alt extends css$prop {
 		/* undefined */
-		set(val:css$string|css$enum$alt): void
+		set(val: css$string | css$enum$alt): void
 
 	}
 
 	interface css$prop$behavior extends css$prop {
 		/* undefined */
-		set(val:css$url): void
+		set(val: css$url): void
 
 	}
 
@@ -5544,13 +5544,13 @@ declare module "imba_css" {
 
 	interface css$prop$box_decoration_break extends css$prop {
 		/* undefined */
-		set(val:css$enum$box_decoration_break): void
+		set(val: css$enum$box_decoration_break): void
 
 	}
 
 	interface css$prop$fallback extends css$prop {
 		/* undefined */
-		set(val:css$identifier): void
+		set(val: css$identifier): void
 
 	}
 
@@ -5562,7 +5562,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_language_override extends css$prop {
 		/* normal | <string> */
-		set(val:css$enum$font_language_override|css$string): void
+		set(val: css$enum$font_language_override | css$string): void
 
 	}
 
@@ -5580,7 +5580,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_synthesis extends css$prop {
 		/* none | [ weight || style ] */
-		set(val:css$enum$font_synthesis): void
+		set(val: css$enum$font_synthesis): void
 
 	}
 
@@ -5613,7 +5613,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_alternates extends css$prop {
 		/* normal | [ stylistic( <feature-value-name> ) || historical-forms || styleset( <feature-value-name># ) || character-variant( <feature-value-name># ) || swash( <feature-value-name> ) || ornaments( <feature-value-name> ) || annotation( <feature-value-name> ) ] */
-		set(val:css$enum$font_variant_alternates): void
+		set(val: css$enum$font_variant_alternates): void
 
 	}
 
@@ -5631,7 +5631,7 @@ declare module "imba_css" {
 
 	interface css$prop$font_variant_position extends css$prop {
 		/* normal | sub | super */
-		set(val:css$enum$font_variant_position): void
+		set(val: css$enum$font_variant_position): void
 
 	}
 
@@ -5655,7 +5655,7 @@ declare module "imba_css" {
 
 	interface css$prop$ime_mode extends css$prop {
 		/* undefined */
-		set(val:css$enum$ime_mode): void
+		set(val: css$enum$ime_mode): void
 
 	}
 
@@ -5670,7 +5670,7 @@ declare module "imba_css" {
 
 	interface css$prop$mask_image extends css$prop {
 		/* <mask-reference># */
-		set(val:css$enum$mask_image|css$url|css$image, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$mask_image | css$url | css$image, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -5688,25 +5688,25 @@ declare module "imba_css" {
 
 	interface css$prop$mask_mode extends css$prop {
 		/* <masking-mode># */
-		set(val:css$enum$mask_mode|css$url|css$image, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$mask_mode | css$url | css$image, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_origin extends css$prop {
 		/* <geometry-box># */
-		set(val:css$geometry_box|css$enum$mask_origin, arg1: any, arg2: any, arg3: any): void
+		set(val: css$geometry_box | css$enum$mask_origin, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_position extends css$prop {
 		/* <position># */
-		set(val:css$position|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$position | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_repeat extends css$prop {
 		/* <repeat-style># */
-		set(val:css$repeat, arg1: any, arg2: any, arg3: any): void
+		set(val: css$repeat, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -5724,7 +5724,7 @@ declare module "imba_css" {
 
 	interface css$prop$mask_size extends css$prop {
 		/* <bg-size># */
-		set(val:css$enum$mask_size|css$length|css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$enum$mask_size | css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -5742,7 +5742,7 @@ declare module "imba_css" {
 
 	interface css$prop$nav_down extends css$prop {
 		/* undefined */
-		set(val:css$enum$nav_down|css$identifier|css$string): void
+		set(val: css$enum$nav_down | css$identifier | css$string): void
 
 	}
 
@@ -5754,7 +5754,7 @@ declare module "imba_css" {
 
 	interface css$prop$nav_index extends css$prop {
 		/* undefined */
-		set(val:css$enum$nav_index|css$number): void
+		set(val: css$enum$nav_index | css$number): void
 
 	}
 
@@ -5772,7 +5772,7 @@ declare module "imba_css" {
 
 	interface css$prop$nav_left extends css$prop {
 		/* undefined */
-		set(val:css$enum$nav_left|css$identifier|css$string): void
+		set(val: css$enum$nav_left | css$identifier | css$string): void
 
 	}
 
@@ -5790,7 +5790,7 @@ declare module "imba_css" {
 
 	interface css$prop$nav_right extends css$prop {
 		/* undefined */
-		set(val:css$enum$nav_right|css$identifier|css$string): void
+		set(val: css$enum$nav_right | css$identifier | css$string): void
 
 	}
 
@@ -5808,13 +5808,13 @@ declare module "imba_css" {
 
 	interface css$prop$nav_up extends css$prop {
 		/* undefined */
-		set(val:css$enum$nav_up|css$identifier|css$string): void
+		set(val: css$enum$nav_up | css$identifier | css$string): void
 
 	}
 
 	interface css$prop$negative extends css$prop {
 		/* undefined */
-		set(val:css$image|css$identifier|css$string): void
+		set(val: css$image | css$identifier | css$string): void
 
 	}
 
@@ -5826,7 +5826,7 @@ declare module "imba_css" {
 
 	interface css$prop$offset_block_end extends css$prop {
 		/* undefined */
-		set(val:css$enum$offset_block_end|css$length|css$percentage): void
+		set(val: css$enum$offset_block_end | css$length | css$percentage): void
 
 	}
 
@@ -5838,7 +5838,7 @@ declare module "imba_css" {
 
 	interface css$prop$offset_block_start extends css$prop {
 		/* undefined */
-		set(val:css$enum$offset_block_start|css$length|css$percentage): void
+		set(val: css$enum$offset_block_start | css$length | css$percentage): void
 
 	}
 
@@ -5850,7 +5850,7 @@ declare module "imba_css" {
 
 	interface css$prop$offset_inline_end extends css$prop {
 		/* undefined */
-		set(val:css$enum$offset_inline_end|css$length|css$percentage): void
+		set(val: css$enum$offset_inline_end | css$length | css$percentage): void
 
 	}
 
@@ -5862,19 +5862,19 @@ declare module "imba_css" {
 
 	interface css$prop$offset_inline_start extends css$prop {
 		/* undefined */
-		set(val:css$enum$offset_inline_start|css$length|css$percentage): void
+		set(val: css$enum$offset_inline_start | css$length | css$percentage): void
 
 	}
 
 	interface css$prop$pad extends css$prop {
 		/* undefined */
-		set(val:css$integer|css$image|css$string|css$identifier): void
+		set(val: css$integer | css$image | css$string | css$identifier): void
 
 	}
 
 	interface css$prop$prefix extends css$prop {
 		/* undefined */
-		set(val:css$image|css$string|css$identifier): void
+		set(val: css$image | css$string | css$identifier): void
 
 	}
 
@@ -5889,7 +5889,7 @@ declare module "imba_css" {
 
 	interface css$prop$range extends css$prop {
 		/* undefined */
-		set(val:css$enum$range|css$integer): void
+		set(val: css$enum$range | css$integer): void
 
 	}
 
@@ -5928,7 +5928,7 @@ declare module "imba_css" {
 
 	interface css$prop$ruby_align extends css$prop {
 		/* undefined */
-		set(val:css$enum$ruby_align): void
+		set(val: css$enum$ruby_align): void
 
 	}
 
@@ -5949,7 +5949,7 @@ declare module "imba_css" {
 
 	interface css$prop$ruby_overhang extends css$prop {
 		/* undefined */
-		set(val:css$enum$ruby_overhang): void
+		set(val: css$enum$ruby_overhang): void
 
 	}
 
@@ -5964,61 +5964,61 @@ declare module "imba_css" {
 
 	interface css$prop$ruby_span extends css$prop {
 		/* undefined */
-		set(val:css$enum$ruby_span): void
+		set(val: css$enum$ruby_span): void
 
 	}
 
 	interface css$prop$scrollbar_3dlight_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_arrow_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_base_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_darkshadow_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_face_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_highlight_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_shadow_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$scrollbar_track_color extends css$prop {
 		/* undefined */
-		set(val:css$color): void
+		set(val: css$color): void
 
 	}
 
 	interface css$prop$suffix extends css$prop {
 		/* undefined */
-		set(val:css$image|css$string|css$identifier): void
+		set(val: css$image | css$string | css$identifier): void
 
 	}
 
@@ -6048,343 +6048,343 @@ declare module "imba_css" {
 
 	interface css$prop$system extends css$prop {
 		/* undefined */
-		set(val:css$enum$system|css$integer): void
+		set(val: css$enum$system | css$integer): void
 
 	}
 
 	interface css$prop$symbols extends css$prop {
 		/* undefined */
-		set(val:css$image|css$string|css$identifier): void
+		set(val: css$image | css$string | css$identifier): void
 
 	}
 
 	interface css$prop$aspect_ratio extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$azimuth extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$border_end_end_radius extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_end_start_radius extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_start_end_radius extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$border_start_start_radius extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$box_ordinal_group extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$color_adjust extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$counter_set extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$hanging_punctuation extends css$prop {
 		/* none | [ first || [ force-end | allow-end ] || last ] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$initial_letter extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$initial_letter_align extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$line_clamp extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$line_height_step extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$margin_trim extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$mask_border extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$mask_border_mode extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$mask_border_outset extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_border_repeat extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$mask_border_slice extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_border_source extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$mask_border_width extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_clip extends css$prop {
 		/* [ <geometry-box> | no-clip ]# */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$mask_composite extends css$prop {
 		/* <compositing-operator># */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$max_lines extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overflow_clip_box extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overflow_inline extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overscroll_behavior extends css$prop {
 		/* undefined */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$overscroll_behavior_x extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$overscroll_behavior_y extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$ruby_merge extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scrollbar_color extends css$prop {
 		/* auto | dark | light | <color>{2} */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scrollbar_width extends css$prop {
 		/* auto | thin | none */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin extends css$prop {
 		/* <length>{1,4} */
-		set(val:any, arg1: any, arg2: any, arg3: any): void
+		set(val: any, arg1: any, arg2: any, arg3: any): void
 
 	}
 
 	interface css$prop$scroll_margin_block extends css$prop {
 		/* <length>{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$scroll_margin_block_start extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_block_end extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_bottom extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_inline extends css$prop {
 		/* <length>{1,2} */
-		set(val:any, arg1: any): void
+		set(val: any, arg1: any): void
 
 	}
 
 	interface css$prop$scroll_margin_inline_start extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_inline_end extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_left extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_right extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_margin_top extends css$prop {
 		/* <length> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_snap_type_x extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$scroll_snap_type_y extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_decoration_thickness extends css$prop {
 		/* [object Object] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_emphasis extends css$prop {
 		/* <'text-emphasis-style'> || <'text-emphasis-color'> */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_emphasis_color extends css$prop {
 		/* [object Object] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_emphasis_position extends css$prop {
 		/* [ over | under ] && [ right | left ] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_emphasis_style extends css$prop {
 		/* [object Object] */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$text_underline_offset extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$speak_as extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$bleed extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
 	interface css$prop$marks extends css$prop {
 		/* undefined */
-		set(val:any): void
+		set(val: any): void
 
 	}
 
@@ -6393,2240 +6393,2240 @@ declare module "imba_css" {
 		Specifies the width of the content area, padding area or border area (depending on 'box-sizing') of certain boxes.
 		@alias w
 		*/
-		width:css$prop$width;
+		width: css$prop$width;
 		/** @proxy width */
-		w:css$prop$width;
+		w: css$prop$width;
 		/**
 		Specifies the height of the content area, padding area or border area (depending on 'box-sizing') of certain boxes.
 		@alias h
 		*/
-		height:css$prop$height;
+		height: css$prop$height;
 		/** @proxy height */
-		h:css$prop$height;
+		h: css$prop$height;
 		/**
 		In combination with 'float' and 'position', determines the type of box or boxes that are generated for an element.
 		@alias d
 		*/
-		display:css$prop$display;
+		display: css$prop$display;
 		/** @proxy display */
-		d:css$prop$display;
+		d: css$prop$display;
 		/**
 		Shorthand property to set values the thickness of the padding area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. The value may not be negative.
 		@alias p
 		*/
-		padding:css$prop$padding;
+		padding: css$prop$padding;
 		/** @proxy padding */
-		p:css$prop$padding;
+		p: css$prop$padding;
 		/**
 		The position CSS property sets how an element is positioned in a document. The top, right, bottom, and left properties determine the final location of positioned elements.
 		@alias pos
 		*/
-		position:css$prop$position;
+		position: css$prop$position;
 		/** @proxy position */
-		pos:css$prop$position;
+		pos: css$prop$position;
 		/**
 		Shorthand property for setting border width, style, and color.
 		@alias bd
 		*/
-		border:css$prop$border;
+		border: css$prop$border;
 		/** @proxy border */
-		bd:css$prop$border;
+		bd: css$prop$border;
 		/**
 		Shorthand property to set values the thickness of the margin area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. Negative values for margin properties are allowed, but there may be implementation-specific limits.
 		@alias m
 		*/
-		margin:css$prop$margin;
+		margin: css$prop$margin;
 		/** @proxy margin */
-		m:css$prop$margin;
+		m: css$prop$margin;
 		/**
 		Set asset as inline background svg
 		*/
-		svg:css$prop$svg;
+		svg: css$prop$svg;
 		/**
 		Specifies how far an absolutely positioned box's top margin edge is offset below the top edge of the box's 'containing block'.
 		@alias t
 		*/
-		top:css$prop$top;
+		top: css$prop$top;
 		/** @proxy top */
-		t:css$prop$top;
+		t: css$prop$top;
 		/**
 		Specifies how far an absolutely positioned box's left margin edge is offset to the right of the left edge of the box's 'containing block'.
 		@alias l
 		*/
-		left:css$prop$left;
+		left: css$prop$left;
 		/** @proxy left */
-		l:css$prop$left;
+		l: css$prop$left;
 		/**
 		Shorthand property to set values the thickness of the margin area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. Negative values for margin properties are allowed, but there may be implementation-specific limits..
 		@alias mt
 		*/
-		'margin-top':css$prop$margin_top;
+		'margin-top': css$prop$margin_top;
 		/** @proxy margin-top */
-		mt:css$prop$margin_top;
+		mt: css$prop$margin_top;
 		/**
 		Sets the color of an element's text
 		@alias c
 		*/
-		color:css$prop$color;
+		color: css$prop$color;
 		/** @proxy color */
-		c:css$prop$color;
+		c: css$prop$color;
 		/**
 		Indicates the desired height of glyphs from the font. For scalable fonts, the font-size is a scale factor applied to the EM unit of the font. (Note that certain glyphs may bleed outside their EM box.) For non-scalable fonts, the font-size is converted into absolute units and matched against the declared font-size of the font, using the same absolute coordinate space for both of the matched values.
 		@alias fs
 		*/
-		'font-size':css$prop$font_size;
+		'font-size': css$prop$font_size;
 		/** @proxy font-size */
-		fs:css$prop$font_size;
+		fs: css$prop$font_size;
 		/**
 		Sets the background color of an element.
 		@alias bgc
 		*/
-		'background-color':css$prop$background_color;
+		'background-color': css$prop$background_color;
 		/** @proxy background-color */
-		bgc:css$prop$background_color;
+		bgc: css$prop$background_color;
 		/**
 		Describes how inline contents of a block are horizontally aligned if the contents do not completely fill the line box.
 		@alias ta
 		*/
-		'text-align':css$prop$text_align;
+		'text-align': css$prop$text_align;
 		/** @proxy text-align */
-		ta:css$prop$text_align;
+		ta: css$prop$text_align;
 		/**
 		Opacity of an element's text, where 1 is opaque and 0 is entirely transparent.
 		@alias o
 		*/
-		opacity:css$prop$opacity;
+		opacity: css$prop$opacity;
 		/** @proxy opacity */
-		o:css$prop$opacity;
+		o: css$prop$opacity;
 		/**
 		Shorthand property for setting most background properties at the same place in the style sheet.
 		@alias bg
 		*/
-		background:css$prop$background;
+		background: css$prop$background;
 		/** @proxy background */
-		bg:css$prop$background;
+		bg: css$prop$background;
 		/**
 		Specifies weight of glyphs in the font, their degree of blackness or stroke thickness.
 		@alias fw
 		*/
-		'font-weight':css$prop$font_weight;
+		'font-weight': css$prop$font_weight;
 		/** @proxy font-weight */
-		fw:css$prop$font_weight;
+		fw: css$prop$font_weight;
 		/**
 		Shorthand for setting 'overflow-x' and 'overflow-y'.
 		@alias of
 		*/
-		overflow:css$prop$overflow;
+		overflow: css$prop$overflow;
 		/** @proxy overflow */
-		of:css$prop$overflow;
+		of: css$prop$overflow;
 		/**
 		Specifies a prioritized list of font family names or generic family names. A user agent iterates through the list of family names until it matches an available font that contains a glyph for the character to be rendered.
 		@alias ff
 		*/
-		'font-family':css$prop$font_family;
+		'font-family': css$prop$font_family;
 		/** @proxy font-family */
-		ff:css$prop$font_family;
+		ff: css$prop$font_family;
 		/**
 		Specifies how a box should be floated. It may be set for any element, but only applies to elements that generate boxes that are not absolutely positioned.
 		*/
-		float:css$prop$float;
+		float: css$prop$float;
 		/**
 		Determines the block-progression dimension of the text content area of an inline box.
 		@alias lh
 		*/
-		'line-height':css$prop$line_height;
+		'line-height': css$prop$line_height;
 		/** @proxy line-height */
-		lh:css$prop$line_height;
+		lh: css$prop$line_height;
 		/**
 		Specifies the behavior of the 'width' and 'height' properties.
 		*/
-		'box-sizing':css$prop$box_sizing;
+		'box-sizing': css$prop$box_sizing;
 		/**
 		Decorations applied to font used for an element's text.
 		@alias td
 		*/
-		'text-decoration':css$prop$text_decoration;
+		'text-decoration': css$prop$text_decoration;
 		/** @proxy text-decoration */
-		td:css$prop$text_decoration;
+		td: css$prop$text_decoration;
 		/**
 		For a positioned box, the 'z-index' property specifies the stack level of the box in the current stacking context and whether the box establishes a local stacking context.
 		@alias zi
 		*/
-		'z-index':css$prop$z_index;
+		'z-index': css$prop$z_index;
 		/** @proxy z-index */
-		zi:css$prop$z_index;
+		zi: css$prop$z_index;
 		/**
 		Affects the vertical positioning of the inline boxes generated by an inline-level element inside a line box.
 		@alias va
 		*/
-		'vertical-align':css$prop$vertical_align;
+		'vertical-align': css$prop$vertical_align;
 		/** @proxy vertical-align */
-		va:css$prop$vertical_align;
+		va: css$prop$vertical_align;
 		/**
 		Allows control over cursor appearance in an element
 		*/
-		cursor:css$prop$cursor;
+		cursor: css$prop$cursor;
 		/**
 		Shorthand property to set values the thickness of the margin area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. Negative values for margin properties are allowed, but there may be implementation-specific limits..
 		@alias ml
 		*/
-		'margin-left':css$prop$margin_left;
+		'margin-left': css$prop$margin_left;
 		/** @proxy margin-left */
-		ml:css$prop$margin_left;
+		ml: css$prop$margin_left;
 		/**
 		Defines the radii of the outer border edge.
 		@alias rd
 		*/
-		'border-radius':css$prop$border_radius;
+		'border-radius': css$prop$border_radius;
 		/** @proxy border-radius */
-		rd:css$prop$border_radius;
+		rd: css$prop$border_radius;
 		/**
 		Shorthand property to set values the thickness of the margin area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. Negative values for margin properties are allowed, but there may be implementation-specific limits..
 		@alias mb
 		*/
-		'margin-bottom':css$prop$margin_bottom;
+		'margin-bottom': css$prop$margin_bottom;
 		/** @proxy margin-bottom */
-		mb:css$prop$margin_bottom;
+		mb: css$prop$margin_bottom;
 		/**
 		Shorthand property to set values the thickness of the margin area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. Negative values for margin properties are allowed, but there may be implementation-specific limits..
 		@alias mr
 		*/
-		'margin-right':css$prop$margin_right;
+		'margin-right': css$prop$margin_right;
 		/** @proxy margin-right */
-		mr:css$prop$margin_right;
+		mr: css$prop$margin_right;
 		/**
 		Specifies how far an absolutely positioned box's right margin edge is offset to the left of the right edge of the box's 'containing block'.
 		@alias r
 		*/
-		right:css$prop$right;
+		right: css$prop$right;
 		/** @proxy right */
-		r:css$prop$right;
+		r: css$prop$right;
 		/**
 		Shorthand property to set values the thickness of the padding area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. The value may not be negative.
 		@alias pl
 		*/
-		'padding-left':css$prop$padding_left;
+		'padding-left': css$prop$padding_left;
 		/** @proxy padding-left */
-		pl:css$prop$padding_left;
+		pl: css$prop$padding_left;
 		/**
 		Shorthand property to set values the thickness of the padding area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. The value may not be negative.
 		@alias pt
 		*/
-		'padding-top':css$prop$padding_top;
+		'padding-top': css$prop$padding_top;
 		/** @proxy padding-top */
-		pt:css$prop$padding_top;
+		pt: css$prop$padding_top;
 		/**
 		Allows authors to constrain content width to a certain range.
 		*/
-		'max-width':css$prop$max_width;
+		'max-width': css$prop$max_width;
 		/**
 		Specifies how far an absolutely positioned box's bottom margin edge is offset above the bottom edge of the box's 'containing block'.
 		@alias b
 		*/
-		bottom:css$prop$bottom;
+		bottom: css$prop$bottom;
 		/** @proxy bottom */
-		b:css$prop$bottom;
+		b: css$prop$bottom;
 		/**
 		Determines which page-based occurrence of a given element is applied to a counter or string value.
 		*/
-		content:css$prop$content;
+		content: css$prop$content;
 		/**
 		Attaches one or more drop-shadows to the box. The property is a comma-separated list of shadows, each specified by 2-4 length values, an optional color, and an optional 'inset' keyword. Omitted lengths are 0; omitted colors are a user agent chosen color.
 		@alias shadow
 		*/
-		'box-shadow':css$prop$box_shadow;
+		'box-shadow': css$prop$box_shadow;
 		/** @proxy box-shadow */
-		shadow:css$prop$box_shadow;
+		shadow: css$prop$box_shadow;
 		/**
 		Sets the background image(s) of an element.
 		@alias bgi
 		*/
-		'background-image':css$prop$background_image;
+		'background-image': css$prop$background_image;
 		/** @proxy background-image */
-		bgi:css$prop$background_image;
+		bgi: css$prop$background_image;
 		/**
 		Shorthand property to set values the thickness of the padding area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. The value may not be negative.
 		@alias pr
 		*/
-		'padding-right':css$prop$padding_right;
+		'padding-right': css$prop$padding_right;
 		/** @proxy padding-right */
-		pr:css$prop$padding_right;
+		pr: css$prop$padding_right;
 		/**
 		Shorthand property for the 'white-space-collapsing' and 'text-wrap' properties.
 		@alias ws
 		*/
-		'white-space':css$prop$white_space;
+		'white-space': css$prop$white_space;
 		/** @proxy white-space */
-		ws:css$prop$white_space;
+		ws: css$prop$white_space;
 		/**
 		Shorthand property to set values the thickness of the padding area. If left is omitted, it is the same as right. If bottom is omitted it is the same as top, if right is omitted it is the same as top. The value may not be negative.
 		@alias pb
 		*/
-		'padding-bottom':css$prop$padding_bottom;
+		'padding-bottom': css$prop$padding_bottom;
 		/** @proxy padding-bottom */
-		pb:css$prop$padding_bottom;
+		pb: css$prop$padding_bottom;
 		/**
 		Allows authors to constrain content height to a certain range.
 		*/
-		'min-height':css$prop$min_height;
+		'min-height': css$prop$min_height;
 		/**
 		A two-dimensional transformation is applied to an element through the 'transform' property. This property contains a list of transform functions similar to those allowed by SVG.
 		*/
-		transform:css$prop$transform;
+		transform: css$prop$transform;
 		/**
 		Shorthand property for setting border width, style and color.
 		@alias bdb
 		*/
-		'border-bottom':css$prop$border_bottom;
+		'border-bottom': css$prop$border_bottom;
 		/** @proxy border-bottom */
-		bdb:css$prop$border_bottom;
+		bdb: css$prop$border_bottom;
 		/**
 		Specifies whether the boxes generated by an element are rendered. Invisible boxes still affect layout (set the ‘display’ property to ‘none’ to suppress box generation altogether).
 		*/
-		visibility:css$prop$visibility;
+		visibility: css$prop$visibility;
 		/**
 		Specifies the initial position of the background image(s) (after any resizing) within their corresponding background positioning area.
 		@alias bgp
 		*/
-		'background-position':css$prop$background_position;
+		'background-position': css$prop$background_position;
 		/** @proxy background-position */
-		bgp:css$prop$background_position;
+		bgp: css$prop$background_position;
 		/**
 		Shorthand property for setting border width, style and color
 		@alias bdt
 		*/
-		'border-top':css$prop$border_top;
+		'border-top': css$prop$border_top;
 		/** @proxy border-top */
-		bdt:css$prop$border_top;
+		bdt: css$prop$border_top;
 		/**
 		Allows authors to constrain content width to a certain range.
 		*/
-		'min-width':css$prop$min_width;
+		'min-width': css$prop$min_width;
 		/**
 		Shorthand property for 'outline-style', 'outline-width', and 'outline-color'.
 		*/
-		outline:css$prop$outline;
+		outline: css$prop$outline;
 		/**
 		Shorthand property combines four of the transition properties into a single property.
 		@alias tween
 		*/
-		transition:css$prop$transition;
+		transition: css$prop$transition;
 		/** @proxy transition */
-		tween:css$prop$transition;
+		tween: css$prop$transition;
 		/**
 		The color of the border around all four edges of an element.
 		@alias bc
 		*/
-		'border-color':css$prop$border_color;
+		'border-color': css$prop$border_color;
 		/** @proxy border-color */
-		bc:css$prop$border_color;
+		bc: css$prop$border_color;
 		/**
 		Specifies how background images are tiled after they have been sized and positioned.
 		@alias bgr
 		*/
-		'background-repeat':css$prop$background_repeat;
+		'background-repeat': css$prop$background_repeat;
 		/** @proxy background-repeat */
-		bgr:css$prop$background_repeat;
+		bgr: css$prop$background_repeat;
 		/**
 		Controls capitalization effects of an element’s text.
 		@alias tt
 		*/
-		'text-transform':css$prop$text_transform;
+		'text-transform': css$prop$text_transform;
 		/** @proxy text-transform */
-		tt:css$prop$text_transform;
+		tt: css$prop$text_transform;
 		/**
 		Specifies the size of the background images.
 		@alias bgs
 		*/
-		'background-size':css$prop$background_size;
+		'background-size': css$prop$background_size;
 		/** @proxy background-size */
-		bgs:css$prop$background_size;
+		bgs: css$prop$background_size;
 		/**
 		Indicates which sides of an element's box(es) may not be adjacent to an earlier floating box. The 'clear' property does not consider floats inside the element itself or in other block formatting contexts.
 		*/
-		clear:css$prop$clear;
+		clear: css$prop$clear;
 		/**
 		Allows authors to constrain content height to a certain range.
 		*/
-		'max-height':css$prop$max_height;
+		'max-height': css$prop$max_height;
 		/**
 		Shorthand for setting 'list-style-type', 'list-style-position' and 'list-style-image'
 		*/
-		'list-style':css$prop$list_style;
+		'list-style': css$prop$list_style;
 		/**
 		Allows italic or oblique faces to be selected. Italic forms are generally cursive in nature while oblique faces are typically sloped versions of the regular face.
 		*/
-		'font-style':css$prop$font_style;
+		'font-style': css$prop$font_style;
 		/**
 		Shorthand property for setting 'font-style', 'font-variant', 'font-weight', 'font-size', 'line-height', and 'font-family', at the same place in the style sheet. The syntax of this property is based on a traditional typographical shorthand notation to set multiple properties related to fonts.
 		*/
-		font:css$prop$font;
+		font: css$prop$font;
 		/**
 		Shorthand property for setting border width, style and color
 		@alias bdl
 		*/
-		'border-left':css$prop$border_left;
+		'border-left': css$prop$border_left;
 		/** @proxy border-left */
-		bdl:css$prop$border_left;
+		bdl: css$prop$border_left;
 		/**
 		Shorthand property for setting border width, style and color
 		@alias bdr
 		*/
-		'border-right':css$prop$border_right;
+		'border-right': css$prop$border_right;
 		/** @proxy border-right */
-		bdr:css$prop$border_right;
+		bdr: css$prop$border_right;
 		/**
 		Text can overflow for example when it is prevented from wrapping.
 		*/
-		'text-overflow':css$prop$text_overflow;
+		'text-overflow': css$prop$text_overflow;
 		/**
 		Shorthand that sets the four 'border-*-width' properties. If it has four values, they set top, right, bottom and left in that order. If left is missing, it is the same as right; if bottom is missing, it is the same as top; if right is missing, it is the same as top.
 		@alias bw
 		*/
-		'border-width':css$prop$border_width;
+		'border-width': css$prop$border_width;
 		/** @proxy border-width */
-		bw:css$prop$border_width;
+		bw: css$prop$border_width;
 		/**
 		Aligns flex items along the main axis of the current line of the flex container.
 		@alias jc
 		*/
-		'justify-content':css$prop$justify_content;
+		'justify-content': css$prop$justify_content;
 		/** @proxy justify-content */
-		jc:css$prop$justify_content;
+		jc: css$prop$justify_content;
 		/**
 		Aligns flex items along the cross axis of the current line of the flex container.
 		@alias ai
 		*/
-		'align-items':css$prop$align_items;
+		'align-items': css$prop$align_items;
 		/** @proxy align-items */
-		ai:css$prop$align_items;
+		ai: css$prop$align_items;
 		/**
 		Specifies the handling of overflow in the vertical direction.
 		@alias ofy
 		*/
-		'overflow-y':css$prop$overflow_y;
+		'overflow-y': css$prop$overflow_y;
 		/** @proxy overflow-y */
-		ofy:css$prop$overflow_y;
+		ofy: css$prop$overflow_y;
 		/**
 		Specifies under what circumstances a given element can be the target element for a pointer event.
 		@alias pe
 		*/
-		'pointer-events':css$prop$pointer_events;
+		'pointer-events': css$prop$pointer_events;
 		/** @proxy pointer-events */
-		pe:css$prop$pointer_events;
+		pe: css$prop$pointer_events;
 		/**
 		The style of the border around edges of an element.
 		@alias bs
 		*/
-		'border-style':css$prop$border_style;
+		'border-style': css$prop$border_style;
 		/** @proxy border-style */
-		bs:css$prop$border_style;
+		bs: css$prop$border_style;
 		/**
 		Specifies the minimum, maximum, and optimal spacing between grapheme clusters.
 		@alias ls
 		*/
-		'letter-spacing':css$prop$letter_spacing;
+		'letter-spacing': css$prop$letter_spacing;
 		/** @proxy letter-spacing */
-		ls:css$prop$letter_spacing;
+		ls: css$prop$letter_spacing;
 		/**
 		Shorthand property combines six of the animation properties into a single property.
 		*/
-		animation:css$prop$animation;
+		animation: css$prop$animation;
 		/**
 		Specifies the handling of overflow in the horizontal direction.
 		@alias ofx
 		*/
-		'overflow-x':css$prop$overflow_x;
+		'overflow-x': css$prop$overflow_x;
 		/** @proxy overflow-x */
-		ofx:css$prop$overflow_x;
+		ofx: css$prop$overflow_x;
 		/**
 		Specifies how flex items are placed in the flex container, by setting the direction of the flex container’s main axis.
 		@alias fld
 		*/
-		'flex-direction':css$prop$flex_direction;
+		'flex-direction': css$prop$flex_direction;
 		/** @proxy flex-direction */
-		fld:css$prop$flex_direction;
+		fld: css$prop$flex_direction;
 		/**
 		Specifies whether the UA may break within a word to prevent overflow when an otherwise-unbreakable string is too long to fit.
 		*/
-		'word-wrap':css$prop$word_wrap;
+		'word-wrap': css$prop$word_wrap;
 		/**
 		Specifies the components of a flexible length: the flex grow factor and flex shrink factor, and the flex basis.
 		@alias fl
 		*/
-		flex:css$prop$flex;
+		flex: css$prop$flex;
 		/** @proxy flex */
-		fl:css$prop$flex;
+		fl: css$prop$flex;
 		/**
 		Selects a table's border model.
 		*/
-		'border-collapse':css$prop$border_collapse;
+		'border-collapse': css$prop$border_collapse;
 		/**
 		Non-standard. Specifies the magnification scale of the object. See 'transform: scale()' for a standards-based alternative.
 		*/
-		zoom:css$prop$zoom;
+		zoom: css$prop$zoom;
 		/**
 		Used to construct the default contents of a list item’s marker
 		*/
-		'list-style-type':css$prop$list_style_type;
+		'list-style-type': css$prop$list_style_type;
 		/**
 		Defines the radii of the bottom left outer border edge.
 		@alias rdbl
 		*/
-		'border-bottom-left-radius':css$prop$border_bottom_left_radius;
+		'border-bottom-left-radius': css$prop$border_bottom_left_radius;
 		/** @proxy border-bottom-left-radius */
-		rdbl:css$prop$border_bottom_left_radius;
+		rdbl: css$prop$border_bottom_left_radius;
 		/**
 		Paints the interior of the given graphical element.
 		*/
-		fill:css$prop$fill;
+		fill: css$prop$fill;
 		/**
 		Establishes the origin of transformation for an element.
 		@alias origin
 		*/
-		'transform-origin':css$prop$transform_origin;
+		'transform-origin': css$prop$transform_origin;
 		/** @proxy transform-origin */
-		origin:css$prop$transform_origin;
+		origin: css$prop$transform_origin;
 		/**
 		Controls whether the flex container is single-line or multi-line, and the direction of the cross-axis, which determines the direction new lines are stacked in.
 		@alias flw
 		*/
-		'flex-wrap':css$prop$flex_wrap;
+		'flex-wrap': css$prop$flex_wrap;
 		/** @proxy flex-wrap */
-		flw:css$prop$flex_wrap;
+		flw: css$prop$flex_wrap;
 		/**
 		Enables shadow effects to be applied to the text of the element.
 		@alias ts
 		*/
-		'text-shadow':css$prop$text_shadow;
+		'text-shadow': css$prop$text_shadow;
 		/** @proxy text-shadow */
-		ts:css$prop$text_shadow;
+		ts: css$prop$text_shadow;
 		/**
 		Defines the radii of the top left outer border edge.
 		@alias rdtl
 		*/
-		'border-top-left-radius':css$prop$border_top_left_radius;
+		'border-top-left-radius': css$prop$border_top_left_radius;
 		/** @proxy border-top-left-radius */
-		rdtl:css$prop$border_top_left_radius;
+		rdtl: css$prop$border_top_left_radius;
 		/**
 		Controls the appearance of selection.
 		@alias us
 		*/
-		'user-select':css$prop$user_select;
+		'user-select': css$prop$user_select;
 		/** @proxy user-select */
-		us:css$prop$user_select;
+		us: css$prop$user_select;
 		/**
 		Deprecated. Use the 'clip-path' property when support allows. Defines the visible portion of an element’s box.
 		*/
-		clip:css$prop$clip;
+		clip: css$prop$clip;
 		/**
 		Defines the radii of the bottom right outer border edge.
 		@alias rdbr
 		*/
-		'border-bottom-right-radius':css$prop$border_bottom_right_radius;
+		'border-bottom-right-radius': css$prop$border_bottom_right_radius;
 		/** @proxy border-bottom-right-radius */
-		rdbr:css$prop$border_bottom_right_radius;
+		rdbr: css$prop$border_bottom_right_radius;
 		/**
 		Specifies line break opportunities for non-CJK scripts.
 		*/
-		'word-break':css$prop$word_break;
+		'word-break': css$prop$word_break;
 		/**
 		Defines the radii of the top right outer border edge.
 		@alias rdtr
 		*/
-		'border-top-right-radius':css$prop$border_top_right_radius;
+		'border-top-right-radius': css$prop$border_top_right_radius;
 		/** @proxy border-top-right-radius */
-		rdtr:css$prop$border_top_right_radius;
+		rdtr: css$prop$border_top_right_radius;
 		/**
 		Sets the flex grow factor. Negative numbers are invalid.
 		@alias flg
 		*/
-		'flex-grow':css$prop$flex_grow;
+		'flex-grow': css$prop$flex_grow;
 		/** @proxy flex-grow */
-		flg:css$prop$flex_grow;
+		flg: css$prop$flex_grow;
 		/**
 		Sets the color of the top border.
 		@alias bct
 		*/
-		'border-top-color':css$prop$border_top_color;
+		'border-top-color': css$prop$border_top_color;
 		/** @proxy border-top-color */
-		bct:css$prop$border_top_color;
+		bct: css$prop$border_top_color;
 		/**
 		Sets the color of the bottom border.
 		@alias bcb
 		*/
-		'border-bottom-color':css$prop$border_bottom_color;
+		'border-bottom-color': css$prop$border_bottom_color;
 		/** @proxy border-bottom-color */
-		bcb:css$prop$border_bottom_color;
+		bcb: css$prop$border_bottom_color;
 		/**
 		Sets the flex shrink factor. Negative numbers are invalid.
 		@alias fls
 		*/
-		'flex-shrink':css$prop$flex_shrink;
+		'flex-shrink': css$prop$flex_shrink;
 		/** @proxy flex-shrink */
-		fls:css$prop$flex_shrink;
+		fls: css$prop$flex_shrink;
 		/**
 		The creator of SVG content might want to provide a hint to the implementation about what tradeoffs to make as it renders text. The ‘text-rendering’ property provides these hints.
 		*/
-		'text-rendering':css$prop$text_rendering;
+		'text-rendering': css$prop$text_rendering;
 		/**
 		Allows the default alignment along the cross axis to be overridden for individual flex items.
 		@alias as
 		*/
-		'align-self':css$prop$align_self;
+		'align-self': css$prop$align_self;
 		/** @proxy align-self */
-		as:css$prop$align_self;
+		as: css$prop$align_self;
 		/**
 		Specifies the indentation applied to lines of inline content in a block. The indentation only affects the first line of inline content in the block unless the 'hanging' keyword is specified, in which case it affects all lines except the first.
 		*/
-		'text-indent':css$prop$text_indent;
+		'text-indent': css$prop$text_indent;
 		/**
 		Describes how the animation will progress over one cycle of its duration.
 		*/
-		'animation-timing-function':css$prop$animation_timing_function;
+		'animation-timing-function': css$prop$animation_timing_function;
 		/**
 		The lengths specify the distance that separates adjoining cell borders. If one length is specified, it gives both the horizontal and vertical spacing. If two are specified, the first gives the horizontal spacing and the second the vertical spacing. Lengths may not be negative.
 		*/
-		'border-spacing':css$prop$border_spacing;
+		'border-spacing': css$prop$border_spacing;
 		/**
 		Specifies the inline base direction or directionality of any bidi paragraph, embedding, isolate, or override established by the box. Note: for HTML content use the 'dir' attribute and 'bdo' element rather than this property.
 		*/
-		direction:css$prop$direction;
+		direction: css$prop$direction;
 		/**
 		Determines the background painting area.
 		@alias bgclip
 		*/
-		'background-clip':css$prop$background_clip;
+		'background-clip': css$prop$background_clip;
 		/** @proxy background-clip */
-		bgclip:css$prop$background_clip;
+		bgclip: css$prop$background_clip;
 		/**
 		Sets the color of the left border.
 		@alias bcl
 		*/
-		'border-left-color':css$prop$border_left_color;
+		'border-left-color': css$prop$border_left_color;
 		/** @proxy border-left-color */
-		bcl:css$prop$border_left_color;
+		bcl: css$prop$border_left_color;
 		/**
 		@font-face descriptor. Specifies the resource containing font data. It is required, whether the font is downloadable or locally installed.
 		*/
-		src:css$prop$src;
+		src: css$prop$src;
 		/**
 		Determines whether touch input may trigger default behavior supplied by user agent.
 		*/
-		'touch-action':css$prop$touch_action;
+		'touch-action': css$prop$touch_action;
 		/**
 		Sets the color of the right border.
 		@alias bcr
 		*/
-		'border-right-color':css$prop$border_right_color;
+		'border-right-color': css$prop$border_right_color;
 		/** @proxy border-right-color */
-		bcr:css$prop$border_right_color;
+		bcr: css$prop$border_right_color;
 		/**
 		Specifies the name of the CSS property to which the transition is applied.
 		*/
-		'transition-property':css$prop$transition_property;
+		'transition-property': css$prop$transition_property;
 		/**
 		Defines a list of animations that apply. Each name is used to select the keyframe at-rule that provides the property values for the animation.
 		*/
-		'animation-name':css$prop$animation_name;
+		'animation-name': css$prop$animation_name;
 		/**
 		Processes an element’s rendering before it is displayed in the document, by applying one or more filter effects.
 		*/
-		filter:css$prop$filter;
+		filter: css$prop$filter;
 		/**
 		Defines the length of time that an animation takes to complete one cycle.
 		*/
-		'animation-duration':css$prop$animation_duration;
+		'animation-duration': css$prop$animation_duration;
 		/**
 		Specifies whether the UA may break within a word to prevent overflow when an otherwise-unbreakable string is too long to fit within the line box.
 		*/
-		'overflow-wrap':css$prop$overflow_wrap;
+		'overflow-wrap': css$prop$overflow_wrap;
 		/**
 		Defines when the transition will start. It allows a transition to begin execution some period of time from when it is applied.
 		*/
-		'transition-delay':css$prop$transition_delay;
+		'transition-delay': css$prop$transition_delay;
 		/**
 		Paints along the outline of the given graphical element.
 		*/
-		stroke:css$prop$stroke;
+		stroke: css$prop$stroke;
 		/**
 		Specifies variant representations of the font
 		*/
-		'font-variant':css$prop$font_variant;
+		'font-variant': css$prop$font_variant;
 		/**
 		Sets the thickness of the bottom border.
 		@alias bwb
 		*/
-		'border-bottom-width':css$prop$border_bottom_width;
+		'border-bottom-width': css$prop$border_bottom_width;
 		/** @proxy border-bottom-width */
-		bwb:css$prop$border_bottom_width;
+		bwb: css$prop$border_bottom_width;
 		/**
 		Defines when the animation will start.
 		*/
-		'animation-delay':css$prop$animation_delay;
+		'animation-delay': css$prop$animation_delay;
 		/**
 		Sets the thickness of the top border.
 		@alias bwt
 		*/
-		'border-top-width':css$prop$border_top_width;
+		'border-top-width': css$prop$border_top_width;
 		/** @proxy border-top-width */
-		bwt:css$prop$border_top_width;
+		bwt: css$prop$border_top_width;
 		/**
 		Specifies how long the transition from the old value to the new value should take.
 		*/
-		'transition-duration':css$prop$transition_duration;
+		'transition-duration': css$prop$transition_duration;
 		/**
 		Sets the flex basis.
 		@alias flb
 		*/
-		'flex-basis':css$prop$flex_basis;
+		'flex-basis': css$prop$flex_basis;
 		/** @proxy flex-basis */
-		flb:css$prop$flex_basis;
+		flb: css$prop$flex_basis;
 		/**
 		Provides a rendering hint to the user agent, stating what kinds of changes the author expects to perform on the element.
 		*/
-		'will-change':css$prop$will_change;
+		'will-change': css$prop$will_change;
 		/**
 		Defines what values are applied by the animation outside the time it is executing.
 		*/
-		'animation-fill-mode':css$prop$animation_fill_mode;
+		'animation-fill-mode': css$prop$animation_fill_mode;
 		/**
 		Width of the outline.
 		*/
-		'outline-width':css$prop$outline_width;
+		'outline-width': css$prop$outline_width;
 		/**
 		Controls the algorithm used to lay out the table cells, rows, and columns.
 		*/
-		'table-layout':css$prop$table_layout;
+		'table-layout': css$prop$table_layout;
 		/**
 		Specifies how the contents of a replaced element should be scaled relative to the box established by its used height and width.
 		*/
-		'object-fit':css$prop$object_fit;
+		'object-fit': css$prop$object_fit;
 		/**
 		Controls the order in which children of a flex container appear within the flex container, by assigning them to ordinal groups.
 		*/
-		order:css$prop$order;
+		order: css$prop$order;
 		/**
 		Describes how the intermediate values used during a transition will be calculated.
 		*/
-		'transition-timing-function':css$prop$transition_timing_function;
+		'transition-timing-function': css$prop$transition_timing_function;
 		/**
 		Specifies whether or not an element is resizable by the user, and if so, along which axis/axes.
 		*/
-		resize:css$prop$resize;
+		resize: css$prop$resize;
 		/**
 		Style of the outline.
 		*/
-		'outline-style':css$prop$outline_style;
+		'outline-style': css$prop$outline_style;
 		/**
 		Sets the thickness of the right border.
 		@alias bwr
 		*/
-		'border-right-width':css$prop$border_right_width;
+		'border-right-width': css$prop$border_right_width;
 		/** @proxy border-right-width */
-		bwr:css$prop$border_right_width;
+		bwr: css$prop$border_right_width;
 		/**
 		Specifies the width of the stroke on the current object.
 		*/
-		'stroke-width':css$prop$stroke_width;
+		'stroke-width': css$prop$stroke_width;
 		/**
 		Defines the number of times an animation cycle is played. The default value is one, meaning the animation will play from beginning to end once.
 		*/
-		'animation-iteration-count':css$prop$animation_iteration_count;
+		'animation-iteration-count': css$prop$animation_iteration_count;
 		/**
 		Aligns a flex container’s lines within the flex container when there is extra space in the cross-axis, similar to how 'justify-content' aligns individual items within the main-axis.
 		@alias ac
 		*/
-		'align-content':css$prop$align_content;
+		'align-content': css$prop$align_content;
 		/** @proxy align-content */
-		ac:css$prop$align_content;
+		ac: css$prop$align_content;
 		/**
 		Offset the outline and draw it beyond the border edge.
 		*/
-		'outline-offset':css$prop$outline_offset;
+		'outline-offset': css$prop$outline_offset;
 		/**
 		Determines whether or not the 'back' side of a transformed element is visible when facing the viewer. With an identity transform, the front side of an element faces the viewer.
 		*/
-		'backface-visibility':css$prop$backface_visibility;
+		'backface-visibility': css$prop$backface_visibility;
 		/**
 		Sets the thickness of the left border.
 		@alias bwl
 		*/
-		'border-left-width':css$prop$border_left_width;
+		'border-left-width': css$prop$border_left_width;
 		/** @proxy border-left-width */
-		bwl:css$prop$border_left_width;
+		bwl: css$prop$border_left_width;
 		/**
 		Specifies how flexbox items are placed in the flexbox.
 		@alias flf
 		*/
-		'flex-flow':css$prop$flex_flow;
+		'flex-flow': css$prop$flex_flow;
 		/** @proxy flex-flow */
-		flf:css$prop$flex_flow;
+		flf: css$prop$flex_flow;
 		/**
 		Changes the appearance of buttons and other controls to resemble native controls.
 		*/
-		appearance:css$prop$appearance;
+		appearance: css$prop$appearance;
 		/**
 		The level of embedding with respect to the bidirectional algorithm.
 		*/
-		'unicode-bidi':css$prop$unicode_bidi;
+		'unicode-bidi': css$prop$unicode_bidi;
 		/**
 		Controls the pattern of dashes and gaps used to stroke paths.
 		*/
-		'stroke-dasharray':css$prop$stroke_dasharray;
+		'stroke-dasharray': css$prop$stroke_dasharray;
 		/**
 		Specifies the distance into the dash pattern to start the dash.
 		*/
-		'stroke-dashoffset':css$prop$stroke_dashoffset;
+		'stroke-dashoffset': css$prop$stroke_dashoffset;
 		/**
 		@font-face descriptor. Defines the set of Unicode codepoints that may be supported by the font face for which it is declared.
 		*/
-		'unicode-range':css$prop$unicode_range;
+		'unicode-range': css$prop$unicode_range;
 		/**
 		Specifies additional spacing between “words”.
 		*/
-		'word-spacing':css$prop$word_spacing;
+		'word-spacing': css$prop$word_spacing;
 		/**
 		The text-size-adjust CSS property controls the text inflation algorithm used on some smartphones and tablets. Other browsers will ignore this property.
 		*/
-		'text-size-adjust':css$prop$text_size_adjust;
+		'text-size-adjust': css$prop$text_size_adjust;
 		/**
 		Sets the style of the top border.
 		@alias bst
 		*/
-		'border-top-style':css$prop$border_top_style;
+		'border-top-style': css$prop$border_top_style;
 		/** @proxy border-top-style */
-		bst:css$prop$border_top_style;
+		bst: css$prop$border_top_style;
 		/**
 		Sets the style of the bottom border.
 		@alias bsb
 		*/
-		'border-bottom-style':css$prop$border_bottom_style;
+		'border-bottom-style': css$prop$border_bottom_style;
 		/** @proxy border-bottom-style */
-		bsb:css$prop$border_bottom_style;
+		bsb: css$prop$border_bottom_style;
 		/**
 		Defines whether or not the animation should play in reverse on alternate cycles.
 		*/
-		'animation-direction':css$prop$animation_direction;
+		'animation-direction': css$prop$animation_direction;
 		/**
 		Provides a hint to the user-agent about what aspects of an image are most important to preserve when the image is scaled, to aid the user-agent in the choice of an appropriate scaling algorithm.
 		*/
-		'image-rendering':css$prop$image_rendering;
+		'image-rendering': css$prop$image_rendering;
 		/**
 		Applies the same transform as the perspective(<number>) transform function, except that it applies only to the positioned or transformed children of the element, not to the transform on the element itself.
 		*/
-		perspective:css$prop$perspective;
+		perspective: css$prop$perspective;
 		/**
 		specifies, as a space-separated track list, the line names and track sizing functions of the grid.
 		@alias gtc
 		*/
-		'grid-template-columns':css$prop$grid_template_columns;
+		'grid-template-columns': css$prop$grid_template_columns;
 		/** @proxy grid-template-columns */
-		gtc:css$prop$grid_template_columns;
+		gtc: css$prop$grid_template_columns;
 		/**
 		Specifies the position of the '::marker' pseudo-element's box in the list item.
 		*/
-		'list-style-position':css$prop$list_style_position;
+		'list-style-position': css$prop$list_style_position;
 		/**
 		Provides low-level control over OpenType font features. It is intended as a way of providing access to font features that are not widely used but are needed for a particular use case.
 		*/
-		'font-feature-settings':css$prop$font_feature_settings;
+		'font-feature-settings': css$prop$font_feature_settings;
 		/**
 		Indicates that an element and its contents are, as much as possible, independent of the rest of the document tree.
 		*/
-		contain:css$prop$contain;
+		contain: css$prop$contain;
 		/**
 		If background images have been specified, this property specifies their initial position (after any resizing) within their corresponding background positioning area.
 		*/
-		'background-position-x':css$prop$background_position_x;
+		'background-position-x': css$prop$background_position_x;
 		/**
 		Defines how nested elements are rendered in 3D space.
 		*/
-		'transform-style':css$prop$transform_style;
+		'transform-style': css$prop$transform_style;
 		/**
 		For elements rendered as a single box, specifies the background positioning area. For elements rendered as multiple boxes (e.g., inline boxes on several lines, boxes on several pages) specifies which boxes 'box-decoration-break' operates on to determine the background positioning area(s).
 		@alias bgo
 		*/
-		'background-origin':css$prop$background_origin;
+		'background-origin': css$prop$background_origin;
 		/** @proxy background-origin */
-		bgo:css$prop$background_origin;
+		bgo: css$prop$background_origin;
 		/**
 		Sets the style of the left border.
 		@alias bsl
 		*/
-		'border-left-style':css$prop$border_left_style;
+		'border-left-style': css$prop$border_left_style;
 		/** @proxy border-left-style */
-		bsl:css$prop$border_left_style;
+		bsl: css$prop$border_left_style;
 		/**
 		The font-display descriptor determines how a font face is displayed based on whether and when it is downloaded and ready to use.
 		*/
-		'font-display':css$prop$font_display;
+		'font-display': css$prop$font_display;
 		/**
 		Specifies a clipping path where everything inside the path is visible and everything outside is clipped out.
 		*/
-		'clip-path':css$prop$clip_path;
+		'clip-path': css$prop$clip_path;
 		/**
 		Controls whether hyphenation is allowed to create more break opportunities within a line of text.
 		*/
-		hyphens:css$prop$hyphens;
+		hyphens: css$prop$hyphens;
 		/**
 		Specifies whether the background images are fixed with regard to the viewport ('fixed') or scroll along with the element ('scroll') or its contents ('local').
 		@alias bga
 		*/
-		'background-attachment':css$prop$background_attachment;
+		'background-attachment': css$prop$background_attachment;
 		/** @proxy background-attachment */
-		bga:css$prop$background_attachment;
+		bga: css$prop$background_attachment;
 		/**
 		Sets the style of the right border.
 		@alias bsr
 		*/
-		'border-right-style':css$prop$border_right_style;
+		'border-right-style': css$prop$border_right_style;
 		/** @proxy border-right-style */
-		bsr:css$prop$border_right_style;
+		bsr: css$prop$border_right_style;
 		/**
 		The color of the outline.
 		*/
-		'outline-color':css$prop$outline_color;
+		'outline-color': css$prop$outline_color;
 		/**
 		Logical 'margin-bottom'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'margin-block-end':css$prop$margin_block_end;
+		'margin-block-end': css$prop$margin_block_end;
 		/**
 		Defines whether the animation is running or paused.
 		*/
-		'animation-play-state':css$prop$animation_play_state;
+		'animation-play-state': css$prop$animation_play_state;
 		/**
 		Specifies quotation marks for any number of embedded quotations.
 		*/
-		quotes:css$prop$quotes;
+		quotes: css$prop$quotes;
 		/**
 		If background images have been specified, this property specifies their initial position (after any resizing) within their corresponding background positioning area.
 		*/
-		'background-position-y':css$prop$background_position_y;
+		'background-position-y': css$prop$background_position_y;
 		/**
 		Selects a normal, condensed, or expanded face from a font family.
 		*/
-		'font-stretch':css$prop$font_stretch;
+		'font-stretch': css$prop$font_stretch;
 		/**
 		Specifies the shape to be used at the end of open subpaths when they are stroked.
 		*/
-		'stroke-linecap':css$prop$stroke_linecap;
+		'stroke-linecap': css$prop$stroke_linecap;
 		/**
 		Determines the alignment of the replaced element inside its box.
 		*/
-		'object-position':css$prop$object_position;
+		'object-position': css$prop$object_position;
 		/**
 		Property accepts one or more names of counters (identifiers), each one optionally followed by an integer. The integer gives the value that the counter is set to on each occurrence of the element.
 		*/
-		'counter-reset':css$prop$counter_reset;
+		'counter-reset': css$prop$counter_reset;
 		/**
 		Logical 'margin-top'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'margin-block-start':css$prop$margin_block_start;
+		'margin-block-start': css$prop$margin_block_start;
 		/**
 		Manipulate the value of existing counters.
 		*/
-		'counter-increment':css$prop$counter_increment;
+		'counter-increment': css$prop$counter_increment;
 		/**
 		undefined
 		*/
-		size:css$prop$size;
+		size: css$prop$size;
 		/**
 		Specifies the color of text decoration (underlines overlines, and line-throughs) set on the element with text-decoration-line.
 		@alias tdc
 		*/
-		'text-decoration-color':css$prop$text_decoration_color;
+		'text-decoration-color': css$prop$text_decoration_color;
 		/** @proxy text-decoration-color */
-		tdc:css$prop$text_decoration_color;
+		tdc: css$prop$text_decoration_color;
 		/**
 		Sets the image that will be used as the list item marker. When the image is available, it will replace the marker set with the 'list-style-type' marker.
 		*/
-		'list-style-image':css$prop$list_style_image;
+		'list-style-image': css$prop$list_style_image;
 		/**
 		Describes the optimal number of columns into which the content of the element will be flowed.
 		*/
-		'column-count':css$prop$column_count;
+		'column-count': css$prop$column_count;
 		/**
 		Shorthand property for setting 'border-image-source', 'border-image-slice', 'border-image-width', 'border-image-outset' and 'border-image-repeat'. Omitted values are set to their initial values.
 		*/
-		'border-image':css$prop$border_image;
+		'border-image': css$prop$border_image;
 		/**
 		Sets the gap between columns. If there is a column rule between columns, it will appear in the middle of the gap.
 		@alias cg
 		*/
-		'column-gap':css$prop$column_gap;
+		'column-gap': css$prop$column_gap;
 		/** @proxy column-gap */
-		cg:css$prop$column_gap;
+		cg: css$prop$column_gap;
 		/**
 		Defines rules for page breaks inside an element.
 		*/
-		'page-break-inside':css$prop$page_break_inside;
+		'page-break-inside': css$prop$page_break_inside;
 		/**
 		Specifies the opacity of the painting operation used to paint the interior the current object.
 		*/
-		'fill-opacity':css$prop$fill_opacity;
+		'fill-opacity': css$prop$fill_opacity;
 		/**
 		Logical 'padding-left'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'padding-inline-start':css$prop$padding_inline_start;
+		'padding-inline-start': css$prop$padding_inline_start;
 		/**
 		In the separated borders model, this property controls the rendering of borders and backgrounds around cells that have no visible content.
 		*/
-		'empty-cells':css$prop$empty_cells;
+		'empty-cells': css$prop$empty_cells;
 		/**
 		Specifies control over which ligatures are enabled or disabled. A value of ‘normal’ implies that the defaults set by the font are used.
 		*/
-		'font-variant-ligatures':css$prop$font_variant_ligatures;
+		'font-variant-ligatures': css$prop$font_variant_ligatures;
 		/**
 		The text-decoration-skip CSS property specifies what parts of the element’s content any text decoration affecting the element must skip over. It controls all text decoration lines drawn by the element and also any text decoration lines drawn by its ancestors.
 		*/
-		'text-decoration-skip':css$prop$text_decoration_skip;
+		'text-decoration-skip': css$prop$text_decoration_skip;
 		/**
 		Defines the way of justifying a box inside its container along the appropriate axis.
 		@alias js
 		*/
-		'justify-self':css$prop$justify_self;
+		'justify-self': css$prop$justify_self;
 		/** @proxy justify-self */
-		js:css$prop$justify_self;
+		js: css$prop$justify_self;
 		/**
 		Defines rules for page breaks after an element.
 		*/
-		'page-break-after':css$prop$page_break_after;
+		'page-break-after': css$prop$page_break_after;
 		/**
 		specifies, as a space-separated track list, the line names and track sizing functions of the grid.
 		@alias gtr
 		*/
-		'grid-template-rows':css$prop$grid_template_rows;
+		'grid-template-rows': css$prop$grid_template_rows;
 		/** @proxy grid-template-rows */
-		gtr:css$prop$grid_template_rows;
+		gtr: css$prop$grid_template_rows;
 		/**
 		Logical 'padding-right'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'padding-inline-end':css$prop$padding_inline_end;
+		'padding-inline-end': css$prop$padding_inline_end;
 		/**
 		Shorthand that specifies the gutters between grid columns and grid rows in one declaration. Replaced by 'gap' property.
 		*/
-		'grid-gap':css$prop$grid_gap;
+		'grid-gap': css$prop$grid_gap;
 		/**
 		Shorthand that resets all properties except 'direction' and 'unicode-bidi'.
 		*/
-		all:css$prop$all;
+		all: css$prop$all;
 		/**
 		Shorthand for 'grid-column-start' and 'grid-column-end'.
 		@alias gc
 		*/
-		'grid-column':css$prop$grid_column;
+		'grid-column': css$prop$grid_column;
 		/** @proxy grid-column */
-		gc:css$prop$grid_column;
+		gc: css$prop$grid_column;
 		/**
 		Specifies the opacity of the painting operation used to stroke the current object.
 		*/
-		'stroke-opacity':css$prop$stroke_opacity;
+		'stroke-opacity': css$prop$stroke_opacity;
 		/**
 		Logical 'margin-left'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'margin-inline-start':css$prop$margin_inline_start;
+		'margin-inline-start': css$prop$margin_inline_start;
 		/**
 		Logical 'margin-right'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'margin-inline-end':css$prop$margin_inline_end;
+		'margin-inline-end': css$prop$margin_inline_end;
 		/**
 		Controls the color of the text insertion indicator.
 		*/
-		'caret-color':css$prop$caret_color;
+		'caret-color': css$prop$caret_color;
 		/**
 		Specifies the minimum number of line boxes in a block container that must be left in a fragment before a fragmentation break.
 		*/
-		orphans:css$prop$orphans;
+		orphans: css$prop$orphans;
 		/**
 		Specifies the position of the caption box with respect to the table box.
 		*/
-		'caption-side':css$prop$caption_side;
+		'caption-side': css$prop$caption_side;
 		/**
 		Establishes the origin for the perspective property. It effectively sets the X and Y position at which the viewer appears to be looking at the children of the element.
 		*/
-		'perspective-origin':css$prop$perspective_origin;
+		'perspective-origin': css$prop$perspective_origin;
 		/**
 		Indicates what color to use at that gradient stop.
 		*/
-		'stop-color':css$prop$stop_color;
+		'stop-color': css$prop$stop_color;
 		/**
 		Specifies the minimum number of line boxes of a block container that must be left in a fragment after a break.
 		*/
-		widows:css$prop$widows;
+		widows: css$prop$widows;
 		/**
 		Specifies the scrolling behavior for a scrolling box, when scrolling happens due to navigation or CSSOM scrolling APIs.
 		*/
-		'scroll-behavior':css$prop$scroll_behavior;
+		'scroll-behavior': css$prop$scroll_behavior;
 		/**
 		Specifies the gutters between grid columns. Replaced by 'column-gap' property.
 		@alias gcg
 		*/
-		'grid-column-gap':css$prop$grid_column_gap;
+		'grid-column-gap': css$prop$grid_column_gap;
 		/** @proxy grid-column-gap */
-		gcg:css$prop$grid_column_gap;
+		gcg: css$prop$grid_column_gap;
 		/**
 		A shorthand property which sets both 'column-width' and 'column-count'.
 		*/
-		columns:css$prop$columns;
+		columns: css$prop$columns;
 		/**
 		Describes the width of columns in multicol elements.
 		*/
-		'column-width':css$prop$column_width;
+		'column-width': css$prop$column_width;
 		/**
 		Defines the formula that must be used to mix the colors with the backdrop.
 		*/
-		'mix-blend-mode':css$prop$mix_blend_mode;
+		'mix-blend-mode': css$prop$mix_blend_mode;
 		/**
 		Kerning is the contextual adjustment of inter-glyph spacing. This property controls metric kerning, kerning that utilizes adjustment data contained in the font.
 		*/
-		'font-kerning':css$prop$font_kerning;
+		'font-kerning': css$prop$font_kerning;
 		/**
 		Specifies inward offsets from the top, right, bottom, and left edges of the image, dividing it into nine regions: four corners, four edges and a middle.
 		*/
-		'border-image-slice':css$prop$border_image_slice;
+		'border-image-slice': css$prop$border_image_slice;
 		/**
 		Specifies how the images for the sides and the middle part of the border image are scaled and tiled. If the second keyword is absent, it is assumed to be the same as the first.
 		*/
-		'border-image-repeat':css$prop$border_image_repeat;
+		'border-image-repeat': css$prop$border_image_repeat;
 		/**
 		The four values of 'border-image-width' specify offsets that are used to divide the border image area into nine parts. They represent inward distances from the top, right, bottom, and left sides of the area, respectively.
 		*/
-		'border-image-width':css$prop$border_image_width;
+		'border-image-width': css$prop$border_image_width;
 		/**
 		Shorthand for 'grid-row-start' and 'grid-row-end'.
 		@alias gr
 		*/
-		'grid-row':css$prop$grid_row;
+		'grid-row': css$prop$grid_row;
 		/** @proxy grid-row */
-		gr:css$prop$grid_row;
+		gr: css$prop$grid_row;
 		/**
 		Determines the width of the tab character (U+0009), in space characters (U+0020), when rendered.
 		*/
-		'tab-size':css$prop$tab_size;
+		'tab-size': css$prop$tab_size;
 		/**
 		Specifies the gutters between grid rows. Replaced by 'row-gap' property.
 		@alias grg
 		*/
-		'grid-row-gap':css$prop$grid_row_gap;
+		'grid-row-gap': css$prop$grid_row_gap;
 		/** @proxy grid-row-gap */
-		grg:css$prop$grid_row_gap;
+		grg: css$prop$grid_row_gap;
 		/**
 		Specifies the line style for underline, line-through and overline text decoration.
 		@alias tds
 		*/
-		'text-decoration-style':css$prop$text_decoration_style;
+		'text-decoration-style': css$prop$text_decoration_style;
 		/** @proxy text-decoration-style */
-		tds:css$prop$text_decoration_style;
+		tds: css$prop$text_decoration_style;
 		/**
 		Specifies what set of line breaking restrictions are in effect within the element.
 		*/
-		'line-break':css$prop$line_break;
+		'line-break': css$prop$line_break;
 		/**
 		The values specify the amount by which the border image area extends beyond the border box on the top, right, bottom, and left sides respectively. If the fourth value is absent, it is the same as the second. If the third one is also absent, it is the same as the first. If the second one is also absent, it is the same as the first. Numbers represent multiples of the corresponding border-width.
 		*/
-		'border-image-outset':css$prop$border_image_outset;
+		'border-image-outset': css$prop$border_image_outset;
 		/**
 		Shorthand for setting 'column-rule-width', 'column-rule-style', and 'column-rule-color' at the same place in the style sheet. Omitted values are set to their initial values.
 		*/
-		'column-rule':css$prop$column_rule;
+		'column-rule': css$prop$column_rule;
 		/**
 		Defines the default justify-self for all items of the box, giving them the default way of justifying each box along the appropriate axis
 		@alias ji
 		*/
-		'justify-items':css$prop$justify_items;
+		'justify-items': css$prop$justify_items;
 		/** @proxy justify-items */
-		ji:css$prop$justify_items;
+		ji: css$prop$justify_items;
 		/**
 		Determine a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic) to its grid placement. Shorthand for 'grid-row-start', 'grid-column-start', 'grid-row-end', and 'grid-column-end'.
 		@alias ga
 		*/
-		'grid-area':css$prop$grid_area;
+		'grid-area': css$prop$grid_area;
 		/** @proxy grid-area */
-		ga:css$prop$grid_area;
+		ga: css$prop$grid_area;
 		/**
 		When two line segments meet at a sharp angle and miter joins have been specified for 'stroke-linejoin', it is possible for the miter to extend far beyond the thickness of the line stroking the path.
 		*/
-		'stroke-miterlimit':css$prop$stroke_miterlimit;
+		'stroke-miterlimit': css$prop$stroke_miterlimit;
 		/**
 		Describes how the last line of a block or a line right before a forced line break is aligned when 'text-align' is set to 'justify'.
 		*/
-		'text-align-last':css$prop$text_align_last;
+		'text-align-last': css$prop$text_align_last;
 		/**
 		The backdrop-filter CSS property lets you apply graphical effects such as blurring or color shifting to the area behind an element. Because it applies to everything behind the element, to see the effect you must make the element or its background at least partially transparent.
 		*/
-		'backdrop-filter':css$prop$backdrop_filter;
+		'backdrop-filter': css$prop$backdrop_filter;
 		/**
 		Specifies the size of implicitly created rows.
 		@alias gar
 		*/
-		'grid-auto-rows':css$prop$grid_auto_rows;
+		'grid-auto-rows': css$prop$grid_auto_rows;
 		/** @proxy grid-auto-rows */
-		gar:css$prop$grid_auto_rows;
+		gar: css$prop$grid_auto_rows;
 		/**
 		Specifies the shape to be used at the corners of paths or basic shapes when they are stroked.
 		*/
-		'stroke-linejoin':css$prop$stroke_linejoin;
+		'stroke-linejoin': css$prop$stroke_linejoin;
 		/**
 		Specifies an orthogonal rotation to be applied to an image before it is laid out.
 		*/
-		'shape-outside':css$prop$shape_outside;
+		'shape-outside': css$prop$shape_outside;
 		/**
 		Specifies what line decorations, if any, are added to the element.
 		@alias tdl
 		*/
-		'text-decoration-line':css$prop$text_decoration_line;
+		'text-decoration-line': css$prop$text_decoration_line;
 		/** @proxy text-decoration-line */
-		tdl:css$prop$text_decoration_line;
+		tdl: css$prop$text_decoration_line;
 		/**
 		The scroll-snap-align property specifies the box’s snap position as an alignment of its snap area (as the alignment subject) within its snap container’s snapport (as the alignment container). The two values specify the snapping alignment in the block axis and inline axis, respectively. If only one value is specified, the second value defaults to the same value.
 		*/
-		'scroll-snap-align':css$prop$scroll_snap_align;
+		'scroll-snap-align': css$prop$scroll_snap_align;
 		/**
 		Indicates the algorithm (or winding rule) which is to be used to determine what parts of the canvas are included inside the shape.
 		*/
-		'fill-rule':css$prop$fill_rule;
+		'fill-rule': css$prop$fill_rule;
 		/**
 		Controls how the auto-placement algorithm works, specifying exactly how auto-placed items get flowed into the grid.
 		@alias gaf
 		*/
-		'grid-auto-flow':css$prop$grid_auto_flow;
+		'grid-auto-flow': css$prop$grid_auto_flow;
 		/** @proxy grid-auto-flow */
-		gaf:css$prop$grid_auto_flow;
+		gaf: css$prop$grid_auto_flow;
 		/**
 		Defines how strictly snap points are enforced on the scroll container.
 		*/
-		'scroll-snap-type':css$prop$scroll_snap_type;
+		'scroll-snap-type': css$prop$scroll_snap_type;
 		/**
 		Defines rules for page breaks before an element.
 		*/
-		'page-break-before':css$prop$page_break_before;
+		'page-break-before': css$prop$page_break_before;
 		/**
 		Determine a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic) to its grid placement.
 		@alias gcs
 		*/
-		'grid-column-start':css$prop$grid_column_start;
+		'grid-column-start': css$prop$grid_column_start;
 		/** @proxy grid-column-start */
-		gcs:css$prop$grid_column_start;
+		gcs: css$prop$grid_column_start;
 		/**
 		Specifies named grid areas, which are not associated with any particular grid item, but can be referenced from the grid-placement properties.
 		@alias gta
 		*/
-		'grid-template-areas':css$prop$grid_template_areas;
+		'grid-template-areas': css$prop$grid_template_areas;
 		/** @proxy grid-template-areas */
-		gta:css$prop$grid_template_areas;
+		gta: css$prop$grid_template_areas;
 		/**
 		Describes the page/column/region break behavior inside the principal box.
 		*/
-		'break-inside':css$prop$break_inside;
+		'break-inside': css$prop$break_inside;
 		/**
 		In continuous media, this property will only be consulted if the length of columns has been constrained. Otherwise, columns will automatically be balanced.
 		*/
-		'column-fill':css$prop$column_fill;
+		'column-fill': css$prop$column_fill;
 		/**
 		Determine a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic) to its grid placement.
 		@alias gce
 		*/
-		'grid-column-end':css$prop$grid_column_end;
+		'grid-column-end': css$prop$grid_column_end;
 		/** @proxy grid-column-end */
-		gce:css$prop$grid_column_end;
+		gce: css$prop$grid_column_end;
 		/**
 		Specifies an image to use instead of the border styles given by the 'border-style' properties and as an additional background layer for the element. If the value is 'none' or if the image cannot be displayed, the border styles will be used.
 		*/
-		'border-image-source':css$prop$border_image_source;
+		'border-image-source': css$prop$border_image_source;
 		/**
 		The overflow-anchor CSS property provides a way to opt out browser scroll anchoring behavior which adjusts scroll position to minimize content shifts.
 		@alias ofa
 		*/
-		'overflow-anchor':css$prop$overflow_anchor;
+		'overflow-anchor': css$prop$overflow_anchor;
 		/** @proxy overflow-anchor */
-		ofa:css$prop$overflow_anchor;
+		ofa: css$prop$overflow_anchor;
 		/**
 		Determine a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic) to its grid placement.
 		@alias grs
 		*/
-		'grid-row-start':css$prop$grid_row_start;
+		'grid-row-start': css$prop$grid_row_start;
 		/** @proxy grid-row-start */
-		grs:css$prop$grid_row_start;
+		grs: css$prop$grid_row_start;
 		/**
 		Determine a grid item’s size and location within the grid by contributing a line, a span, or nothing (automatic) to its grid placement.
 		@alias gre
 		*/
-		'grid-row-end':css$prop$grid_row_end;
+		'grid-row-end': css$prop$grid_row_end;
 		/** @proxy grid-row-end */
-		gre:css$prop$grid_row_end;
+		gre: css$prop$grid_row_end;
 		/**
 		Specifies control over numerical forms.
 		*/
-		'font-variant-numeric':css$prop$font_variant_numeric;
+		'font-variant-numeric': css$prop$font_variant_numeric;
 		/**
 		Defines the blending mode of each background layer.
 		*/
-		'background-blend-mode':css$prop$background_blend_mode;
+		'background-blend-mode': css$prop$background_blend_mode;
 		/**
 		The text-decoration-skip-ink CSS property specifies how overlines and underlines are drawn when they pass over glyph ascenders and descenders.
 		@alias tdsi
 		*/
-		'text-decoration-skip-ink':css$prop$text_decoration_skip_ink;
+		'text-decoration-skip-ink': css$prop$text_decoration_skip_ink;
 		/** @proxy text-decoration-skip-ink */
-		tdsi:css$prop$text_decoration_skip_ink;
+		tdsi: css$prop$text_decoration_skip_ink;
 		/**
 		Sets the color of the column rule
 		*/
-		'column-rule-color':css$prop$column_rule_color;
+		'column-rule-color': css$prop$column_rule_color;
 		/**
 		In CSS setting to 'isolate' will turn the element into a stacking context. In SVG, it defines whether an element is isolated or not.
 		*/
-		isolation:css$prop$isolation;
+		isolation: css$prop$isolation;
 		/**
 		Provides hints about what tradeoffs to make as it renders vector graphics elements such as <path> elements and basic shapes such as circles and rectangles.
 		*/
-		'shape-rendering':css$prop$shape_rendering;
+		'shape-rendering': css$prop$shape_rendering;
 		/**
 		Sets the style of the rule between columns of an element.
 		*/
-		'column-rule-style':css$prop$column_rule_style;
+		'column-rule-style': css$prop$column_rule_style;
 		/**
 		Logical 'border-right-width'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-end-width':css$prop$border_inline_end_width;
+		'border-inline-end-width': css$prop$border_inline_end_width;
 		/**
 		Logical 'border-left-width'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-start-width':css$prop$border_inline_start_width;
+		'border-inline-start-width': css$prop$border_inline_start_width;
 		/**
 		Specifies the size of implicitly created columns.
 		@alias gac
 		*/
-		'grid-auto-columns':css$prop$grid_auto_columns;
+		'grid-auto-columns': css$prop$grid_auto_columns;
 		/** @proxy grid-auto-columns */
-		gac:css$prop$grid_auto_columns;
+		gac: css$prop$grid_auto_columns;
 		/**
 		This is a shorthand property for both 'direction' and 'block-progression'.
 		*/
-		'writing-mode':css$prop$writing_mode;
+		'writing-mode': css$prop$writing_mode;
 		/**
 		Indicates the algorithm which is to be used to determine what parts of the canvas are included inside the shape.
 		*/
-		'clip-rule':css$prop$clip_rule;
+		'clip-rule': css$prop$clip_rule;
 		/**
 		Specifies control over capitalized forms.
 		*/
-		'font-variant-caps':css$prop$font_variant_caps;
+		'font-variant-caps': css$prop$font_variant_caps;
 		/**
 		Used to align (start-, middle- or end-alignment) a string of text relative to a given point.
 		*/
-		'text-anchor':css$prop$text_anchor;
+		'text-anchor': css$prop$text_anchor;
 		/**
 		Defines the opacity of a given gradient stop.
 		*/
-		'stop-opacity':css$prop$stop_opacity;
+		'stop-opacity': css$prop$stop_opacity;
 		/**
 		The mask CSS property alters the visibility of an element by either partially or fully hiding it. This is accomplished by either masking or clipping the image at specific points.
 		*/
-		mask:css$prop$mask;
+		mask: css$prop$mask;
 		/**
 		Describes the page/column break behavior after the generated box.
 		*/
-		'column-span':css$prop$column_span;
+		'column-span': css$prop$column_span;
 		/**
 		Allows control of glyph substitute and positioning in East Asian text.
 		*/
-		'font-variant-east-asian':css$prop$font_variant_east_asian;
+		'font-variant-east-asian': css$prop$font_variant_east_asian;
 		/**
 		Sets the position of an underline specified on the same element: it does not affect underlines specified by ancestor elements. This property is typically used in vertical writing contexts such as in Japanese documents where it often desired to have the underline appear 'over' (to the right of) the affected run of text
 		*/
-		'text-underline-position':css$prop$text_underline_position;
+		'text-underline-position': css$prop$text_underline_position;
 		/**
 		Describes the page/column/region break behavior after the generated box.
 		*/
-		'break-after':css$prop$break_after;
+		'break-after': css$prop$break_after;
 		/**
 		Describes the page/column/region break behavior before the generated box.
 		*/
-		'break-before':css$prop$break_before;
+		'break-before': css$prop$break_before;
 		/**
 		Defines whether the content of the <mask> element is treated as as luminance mask or alpha mask.
 		*/
-		'mask-type':css$prop$mask_type;
+		'mask-type': css$prop$mask_type;
 		/**
 		Sets the width of the rule between columns. Negative values are not allowed.
 		*/
-		'column-rule-width':css$prop$column_rule_width;
+		'column-rule-width': css$prop$column_rule_width;
 		/**
 		The row-gap CSS property specifies the gutter between grid rows.
 		@alias rg
 		*/
-		'row-gap':css$prop$row_gap;
+		'row-gap': css$prop$row_gap;
 		/** @proxy row-gap */
-		rg:css$prop$row_gap;
+		rg: css$prop$row_gap;
 		/**
 		Specifies the orientation of text within a line.
 		*/
-		'text-orientation':css$prop$text_orientation;
+		'text-orientation': css$prop$text_orientation;
 		/**
 		The scroll-padding property is a shorthand property which sets all of the scroll-padding longhands, assigning values much like the padding property does for the padding-* longhands.
 		*/
-		'scroll-padding':css$prop$scroll_padding;
+		'scroll-padding': css$prop$scroll_padding;
 		/**
 		Shorthand for setting grid-template-columns, grid-template-rows, and grid-template-areas in a single declaration.
 		@alias gt
 		*/
-		'grid-template':css$prop$grid_template;
+		'grid-template': css$prop$grid_template;
 		/** @proxy grid-template */
-		gt:css$prop$grid_template;
+		gt: css$prop$grid_template;
 		/**
 		Logical 'border-right-color'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-end-color':css$prop$border_inline_end_color;
+		'border-inline-end-color': css$prop$border_inline_end_color;
 		/**
 		Logical 'border-left-color'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-start-color':css$prop$border_inline_start_color;
+		'border-inline-start-color': css$prop$border_inline_start_color;
 		/**
 		The scroll-snap-stop CSS property defines whether the scroll container is allowed to "pass over" possible snap positions.
 		*/
-		'scroll-snap-stop':css$prop$scroll_snap_stop;
+		'scroll-snap-stop': css$prop$scroll_snap_stop;
 		/**
 		Adds a margin to a 'shape-outside'. This defines a new shape that is the smallest contour that includes all the points that are the 'shape-margin' distance outward in the perpendicular direction from a point on the underlying shape.
 		*/
-		'shape-margin':css$prop$shape_margin;
+		'shape-margin': css$prop$shape_margin;
 		/**
 		Defines the alpha channel threshold used to extract the shape using an image. A value of 0.5 means that the shape will enclose all the pixels that are more than 50% opaque.
 		*/
-		'shape-image-threshold':css$prop$shape_image_threshold;
+		'shape-image-threshold': css$prop$shape_image_threshold;
 		/**
 		The gap CSS property is a shorthand property for row-gap and column-gap specifying the gutters between grid rows and columns.
 		@alias g
 		*/
-		gap:css$prop$gap;
+		gap: css$prop$gap;
 		/** @proxy gap */
-		g:css$prop$gap;
+		g: css$prop$gap;
 		/**
 		Logical 'min-height'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'min-inline-size':css$prop$min_inline_size;
+		'min-inline-size': css$prop$min_inline_size;
 		/**
 		Specifies an orthogonal rotation to be applied to an image before it is laid out.
 		*/
-		'image-orientation':css$prop$image_orientation;
+		'image-orientation': css$prop$image_orientation;
 		/**
 		Logical 'height'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'inline-size':css$prop$inline_size;
+		'inline-size': css$prop$inline_size;
 		/**
 		Logical 'padding-top'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'padding-block-start':css$prop$padding_block_start;
+		'padding-block-start': css$prop$padding_block_start;
 		/**
 		Logical 'padding-bottom'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'padding-block-end':css$prop$padding_block_end;
+		'padding-block-end': css$prop$padding_block_end;
 		/**
 		The text-combine-upright CSS property specifies the combination of multiple characters into the space of a single character. If the combined text is wider than 1em, the user agent must fit the contents within 1em. The resulting composition is treated as a single upright glyph for layout and decoration. This property only has an effect in vertical writing modes.
 
 This is used to produce an effect that is known as tate-chū-yoko (縦中横) in Japanese, or as 直書橫向 in Chinese.
 		*/
-		'text-combine-upright':css$prop$text_combine_upright;
+		'text-combine-upright': css$prop$text_combine_upright;
 		/**
 		Logical 'width'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'block-size':css$prop$block_size;
+		'block-size': css$prop$block_size;
 		/**
 		Logical 'min-width'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'min-block-size':css$prop$min_block_size;
+		'min-block-size': css$prop$min_block_size;
 		/**
 		The scroll-padding-top property defines offsets for the top of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-top':css$prop$scroll_padding_top;
+		'scroll-padding-top': css$prop$scroll_padding_top;
 		/**
 		Logical 'border-right-style'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-end-style':css$prop$border_inline_end_style;
+		'border-inline-end-style': css$prop$border_inline_end_style;
 		/**
 		Logical 'border-top-width'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-start-width':css$prop$border_block_start_width;
+		'border-block-start-width': css$prop$border_block_start_width;
 		/**
 		Logical 'border-bottom-width'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-end-width':css$prop$border_block_end_width;
+		'border-block-end-width': css$prop$border_block_end_width;
 		/**
 		Logical 'border-bottom-color'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-end-color':css$prop$border_block_end_color;
+		'border-block-end-color': css$prop$border_block_end_color;
 		/**
 		Logical 'border-left-style'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-start-style':css$prop$border_inline_start_style;
+		'border-inline-start-style': css$prop$border_inline_start_style;
 		/**
 		Logical 'border-top-color'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-start-color':css$prop$border_block_start_color;
+		'border-block-start-color': css$prop$border_block_start_color;
 		/**
 		Logical 'border-bottom-style'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-end-style':css$prop$border_block_end_style;
+		'border-block-end-style': css$prop$border_block_end_style;
 		/**
 		Logical 'border-top-style'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-start-style':css$prop$border_block_start_style;
+		'border-block-start-style': css$prop$border_block_start_style;
 		/**
 		The font-variation-settings CSS property provides low-level control over OpenType or TrueType font variations, by specifying the four letter axis names of the features you want to vary, along with their variation values.
 		*/
-		'font-variation-settings':css$prop$font_variation_settings;
+		'font-variation-settings': css$prop$font_variation_settings;
 		/**
 		Controls the order that the three paint operations that shapes and text are rendered with: their fill, their stroke and any markers they might have.
 		*/
-		'paint-order':css$prop$paint_order;
+		'paint-order': css$prop$paint_order;
 		/**
 		Specifies the color space for imaging operations performed via filter effects.
 		*/
-		'color-interpolation-filters':css$prop$color_interpolation_filters;
+		'color-interpolation-filters': css$prop$color_interpolation_filters;
 		/**
 		Specifies the marker that will be drawn at the last vertices of the given markable element.
 		*/
-		'marker-end':css$prop$marker_end;
+		'marker-end': css$prop$marker_end;
 		/**
 		The scroll-padding-left property defines offsets for the left of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-left':css$prop$scroll_padding_left;
+		'scroll-padding-left': css$prop$scroll_padding_left;
 		/**
 		Indicates what color to use to flood the current filter primitive subregion.
 		*/
-		'flood-color':css$prop$flood_color;
+		'flood-color': css$prop$flood_color;
 		/**
 		Indicates what opacity to use to flood the current filter primitive subregion.
 		*/
-		'flood-opacity':css$prop$flood_opacity;
+		'flood-opacity': css$prop$flood_opacity;
 		/**
 		Defines the color of the light source for filter primitives 'feDiffuseLighting' and 'feSpecularLighting'.
 		*/
-		'lighting-color':css$prop$lighting_color;
+		'lighting-color': css$prop$lighting_color;
 		/**
 		Specifies the marker that will be drawn at the first vertices of the given markable element.
 		*/
-		'marker-start':css$prop$marker_start;
+		'marker-start': css$prop$marker_start;
 		/**
 		Specifies the marker that will be drawn at all vertices except the first and last.
 		*/
-		'marker-mid':css$prop$marker_mid;
+		'marker-mid': css$prop$marker_mid;
 		/**
 		Specifies the marker symbol that shall be used for all points on the sets the value for all vertices on the given ‘path’ element or basic shape.
 		*/
-		marker:css$prop$marker;
+		marker: css$prop$marker;
 		/**
 		The place-content CSS shorthand property sets both the align-content and justify-content properties.
 		*/
-		'place-content':css$prop$place_content;
+		'place-content': css$prop$place_content;
 		/**
 		The offset-path CSS property specifies the offset path where the element gets positioned. The exact element’s position on the offset path is determined by the offset-distance property. An offset path is either a specified path with one or multiple sub-paths or the geometry of a not-styled basic shape. Each shape or path must define an initial position for the computed value of "0" for offset-distance and an initial direction which specifies the rotation of the object to the initial position.
 
 In this specification, a direction (or rotation) of 0 degrees is equivalent to the direction of the positive x-axis in the object’s local coordinate system. In other words, a rotation of 0 degree points to the right side of the UA if the object and its ancestors have no transformation applied.
 		*/
-		'offset-path':css$prop$offset_path;
+		'offset-path': css$prop$offset_path;
 		/**
 		The offset-rotate CSS property defines the direction of the element while positioning along the offset path.
 		*/
-		'offset-rotate':css$prop$offset_rotate;
+		'offset-rotate': css$prop$offset_rotate;
 		/**
 		The offset-distance CSS property specifies a position along an offset-path.
 		*/
-		'offset-distance':css$prop$offset_distance;
+		'offset-distance': css$prop$offset_distance;
 		/**
 		The transform-box CSS property defines the layout box to which the transform and transform-origin properties relate.
 		*/
-		'transform-box':css$prop$transform_box;
+		'transform-box': css$prop$transform_box;
 		/**
 		The CSS place-items shorthand property sets both the align-items and justify-items properties. The first value is the align-items property value, the second the justify-items one. If the second value is not present, the first value is also used for it.
 		*/
-		'place-items':css$prop$place_items;
+		'place-items': css$prop$place_items;
 		/**
 		Logical 'max-height'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'max-inline-size':css$prop$max_inline_size;
+		'max-inline-size': css$prop$max_inline_size;
 		/**
 		Logical 'max-width'. Mapping depends on the element’s 'writing-mode'.
 		*/
-		'max-block-size':css$prop$max_block_size;
+		'max-block-size': css$prop$max_block_size;
 		/**
 		Used by the parent of elements with display: ruby-text to control the position of the ruby text with respect to its base.
 		*/
-		'ruby-position':css$prop$ruby_position;
+		'ruby-position': css$prop$ruby_position;
 		/**
 		The scroll-padding-right property defines offsets for the right of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-right':css$prop$scroll_padding_right;
+		'scroll-padding-right': css$prop$scroll_padding_right;
 		/**
 		The scroll-padding-bottom property defines offsets for the bottom of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-bottom':css$prop$scroll_padding_bottom;
+		'scroll-padding-bottom': css$prop$scroll_padding_bottom;
 		/**
 		The scroll-padding-inline-start property defines offsets for the start edge in the inline dimension of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-inline-start':css$prop$scroll_padding_inline_start;
+		'scroll-padding-inline-start': css$prop$scroll_padding_inline_start;
 		/**
 		The scroll-padding-block-start property defines offsets for the start edge in the block dimension of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-block-start':css$prop$scroll_padding_block_start;
+		'scroll-padding-block-start': css$prop$scroll_padding_block_start;
 		/**
 		The scroll-padding-block-end property defines offsets for the end edge in the block dimension of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-block-end':css$prop$scroll_padding_block_end;
+		'scroll-padding-block-end': css$prop$scroll_padding_block_end;
 		/**
 		The scroll-padding-inline-end property defines offsets for the end edge in the inline dimension of the optimal viewing region of the scrollport: the region used as the target region for placing things in view of the user. This allows the author to exclude regions of the scrollport that are obscured by other content (such as fixed-positioned toolbars or sidebars) or simply to put more breathing room between a targeted element and the edges of the scrollport.
 		*/
-		'scroll-padding-inline-end':css$prop$scroll_padding_inline_end;
+		'scroll-padding-inline-end': css$prop$scroll_padding_inline_end;
 		/**
 		The place-self CSS property is a shorthand property sets both the align-self and justify-self properties. The first value is the align-self property value, the second the justify-self one. If the second value is not present, the first value is also used for it.
 		*/
-		'place-self':css$prop$place_self;
+		'place-self': css$prop$place_self;
 		/**
 		The font-optical-sizing CSS property allows developers to control whether browsers render text with slightly differing visual representations to optimize viewing at different sizes, or not. This only works for fonts that have an optical size variation axis.
 		*/
-		'font-optical-sizing':css$prop$font_optical_sizing;
+		'font-optical-sizing': css$prop$font_optical_sizing;
 		/**
 		The grid CSS property is a shorthand property that sets all of the explicit grid properties ('grid-template-rows', 'grid-template-columns', and 'grid-template-areas'), and all the implicit grid properties ('grid-auto-rows', 'grid-auto-columns', and 'grid-auto-flow'), in a single declaration.
 		*/
-		grid:css$prop$grid;
+		grid: css$prop$grid;
 		/**
 		Logical 'border-left'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-start':css$prop$border_inline_start;
+		'border-inline-start': css$prop$border_inline_start;
 		/**
 		Logical 'border-right'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-inline-end':css$prop$border_inline_end;
+		'border-inline-end': css$prop$border_inline_end;
 		/**
 		Logical 'border-bottom'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-end':css$prop$border_block_end;
+		'border-block-end': css$prop$border_block_end;
 		/**
 		The offset CSS property is a shorthand property for animating an element along a defined path.
 		*/
-		offset:css$prop$offset;
+		offset: css$prop$offset;
 		/**
 		Logical 'border-top'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'border-block-start':css$prop$border_block_start;
+		'border-block-start': css$prop$border_block_start;
 		/**
 		The scroll-padding-block property is a shorthand property which sets the scroll-padding longhands for the block dimension.
 		*/
-		'scroll-padding-block':css$prop$scroll_padding_block;
+		'scroll-padding-block': css$prop$scroll_padding_block;
 		/**
 		The scroll-padding-inline property is a shorthand property which sets the scroll-padding longhands for the inline dimension.
 		*/
-		'scroll-padding-inline':css$prop$scroll_padding_inline;
+		'scroll-padding-inline': css$prop$scroll_padding_inline;
 		/**
 		The overscroll-behavior-block CSS property sets the browser's behavior when the block direction boundary of a scrolling area is reached.
 		*/
-		'overscroll-behavior-block':css$prop$overscroll_behavior_block;
+		'overscroll-behavior-block': css$prop$overscroll_behavior_block;
 		/**
 		The overscroll-behavior-inline CSS property sets the browser's behavior when the inline direction boundary of a scrolling area is reached.
 		*/
-		'overscroll-behavior-inline':css$prop$overscroll_behavior_inline;
+		'overscroll-behavior-inline': css$prop$overscroll_behavior_inline;
 		/**
 		Shorthand property for setting 'motion-path', 'motion-offset' and 'motion-rotation'.
 		*/
-		motion:css$prop$motion;
+		motion: css$prop$motion;
 		/**
 		Preserves the readability of text when font fallback occurs by adjusting the font-size so that the x-height is the same regardless of the font used.
 		*/
-		'font-size-adjust':css$prop$font_size_adjust;
+		'font-size-adjust': css$prop$font_size_adjust;
 		/**
 		The inset CSS property defines the logical block and inline start and end offsets of an element, which map to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the top and bottom, or right and left properties depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		inset:css$prop$inset;
+		inset: css$prop$inset;
 		/**
 		Selects the justification algorithm used when 'text-align' is set to 'justify'. The property applies to block containers, but the UA may (but is not required to) also support it on inline elements.
 		*/
-		'text-justify':css$prop$text_justify;
+		'text-justify': css$prop$text_justify;
 		/**
 		Specifies the motion path the element gets positioned at.
 		*/
-		'motion-path':css$prop$motion_path;
+		'motion-path': css$prop$motion_path;
 		/**
 		The inset-inline-start CSS property defines the logical inline start inset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the top, right, bottom, or left property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-inline-start':css$prop$inset_inline_start;
+		'inset-inline-start': css$prop$inset_inline_start;
 		/**
 		The inset-inline-end CSS property defines the logical inline end inset of an element, which maps to a physical inset depending on the element's writing mode, directionality, and text orientation. It corresponds to the top, right, bottom, or left property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-inline-end':css$prop$inset_inline_end;
+		'inset-inline-end': css$prop$inset_inline_end;
 		/**
 		The scale CSS property allows you to specify scale transforms individually and independently of the transform property. This maps better to typical user interface usage, and saves having to remember the exact order of transform functions to specify in the transform value.
 		@alias scale
 		*/
-		scale:css$prop$scale;
+		scale: css$prop$scale;
 		/**
 		The rotate CSS property allows you to specify rotation transforms individually and independently of the transform property. This maps better to typical user interface usage, and saves having to remember the exact order of transform functions to specify in the transform value.
 		@alias rotate
 		*/
-		rotate:css$prop$rotate;
+		rotate: css$prop$rotate;
 		/**
 		The translate CSS property allows you to specify translation transforms individually and independently of the transform property. This maps better to typical user interface usage, and saves having to remember the exact order of transform functions to specify in the transform value.
 		*/
-		translate:css$prop$translate;
+		translate: css$prop$translate;
 		/**
 		Defines an anchor point of the box positioned along the path. The anchor point specifies the point of the box which is to be considered as the point that is moved along the path.
 		*/
-		'offset-anchor':css$prop$offset_anchor;
+		'offset-anchor': css$prop$offset_anchor;
 		/**
 		Specifies the initial position of the offset path. If position is specified with static, offset-position would be ignored.
 		*/
-		'offset-position':css$prop$offset_position;
+		'offset-position': css$prop$offset_position;
 		/**
 		The padding-block CSS property defines the logical block start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.
 		*/
-		'padding-block':css$prop$padding_block;
+		'padding-block': css$prop$padding_block;
 		/**
 		The orientation CSS @media media feature can be used to apply styles based on the orientation of the viewport (or the page box, for paged media).
 		*/
-		orientation:css$prop$orientation;
+		orientation: css$prop$orientation;
 		/**
 		The user-zoom CSS descriptor controls whether or not the user can change the zoom factor of a document defined by @viewport.
 		*/
-		'user-zoom':css$prop$user_zoom;
+		'user-zoom': css$prop$user_zoom;
 		/**
 		The margin-block CSS property defines the logical block start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.
 		*/
-		'margin-block':css$prop$margin_block;
+		'margin-block': css$prop$margin_block;
 		/**
 		The margin-inline CSS property defines the logical inline start and end margins of an element, which maps to physical margins depending on the element's writing mode, directionality, and text orientation.
 		*/
-		'margin-inline':css$prop$margin_inline;
+		'margin-inline': css$prop$margin_inline;
 		/**
 		The padding-inline CSS property defines the logical inline start and end padding of an element, which maps to physical padding properties depending on the element's writing mode, directionality, and text orientation.
 		*/
-		'padding-inline':css$prop$padding_inline;
+		'padding-inline': css$prop$padding_inline;
 		/**
 		The inset-block CSS property defines the logical block start and end offsets of an element, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the top and bottom, or right and left properties depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-block':css$prop$inset_block;
+		'inset-block': css$prop$inset_block;
 		/**
 		The inset-inline CSS property defines the logical block start and end offsets of an element, which maps to physical offsets depending on the element's writing mode, directionality, and text orientation. It corresponds to the top and bottom, or right and left properties depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-inline':css$prop$inset_inline;
+		'inset-inline': css$prop$inset_inline;
 		/**
 		The border-block-color CSS property defines the color of the logical block borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-color and border-bottom-color, or border-right-color and border-left-color property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-block-color':css$prop$border_block_color;
+		'border-block-color': css$prop$border_block_color;
 		/**
 		The border-block CSS property is a shorthand property for setting the individual logical block border property values in a single place in the style sheet.
 		*/
-		'border-block':css$prop$border_block;
+		'border-block': css$prop$border_block;
 		/**
 		The border-inline CSS property is a shorthand property for setting the individual logical inline border property values in a single place in the style sheet.
 		*/
-		'border-inline':css$prop$border_inline;
+		'border-inline': css$prop$border_inline;
 		/**
 		The inset-block-start CSS property defines the logical block start offset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the top, right, bottom, or left property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-block-start':css$prop$inset_block_start;
+		'inset-block-start': css$prop$inset_block_start;
 		/**
 		The inset-block-end CSS property defines the logical block end offset of an element, which maps to a physical offset depending on the element's writing mode, directionality, and text orientation. It corresponds to the top, right, bottom, or left property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'inset-block-end':css$prop$inset_block_end;
+		'inset-block-end': css$prop$inset_block_end;
 		/**
 		Deprecated. Use 'isolation' property instead when support allows. Specifies how the accumulation of the background image is managed.
 		*/
-		'enable-background':css$prop$enable_background;
+		'enable-background': css$prop$enable_background;
 		/**
 		Controls glyph orientation when the inline-progression-direction is horizontal.
 		*/
-		'glyph-orientation-horizontal':css$prop$glyph_orientation_horizontal;
+		'glyph-orientation-horizontal': css$prop$glyph_orientation_horizontal;
 		/**
 		Controls glyph orientation when the inline-progression-direction is vertical.
 		*/
-		'glyph-orientation-vertical':css$prop$glyph_orientation_vertical;
+		'glyph-orientation-vertical': css$prop$glyph_orientation_vertical;
 		/**
 		Indicates whether the user agent should adjust inter-glyph spacing based on kerning tables that are included in the relevant font or instead disable auto-kerning and set inter-character spacing to a specific length.
 		*/
-		kerning:css$prop$kerning;
+		kerning: css$prop$kerning;
 		/**
 		The image-resolution property specifies the intrinsic resolution of all raster images used in or on the element. It affects both content images (e.g. replaced elements and generated content) and decorative images (such as background-image). The intrinsic resolution of an image is used to determine the image’s intrinsic dimensions.
 		*/
-		'image-resolution':css$prop$image_resolution;
+		'image-resolution': css$prop$image_resolution;
 		/**
 		The max-zoom CSS descriptor sets the maximum zoom factor of a document defined by the @viewport at-rule. The browser will not zoom in any further than this, whether automatically or at the user's request.
 
 A zoom factor of 1.0 or 100% corresponds to no zooming. Larger values are zoomed in. Smaller values are zoomed out.
 		*/
-		'max-zoom':css$prop$max_zoom;
+		'max-zoom': css$prop$max_zoom;
 		/**
 		The min-zoom CSS descriptor sets the minimum zoom factor of a document defined by the @viewport at-rule. The browser will not zoom out any further than this, whether automatically or at the user's request.
 
 A zoom factor of 1.0 or 100% corresponds to no zooming. Larger values are zoomed in. Smaller values are zoomed out.
 		*/
-		'min-zoom':css$prop$min_zoom;
+		'min-zoom': css$prop$min_zoom;
 		/**
 		A distance that describes the position along the specified motion path.
 		*/
-		'motion-offset':css$prop$motion_offset;
+		'motion-offset': css$prop$motion_offset;
 		/**
 		Defines the direction of the element while positioning along the motion path.
 		*/
-		'motion-rotation':css$prop$motion_rotation;
+		'motion-rotation': css$prop$motion_rotation;
 		/**
 		Defines the positioning of snap points along the x axis of the scroll container it is applied to.
 		*/
-		'scroll-snap-points-x':css$prop$scroll_snap_points_x;
+		'scroll-snap-points-x': css$prop$scroll_snap_points_x;
 		/**
 		Defines the positioning of snap points along the y axis of the scroll container it is applied to.
 		*/
-		'scroll-snap-points-y':css$prop$scroll_snap_points_y;
+		'scroll-snap-points-y': css$prop$scroll_snap_points_y;
 		/**
 		Defines the x and y coordinate within the element which will align with the nearest ancestor scroll container’s snap-destination for the respective axis.
 		*/
-		'scroll-snap-coordinate':css$prop$scroll_snap_coordinate;
+		'scroll-snap-coordinate': css$prop$scroll_snap_coordinate;
 		/**
 		Define the x and y coordinate within the scroll container’s visual viewport which element snap points will align with.
 		*/
-		'scroll-snap-destination':css$prop$scroll_snap_destination;
+		'scroll-snap-destination': css$prop$scroll_snap_destination;
 		/**
 		The border-block-style CSS property defines the style of the logical block borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation.
 		*/
-		'viewport-fit':css$prop$viewport_fit;
+		'viewport-fit': css$prop$viewport_fit;
 		/**
 		The border-block-style CSS property defines the style of the logical block borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-style and border-bottom-style, or border-left-style and border-right-style properties depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-block-style':css$prop$border_block_style;
+		'border-block-style': css$prop$border_block_style;
 		/**
 		The border-block-width CSS property defines the width of the logical block borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-width and border-bottom-width, or border-left-width, and border-right-width property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-block-width':css$prop$border_block_width;
+		'border-block-width': css$prop$border_block_width;
 		/**
 		The border-inline-color CSS property defines the color of the logical inline borders of an element, which maps to a physical border color depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-color and border-bottom-color, or border-right-color and border-left-color property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-inline-color':css$prop$border_inline_color;
+		'border-inline-color': css$prop$border_inline_color;
 		/**
 		The border-inline-style CSS property defines the style of the logical inline borders of an element, which maps to a physical border style depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-style and border-bottom-style, or border-left-style and border-right-style properties depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-inline-style':css$prop$border_inline_style;
+		'border-inline-style': css$prop$border_inline_style;
 		/**
 		The border-inline-width CSS property defines the width of the logical inline borders of an element, which maps to a physical border width depending on the element's writing mode, directionality, and text orientation. It corresponds to the border-top-width and border-bottom-width, or border-left-width, and border-right-width property depending on the values defined for writing-mode, direction, and text-orientation.
 		*/
-		'border-inline-width':css$prop$border_inline_width;
+		'border-inline-width': css$prop$border_inline_width;
 		/**
 		The overflow-block CSS media feature can be used to test how the output device handles content that overflows the initial containing block along the block axis.
 		*/
-		'overflow-block':css$prop$overflow_block;
+		'overflow-block': css$prop$overflow_block;
 		/**
 		@counter-style descriptor. Specifies the symbols used by the marker-construction algorithm specified by the system descriptor. Needs to be specified if the counter system is 'additive'.
 		*/
-		'additive-symbols':css$prop$additive_symbols;
+		'additive-symbols': css$prop$additive_symbols;
 		/**
 		Provides alternative text for assistive technology to replace the generated content of a ::before or ::after element.
 		*/
-		alt:css$prop$alt;
+		alt: css$prop$alt;
 		/**
 		IE only. Used to extend behaviors of the browser.
 		*/
-		behavior:css$prop$behavior;
+		behavior: css$prop$behavior;
 		/**
 		Specifies whether individual boxes are treated as broken pieces of one continuous box, or whether each box is individually wrapped with the border and padding.
 		*/
-		'box-decoration-break':css$prop$box_decoration_break;
+		'box-decoration-break': css$prop$box_decoration_break;
 		/**
 		@counter-style descriptor. Specifies a fallback counter style to be used when the current counter style can’t create a representation for a given counter value.
 		*/
-		fallback:css$prop$fallback;
+		fallback: css$prop$fallback;
 		/**
 		The value of 'normal' implies that when rendering with OpenType fonts the language of the document is used to infer the OpenType language system, used to select language specific features when rendering.
 		*/
-		'font-language-override':css$prop$font_language_override;
+		'font-language-override': css$prop$font_language_override;
 		/**
 		Controls whether user agents are allowed to synthesize bold or oblique font faces when a font family lacks bold or italic faces.
 		*/
-		'font-synthesis':css$prop$font_synthesis;
+		'font-synthesis': css$prop$font_synthesis;
 		/**
 		For any given character, fonts can provide a variety of alternate glyphs in addition to the default glyph for that character. This property provides control over the selection of these alternate glyphs.
 		*/
-		'font-variant-alternates':css$prop$font_variant_alternates;
+		'font-variant-alternates': css$prop$font_variant_alternates;
 		/**
 		Specifies the vertical position
 		*/
-		'font-variant-position':css$prop$font_variant_position;
+		'font-variant-position': css$prop$font_variant_position;
 		/**
 		Controls the state of the input method editor for text fields.
 		*/
-		'ime-mode':css$prop$ime_mode;
+		'ime-mode': css$prop$ime_mode;
 		/**
 		Sets the mask layer image of an element.
 		*/
-		'mask-image':css$prop$mask_image;
+		'mask-image': css$prop$mask_image;
 		/**
 		Indicates whether the mask layer image is treated as luminance mask or alpha mask.
 		*/
-		'mask-mode':css$prop$mask_mode;
+		'mask-mode': css$prop$mask_mode;
 		/**
 		Specifies the mask positioning area.
 		*/
-		'mask-origin':css$prop$mask_origin;
+		'mask-origin': css$prop$mask_origin;
 		/**
 		Specifies how mask layer images are positioned.
 		*/
-		'mask-position':css$prop$mask_position;
+		'mask-position': css$prop$mask_position;
 		/**
 		Specifies how mask layer images are tiled after they have been sized and positioned.
 		*/
-		'mask-repeat':css$prop$mask_repeat;
+		'mask-repeat': css$prop$mask_repeat;
 		/**
 		Specifies the size of the mask layer images.
 		*/
-		'mask-size':css$prop$mask_size;
+		'mask-size': css$prop$mask_size;
 		/**
 		Provides an way to control directional focus navigation.
 		*/
-		'nav-down':css$prop$nav_down;
+		'nav-down': css$prop$nav_down;
 		/**
 		Provides an input-method-neutral way of specifying the sequential navigation order (also known as 'tabbing order').
 		*/
-		'nav-index':css$prop$nav_index;
+		'nav-index': css$prop$nav_index;
 		/**
 		Provides an way to control directional focus navigation.
 		*/
-		'nav-left':css$prop$nav_left;
+		'nav-left': css$prop$nav_left;
 		/**
 		Provides an way to control directional focus navigation.
 		*/
-		'nav-right':css$prop$nav_right;
+		'nav-right': css$prop$nav_right;
 		/**
 		Provides an way to control directional focus navigation.
 		*/
-		'nav-up':css$prop$nav_up;
+		'nav-up': css$prop$nav_up;
 		/**
 		@counter-style descriptor. Defines how to alter the representation when the counter value is negative.
 		*/
-		negative:css$prop$negative;
+		negative: css$prop$negative;
 		/**
 		Logical 'bottom'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'offset-block-end':css$prop$offset_block_end;
+		'offset-block-end': css$prop$offset_block_end;
 		/**
 		Logical 'top'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'offset-block-start':css$prop$offset_block_start;
+		'offset-block-start': css$prop$offset_block_start;
 		/**
 		Logical 'right'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'offset-inline-end':css$prop$offset_inline_end;
+		'offset-inline-end': css$prop$offset_inline_end;
 		/**
 		Logical 'left'. Mapping depends on the parent element’s 'writing-mode', 'direction', and 'text-orientation'.
 		*/
-		'offset-inline-start':css$prop$offset_inline_start;
+		'offset-inline-start': css$prop$offset_inline_start;
 		/**
 		@counter-style descriptor. Specifies a “fixed-width” counter style, where representations shorter than the pad value are padded with a particular <symbol>
 		*/
-		pad:css$prop$pad;
+		pad: css$prop$pad;
 		/**
 		@counter-style descriptor. Specifies a <symbol> that is prepended to the marker representation.
 		*/
-		prefix:css$prop$prefix;
+		prefix: css$prop$prefix;
 		/**
 		@counter-style descriptor. Defines the ranges over which the counter style is defined.
 		*/
-		range:css$prop$range;
+		range: css$prop$range;
 		/**
 		Specifies how text is distributed within the various ruby boxes when their contents do not exactly fill their respective boxes.
 		*/
-		'ruby-align':css$prop$ruby_align;
+		'ruby-align': css$prop$ruby_align;
 		/**
 		Determines whether, and on which side, ruby text is allowed to partially overhang any adjacent text in addition to its own base, when the ruby text is wider than the ruby base.
 		*/
-		'ruby-overhang':css$prop$ruby_overhang;
+		'ruby-overhang': css$prop$ruby_overhang;
 		/**
 		Determines whether, and on which side, ruby text is allowed to partially overhang any adjacent text in addition to its own base, when the ruby text is wider than the ruby base.
 		*/
-		'ruby-span':css$prop$ruby_span;
+		'ruby-span': css$prop$ruby_span;
 		/**
 		Determines the color of the top and left edges of the scroll box and scroll arrows of a scroll bar.
 		*/
-		'scrollbar-3dlight-color':css$prop$scrollbar_3dlight_color;
+		'scrollbar-3dlight-color': css$prop$scrollbar_3dlight_color;
 		/**
 		Determines the color of the arrow elements of a scroll arrow.
 		*/
-		'scrollbar-arrow-color':css$prop$scrollbar_arrow_color;
+		'scrollbar-arrow-color': css$prop$scrollbar_arrow_color;
 		/**
 		Determines the color of the main elements of a scroll bar, which include the scroll box, track, and scroll arrows.
 		*/
-		'scrollbar-base-color':css$prop$scrollbar_base_color;
+		'scrollbar-base-color': css$prop$scrollbar_base_color;
 		/**
 		Determines the color of the gutter of a scroll bar.
 		*/
-		'scrollbar-darkshadow-color':css$prop$scrollbar_darkshadow_color;
+		'scrollbar-darkshadow-color': css$prop$scrollbar_darkshadow_color;
 		/**
 		Determines the color of the scroll box and scroll arrows of a scroll bar.
 		*/
-		'scrollbar-face-color':css$prop$scrollbar_face_color;
+		'scrollbar-face-color': css$prop$scrollbar_face_color;
 		/**
 		Determines the color of the top and left edges of the scroll box and scroll arrows of a scroll bar.
 		*/
-		'scrollbar-highlight-color':css$prop$scrollbar_highlight_color;
+		'scrollbar-highlight-color': css$prop$scrollbar_highlight_color;
 		/**
 		Determines the color of the bottom and right edges of the scroll box and scroll arrows of a scroll bar.
 		*/
-		'scrollbar-shadow-color':css$prop$scrollbar_shadow_color;
+		'scrollbar-shadow-color': css$prop$scrollbar_shadow_color;
 		/**
 		Determines the color of the track element of a scroll bar.
 		*/
-		'scrollbar-track-color':css$prop$scrollbar_track_color;
+		'scrollbar-track-color': css$prop$scrollbar_track_color;
 		/**
 		@counter-style descriptor. Specifies a <symbol> that is appended to the marker representation.
 		*/
-		suffix:css$prop$suffix;
+		suffix: css$prop$suffix;
 		/**
 		@counter-style descriptor. Specifies which algorithm will be used to construct the counter’s representation based on the counter value.
 		*/
-		system:css$prop$system;
+		system: css$prop$system;
 		/**
 		@counter-style descriptor. Specifies the symbols used by the marker-construction algorithm specified by the system descriptor.
 		*/
-		symbols:css$prop$symbols;
+		symbols: css$prop$symbols;
 		/**
 		The aspect-ratio   CSS property sets a preferred aspect ratio for the box, which will be used in the calculation of auto sizes and some other layout functions.
 		*/
-		'aspect-ratio':css$prop$aspect_ratio;
+		'aspect-ratio': css$prop$aspect_ratio;
 		/**
 		In combination with elevation, the azimuth CSS property enables different audio sources to be positioned spatially for aural presentation. This is important in that it provides a natural way to tell several voices apart, as each can be positioned to originate at a different location on the sound stage. Stereo output produce a lateral sound stage, while binaural headphones and multi-speaker setups allow for a fully three-dimensional stage.
 		*/
-		azimuth:css$prop$azimuth;
+		azimuth: css$prop$azimuth;
 		/**
 		The border-end-end-radius CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on on the element's writing-mode, direction, and text-orientation.
 		*/
-		'border-end-end-radius':css$prop$border_end_end_radius;
+		'border-end-end-radius': css$prop$border_end_end_radius;
 		/**
 		The border-end-start-radius CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's writing-mode, direction, and text-orientation.
 		*/
-		'border-end-start-radius':css$prop$border_end_start_radius;
+		'border-end-start-radius': css$prop$border_end_start_radius;
 		/**
 		The border-start-end-radius CSS property defines a logical border radius on an element, which maps to a physical border radius depending on the element's writing-mode, direction, and text-orientation.
 		*/
-		'border-start-end-radius':css$prop$border_start_end_radius;
+		'border-start-end-radius': css$prop$border_start_end_radius;
 		/**
 		The border-start-start-radius CSS property defines a logical border radius on an element, which maps to a physical border radius that depends on the element's writing-mode, direction, and text-orientation.
 		*/
-		'border-start-start-radius':css$prop$border_start_start_radius;
+		'border-start-start-radius': css$prop$border_start_start_radius;
 		/**
 		The box-ordinal-group CSS property assigns the flexbox's child elements to an ordinal group.
 		*/
-		'box-ordinal-group':css$prop$box_ordinal_group;
+		'box-ordinal-group': css$prop$box_ordinal_group;
 		/**
 		The color-adjust property is a non-standard CSS extension that can be used to force printing of background colors and images in browsers based on the WebKit engine.
 		*/
-		'color-adjust':css$prop$color_adjust;
+		'color-adjust': css$prop$color_adjust;
 		/**
 		The counter-set CSS property sets a CSS counter to a given value. It manipulates the value of existing counters, and will only create new counters if there isn't already a counter of the given name on the element.
 		*/
-		'counter-set':css$prop$counter_set;
+		'counter-set': css$prop$counter_set;
 		/**
 		The hanging-punctuation CSS property specifies whether a punctuation mark should hang at the start or end of a line of text. Hanging punctuation may be placed outside the line box.
 		*/
-		'hanging-punctuation':css$prop$hanging_punctuation;
+		'hanging-punctuation': css$prop$hanging_punctuation;
 		/**
 		The initial-letter CSS property specifies styling for dropped, raised, and sunken initial letters.
 		*/
-		'initial-letter':css$prop$initial_letter;
+		'initial-letter': css$prop$initial_letter;
 		/**
 		The initial-letter-align CSS property specifies the alignment of initial letters within a paragraph.
 		*/
-		'initial-letter-align':css$prop$initial_letter_align;
+		'initial-letter-align': css$prop$initial_letter_align;
 		/**
 		The line-clamp property allows limiting the contents of a block container to the specified number of lines; remaining content is fragmented away and neither rendered nor measured. Optionally, it also allows inserting content into the last line box to indicate the continuity of truncated/interrupted content.
 		*/
-		'line-clamp':css$prop$line_clamp;
+		'line-clamp': css$prop$line_clamp;
 		/**
 		The line-height-step CSS property defines the step units for line box heights. When the step unit is positive, line box heights are rounded up to the closest multiple of the unit. Negative values are invalid.
 		*/
-		'line-height-step':css$prop$line_height_step;
+		'line-height-step': css$prop$line_height_step;
 		/**
 		The margin-trim property allows the container to trim the margins of its children where they adjoin the container’s edges.
 		*/
-		'margin-trim':css$prop$margin_trim;
+		'margin-trim': css$prop$margin_trim;
 		/**
 		The mask-border CSS property lets you create a mask along the edge of an element's border.
 
 This property is a shorthand for mask-border-source, mask-border-slice, mask-border-width, mask-border-outset, mask-border-repeat, and mask-border-mode. As with all shorthand properties, any omitted sub-values will be set to their initial value.
 		*/
-		'mask-border':css$prop$mask_border;
+		'mask-border': css$prop$mask_border;
 		/**
 		The mask-border-mode CSS property specifies the blending mode used in a mask border.
 		*/
-		'mask-border-mode':css$prop$mask_border_mode;
+		'mask-border-mode': css$prop$mask_border_mode;
 		/**
 		The mask-border-outset CSS property specifies the distance by which an element's mask border is set out from its border box.
 		*/
-		'mask-border-outset':css$prop$mask_border_outset;
+		'mask-border-outset': css$prop$mask_border_outset;
 		/**
 		The mask-border-repeat CSS property defines how the edge regions of a source image are adjusted to fit the dimensions of an element's mask border.
 		*/
-		'mask-border-repeat':css$prop$mask_border_repeat;
+		'mask-border-repeat': css$prop$mask_border_repeat;
 		/**
 		The mask-border-slice CSS property divides the image specified by mask-border-source into regions. These regions are used to form the components of an element's mask border.
 		*/
-		'mask-border-slice':css$prop$mask_border_slice;
+		'mask-border-slice': css$prop$mask_border_slice;
 		/**
 		The mask-border-source CSS property specifies the source image used to create an element's mask border.
 
 The mask-border-slice property is used to divide the source image into regions, which are then dynamically applied to the final mask border.
 		*/
-		'mask-border-source':css$prop$mask_border_source;
+		'mask-border-source': css$prop$mask_border_source;
 		/**
 		The mask-border-width CSS property specifies the width of an element's mask border.
 		*/
-		'mask-border-width':css$prop$mask_border_width;
+		'mask-border-width': css$prop$mask_border_width;
 		/**
 		The mask-clip CSS property determines the area, which is affected by a mask. The painted content of an element must be restricted to this area.
 		*/
-		'mask-clip':css$prop$mask_clip;
+		'mask-clip': css$prop$mask_clip;
 		/**
 		The mask-composite CSS property represents a compositing operation used on the current mask layer with the mask layers below it.
 		*/
-		'mask-composite':css$prop$mask_composite;
+		'mask-composite': css$prop$mask_composite;
 		/**
 		The max-liens property forces a break after a set number of lines
 		*/
-		'max-lines':css$prop$max_lines;
+		'max-lines': css$prop$max_lines;
 		/**
 		The overflow-clip-box CSS property specifies relative to which box the clipping happens when there is an overflow. It is short hand for the overflow-clip-box-inline and overflow-clip-box-block properties.
 		*/
-		'overflow-clip-box':css$prop$overflow_clip_box;
+		'overflow-clip-box': css$prop$overflow_clip_box;
 		/**
 		The overflow-inline CSS media feature can be used to test how the output device handles content that overflows the initial containing block along the inline axis.
 		*/
-		'overflow-inline':css$prop$overflow_inline;
+		'overflow-inline': css$prop$overflow_inline;
 		/**
 		The overscroll-behavior CSS property is shorthand for the overscroll-behavior-x and overscroll-behavior-y properties, which allow you to control the browser's scroll overflow behavior — what happens when the boundary of a scrolling area is reached.
 		*/
-		'overscroll-behavior':css$prop$overscroll_behavior;
+		'overscroll-behavior': css$prop$overscroll_behavior;
 		/**
 		The overscroll-behavior-x CSS property is allows you to control the browser's scroll overflow behavior — what happens when the boundary of a scrolling area is reached — in the x axis direction.
 		*/
-		'overscroll-behavior-x':css$prop$overscroll_behavior_x;
+		'overscroll-behavior-x': css$prop$overscroll_behavior_x;
 		/**
 		The overscroll-behavior-y CSS property is allows you to control the browser's scroll overflow behavior — what happens when the boundary of a scrolling area is reached — in the y axis direction.
 		*/
-		'overscroll-behavior-y':css$prop$overscroll_behavior_y;
+		'overscroll-behavior-y': css$prop$overscroll_behavior_y;
 		/**
 		This property controls how ruby annotation boxes should be rendered when there are more than one in a ruby container box: whether each pair should be kept separate, the annotations should be collapsed and rendered as a group, or the separation should be determined based on the space available.
 		*/
-		'ruby-merge':css$prop$ruby_merge;
+		'ruby-merge': css$prop$ruby_merge;
 		/**
 		The scrollbar-color CSS property sets the color of the scrollbar track and thumb.
 		*/
-		'scrollbar-color':css$prop$scrollbar_color;
+		'scrollbar-color': css$prop$scrollbar_color;
 		/**
 		The scrollbar-width property allows the author to set the maximum thickness of an element’s scrollbars when they are shown. 
 		*/
-		'scrollbar-width':css$prop$scrollbar_width;
+		'scrollbar-width': css$prop$scrollbar_width;
 		/**
 		The scroll-margin property is a shorthand property which sets all of the scroll-margin longhands, assigning values much like the margin property does for the margin-* longhands.
 		*/
-		'scroll-margin':css$prop$scroll_margin;
+		'scroll-margin': css$prop$scroll_margin;
 		/**
 		The scroll-margin-block property is a shorthand property which sets the scroll-margin longhands in the block dimension.
 		*/
-		'scroll-margin-block':css$prop$scroll_margin_block;
+		'scroll-margin-block': css$prop$scroll_margin_block;
 		/**
 		The scroll-margin-block-start property defines the margin of the scroll snap area at the start of the block dimension that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-block-start':css$prop$scroll_margin_block_start;
+		'scroll-margin-block-start': css$prop$scroll_margin_block_start;
 		/**
 		The scroll-margin-block-end property defines the margin of the scroll snap area at the end of the block dimension that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-block-end':css$prop$scroll_margin_block_end;
+		'scroll-margin-block-end': css$prop$scroll_margin_block_end;
 		/**
 		The scroll-margin-bottom property defines the bottom margin of the scroll snap area that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-bottom':css$prop$scroll_margin_bottom;
+		'scroll-margin-bottom': css$prop$scroll_margin_bottom;
 		/**
 		The scroll-margin-inline property is a shorthand property which sets the scroll-margin longhands in the inline dimension.
 		*/
-		'scroll-margin-inline':css$prop$scroll_margin_inline;
+		'scroll-margin-inline': css$prop$scroll_margin_inline;
 		/**
 		The scroll-margin-inline-start property defines the margin of the scroll snap area at the start of the inline dimension that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-inline-start':css$prop$scroll_margin_inline_start;
+		'scroll-margin-inline-start': css$prop$scroll_margin_inline_start;
 		/**
 		The scroll-margin-inline-end property defines the margin of the scroll snap area at the end of the inline dimension that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-inline-end':css$prop$scroll_margin_inline_end;
+		'scroll-margin-inline-end': css$prop$scroll_margin_inline_end;
 		/**
 		The scroll-margin-left property defines the left margin of the scroll snap area that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-left':css$prop$scroll_margin_left;
+		'scroll-margin-left': css$prop$scroll_margin_left;
 		/**
 		The scroll-margin-right property defines the right margin of the scroll snap area that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-right':css$prop$scroll_margin_right;
+		'scroll-margin-right': css$prop$scroll_margin_right;
 		/**
 		The scroll-margin-top property defines the top margin of the scroll snap area that is used for snapping this box to the snapport. The scroll snap area is determined by taking the transformed border box, finding its rectangular bounding box (axis-aligned in the scroll container’s coordinate space), then adding the specified outsets.
 		*/
-		'scroll-margin-top':css$prop$scroll_margin_top;
+		'scroll-margin-top': css$prop$scroll_margin_top;
 		/**
 		The scroll-snap-type-x CSS property defines how strictly snap points are enforced on the horizontal axis of the scroll container in case there is one.
 
 Specifying any precise animations or physics used to enforce those snap points is not covered by this property but instead left up to the user agent.
 		*/
-		'scroll-snap-type-x':css$prop$scroll_snap_type_x;
+		'scroll-snap-type-x': css$prop$scroll_snap_type_x;
 		/**
 		The scroll-snap-type-y CSS property defines how strictly snap points are enforced on the vertical axis of the scroll container in case there is one.
 
 Specifying any precise animations or physics used to enforce those snap points is not covered by this property but instead left up to the user agent.
 		*/
-		'scroll-snap-type-y':css$prop$scroll_snap_type_y;
+		'scroll-snap-type-y': css$prop$scroll_snap_type_y;
 		/**
 		The text-decoration-thickness CSS property sets the thickness, or width, of the decoration line that is used on text in an element, such as a line-through, underline, or overline.
 		@alias tdt
 		*/
-		'text-decoration-thickness':css$prop$text_decoration_thickness;
+		'text-decoration-thickness': css$prop$text_decoration_thickness;
 		/** @proxy text-decoration-thickness */
-		tdt:css$prop$text_decoration_thickness;
+		tdt: css$prop$text_decoration_thickness;
 		/**
 		The text-emphasis CSS property is a shorthand property for setting text-emphasis-style and text-emphasis-color in one declaration. This property will apply the specified emphasis mark to each character of the element's text, except separator characters, like spaces,  and control characters.
 		@alias te
 		*/
-		'text-emphasis':css$prop$text_emphasis;
+		'text-emphasis': css$prop$text_emphasis;
 		/** @proxy text-emphasis */
-		te:css$prop$text_emphasis;
+		te: css$prop$text_emphasis;
 		/**
 		The text-emphasis-color CSS property defines the color used to draw emphasis marks on text being rendered in the HTML document. This value can also be set and reset using the text-emphasis shorthand.
 		@alias tec
 		*/
-		'text-emphasis-color':css$prop$text_emphasis_color;
+		'text-emphasis-color': css$prop$text_emphasis_color;
 		/** @proxy text-emphasis-color */
-		tec:css$prop$text_emphasis_color;
+		tec: css$prop$text_emphasis_color;
 		/**
 		The text-emphasis-position CSS property describes where emphasis marks are drawn at. The effect of emphasis marks on the line height is the same as for ruby text: if there isn't enough place, the line height is increased.
 		@alias tep
 		*/
-		'text-emphasis-position':css$prop$text_emphasis_position;
+		'text-emphasis-position': css$prop$text_emphasis_position;
 		/** @proxy text-emphasis-position */
-		tep:css$prop$text_emphasis_position;
+		tep: css$prop$text_emphasis_position;
 		/**
 		The text-emphasis-style CSS property defines the type of emphasis used. It can also be set, and reset, using the text-emphasis shorthand.
 		@alias tes
 		*/
-		'text-emphasis-style':css$prop$text_emphasis_style;
+		'text-emphasis-style': css$prop$text_emphasis_style;
 		/** @proxy text-emphasis-style */
-		tes:css$prop$text_emphasis_style;
+		tes: css$prop$text_emphasis_style;
 		/**
 		The text-underline-offset CSS property sets the offset distance of an underline text decoration line (applied using text-decoration) from its original position.
 		*/
-		'text-underline-offset':css$prop$text_underline_offset;
+		'text-underline-offset': css$prop$text_underline_offset;
 		/**
 		The speak-as descriptor specifies how a counter symbol constructed with a given @counter-style will be represented in the spoken form. For example, an author can specify a counter symbol to be either spoken as its numerical value or just represented with an audio cue.
 		*/
-		'speak-as':css$prop$speak_as;
+		'speak-as': css$prop$speak_as;
 		/**
 		The bleed CSS at-rule descriptor, used with the @page at-rule, specifies the extent of the page bleed area outside the page box. This property only has effect if crop marks are enabled using the marks property.
 		*/
-		bleed:css$prop$bleed;
+		bleed: css$prop$bleed;
 		/**
 		The marks CSS at-rule descriptor, used with the @page at-rule, adds crop and/or cross marks to the presentation of the document. Crop marks indicate where the page should be cut. Cross marks are used to align sheets.
 		*/
-		marks:css$prop$marks;
+		marks: css$prop$marks;
 	}
 
 }

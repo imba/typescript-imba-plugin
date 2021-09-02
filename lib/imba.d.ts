@@ -226,7 +226,6 @@ declare namespace imba {
         }
     }
 
-    let stylemodifiers: ImbaStyleModifiers;
     let Element: ImbaElement;
     let scheduler: Scheduler;
 

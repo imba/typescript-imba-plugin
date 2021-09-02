@@ -1,4 +1,4 @@
-declare module "imba_css" {
+declare namespace imba_css {
 
     type LengthUnit = 'px' | 'rem' | 'em';
     type css$length = `${number}${LengthUnit}` | number;
@@ -31,31 +31,31 @@ declare module "imba_css" {
     interface css$prop {
     }
 
-    interface css$prop$any {
+    interface css$prop$any extends css$prop {
         set(val: css$globals): void;
     }
 
-    interface css$prop$xyz {
+    interface css$prop$xyz extends css$prop {
         set(val: number): void;
     }
 
-    interface css$prop$scale_x {
+    interface css$prop$scale_x extends css$prop {
         set(val: number): void;
     }
 
-    interface css$prop$scale_y {
+    interface css$prop$scale_y extends css$prop {
         set(val: number): void;
     }
 
-    interface css$prop$scale_z {
+    interface css$prop$scale_z extends css$prop {
         set(val: number): void;
     }
 
-    interface css$prop$skew_x {
+    interface css$prop$skew_x extends css$prop {
         set(val: number): void;
     }
 
-    interface css$prop$skew_y {
+    interface css$prop$skew_y extends css$prop {
         set(val: number): void;
     }
 
@@ -65,12 +65,12 @@ declare module "imba_css" {
         y: css$prop$xyz;
         z: css$prop$xyz;
 
-        'scale-x': css$prop$scale_x
-        'scale-y': css$prop$scale_y
-        'skew-x': css$prop$skew_x
-        'skew-y': css$prop$skew_y
+        'scale-x': css$prop$scale_x;
+        'scale-y': css$prop$scale_y;
+        'skew-x': css$prop$skew_x;
+        'skew-y': css$prop$skew_y;
 
-        [key: string]: css$prop$any
+        [key: string]: css$prop;
     }
 
     interface css$unicode_range {

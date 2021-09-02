@@ -84,20 +84,23 @@ export default class ImbaTypeChecker
 		}
 	
 	get cssmodule
-		findAmbientModule('imba_css')
+		resolve('imba_css')
+		# findAmbientModule('imba_css')
+		
 		
 	get snippets
 		findAmbientModule('imba_snippets')
 		
 	get cssrule
-		#cssrule ||= checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$rule'))
+		#cssrule ||= csstype('rule') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$rule'))
 		# #cssrule ||= checker.getTypeOfSymbolAtLocation(cssmodule.exports.get('s'),cssmodule.valueDeclaration)
 	
 	get csstypes
-		#csstypes ||= checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$types'))
+		#csstypes ||= csstype('types') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$types'))
 	
 	get cssmodifiers
-		type('$cssmodule$.css$modifiers')
+		#cssmodifiers ||= csstype('modifiers') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$modifiers'))
+		# type('$cssmodule$.css$modifiers')
 		# props(type('$cssmodule$.css$modifiers'))
 		
 	get allGlobals
@@ -174,7 +177,7 @@ export default class ImbaTypeChecker
 			symbols.push(...props)
 		
 		if index == 0 and !propName.match(/^([xyz]|skew-[xy]|rotate(-[xyz])?|scale(-[xyz])?)$/)
-			symbols.push(...self.props('$cssmodule$.css$globals'))
+			symbols.push(...self.props(csstype('globals')))
 
 		return symbols.filter do(item,i,arr) arr.indexOf(item) == i
 		
@@ -396,7 +399,9 @@ export default class ImbaTypeChecker
 			return program.getSourceFile(item.fileName)
 		
 		return item
-
+	
+	def csstype name
+		checker.getDeclaredTypeOfSymbol(cssmodule.exports.get("css${name}"))
 
 	def type item, declaredType = no
 		if typeof item == 'string'
