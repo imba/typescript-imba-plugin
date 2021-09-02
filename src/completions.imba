@@ -299,7 +299,8 @@ export class SymbolCompletion < Completion
 		if cat == 'implicitSelf'
 			# item.insertText = item.filterText = name
 			# name = "self.{name}"
-			ns = "self"
+			# ns = "self"
+			yes
 			
 		if tags.snippet
 			let snip = tags.snippet

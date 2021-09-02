@@ -10,8 +10,6 @@
 /// <reference path="./imba.router.d.ts" />
 /// <reference path="./imba.snippets.d.ts" />
 
-type Selector = string;
-
 interface Element {
     /**
      * Schedule this element to render after imba.commit()
@@ -112,9 +110,11 @@ declare class ImbaElement extends HTMLElement {
     suspend(): this;
     unsuspend(): this;
 
-    /** Return false if component should not render */
+    /** Return false if component should not render
+    */
     get renderΦ(): boolean;
-    /** True if component is currently being mounted */
+    /** True if component is currently being mounted 
+    */
     get mountingΦ(): boolean;
     /** True if component is currently mounted in document */
     get mountedΦ(): boolean;
@@ -145,8 +145,7 @@ declare class ImbaElement extends HTMLElement {
     (n)ms = render every n ms
     (n)fps = render n times per second
      */
-    autorender: any;
-
+    autorender: boolean | number | null | `${number}ms` | `${number}s` | `${number}fps`;
 }
 
 
@@ -159,16 +158,12 @@ declare class Γglobal extends HTMLElement {
 
 declare class Γteleport extends HTMLElement {
     /** The element (or selector) you want to add listeners and content to */
-    to: Selector | Element;
+    to: string | Element;
 }
 
 interface HTMLElementTagNameMap {
     "global": Γglobal,
     "teleport": Γteleport
-}
-
-interface ImbaStyles {
-    [key: string]: any;
 }
 
 interface ImbaAsset {
@@ -207,7 +202,6 @@ declare namespace imba {
         dt: number;
     }
 
-    let styles: ImbaStyles;
     let colors: string[];
     let router: ImbaRouter;
 
@@ -255,5 +249,5 @@ declare module "imba/compiler" {
 }
 
 declare module "imba" {
-    export function compile(fileName: string, options: any): any;
+
 }

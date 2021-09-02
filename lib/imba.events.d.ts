@@ -47,7 +47,7 @@ declare class EventModifiers {
      * Only trigger handler if event.target matches selector
      * @detail (selector)
      * */
-    sel(selector: Selector): EventModifiers;
+    sel(selector: string): EventModifiers;
 
     /**
      * Only trigger condition is truthy
