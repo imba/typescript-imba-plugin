@@ -1,5 +1,5 @@
-declare namespace imba_css {
-	interface css$color {
+declare namespace imbacss {
+	interface Ψcolor {
 		/** The current color */
 		current: 'current';
 		/** Clear */
@@ -452,43 +452,7 @@ declare namespace imba_css {
 		cooler9: 'hsla(222,47%,11%,1)';
 	}
 
-	namespace theme {
-		interface rd {
-			/** @detail 100% */ full: '9999px';
-			/** @detail 1px */ xxs: '1px';
-			/** @detail 2px */ xs: '2px';
-			/** @detail 3px */ sm: '3px';
-			/** @detail 4px */ md: '4px';
-			/** @detail 6px */ lg: '6px';
-			/** @detail 8px */ xl: '8px';
-		}
-
-		interface bxs {
-			/** @bxs 0 0 0 1px rgba(0, 0, 0, 0.05) */
-			xxs: '0 0 0 1px rgba(0, 0, 0, 0.05)';
-			/** @bxs 0 1px 2px 0 rgba(0, 0, 0, 0.05) */
-			xs: '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
-			/** @bxs 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) */
-			sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
-			/** @bxs 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) */
-			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
-			/** @bxs 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) */
-			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
-			/** @bxs 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) */
-			xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
-			/** @bxs 0 25px 50px -6px rgba(0, 0, 0, 0.25) */
-			xxl: '0 25px 50px -6px rgba(0, 0, 0, 0.25)';
-			/** @bxs inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) */
-			inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)';
-			/** @bxs 0 0 0 3px rgba(66, 153, 225, 0.5) */
-			outline: '0 0 0 3px rgba(66, 153, 225, 0.5)';
-			none: 'none';
-		}
-	}
-
-
-
-	interface css$enum$font_size {
+	interface Ψfs {
 		/** 10px */
 		'xxs': '10px';
 		/** 12px */
@@ -517,7 +481,96 @@ declare namespace imba_css {
 		'6xl': '64px';
 	}
 
+	interface Ψshadow {
+		/** 0 0 0 1px rgba(0, 0, 0, 0.05) */
+		'xxs': '0 0 0 1px rgba(0, 0, 0, 0.05)';
+		/** 0 1px 2px 0 rgba(0, 0, 0, 0.05) */
+		'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+		/** 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) */
+		'sm': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
+		/** 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) */
+		'md': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+		/** 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) */
+		'lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+		/** 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) */
+		'xl': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+		/** 0 25px 50px -6px rgba(0, 0, 0, 0.25) */
+		'xxl': '0 25px 50px -6px rgba(0, 0, 0, 0.25)';
+		/** inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) */
+		'inner': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)';
+		/** 0 0 0 3px rgba(66, 153, 225, 0.5) */
+		'outline': '0 0 0 3px rgba(66, 153, 225, 0.5)';
+		/** none */
+		'none': 'none';
+	}
 
+	interface Ψradius {
+		/** 9999px */
+		'full': '9999px';
+		/** 1px */
+		'xxs': '1px';
+		/** 2px */
+		'xs': '2px';
+		/** 3px */
+		'sm': '3px';
+		/** 4px */
+		'md': '4px';
+		/** 6px */
+		'lg': '6px';
+		/** 8px */
+		'xl': '8px';
+	}
+
+	interface ΨtimingΞfunction {
+		/** @easing cubic-bezier(0.47, 0, 0.745, 0.715) */
+		sineΞin: 'cubic-bezier(0.47, 0, 0.745, 0.715)';
+		/** @easing cubic-bezier(0.39, 0.575, 0.565, 1) */
+		sineΞout: 'cubic-bezier(0.39, 0.575, 0.565, 1)';
+		/** @easing cubic-bezier(0.445, 0.05, 0.55, 0.95) */
+		sineΞinΞout: 'cubic-bezier(0.445, 0.05, 0.55, 0.95)';
+		/** @easing cubic-bezier(0.55, 0.085, 0.68, 0.53) */
+		quadΞin: 'cubic-bezier(0.55, 0.085, 0.68, 0.53)';
+		/** @easing cubic-bezier(0.25, 0.46, 0.45, 0.94) */
+		quadΞout: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+		/** @easing cubic-bezier(0.455, 0.03, 0.515, 0.955) */
+		quadΞinΞout: 'cubic-bezier(0.455, 0.03, 0.515, 0.955)';
+		/** @easing cubic-bezier(0.55, 0.055, 0.675, 0.19) */
+		cubicΞin: 'cubic-bezier(0.55, 0.055, 0.675, 0.19)';
+		/** @easing cubic-bezier(0.215, 0.61, 0.355, 1) */
+		cubicΞout: 'cubic-bezier(0.215, 0.61, 0.355, 1)';
+		/** @easing cubic-bezier(0.645, 0.045, 0.355, 1) */
+		cubicΞinΞout: 'cubic-bezier(0.645, 0.045, 0.355, 1)';
+		/** @easing cubic-bezier(0.895, 0.03, 0.685, 0.22) */
+		quartΞin: 'cubic-bezier(0.895, 0.03, 0.685, 0.22)';
+		/** @easing cubic-bezier(0.165, 0.84, 0.44, 1) */
+		quartΞout: 'cubic-bezier(0.165, 0.84, 0.44, 1)';
+		/** @easing cubic-bezier(0.77, 0, 0.175, 1) */
+		quartΞinΞout: 'cubic-bezier(0.77, 0, 0.175, 1)';
+		/** @easing cubic-bezier(0.755, 0.05, 0.855, 0.06) */
+		quintΞin: 'cubic-bezier(0.755, 0.05, 0.855, 0.06)';
+		/** @easing cubic-bezier(0.23, 1, 0.32, 1) */
+		quintΞout: 'cubic-bezier(0.23, 1, 0.32, 1)';
+		/** @easing cubic-bezier(0.86, 0, 0.07, 1) */
+		quintΞinΞout: 'cubic-bezier(0.86, 0, 0.07, 1)';
+		/** @easing cubic-bezier(0.95, 0.05, 0.795, 0.035) */
+		expoΞin: 'cubic-bezier(0.95, 0.05, 0.795, 0.035)';
+		/** @easing cubic-bezier(0.19, 1, 0.22, 1) */
+		expoΞout: 'cubic-bezier(0.19, 1, 0.22, 1)';
+		/** @easing cubic-bezier(1, 0, 0, 1) */
+		expoΞinΞout: 'cubic-bezier(1, 0, 0, 1)';
+		/** @easing cubic-bezier(0.6, 0.04, 0.98, 0.335) */
+		circΞin: 'cubic-bezier(0.6, 0.04, 0.98, 0.335)';
+		/** @easing cubic-bezier(0.075, 0.82, 0.165, 1) */
+		circΞout: 'cubic-bezier(0.075, 0.82, 0.165, 1)';
+		/** @easing cubic-bezier(0.785, 0.135, 0.15, 0.86) */
+		circΞinΞout: 'cubic-bezier(0.785, 0.135, 0.15, 0.86)';
+		/** @easing cubic-bezier(0.6, -0.28, 0.735, 0.045) */
+		backΞin: 'cubic-bezier(0.6, -0.28, 0.735, 0.045)';
+		/** @easing cubic-bezier(0.175, 0.885, 0.32, 1.275) */
+		backΞout: 'cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+		/** @easing cubic-bezier(0.68, -0.55, 0.265, 1.55) */
+		backΞinΞout: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+	}
 
 }
 

@@ -223,6 +223,13 @@ export def fromJSIdentifier raw
 	
 export def displayPartsToString parts
 	fromJSIdentifier(global.ts.displayPartsToString(parts))
+	
+extend class String
+	def toimba
+		toImbaIdentifier(this)
+	
+	def tojs
+		toJSIdentifier(this)
 
 export def toImbaDisplayParts parts
 	for part in parts

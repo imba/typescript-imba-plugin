@@ -52,8 +52,10 @@ class ImbaMappedLocation
 		
 	def valueOf
 		dpos
-		
+
+class SetProxy
 	
+
 export default class ImbaTypeChecker
 	
 	constructor project, program, checker, script
@@ -82,26 +84,7 @@ export default class ImbaTypeChecker
 			void: checker.getVoidType!
 			"undefined": checker.getUndefinedType!
 		}
-	
-	get cssmodule
-		resolve('imba_css')
-		# findAmbientModule('imba_css')
-		
-	# get snippets
-	#	resolve('imba_snippets') # findAmbientModule('imba_snippets')
-		
-	get cssrule
-		#cssrule ||= csstype('rule') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$rule'))
-		# #cssrule ||= checker.getTypeOfSymbolAtLocation(cssmodule.exports.get('s'),cssmodule.valueDeclaration)
-	
-	get csstypes
-		#csstypes ||= csstype('types') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$types'))
-	
-	get cssmodifiers
-		#cssmodifiers ||= csstype('modifiers') # checker.getDeclaredTypeOfSymbol(cssmodule.exports.get('css$modifiers'))
-		# type('$cssmodule$.css$modifiers')
-		# props(type('$cssmodule$.css$modifiers'))
-		
+
 	get allGlobals
 		#allGlobals ||= props('globalThis').slice(0)
 		
@@ -149,14 +132,30 @@ export default class ImbaTypeChecker
 		details.markdown = md.join('\n')
 		
 		return details
-	
 		
-	def getStyleValueTypes propName, index = 0
-		let target = type([cssrule,propName,'set'])
+		
+	def styleprop name, fallback = yes
+		let res = resolve('imbacss').exports.get(name.tojs!)
+		if res and res.imbaTags.proxy and fallback
+			return styleprop(res.imbaTags.proxy,no)
 
-		# if let alias = target.doctag('proxy')
-		# 	target = member(cssrule,alias)
-			
+		res or (fallback and styleprop('_',no) or null)
+	
+	
+	get stylesymbols
+		Array.from(resolve('imbacss').exports.values!)
+		
+	get styleprops
+		stylesymbols.filter do $1.isStyleProp
+		
+	get stylemods
+		stylesymbols.filter do $1.isStyleModifier
+		
+	get styletypes
+		stylesymbols.filter do $1.isStyleType
+	
+	def stylevaluetypes name, index = 0
+		let target = type(member(styleprop(name),'set'))
 		let signatures = checker.getSignaturesOfType(type(target),0)
 		
 		let types = []
@@ -167,22 +166,19 @@ export default class ImbaTypeChecker
 
 		return types
 		
-	def getStyleValues propName, index = 0, filtered = yes
+	def stylevalues name, index = 0, filtered = yes
 		let symbols = []
-		let types = getStyleValueTypes(propName,index)
+		let types = stylevaluetypes(name,index)
 		for typ in types
 			let props = allprops(typ).filter do
-				!filtered or ($1.type and $1.type.value) or ($1.parent and $1.parent.escapedName.indexOf('css$') == 0)
+				!filtered or (!($1.flags & ts.SymbolFlags.Method) and $1.escapedName != 'set')
 				# $1.parent and $1.parent.escapedName.indexOf('css$') == 0
 			symbols.push(...props)
 		
-		if index == 0 and !propName.match(/^([xyz]|skew-[xy]|rotate(-[xyz])?|scale(-[xyz])?)$/)
-			symbols.push(...self.props(csstype('globals')))
+		if index == 0 and !name.match(/^([xyz]|skew-[xy]|rotate(-[xyz])?|scale(-[xyz])?)$/)
+			symbols.push(...props(styleprop('Ψglobals')))
 
 		return symbols.filter do(item,i,arr) arr.indexOf(item) == i
-		
-	def getStyleProps
-		props(cssrule)
 		
 	def getGlobalTags
 		# allGlobals.filter do $1.escapedName.indexOf('CustomElement') > 0

@@ -304,7 +304,7 @@ export default class ImbaScript
 			util.log("style prop modifier",[m,pre,neg,post,tok],post.match(/^\d+$/))
 
 			if pre == '@' or pre == ''
-				out.sym ||= checker.sym([checker.cssmodifiers,post])
+				out.sym ||= checker.styleprop('@'+post)
 
 			if post.match(/^\d+$/)
 				util.log("this is a numeric thing(!!!)",tok)
@@ -312,14 +312,17 @@ export default class ImbaScript
 				
 		if g = grp.closest('stylevalue')
 			let idx = (ctx..before..group or '').split(' ').length - 1
-			let alternatives = checker.getStyleValues(g.propertyName,idx)
-			let match = alternatives.find do $1.escapedName == tok.value
+			let alternatives = checker.stylevalues(g.propertyName,0)
+			let name = tok.value.tojs!
+			let match = alternatives.find do $1.escapedName == name
+			
+			# add generic lookups for colors etc
 			if match
 				hit(match,'stylevalue')
 				
 		
 		if g = grp.closest('styleprop')
-			hit(checker.sym([checker.cssrule,g.propertyName]),'styleprop')
+			hit(checker.styleprop(g.propertyName,yes),'styleprop')
 			# out.sym ||= checker.sym([checker.cssrule,g.propertyName])
 		
 		if tok.match('tag.event.start')

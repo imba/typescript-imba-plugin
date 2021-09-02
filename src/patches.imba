@@ -706,6 +706,15 @@ export default def patcher ts
 
 		get isDeprecated
 			valueDeclaration.modifierFlagsCache & ts.ModifierFlags.Deprecated
+			
+		get isStyleProp
+			parent and parent.escapedName == 'imbacss' and (/^[a-zA-ZΞ]/gu).test(escapedName)
+			
+		get isStyleModifier
+			parent and parent.escapedName == 'imbacss' and (/^α/gu).test(escapedName)
+		
+		get isStyleType
+			parent and parent.escapedName == 'imbacss' and (/^Ψ/gu).test(escapedName)
 
 		get isTagAttr
 			return no if isDeprecated

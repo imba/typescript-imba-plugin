@@ -40,6 +40,8 @@ export default class Client
 					let res = await meth.apply(ils,e.arguments)
 					if res
 						util.warn("return rpc {e.command}",Date.now! - t0,res)
+						res = JSON.parse(util.toImbaString(JSON.stringify(res)))
+
 					util.groupEnd!
 
 					host.emit('message',{

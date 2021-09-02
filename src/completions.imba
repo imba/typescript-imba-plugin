@@ -242,6 +242,7 @@ export class SymbolCompletion < Completion
 			elif tags.proxy
 				ns = tags.proxy
 			triggers ':@.'
+			kind = 9
 
 		elif cat == 'styleval'
 			weight = name[0] == '-' ? 2000 : 1000
@@ -263,11 +264,16 @@ export class SymbolCompletion < Completion
 				item.filterText = "{name}_{name}"
 
 				detail = tags.color
+			else
+				kind = 'enum'
 				
 		elif cat == 'stylemod'
 			ns = tags.detail
+			# name = name.slice(1)
+			kind = 'event'
 			triggers ': '
-			name = '@' + name # always?
+			# name = '@' + name # always?
+			# anem = name
 		
 		elif cat == 'tagevent'
 			triggers '.='
@@ -439,13 +445,13 @@ export default class Completions
 			add('tagnames',kind: 'tagname')
 			
 		if flags & CT.StyleModifier
-			add checker.props(checker.cssmodifiers), kind: 'stylemod'
+			add checker.stylemods, kind: 'stylemod'
 			
 		if flags & CT.StyleSelector
 			add checker.props('ImbaHTMLTags',yes), kind: 'stylesel'
 		
 		if flags & CT.StyleProp
-			add checker.props('$cssrule$'), kind: 'styleprop'
+			add checker.styleprops, kind: 'styleprop'
 			
 		if flags & CT.StyleValue
 			add 'stylevalue', kind: 'styleval'
@@ -512,7 +518,8 @@ export default class Completions
 		let name = node..propertyName
 		let before = ctx..before..group
 		let nr = before ? (before.split(' ').length - 1) : 0
-		let symbols = checker.getStyleValues(name,nr)
+		
+		let symbols = checker.stylevalues(name,nr)
 		add symbols,o
 		self
 		
