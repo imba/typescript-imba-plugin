@@ -28,6 +28,12 @@ declare namespace imba_css {
         unset: 'unset'
     }
 
+    interface css$repeat {
+        'repeat-x': 'repeat-x';
+        'repeat-y': 'repeat-y';
+        'no-repeat': 'no-repeat';
+    }
+
     interface css$prop {
     }
 

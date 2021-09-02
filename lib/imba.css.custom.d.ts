@@ -62,16 +62,21 @@ declare namespace imba_css {
         set(value: css$enum$align_items): void;
         set(value: css$enum$justify_items): void
     }
-    interface css$prop$rdt extends css$prop {
+
+    interface css$prop$rd_ extends css$prop {
+        set(val: theme.rd | css$length | css$percentage): void
+    }
+
+    interface css$prop$rdt extends css$prop$rd_ {
 
     }
-    interface css$prop$rdb extends css$prop {
+    interface css$prop$rdb extends css$prop$rd_ {
 
     }
-    interface css$prop$rdl extends css$prop {
+    interface css$prop$rdl extends css$prop$rd_ {
 
     }
-    interface css$prop$rdr extends css$prop {
+    interface css$prop$rdr extends css$prop$rd_ {
 
     }
 
@@ -106,6 +111,8 @@ declare namespace imba_css {
         rdl: css$prop$rdl;
         /** @proxy ⊃ border-top-right-radius & border-bottom-right-radius */
         rdr: css$prop$rdr;
+
+
 
     }
 

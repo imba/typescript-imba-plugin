@@ -1,7 +1,5 @@
 declare namespace imba_css {
-    interface css$repeat {
-        'repeat-x': css$repeat
-    }
+
 
     interface css$modifiers {
         /** Represents elements whose numeric position in a series of siblings is odd 1, 3, 5, etc 

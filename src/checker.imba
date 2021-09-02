@@ -167,12 +167,13 @@ export default class ImbaTypeChecker
 
 		return types
 		
-	def getStyleValues propName, index = 0
+	def getStyleValues propName, index = 0, filtered = yes
 		let symbols = []
 		let types = getStyleValueTypes(propName,index)
 		for typ in types
 			let props = allprops(typ).filter do
-				$1.parent and $1.parent.escapedName.indexOf('css$') == 0
+				!filtered or ($1.type and $1.type.value) or ($1.parent and $1.parent.escapedName.indexOf('css$') == 0)
+				# $1.parent and $1.parent.escapedName.indexOf('css$') == 0
 			symbols.push(...props)
 		
 		if index == 0 and !propName.match(/^([xyz]|skew-[xy]|rotate(-[xyz])?|scale(-[xyz])?)$/)

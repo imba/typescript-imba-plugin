@@ -723,7 +723,7 @@ declare namespace imba_css {
 
 	interface css$prop$border_radius extends css$prop {
 		/* <length-percentage>{1,4} [ / <length-percentage>{1,4} ]? */
-		set(val: css$length | css$percentage, arg1: any, arg2: any, arg3: any): void
+		set(val: css$length | css$percentage | theme.rd, arg1: any, arg2: any, arg3: any): void
 
 	}
 
@@ -843,7 +843,8 @@ declare namespace imba_css {
 
 	interface css$prop$box_shadow extends css$prop {
 		/* none | <shadow># */
-		set(val: css$enum$box_shadow | css$length | css$color): void
+		// set(val: css$enum$box_shadow | theme.bxs | css$length | css$color): void
+		set(val: css$enum$box_shadow | theme.bxs): void
 
 	}
 
@@ -1705,7 +1706,7 @@ declare namespace imba_css {
 
 	interface css$prop$border_bottom_left_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val: css$length | css$percentage, arg1: any): void
+		set(val: css$length | css$percentage | theme.rd, arg1: any): void
 
 	}
 
@@ -1762,7 +1763,7 @@ declare namespace imba_css {
 
 	interface css$prop$border_top_left_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val: css$length | css$percentage, arg1: any): void
+		set(val: theme.rd | css$length | css$percentage, arg1: any): void
 
 	}
 
@@ -1806,7 +1807,7 @@ declare namespace imba_css {
 
 	interface css$prop$border_bottom_right_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val: css$length | css$percentage, arg1: any): void
+		set(val: css$length | css$percentage | theme.rd, arg1: any): void
 
 	}
 
@@ -1830,7 +1831,7 @@ declare namespace imba_css {
 
 	interface css$prop$border_top_right_radius extends css$prop {
 		/* <length-percentage>{1,2} */
-		set(val: css$length | css$percentage, arg1: any): void
+		set(val: theme.rd | css$length | css$percentage, arg1: any): void
 
 	}
 

@@ -452,6 +452,42 @@ declare namespace imba_css {
 		cooler9: 'hsla(222,47%,11%,1)';
 	}
 
+	namespace theme {
+		interface rd {
+			/** @detail 100% */ full: '9999px';
+			/** @detail 1px */ xxs: '1px';
+			/** @detail 2px */ xs: '2px';
+			/** @detail 3px */ sm: '3px';
+			/** @detail 4px */ md: '4px';
+			/** @detail 6px */ lg: '6px';
+			/** @detail 8px */ xl: '8px';
+		}
+
+		interface bxs {
+			/** @bxs 0 0 0 1px rgba(0, 0, 0, 0.05) */
+			xxs: '0 0 0 1px rgba(0, 0, 0, 0.05)';
+			/** @bxs 0 1px 2px 0 rgba(0, 0, 0, 0.05) */
+			xs: '0 1px 2px 0 rgba(0, 0, 0, 0.05)';
+			/** @bxs 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06) */
+			sm: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)';
+			/** @bxs 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) */
+			md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+			/** @bxs 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05) */
+			lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)';
+			/** @bxs 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) */
+			xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)';
+			/** @bxs 0 25px 50px -6px rgba(0, 0, 0, 0.25) */
+			xxl: '0 25px 50px -6px rgba(0, 0, 0, 0.25)';
+			/** @bxs inset 0 2px 4px 0 rgba(0, 0, 0, 0.06) */
+			inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)';
+			/** @bxs 0 0 0 3px rgba(66, 153, 225, 0.5) */
+			outline: '0 0 0 3px rgba(66, 153, 225, 0.5)';
+			none: 'none';
+		}
+	}
+
+
+
 	interface css$enum$font_size {
 		/** 10px */
 		'xxs': '10px';
@@ -480,6 +516,8 @@ declare namespace imba_css {
 		/** 64px */
 		'6xl': '64px';
 	}
+
+
 
 }
 

@@ -246,12 +246,12 @@ export class SymbolCompletion < Completion
 		elif cat == 'styleval'
 			weight = name[0] == '-' ? 2000 : 1000
 			triggers ' '
-			let type = sym.parent.escapedName.slice(4)
+			# let type = sym.parent.escapedName.slice(4)
 			let desc = sym.getDocumentationComment! or []
 			if desc[0] and desc[0].text
 				ns = desc[0].text
 			
-			if type == 'color'
+			if tags.color
 				kind = 15
 				let shade = name.slice(-1)
 				
