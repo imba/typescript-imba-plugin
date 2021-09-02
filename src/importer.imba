@@ -69,7 +69,7 @@ export default class AutoImportContext
 		let out = #exportInfoEntries = []
 		
 		try
-			if true
+			if map.releaseSymbols isa Function
 				let nr = 0
 				let action = do(info,name,isAmbient)
 					# continue if ns.match(/^imba_/)
