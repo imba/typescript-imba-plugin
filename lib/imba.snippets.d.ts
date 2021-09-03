@@ -48,44 +48,44 @@ declare namespace imba_snippets {
 
     interface root {
         /**
-         * @snippet export default class ${1:ClassName}\n\t$0\n\n
+         * @snippet export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\t$0\n\n
          */
         'export-default-class': void
 
         /**
-         * @snippet export class ${1:ClassName}\n\t$0\n\n
+         * @snippet export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\t$0\n\n
          */
         'export-class': void
 
         /**
-         * @snippet export tag ${1:Component}\n\t$0\n\n
+         * @snippet export tag ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\n\t<self> $0\n\n
          */
         'export-tag': void
 
         /**
-         * @snippet tag ${1:Component}\n\t$0\n\n
+         * @snippet tag ${1:${TM_FILENAME_BASE/(.*)/${1:/downcase}/}}\n\n\t<self> $0\n\n
          */
         'tag': void
     }
 
     interface values {
         /**
-         * @snippet export default class ${1:ClassName}\n\t$0\n\n
+         * @snippet export default class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\t$0\n\n
          */
         'export-default-class': void
 
         /**
-         * @snippet export class ${1:ClassName}\n\t$0\n\n
+         * @snippet export class ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\t$0\n\n
          */
         'export-class': void
 
         /**
-         * @snippet export tag ${1:Component}\n\t$0\n\n
+         * @snippet export tag ${1:${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}}\n\n\t<self> $0\n\n
          */
         'export-tag': void
 
         /**
-         * @snippet tag ${1:Component}\n\t$0\n\n
+         * @snippet tag ${1:${TM_FILENAME_BASE/(.*)/${1:/downcase}/}}\n\n\t<self> $0\n\n
          */
         'tag': void
     }
