@@ -43,7 +43,7 @@ interface Element {
         contains(flag: string): boolean;
         add(flag: string): void;
         remove(flag: string): void;
-        toggle(flag: string, toggler: boolean): void;
+        toggle(flag: string, toggler?: boolean): void;
         incr(flag: string): number;
         decr(flag: string): number;
     }

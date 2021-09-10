@@ -233,6 +233,9 @@ export class SymbolCompletion < Completion
 
 		try
 			Object.assign(item,checker.getSymbolKind(sym))
+			
+		if #options.range
+			item.range = #options.range
 		
 		# let pname = sym.parent..escapedName
 		if cat == 'styleprop'
@@ -445,7 +448,7 @@ export default class Completions
 			add('tagnames',kind: 'tagname')
 			
 		if flags & CT.StyleModifier
-			add checker.stylemods, kind: 'stylemod'
+			add checker.stylemods, kind: 'stylemod', range: ctx.suggest.stylemodRange
 			
 		if flags & CT.StyleSelector
 			add checker.props('ImbaHTMLTags',yes), kind: 'stylesel'

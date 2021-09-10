@@ -118,4 +118,23 @@ declare namespace imbacss {
      * @detail ::after { ... }
     */
     interface αafter { }
+
+
+    /** 
+     * @see [Transitions](https://imba.io/css/transitions)
+     * @detail Style when element is transitioning into the dom
+    */
+    interface αin { }
+
+    /** 
+     * @see [Transitions](https://imba.io/css/transitions)
+     * @detail Style when element is transitioning out of the dom
+    */
+    interface αout { }
+
+    /** 
+     * @see [Transitions](https://imba.io/css/transitions)
+     * @detail Style when element is removed
+    */
+    interface αoff { }
 }
