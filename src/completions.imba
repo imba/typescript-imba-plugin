@@ -240,7 +240,8 @@ export class SymbolCompletion < Completion
 		# let pname = sym.parent..escapedName
 		if cat == 'styleprop'
 			#uniqueName = name
-			if tags.alias
+
+			if tags.alias and #options.abbr
 				item.insertText = ns = tags.alias
 			elif tags.proxy
 				ns = tags.proxy
@@ -398,6 +399,7 @@ export default class Completions
 		self.prefs = prefs
 		self.ls = ls or script.ls
 		self.meta = {}
+		self.config = global.ils.getConfig('suggest',{})
 
 		#prefix = ''
 		#added = {}
@@ -454,7 +456,10 @@ export default class Completions
 			add checker.props('ImbaHTMLTags',yes), kind: 'stylesel'
 		
 		if flags & CT.StyleProp
-			add checker.styleprops, kind: 'styleprop'
+			let cfg = config.preferAbbreviatedStyleProperties
+			let inline = !ctx.group.closest('rule')
+			let abbr = cfg != 'never' and (inline or cfg != 'inline')
+			add checker.styleprops, kind: 'styleprop',abbr: abbr
 			
 		if flags & CT.StyleValue
 			add 'stylevalue', kind: 'styleval'
@@ -517,8 +522,9 @@ export default class Completions
 		self
 		
 	def stylevalue o = {}
-		let node = ctx.group.closest('styleprop')
-		let name = node..propertyName
+		# let node = ctx.group.closest('styleprop')
+		let name = ctx.suggest.styleProperty
+		# let name = node..propertyName
 		let before = ctx..before..group
 		let nr = before ? (before.split(' ').length - 1) : 0
 		

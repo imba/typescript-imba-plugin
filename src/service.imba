@@ -53,6 +53,24 @@ export default class Service
 		let res = #lastCompletions = script.getCompletions(pos,ctx)
 		return res.serialize!
 		
+	def setConfiguration opts
+		util.log('setConfiguration',opts)
+		config = opts
+	
+	def getConfig key, default = null
+		let cfg = config or {}
+		let path = key.split('.')
+		try
+			let val
+			while path.length
+				let key = path.shift!
+				val = cfg[key]
+				cfg = val or {}
+			if val == undefined
+				val = default
+			return val
+		return null
+		
 	def onDidChangeTextEditorSelection file,opts = {}
 		util.log('onDidChangeTextEditorSelection',file,opts)
 		return null
