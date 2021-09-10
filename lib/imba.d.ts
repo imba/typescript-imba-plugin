@@ -24,6 +24,12 @@ interface Element {
     router: ImbaRouter;
     $key: any;
 
+    /**
+    * Enable transitions for when element is attached / detached
+    * @see[Transitions](https://imba.io/css/transitions)
+    */
+    ease: any;
+
     // itemid: any;
     // itemprop: any;
     // itemref: any;

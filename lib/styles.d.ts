@@ -301,4 +301,31 @@ declare namespace imbacss {
     interface rotate extends _ {
         set(val: Ψnumber): void;
     }
+
+    /** Shorthand for setting transform skeq-y() */
+    interface ease extends _ {
+        set(duration: Ψtime): void;
+        set(timing: ΨtimingΞfunction): void;
+        set(duration: Ψtime, timing: ΨtimingΞfunction): void;
+    }
+    /** Shorthand for setting transform scale-x() */
+    interface easeΞtransform extends ease {
+    }
+    /** Shorthand for setting transform scale-x() */
+    interface easeΞcolors extends ease {
+    }
+
+    /** Shorthand for setting transform scale-x() */
+    interface easeΞopacity extends ease {
+    }
+
+    /** @proxy ease */
+    interface e extends ease { }
+
+    /** @proxy easeΞtransform */
+    interface et extends easeΞtransform { }
+    /** @proxy easeΞcolors */
+    interface ec extends easeΞcolors { }
+    /** @proxy easeΞopacity */
+    interface eo extends easeΞopacity { }
 }

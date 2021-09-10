@@ -2,8 +2,14 @@ interface HTMLElementAttributes {
 	/** Provides a hint for generating a keyboard shortcut for the current element. This attribute consists of a space-separated list of characters. The browser should use the first one that exists on the computer keyboard layout. */
 	accesskey: string;
 
+	/**
+	* Enable transitions for when element is attached / detached
+	* @see[Transitions](https://imba.io/css/transitions)
+	*/
+	ease: any;
+
 	/** Controls whether and how text input is automatically capitalized as it is entered/edited by the user. It can have the following values:
-	
+		
 	*   `off` or `none`, no autocapitalization is applied (all letters default to lowercase)
 	*   `on` or `sentences`, the first letter of each sentence defaults to a capital letter; all other letters default to lowercase
 	*   `words`, the first letter of each word defaults to a capital letter; all other letters default to lowercase
@@ -12,25 +18,25 @@ interface HTMLElementAttributes {
 	/** A space-separated list of the classes of the element. Classes allows CSS and JavaScript to select and access specific elements via the [class selectors](/en-US/docs/Web/CSS/Class_selectors) or functions like the method [`Document.getElementsByClassName()`](/en-US/docs/Web/API/Document/getElementsByClassName "returns an array-like object of all child elements which have all of the given class names."). */
 	class: string;
 	/** An enumerated attribute indicating if the element should be editable by the user. If so, the browser modifies its widget to allow editing. The attribute must take one of the following values:
-	
+		
 	*   `true` or the _empty string_, which indicates that the element must be editable;
 	*   `false`, which indicates that the element must not be editable. */
 	contenteditable: string;
 	/** The `[**id**](#attr-id)` of a [`<menu>`](/en-US/docs/Web/HTML/Element/menu "The HTML <menu> element represents a group of commands that a user can perform or activate. This includes both list menus, which might appear across the top of a screen, as well as context menus, such as those that might appear underneath a button after it has been clicked.") to use as the contextual menu for this element. */
 	contextmenu: string;
 	/** An enumerated attribute indicating the directionality of the element's text. It can have the following values:
-	
+		
 	*   `ltr`, which means _left to right_ and is to be used for languages that are written from the left to the right (like English);
 	*   `rtl`, which means _right to left_ and is to be used for languages that are written from the right to the left (like Arabic);
 	*   `auto`, which lets the user agent decide. It uses a basic algorithm as it parses the characters inside the element until it finds a character with a strong directionality, then it applies that directionality to the whole element. */
 	dir: "ltr" | "rtl" | "auto";
 	/** An enumerated attribute indicating whether the element can be dragged, using the [Drag and Drop API](/en-us/docs/DragDrop/Drag_and_Drop). It can have the following values:
-	
+		
 	*   `true`, which indicates that the element may be dragged
 	*   `false`, which indicates that the element may not be dragged. */
 	draggable: "true" | "false";
 	/** An enumerated attribute indicating what types of content can be dropped on an element, using the [Drag and Drop API](/en-US/docs/DragDrop/Drag_and_Drop). It can have the following values:
-	
+		
 	*   `copy`, which indicates that dropping will create a copy of the element that was dragged
 	*   `move`, which indicates that the element that was dragged will be moved to this new location.
 	*   `link`, will create a link to the dragged data. */
@@ -64,14 +70,14 @@ interface HTMLElementAttributes {
 	/** Assigns a slot in a [shadow DOM](/en-US/docs/Web/Web_Components/Shadow_DOM) shadow tree to an element: An element with a `slot` attribute is assigned to the slot created by the [`<slot>`](/en-US/docs/Web/HTML/Element/slot "The HTML <slot> element—part of the Web Components technology suite—is a placeholder inside a web component that you can fill with your own markup, which lets you create separate DOM trees and present them together.") element whose `[name](/en-US/docs/Web/HTML/Element/slot#attr-name)` attribute's value matches that `slot` attribute's value. */
 	slot: string;
 	/** An enumerated attribute defines whether the element may be checked for spelling errors. It may have the following values:
-	
+		
 	*   `true`, which indicates that the element should be, if possible, checked for spelling errors;
 	*   `false`, which indicates that the element should not be checked for spelling errors. */
 	spellcheck: "true" | "false";
 	/** Contains [CSS](/en-US/docs/Web/CSS) styling declarations to be applied to the element. Note that it is recommended for styles to be defined in a separate file or files. This attribute and the [`<style>`](/en-US/docs/Web/HTML/Element/style "The HTML <style> element contains style information for a document, or part of a document.") element have mainly the purpose of allowing for quick styling, for example for testing purposes. */
 	style: string;
 	/** An integer attribute indicating if the element can take input focus (is _focusable_), if it should participate to sequential keyboard navigation, and if so, at what position. It can take several values:
-	
+		
 	*   a _negative value_ means that the element should be focusable, but should not be reachable via sequential keyboard navigation;
 	*   `0` means that the element should be focusable and reachable via sequential keyboard navigation, but its relative order is defined by the platform convention;
 	*   a _positive value_ means that the element should be focusable and reachable via sequential keyboard navigation; the order in which the elements are focused is the increasing value of the [**tabindex**](#attr-tabindex). If several elements share the same tabindex, their relative order follows their relative positions in the document. */
@@ -79,7 +85,7 @@ interface HTMLElementAttributes {
 	/** Contains a text representing advisory information related to the element it belongs to. Such information can typically, but not necessarily, be presented to the user as a tooltip. */
 	title: string;
 	/** An enumerated attribute that is used to specify whether an element's attribute values and the values of its [`Text`](/en-US/docs/Web/API/Text "The Text interface represents the textual content of Element or Attr. If an element has no markup within its content, it has a single child implementing Text that contains the element's text. However, if the element contains markup, it is parsed into information items and Text nodes that form its children.") node children are to be translated when the page is localized, or whether to leave them unchanged. It can have the following values:
-	
+		
 	*   empty string and `yes`, which indicates that the element will be translated.
 	*   `no`, which indicates that the element will not be translated. */
 	translate: "yes" | "no";
@@ -155,10 +161,10 @@ interface ImbaHTMLTags {
 		
 		*   `application-name` which defines the name of the application running in the web page.
 		    
-		    **Note:**
+			**Note:**
 		    
-		    *   Browsers may use this to identify the application. It is different from the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title "The HTML Title element (<title>) defines the document's title that is shown in a browser's title bar or a page's tab.") element, which usually contain the application name, but may also contain information like the document name or a status.
-		    *   Simple web pages shouldn't define an application-name.
+			*   Browsers may use this to identify the application. It is different from the [`<title>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/title "The HTML Title element (<title>) defines the document's title that is shown in a browser's title bar or a page's tab.") element, which usually contain the application name, but may also contain information like the document name or a status.
+			*   Simple web pages shouldn't define an application-name.
 		    
 		*   `author` which defines the name of the document's author.
 		*   `description` which contains a short and accurate summary of the content of the page. Several browsers, like Firefox and Opera, use this as the default description of bookmarked pages.
@@ -166,45 +172,45 @@ interface ImbaHTMLTags {
 		*   `keywords` which contains words relevant to the page's content separated by commas.
 		*   `referrer` which controls the [`Referer` HTTP header](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Referer) attached to requests sent from the document:
 		    
-		    Values for the `content` attribute of `<meta name="referrer">`
+			Values for the `content` attribute of `<meta name="referrer">`
 		    
-		    `no-referrer`
+			`no-referrer`
 		    
-		    Do not send a HTTP `Referrer` header.
+			Do not send a HTTP `Referrer` header.
 		    
-		    `origin`
+			`origin`
 		    
-		    Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) of the document.
+			Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) of the document.
 		    
-		    `no-referrer-when-downgrade`
+			`no-referrer-when-downgrade`
 		    
-		    Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) as a referrer to URLs as secure as the current page, (https→https), but does not send a referrer to less secure URLs (https→http). This is the default behaviour.
+			Send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) as a referrer to URLs as secure as the current page, (https→https), but does not send a referrer to less secure URLs (https→http). This is the default behaviour.
 		    
-		    `origin-when-cross-origin`
+			`origin-when-cross-origin`
 		    
-		    Send the full URL (stripped of parameters) for same-origin requests, but only send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) for other cases.
+			Send the full URL (stripped of parameters) for same-origin requests, but only send the [origin](https://developer.mozilla.org/en-US/docs/Glossary/Origin) for other cases.
 		    
-		    `same-origin`
+			`same-origin`
 		    
-		    A referrer will be sent for [same-site origins](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy), but cross-origin requests will contain no referrer information.
+			A referrer will be sent for [same-site origins](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy), but cross-origin requests will contain no referrer information.
 		    
-		    `strict-origin`
+			`strict-origin`
 		    
-		    Only send the origin of the document as the referrer to a-priori as-much-secure destination (HTTPS->HTTPS), but don't send it to a less secure destination (HTTPS->HTTP).
+			Only send the origin of the document as the referrer to a-priori as-much-secure destination (HTTPS->HTTPS), but don't send it to a less secure destination (HTTPS->HTTP).
 		    
-		    `strict-origin-when-cross-origin`
+			`strict-origin-when-cross-origin`
 		    
-		    Send a full URL when performing a same-origin request, only send the origin of the document to a-priori as-much-secure destination (HTTPS->HTTPS), and send no header to a less secure destination (HTTPS->HTTP).
+			Send a full URL when performing a same-origin request, only send the origin of the document to a-priori as-much-secure destination (HTTPS->HTTPS), and send no header to a less secure destination (HTTPS->HTTP).
 		    
-		    `unsafe-URL`
+			`unsafe-URL`
 		    
-		    Send the full URL (stripped of parameters) for same-origin or cross-origin requests.
+			Send the full URL (stripped of parameters) for same-origin or cross-origin requests.
 		    
-		    **Notes:**
+			**Notes:**
 		    
-		    *   Some browsers support the deprecated values of `always`, `default`, and `never` for referrer.
-		    *   Dynamically inserting `<meta name="referrer">` (with [`document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write) or [`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)) makes the referrer behaviour unpredictable.
-		    *   When several conflicting policies are defined, the no-referrer policy is applied.
+			*   Some browsers support the deprecated values of `always`, `default`, and `never` for referrer.
+			*   Dynamically inserting `<meta name="referrer">` (with [`document.write`](https://developer.mozilla.org/en-US/docs/Web/API/Document/write) or [`appendChild`](https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild)) makes the referrer behaviour unpredictable.
+			*   When several conflicting policies are defined, the no-referrer policy is applied.
 		    
 		
 		This attribute may also have a value taken from the extended list defined on [WHATWG Wiki MetaExtensions page](https://wiki.whatwg.org/wiki/MetaExtensions). Although none have been formally accepted yet, a few commonly used names are:
@@ -214,174 +220,174 @@ interface ImbaHTMLTags {
 		*   `publisher` which defines the name of the document's publisher.
 		*   `robots` which defines the behaviour that cooperative crawlers, or "robots", should use with the page. It is a comma-separated list of the values below:
 		    
-		    Values for the content of `<meta name="robots">`
+			Values for the content of `<meta name="robots">`
 		    
-		    Value
+			Value
 		    
-		    Description
+			Description
 		    
-		    Used by
+			Used by
 		    
-		    `index`
+			`index`
 		    
-		    Allows the robot to index the page (default).
+			Allows the robot to index the page (default).
 		    
-		    All
+			All
 		    
-		    `noindex`
+			`noindex`
 		    
-		    Requests the robot to not index the page.
+			Requests the robot to not index the page.
 		    
-		    All
+			All
 		    
-		    `follow`
+			`follow`
 		    
-		    Allows the robot to follow the links on the page (default).
+			Allows the robot to follow the links on the page (default).
 		    
-		    All
+			All
 		    
-		    `nofollow`
+			`nofollow`
 		    
-		    Requests the robot to not follow the links on the page.
+			Requests the robot to not follow the links on the page.
 		    
-		    All
+			All
 		    
-		    `none`
+			`none`
 		    
-		    Equivalent to `noindex, nofollow`
+			Equivalent to `noindex, nofollow`
 		    
-		    [Google](https://support.google.com/webmasters/answer/79812)
+			[Google](https://support.google.com/webmasters/answer/79812)
 		    
-		    `noodp`
+			`noodp`
 		    
-		    Prevents using the [Open Directory Project](https://www.dmoz.org/) description, if any, as the page description in search engine results.
+			Prevents using the [Open Directory Project](https://www.dmoz.org/) description, if any, as the page description in search engine results.
 		    
-		    [Google](https://support.google.com/webmasters/answer/35624#nodmoz), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/meta-tags-robotstxt-yahoo-search-sln2213.html#cont5), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+			[Google](https://support.google.com/webmasters/answer/35624#nodmoz), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/meta-tags-robotstxt-yahoo-search-sln2213.html#cont5), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
 		    
-		    `noarchive`
+			`noarchive`
 		    
-		    Requests the search engine not to cache the page content.
+			Requests the search engine not to cache the page content.
 		    
-		    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/SLN2213.html), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+			[Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Yahoo](https://help.yahoo.com/kb/search-for-desktop/SLN2213.html), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
 		    
-		    `nosnippet`
+			`nosnippet`
 		    
-		    Prevents displaying any description of the page in search engine results.
+			Prevents displaying any description of the page in search engine results.
 		    
-		    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+			[Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives), [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
 		    
-		    `noimageindex`
+			`noimageindex`
 		    
-		    Requests this page not to appear as the referring page of an indexed image.
+			Requests this page not to appear as the referring page of an indexed image.
 		    
-		    [Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives)
+			[Google](https://developers.google.com/webmasters/control-crawl-index/docs/robots_meta_tag#valid-indexing--serving-directives)
 		    
-		    `nocache`
+			`nocache`
 		    
-		    Synonym of `noarchive`.
+			Synonym of `noarchive`.
 		    
-		    [Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
+			[Bing](https://www.bing.com/webmaster/help/which-robots-metatags-does-bing-support-5198d240)
 		    
-		    **Notes:**
+			**Notes:**
 		    
-		    *   Only cooperative robots follow these rules. Do not expect to prevent e-mail harvesters with them.
-		    *   The robot still needs to access the page in order to read these rules. To prevent bandwidth consumption, use a _[robots.txt](https://developer.mozilla.org/en-US/docs/Glossary/robots.txt "robots.txt: Robots.txt is a file which is usually placed in the root of any website. It decides whether crawlers are permitted or forbidden access to the web site.")_ file.
-		    *   If you want to remove a page, `noindex` will work, but only after the robot visits the page again. Ensure that the `robots.txt` file is not preventing revisits.
-		    *   Some values are mutually exclusive, like `index` and `noindex`, or `follow` and `nofollow`. In these cases the robot's behaviour is undefined and may vary between them.
-		    *   Some crawler robots, like Google, Yahoo and Bing, support the same values for the HTTP header `X-Robots-Tag`; this allows non-HTML documents like images to use these rules.
+			*   Only cooperative robots follow these rules. Do not expect to prevent e-mail harvesters with them.
+			*   The robot still needs to access the page in order to read these rules. To prevent bandwidth consumption, use a _[robots.txt](https://developer.mozilla.org/en-US/docs/Glossary/robots.txt "robots.txt: Robots.txt is a file which is usually placed in the root of any website. It decides whether crawlers are permitted or forbidden access to the web site.")_ file.
+			*   If you want to remove a page, `noindex` will work, but only after the robot visits the page again. Ensure that the `robots.txt` file is not preventing revisits.
+			*   Some values are mutually exclusive, like `index` and `noindex`, or `follow` and `nofollow`. In these cases the robot's behaviour is undefined and may vary between them.
+			*   Some crawler robots, like Google, Yahoo and Bing, support the same values for the HTTP header `X-Robots-Tag`; this allows non-HTML documents like images to use these rules.
 		    
 		*   `slurp`, is a synonym of `robots`, but only for Slurp - the crawler for Yahoo Search.
 		*   `viewport`, which gives hints about the size of the initial size of the [viewport](https://developer.mozilla.org/en-US/docs/Glossary/viewport "viewport: A viewport represents a polygonal (normally rectangular) area in computer graphics that is currently being viewed. In web browser terms, it refers to the part of the document you're viewing which is currently visible in its window (or the screen, if the document is being viewed in full screen mode). Content outside the viewport is not visible onscreen until scrolled into view."). Used by mobile devices only.
 		    
-		    Values for the content of `<meta name="viewport">`
+			Values for the content of `<meta name="viewport">`
 		    
-		    Value
+			Value
 		    
-		    Possible subvalues
+			Possible subvalues
 		    
-		    Description
+			Description
 		    
-		    `width`
+			`width`
 		    
-		    A positive integer number, or the text `device-width`
+			A positive integer number, or the text `device-width`
 		    
-		    Defines the pixel width of the viewport that you want the web site to be rendered at.
+			Defines the pixel width of the viewport that you want the web site to be rendered at.
 		    
-		    `height`
+			`height`
 		    
-		    A positive integer, or the text `device-height`
+			A positive integer, or the text `device-height`
 		    
-		    Defines the height of the viewport. Not used by any browser.
+			Defines the height of the viewport. Not used by any browser.
 		    
-		    `initial-scale`
+			`initial-scale`
 		    
-		    A positive number between `0.0` and `10.0`
+			A positive number between `0.0` and `10.0`
 		    
-		    Defines the ratio between the device width (`device-width` in portrait mode or `device-height` in landscape mode) and the viewport size.
+			Defines the ratio between the device width (`device-width` in portrait mode or `device-height` in landscape mode) and the viewport size.
 		    
-		    `maximum-scale`
+			`maximum-scale`
 		    
-		    A positive number between `0.0` and `10.0`
+			A positive number between `0.0` and `10.0`
 		    
-		    Defines the maximum amount to zoom in. It must be greater or equal to the `minimum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
+			Defines the maximum amount to zoom in. It must be greater or equal to the `minimum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
 		    
-		    `minimum-scale`
+			`minimum-scale`
 		    
-		    A positive number between `0.0` and `10.0`
+			A positive number between `0.0` and `10.0`
 		    
-		    Defines the minimum zoom level. It must be smaller or equal to the `maximum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
+			Defines the minimum zoom level. It must be smaller or equal to the `maximum-scale` or the behaviour is undefined. Browser settings can ignore this rule and iOS10+ ignores it by default.
 		    
-		    `user-scalable`
+			`user-scalable`
 		    
-		    `yes` or `no`
+			`yes` or `no`
 		    
-		    If set to `no`, the user is not able to zoom in the webpage. The default is `yes`. Browser settings can ignore this rule, and iOS10+ ignores it by default.
+			If set to `no`, the user is not able to zoom in the webpage. The default is `yes`. Browser settings can ignore this rule, and iOS10+ ignores it by default.
 		    
-		    Specification
+			Specification
 		    
-		    Status
+			Status
 		    
-		    Comment
+			Comment
 		    
-		    [CSS Device Adaptation  
-		    The definition of '<meta name="viewport">' in that specification.](https://drafts.csswg.org/css-device-adapt/#viewport-meta)
+			[CSS Device Adaptation  
+			The definition of '<meta name="viewport">' in that specification.](https://drafts.csswg.org/css-device-adapt/#viewport-meta)
 		    
-		    Working Draft
+			Working Draft
 		    
-		    Non-normatively describes the Viewport META element
+			Non-normatively describes the Viewport META element
 		    
-		    See also: [`@viewport`](https://developer.mozilla.org/en-US/docs/Web/CSS/@viewport "The @viewport CSS at-rule lets you configure the viewport through which the document is viewed. It's primarily used for mobile devices, but is also used by desktop browsers that support features like "snap to edge" (such as Microsoft Edge).")
+			See also: [`@viewport`](https://developer.mozilla.org/en-US/docs/Web/CSS/@viewport "The @viewport CSS at-rule lets you configure the viewport through which the document is viewed. It's primarily used for mobile devices, but is also used by desktop browsers that support features like "snap to edge" (such as Microsoft Edge).")
 		    
-		    **Notes:**
+			**Notes:**
 		    
-		    *   Though unstandardized, this declaration is respected by most mobile browsers due to de-facto dominance.
-		    *   The default values may vary between devices and browsers.
-		    *   To learn about this declaration in Firefox for Mobile, see [this article](https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag "Mobile/Viewport meta tag"). */
+			*   Though unstandardized, this declaration is respected by most mobile browsers due to de-facto dominance.
+			*   The default values may vary between devices and browsers.
+			*   To learn about this declaration in Firefox for Mobile, see [this article](https://developer.mozilla.org/en-US/docs/Mobile/Viewport_meta_tag "Mobile/Viewport meta tag"). */
 		name: string;
 		/** Defines a pragma directive. The attribute is named `**http-equiv**(alent)` because all the allowed values are names of particular HTTP headers:
 		
 		*   `"content-language"`  
-		    Defines the default language of the page. It can be overridden by the [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) attribute on any element.
+			Defines the default language of the page. It can be overridden by the [lang](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang) attribute on any element.
 		    
-		    **Warning:** Do not use this value, as it is obsolete. Prefer the `lang` attribute on the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html "The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.") element.
+			**Warning:** Do not use this value, as it is obsolete. Prefer the `lang` attribute on the [`<html>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/html "The HTML <html> element represents the root (top-level element) of an HTML document, so it is also referred to as the root element. All other elements must be descendants of this element.") element.
 		    
 		*   `"content-security-policy"`  
-		    Allows page authors to define a [content policy](https://developer.mozilla.org/en-US/docs/Web/Security/CSP/CSP_policy_directives) for the current page. Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site scripting attacks.
+			Allows page authors to define a [content policy](https://developer.mozilla.org/en-US/docs/Web/Security/CSP/CSP_policy_directives) for the current page. Content policies mostly specify allowed server origins and script endpoints which help guard against cross-site scripting attacks.
 		*   `"content-type"`  
-		    Defines the [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type) of the document, followed by its character encoding. It follows the same syntax as the HTTP `content-type` entity-header field, but as it is inside a HTML page, most values other than `text/html` are impossible. Therefore the valid syntax for its `content` is the string '`text/html`' followed by a character set with the following syntax: '`; charset=_IANAcharset_`', where `IANAcharset` is the _preferred MIME name_ for a character set as [defined by the IANA.](https://www.iana.org/assignments/character-sets)
+			Defines the [MIME type](https://developer.mozilla.org/en-US/docs/Glossary/MIME_type) of the document, followed by its character encoding. It follows the same syntax as the HTTP `content-type` entity-header field, but as it is inside a HTML page, most values other than `text/html` are impossible. Therefore the valid syntax for its `content` is the string '`text/html`' followed by a character set with the following syntax: '`; charset=_IANAcharset_`', where `IANAcharset` is the _preferred MIME name_ for a character set as [defined by the IANA.](https://www.iana.org/assignments/character-sets)
 		    
-		    **Warning:** Do not use this value, as it is obsolete. Use the [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute on the [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element.
+			**Warning:** Do not use this value, as it is obsolete. Use the [`charset`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-charset) attribute on the [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") element.
 		    
-		    **Note:** As [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") can't change documents' types in XHTML or HTML5's XHTML serialization, never set the MIME type to an XHTML MIME type with `<meta>`.
+			**Note:** As [`<meta>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta "The HTML <meta> element represents metadata that cannot be represented by other HTML meta-related elements, like <base>, <link>, <script>, <style> or <title>.") can't change documents' types in XHTML or HTML5's XHTML serialization, never set the MIME type to an XHTML MIME type with `<meta>`.
 		    
 		*   `"refresh"`  
-		    This instruction specifies:
-		    *   The number of seconds until the page should be reloaded - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer.
-		    *   The number of seconds until the page should redirect to another - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer followed by the string '`;url=`', and a valid URL.
+			This instruction specifies:
+			*   The number of seconds until the page should be reloaded - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer.
+			*   The number of seconds until the page should redirect to another - only if the [`content`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-content) attribute contains a positive integer followed by the string '`;url=`', and a valid URL.
 		*   `"set-cookie"`  
-		    Defines a [cookie](https://developer.mozilla.org/en-US/docs/cookie) for the page. Its content must follow the syntax defined in the [IETF HTTP Cookie Specification](https://tools.ietf.org/html/draft-ietf-httpstate-cookie-14).
+			Defines a [cookie](https://developer.mozilla.org/en-US/docs/cookie) for the page. Its content must follow the syntax defined in the [IETF HTTP Cookie Specification](https://tools.ietf.org/html/draft-ietf-httpstate-cookie-14).
 		    
-		    **Warning:** Do not use this instruction, as it is obsolete. Use the HTTP header [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) instead. */
+			**Warning:** Do not use this instruction, as it is obsolete. Use the HTTP header [`Set-Cookie`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie) instead. */
 		"http-equiv": string;
 		/** This attribute contains the value for the [`http-equiv`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-http-equiv) or [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta#attr-name) attribute, depending on which is used. */
 		content: string;
@@ -677,8 +683,8 @@ interface ImbaHTMLTags {
 		
 		1.  a URL to an image,
 		2.  optionally, whitespace followed by one of:
-		    *   A width descriptor, or a positive integer directly followed by '`w`'. The width descriptor is divided by the source size given in the `sizes` attribute to calculate the effective pixel density.
-		    *   A pixel density descriptor, which is a positive floating point number directly followed by '`x`'.
+			*   A width descriptor, or a positive integer directly followed by '`w`'. The width descriptor is divided by the source size given in the `sizes` attribute to calculate the effective pixel density.
+			*   A pixel density descriptor, which is a positive floating point number directly followed by '`x`'.
 		
 		If no descriptor is specified, the source is assigned the default descriptor: `1x`.
 		
@@ -870,19 +876,19 @@ interface ImbaHTMLTags {
 		/** How the text track is meant to be used. If omitted the default kind is `subtitles`. If the attribute is not present, it will use the `subtitles`. If the attribute contains an invalid value, it will use `metadata`. (Versions of Chrome earlier than 52 treated an invalid value as `subtitles`.) The following keywords are allowed:
 		
 		*   `subtitles`
-		    *   Subtitles provide translation of content that cannot be understood by the viewer. For example dialogue or text that is not English in an English language film.
-		    *   Subtitles may contain additional content, usually extra background information. For example the text at the beginning of the Star Wars films, or the date, time, and location of a scene.
+			*   Subtitles provide translation of content that cannot be understood by the viewer. For example dialogue or text that is not English in an English language film.
+			*   Subtitles may contain additional content, usually extra background information. For example the text at the beginning of the Star Wars films, or the date, time, and location of a scene.
 		*   `captions`
-		    *   Closed captions provide a transcription and possibly a translation of audio.
-		    *   It may include important non-verbal information such as music cues or sound effects. It may indicate the cue's source (e.g. music, text, character).
-		    *   Suitable for users who are deaf or when the sound is muted.
+			*   Closed captions provide a transcription and possibly a translation of audio.
+			*   It may include important non-verbal information such as music cues or sound effects. It may indicate the cue's source (e.g. music, text, character).
+			*   Suitable for users who are deaf or when the sound is muted.
 		*   `descriptions`
-		    *   Textual description of the video content.
-		    *   Suitable for users who are blind or where the video cannot be seen.
+			*   Textual description of the video content.
+			*   Suitable for users who are blind or where the video cannot be seen.
 		*   `chapters`
-		    *   Chapter titles are intended to be used when the user is navigating the media resource.
+			*   Chapter titles are intended to be used when the user is navigating the media resource.
 		*   `metadata`
-		    *   Tracks used by scripts. Not visible to the user. */
+			*   Tracks used by scripts. Not visible to the user. */
 		kind: "subtitles" | "captions" | "descriptions" | "chapters" | "metadata";
 		/** A user-readable title of the text track which is used by the browser when listing available text tracks. */
 		label: string;
@@ -991,14 +997,14 @@ interface ImbaHTMLTags {
 		This value can be overridden by a [`formenctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formenctype) attribute on a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") or [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") element. */
 		enctype: "application/x-www-form-urlencoded" | "multipart/form-data" | "text/plain";
 		/**
-         * The [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) method that the browser uses to submit the form. Possible values are:
+		 * The [HTTP](https://developer.mozilla.org/en-US/docs/Web/HTTP) method that the browser uses to submit the form. Possible values are:
 		
 		*   `post`: Corresponds to the HTTP [POST method](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.5) ; form data are included in the body of the form and sent to the server.
 		*   `get`: Corresponds to the HTTP [GET method](https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html#sec9.3); form data are appended to the `action` attribute URI with a '?' as separator, and the resulting URI is sent to the server. Use this method when the form has no side-effects and contains only ASCII characters.
 		*   `dialog`: Use when the form is inside a [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/dialog "The HTML <dialog> element represents a dialog box or other interactive component, such as an inspector or window.") element to close the dialog when submitted.
 		
 		This value can be overridden by a [`formmethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-formmethod) attribute on a [`<button>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button "The HTML <button> element represents a clickable button, which can be used in forms or anywhere in a document that needs simple, standard button functionality.") or [`<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input "The HTML <input> element is used to create interactive controls for web-based forms in order to accept data from the user; a wide variety of types of input data and control widgets are available, depending on the device and user agent.") element.
-        */
+		*/
 
 		method: "GET" | "POST" | "dialog";
 		/** The name of the form. In HTML 4, its use is deprecated (`id` should be used instead). It must be unique among the forms in a document and not just an empty string in HTML 5. */
