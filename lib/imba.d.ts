@@ -196,8 +196,11 @@ declare namespace imba {
     function clearTimeout(handle?: number): void;
     function commit(): Promise<void>;
     function render(): Promise<void>;
-
-    function mount<T>(element: T): T;
+    
+    
+    function mount<T>(element: T, into?: Element): T;
+    function mount(func: Function, into?: Element): Element;
+    function unmount<T>(element: T): T;
 
     interface Scheduler {
         add(target: any, force?: boolean): void;
