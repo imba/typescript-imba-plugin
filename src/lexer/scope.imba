@@ -193,7 +193,10 @@ export class Scope < Node
 
 	def setup
 		if handler?
-			varmap.e = new Sym(SymbolFlags.ConstVariable,'e',null,'eventReference')
+			let kind = "ImbaEvents.{parent.name}"
+			varmap.e = new Sym(SymbolFlags.Parameter,'e',null,{datatype: kind})
+			varmap.e.#scope = self
+
 			# self.declare()
 			# add virtual vars
 
