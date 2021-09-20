@@ -749,7 +749,10 @@ export default class ImbaTypeChecker
 	def findExactSymbolForToken dtok
 		let otok = findExactLocationForToken(dtok)
 		if otok
-			return checker.getSymbolAtLocation(otok)
+			let sym = checker.getSymbolAtLocation(otok)
+			if sym and sym.escapedName == 'default'
+				sym = ts.getLocalSymbolForExportDefault(sym) or sym
+			return sym
 		return null
 	
 	# type at imba location	
