@@ -192,7 +192,7 @@ export default class ImbaScript
 		return snap.getText(0,snap.getLength!)
 			
 	get fileName
-		info.path
+		info.fileName
 		
 	get ls
 		project.languageService
