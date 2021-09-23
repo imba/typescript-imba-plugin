@@ -301,6 +301,34 @@ declare class ImbaResizeEventModifiers extends UIEventModifiers {
     */
 }
 
+declare class ImbaHotkeyEventModifiers extends UIEventModifiers {
+    
+    /**
+     * 
+     * @param pattern string following pattern from mousetrap
+     * @see https://craig.is/killing/mice 
+     */
+    ___setup(pattern:string): void;
+    
+    /**
+    * Also trigger when input,textarea or a contenteditable is focused
+    */
+    capture(): EventModifiers;
+
+    /**
+    * Trigger even if outside of the originating hotkey group
+    */
+    global(): EventModifiers;
+    
+    /**
+    * Allow subsequent hotkey handlers for the same combo
+    * and don't automatically prevent default behaviour of originating
+    * keyboard event
+    */
+    passive(): EventModifiers;
+}
+
+
 
 interface Event {
     MODIFIERS: EventModifiers;
@@ -358,9 +386,15 @@ declare class ImbaSelectionEvent extends Event {
 
 }
 
+declare class ImbaHotkeyEvent extends UIEvent {
+    MODIFIERS: ImbaHotkeyEventModifiers;
+}
+
+
 interface GlobalEventHandlersEventMap {
     "touch": PointerGesture;
     "intersect": ImbaIntersectEvent;
+    "hotkey": ImbaHotkeyEvent;
     "__unknown": CustomEvent;
 }
 
@@ -437,6 +471,7 @@ interface ImbaEvents {
     gotpointercapture: PointerEvent;
     input: Event;
     invalid: Event;
+    intersect: ImbaIntersectEvent;
     keydown: KeyboardEvent;
     keypress: KeyboardEvent;
     keyup: KeyboardEvent;
@@ -480,6 +515,7 @@ interface ImbaEvents {
     timeupdate: Event;
     toggle: Event;
     touch: PointerGesture;
+    hotkey: ImbaHotkeyEvent;
     touchcancel: TouchEvent;
     touchend: TouchEvent;
     touchmove: TouchEvent;

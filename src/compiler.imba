@@ -265,7 +265,8 @@ export class Compilation
 			#compiling = Promise.resolve(self)
 			util.log("compiled {fileName} in {Date.now! - t0}ms")
 		catch e
-			util.log 'compiler crashed',script.fileName
+			util.log 'compiler crashed',script.fileName,e
+
 			self.result = {diagnostics: []}
 			yes
 		return self

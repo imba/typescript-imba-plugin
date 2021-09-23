@@ -471,7 +471,8 @@ export default class Completions
 			add checker.props("ImbaEvents"), kind: 'tagevent'
 			
 		if flags & CT.TagEventModifier
-			add checker.props("ImbaEvents.{ctx.eventName}.MODIFIERS"), kind: 'tageventmod'
+			add checker.getEventModifiers(ctx.eventName), kind: 'tageventmod'
+			# props("ImbaEvents.{ctx.eventName}.MODIFIERS"), kind: 'tageventmod'
 			
 		if flags & CT.TagProp
 			add('tagattrs',name: ctx.tagName)

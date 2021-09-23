@@ -22,7 +22,19 @@ interface Element {
     route: any;
     route__: any;
     router: ImbaRouter;
+    
+    /**
+    * Gives elements a stable identity inside lists
+    */
     $key: any;
+    
+    /**
+    * Sets whether @hotkey events inside of this element
+    * is enabled or not. If explicitly set to true, only
+    * @hotkey events inside this group will be triggered
+    * when this element or a child has focus.
+    */
+    hotkeys: bool;
 
     /**
     * Enable transitions for when element is attached / detached
@@ -115,6 +127,10 @@ declare class ImbaElement extends HTMLElement {
   */
     suspend(): this;
     unsuspend(): this;
+    
+    Ψparent: HTMLElement;
+    
+    Ψcontext: ΤObject;
 
     /** Return false if component should not render
     */

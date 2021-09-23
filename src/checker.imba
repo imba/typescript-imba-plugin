@@ -237,6 +237,27 @@ export default class ImbaTypeChecker
 			res = sym([res,'prototype'])
 		return res
 		
+	def getEventModifiers eventName
+		let all = props("ImbaEvents.{eventName}.MODIFIERS")
+		all = all.filter do $1.escapedName != '____setup'
+		return all
+		
+	def getEventModifier eventName, modifierName
+		let ev = sym("ImbaEvents.{eventName}.MODIFIERS.{modifierName}")
+		return ev
+		
+	def getTagAttrSymbol tagName,attrName
+		let key = util.toJSIdentifier(attrName)
+		let taginst = getTagSymbolInstance(tagName,yes)
+		let res = sym([taginst,key])
+		
+		unless res
+			taginst = getTagSymbolInstance(tagName)
+			res = sym([taginst,key])
+		return res
+		
+			
+		
 
 	def arraytype inner
 		checker.createArrayType(inner or basetypes.any)
@@ -766,6 +787,7 @@ export default class ImbaTypeChecker
 		return inferred
 		
 	def getSignatureHelpForType typ, name
+
 		typ = type(typ)
 		let sign = checker.getSignaturesOfType(typ,0)
 		let prev = checker.getResolvedSignatureForSignatureHelp

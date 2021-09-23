@@ -51,7 +51,7 @@ def denter indent,outdent,stay,o = {}
 		if indent[k] and indent[k].indexOf('*') == -1
 			indent[k] += '*$1'
 
-	# for own k,v of cases
+	# for own k,v of cases  
 	let rule = [/^(\t*)(?=[^\t\n])/,{cases: cases}]
 	if o.comment
 		let clones = {}
@@ -1009,6 +1009,7 @@ export const states = {
 
 		[/(\$@id)/,{ cases: {
 			'$/==name': 'tag.reference'
+			'$/==attr': {token: '@rematch', next: '@_tag_attr&-_tagattr'}
 			'@default': 'tag.$/'
 		}}]
 
@@ -1323,7 +1324,7 @@ export const grammar = {
 	tagNameIdentifier: /(?:[\w\-]+\:)?\w+(?:\-\w+)*/
 	variable: /[\w\$]+(?:-[\w\$]*)*\??/
 	varKeyword: /var|let|const/
-	tagIdentifier: /-*[a-zA-Z][\w\-]*/
+	tagIdentifier: /-*[\$a-zA-Z][\w\-\$]*/
 	implicitCall: /(?!\s(?:and|or|is|isa)\s)(?=\s[\w\'\"\/\[\{])/ # not true for or etc
 	cssModifier: /(?:\@+[\<\>\!]?[\w\-]+\+?|\.+@id\-?)/
 	cssPropertyPath: /[\@\.]*[\w\-\$]+(?:[\@\.]+[\w\-\$]+)*/

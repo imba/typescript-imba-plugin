@@ -301,7 +301,16 @@ export default class ImbaScriptInfo
 			meta.tagAttrName = g.propertyName
 		
 		if g = group.closest('listener')
+			let parens = group.closest('parens')
 			meta.eventName = g.name
+			
+			if parens and parens.parent == g
+				let prev = parens.start.prev
+				if prev.match('tag.event-modifier.name')
+					meta.eventModifierName = prev.value
+				elif prev.match('tag.event.name')
+					meta.eventModifierName = '___setup'
+				meta.parens = parens
 		
 		if tok.match('decorator')
 			flags = CompletionTypes.Decorator

@@ -295,9 +295,10 @@ export default class ImbaScript
 			out.tag = checker.getTagSymbol(ctx.tagName,yes)
 			
 		if ctx.tagAttrName and out.tag
+			out.tagattr = checker.getTagAttrSymbol(ctx.tagName,ctx.tagAttrName)
 			# util.log('get tagattgr?!',ctx.tagAttrName,ctx.tagName,tok,ctx)
-			let taginst = checker.getTagSymbolInstance(ctx.tagName,yes)
-			out.tagattr = checker.sym([taginst,util.toJSIdentifier(ctx.tagAttrName)])
+			# let taginst = checker.getTagSymbolInstance(ctx.tagName,yes)
+			# out.tagattr = checker.sym([taginst,util.toJSIdentifier(ctx.tagAttrName)])
 
 		if tok.match("style.property.modifier style.selector.modifier")
 			let [m,pre,neg,post] = tok.value.match(/^(@|\.+)(\!?)([\w\-\d]*)$/)
@@ -377,17 +378,26 @@ export default class ImbaScript
 		
 	def getSignatureHelpItems pos, opts, ls
 		let ctx = doc.getContextAtOffset(pos)
-		util.log "context for signature",ctx,ctx.token.match('parens.(')
+		let res = null
 		
-		if ctx.token.match('parens') and ctx.token.value == '('
+		if ctx.parens and ctx.eventModifierName
+			let name = ctx.eventModifierName
 			let checker = getTypeChecker!
+			let meth = checker.getEventModifier(ctx.eventName,name)
+			if meth
+				name = "@{ctx.eventName}.{ctx.eventModifierName}".replace(".___setup","")
+				res = checker.getSignatureHelpForType(meth,name)
+			
+		if !res and ctx.token.match('parens') and ctx.token.value == '('
+			let checker = getTypeChecker!
+			util.log 'get the context!!'
 			let meth = checker.resolveType(ctx.token.prev)
 			util.log "inferred type!",meth
 			let name = meth..symbol..escapedName
-			let res = checker.getSignatureHelpForType(meth,name)
-			if res
-				res.applicableSpan = {start: pos, length: 0, #ostart: -1}
-
+			res = checker.getSignatureHelpForType(meth,name)
+			
+		if res
+			res.applicableSpan = {start: pos, length: 0, #ostart: -1}
 			return res
 			
 		return null
