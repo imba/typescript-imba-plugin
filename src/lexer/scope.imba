@@ -226,7 +226,7 @@ export class Scope < Node
 		
 		if component?
 			if name[0] == name[0].toLowerCase!
-				return "globalThis.{util.toCustomTagIdentifier(name)}"
+				return util.toCustomTagIdentifier(name)
 			else
 				return name
 
