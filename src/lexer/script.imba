@@ -309,7 +309,7 @@ export default class ImbaScriptInfo
 				if prev.match('tag.event-modifier.name')
 					meta.eventModifierName = prev.value
 				elif prev.match('tag.event.name')
-					meta.eventModifierName = '___setup'
+					meta.eventModifierName = 'options'
 				meta.parens = parens
 		
 		if tok.match('decorator')

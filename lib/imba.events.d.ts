@@ -1,214 +1,280 @@
-declare class EventModifiers {
+
+type FlagTarget = Element | Document | string;
+
+interface Event {
     /**
      Tells the browser that the default action should not be taken. The event will still continue to propagate up the tree. See Event.preventDefault()
     @see https://imba.io/events/event-modifiers#core-prevent
     */
-    prevent(): EventModifiers;
+    αprevent(): void;
     /**
      Stops the event from propagating up the tree. Event listeners for the same event on nodes further up the tree will not be triggered. See Event.stopPropagation()
     */
-    stop(): EventModifiers;
+    αstop(): void;
     /**
      * Indicates that the listeners should be invoked at most once. The listener will automatically be removed when invoked.
      */
-    once(): EventModifiers;
+    αonce(): void;
+    
+    /**
+     * Indicating that events of this type should be dispatched to the registered listener before being dispatched to tags deeper in the DOM tree.
+     */
+    αcapture(): void;
 
-    capture(): EventModifiers;
+    αpassive(): void;
 
-    passive(): EventModifiers;
-
-    silence(): EventModifiers;
-    silent(): EventModifiers;
+    // αsilence(): void;
+    
+    /**
+     * Don't trigger imba.commit from this event handler
+     */
+    αsilent(): void;
+    
+    
     /** The wait modifier delays the execution of subsequent modifiers and callback. It defaults to wait for 250ms, which can be overridden by passing a number or time as the first/only argument. 
      * @detail (time = 500ms)
      */
-    wait(time?: Time): EventModifiers;
+    αwait(time?: Time): void;
 
     /**
      * Hello there
      * @detail (time = 500ms)
      */
-    throttle(time?: Time): EventModifiers;
+    αthrottle(time?: Time): void;
 
     /**
      * Hello there
      * @detail (time = 500ms)
      */
-    debounce(time?: Time): EventModifiers;
+    αdebounce(time?: Time): void;
 
 
     /** 
      * Only trigger handler if event.target is the element itself 
      * 
      */
-    self(): EventModifiers;
+    αself(): boolean;
 
     /** 
      * Only trigger handler if event.target matches selector
      * @detail (selector)
      * */
-    sel(selector: string): EventModifiers;
+    αsel(selector: string): boolean;
 
     /**
      * Only trigger condition is truthy
      * @detail (condition)
      * */
-    if(condition: unknown): EventModifiers;
-
-    emit(name: string, data?: any): EventModifiers;
-    emitΞname(data?: any): EventModifiers;
-
-    flag(name: string): EventModifiers;
-    flagΞname(): EventModifiers;
+    αif(condition: unknown): boolean;
+    
+    /**
+     * Trigger another event via this handler
+     * @param name The name of the event to trigger
+     * @param detail Data associated with the event
+     * @detail (name,detail = {})
+     * */
+    αemit(name: string, detail?: any): void;
+     /**
+     * Trigger another event via this handler
+     * @param detail Data associated with the event
+     * */
+    αemitΞname(detail?: any): void;
+    
+    /**
+     * Add an html class to target for at least 250ms
+     * If the callback returns a promise, the class
+     * will not be removed until said promise has resolved
+     * @param name the class to add
+     * @param target the element on which to add the class. Defaults to the element itself
+     * */
+    αflag(name: string, target?: FlagTarget): void;
+    
+    /**
+     * Add an html class to target for at least 250ms
+     * If the callback returns a promise, the class
+     * will not be removed until said promise has resolved
+     * @param target the element on which to add the class. Defaults to the element itself
+     **/
+    αflagΞname(target?: FlagTarget): void;
 
     /**
      * Logs to console
      * @detail (...data)
      */
-    log(...data: any[]): EventModifiers;
+    αlog(...data: any[]): void;
 }
 
-declare class UIEventModifiers extends EventModifiers {
-
+interface MouseEvent {
     /**
     * Only if ctrl key is pressed 
     *
     */
-    ctrl(): EventModifiers;
+    αctrl(): boolean;
 
     /**
     * Only if alt key is pressed 
     *
     */
-    alt(): EventModifiers;
+    αalt(): boolean;
 
     /**
     * Only if shift key is pressed 
     *
     */
-    shift(): EventModifiers;
+    αshift(): boolean;
 
     /**
     * Only if meta key is pressed 
     *
     */
-    meta(): EventModifiers;
-
+    αmeta(): boolean;
+    
+    /**
+    * Only if middle button is pressed
+    *
+    */
+    αmiddle(): boolean;
+    
+    /**
+    * Only if left/primary button is pressed
+    *
+    */
+    αleft(): boolean;
+    
+    /**
+    * Only if right button is pressed
+    *
+    */
+    αright(): boolean;
 }
 
-declare class MouseEventModifiers extends UIEventModifiers {
 
-}
-
-declare class KeyboardEventModifiers extends UIEventModifiers {
+interface KeyboardEvent {
     /**
     * Only if enter key is pressed 
     *
     */
-    enter(): EventModifiers;
+    αenter(): boolean;
 
     /**
     * Only if left key is pressed 
     *
     */
-    left(): EventModifiers;
+    αleft(): boolean;
 
     /**
     * Only if right key is pressed 
     *
     */
-    right(): EventModifiers;
+    αright(): boolean;
 
     /**
     * Only if up key is pressed 
     *
     */
-    up(): EventModifiers;
+    αup(): boolean;
 
     /**
     * Only if down key is pressed 
     *
     */
-    down(): EventModifiers;
+    αdown(): boolean;
 
     /**
     * Only if tab key is pressed 
     *
     */
-    tab(): EventModifiers;
+    αtab(): boolean;
 
     /**
     * Only if esc key is pressed 
     *
     */
-    esc(): EventModifiers;
+    αesc(): boolean;
 
     /**
     * Only if space key is pressed 
     *
     */
-    space(): EventModifiers;
+    αspace(): boolean;
 
     /**
     * Only if del key is pressed 
     *
     */
-    del(): EventModifiers;
+    αdel(): boolean;
+    
+    /**
+    * Only if keyCode == code
+    */
+    αkey(code:number): boolean;
 }
 
-declare class PointerEventModifiers extends UIEventModifiers {
+interface PointerEvent {
     /**
     * Only mouse 
     *
     */
-    mouse(): EventModifiers;
+    αmouse(): boolean;
 
     /**
     * Only pen 
     *
     */
-    pen(): EventModifiers;
+    αpen(): boolean;
 
     /**
     * Only hand/fingers 
     *
     */
-    touch(): EventModifiers;
+    αtouch(): boolean;
+    
+    /**
+    * Only when pressure is at least amount (defaults to 0.5)
+    */
+    αpressure(amount?:number): boolean;
 }
 
 type ModifierElementTarget = Element | string;
 
-declare class PointerGestureModifiers extends PointerEventModifiers {
+declare class ImbaTouch extends PointerEvent {
+    
+    /** True if touch is still active */
+    get activeΦ(): boolean;
+    
+    /** True if touch has ended */
+    get endedΦ(): boolean;
+
     /**
     * Only when touch has moved more than threshold
     * @detail (threshold = 4px)
     */
-    moved(threshold?: Length): EventModifiers;
+    αmoved(threshold?: Length): boolean;
 
 
     /**
     * Only when touch has moved left or right more than threshold
     * @detail (threshold = 4px)
     */
-    movedΞx(threshold?: Length): EventModifiers;
+    αmovedΞx(threshold?: Length): boolean;
 
     /**
     * Only when touch has moved up or down more than threshold
     * @detail (threshold = 4px)
     */
-    movedΞy(threshold?: Length): EventModifiers;
+    αmovedΞy(threshold?: Length): boolean;
 
     /**
     * Only when touch has moved up more than threshold
     * @detail (threshold = 4px)
     */
-    movedΞup(threshold?: Length): EventModifiers;
+    αmovedΞup(threshold?: Length): boolean;
 
     /**
     * Only when touch has moved down more than threshold
     * @detail (threshold = 4px)
     */
-    movedΞdown(threshold?: Length): EventModifiers;
+    αmovedΞdown(threshold?: Length): boolean;
 
     /**
      * A convenient touch modifier that takes care of updating the x,y values of some data during touch. When touch starts sync will remember the initial x,y values and only add/subtract based on movement of the touch.
@@ -216,52 +282,51 @@ declare class PointerGestureModifiers extends PointerEventModifiers {
      * @see https://imba.io/events/touch-events#modifiers-sync
      * @detail (data, xProp?, yProp?)
      */
-    sync(data: object, xName?: string | null, yName?: string | null): EventModifiers;
+    αsync(data: object, xName?: string | null, yName?: string | null): boolean;
+    
+    /**
+     * Sets the x and y properties of object to the x and y properties of touch.
+     * 
+     * @see https://imba.io/events/touch-events#modifiers-apply
+     * @detail (data, xProp?, yProp?)
+     */
+    αapply(data: object, xName?: string | null, yName?: string | null): boolean;
 
     /**
     * Convert the coordinates of the touch to some other frame of reference.
     * @detail (target?,snap?)
     */
-    fit(): EventModifiers;
-    fit(start: Length, end: Length, snap?: number): EventModifiers;
-    fit(target: ModifierElementTarget): EventModifiers;
-    fit(target: ModifierElementTarget, snap?: number): EventModifiers;
-    fit(target: ModifierElementTarget, snap?: number): EventModifiers;
-    fit(target: ModifierElementTarget, start: Length, end: Length, snap?: number): EventModifiers;
+    αfit(): void;
+    αfit(start: Length, end: Length, snap?: number): void;
+    αfit(target: ModifierElementTarget): void;
+    αfit(target: ModifierElementTarget, snap?: number): void;
+    αfit(target: ModifierElementTarget, snap?: number): void;
+    αfit(target: ModifierElementTarget, start: Length, end: Length, snap?: number): void;
 
     /**
     * Just like @touch.fit but without clamping x,y to the bounds of the
     * target.
     * @detail (target?, ax?, ay?)
     */
-    reframe(): EventModifiers;
-    reframe(start: Length, end: Length, snap?: number): EventModifiers;
-    reframe(context: Element | string, snap?: number): EventModifiers;
-    reframe(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
-
-    /**
-     * Alias for reframe
-     * @deprecated Use `.reframe` instead!
-     */
-    in(): EventModifiers;
-    in(start: Length, end: Length, snap?: number): EventModifiers;
-    in(context: Element | string, snap?: number): EventModifiers;
-    in(context: Element | string, start: Length, end: Length, snap?: number): EventModifiers;
+    αreframe(): void;
+    αreframe(start: Length, end: Length, snap?: number): void;
+    αreframe(context: Element | string, snap?: number): void;
+    αreframe(context: Element | string, start: Length, end: Length, snap?: number): void;
 
     /**
     * Allow pinning the touch to a certain point in an element, so that
     * all future x,y values are relative to this pinned point.
     * @detail (target?, ax?, ay?)
     */
-    pin(): EventModifiers;
-    pin(target: ModifierElementTarget): EventModifiers;
-    pin(target: ModifierElementTarget, anchorX?: number, anchorY?: number): EventModifiers;
+    αpin(): void;
+    αpin(target: ModifierElementTarget): void;
+    αpin(target: ModifierElementTarget, anchorX?: number, anchorY?: number): void;
 
     /**
     * Round the x,y coordinates with an option accuracy
     * @detail (to = 1)
     */
-    round(nearest?: number): EventModifiers;
+    αround(nearest?: number): void;
 }
 
 
@@ -273,92 +338,42 @@ type IntersectOptions = {
     thresholds?: number[];
 }
 
-declare class ImbaIntersectEventModifiers extends EventModifiers {
+
+declare class ImbaIntersectEvent extends Event {
     /**
     * @detail only when intersection increases
     */
-    in(): EventModifiers;
+    αin(): boolean;
 
     /**
     * @detail only when intersection decreases
     */
-    out(): EventModifiers;
+    αout(): boolean;
 
-    css(): EventModifiers;
-
-    ___setup(root?: IntersectRoot, thresholds?: number): void;
-    ___setup(thresholds?: number): void;
-    ___setup(rootMargin: string, thresholds?: number): void;
-    ___setup(rootMargin: string, thresholds?: number): void;
-    ___setup(options: IntersectOptions): void;
-}
-
-declare class ImbaResizeEventModifiers extends UIEventModifiers {
-    /*
-    in(): EventModifiers;
-    out(): EventModifiers;
-    css(): EventModifiers;
-    */
-}
-
-declare class ImbaHotkeyEventModifiers extends UIEventModifiers {
+    αcss(): void;
     
     /**
-     * 
-     * @param pattern string following pattern from mousetrap
-     * @see https://craig.is/killing/mice 
-     */
-    ___setup(pattern:string): void;
+    * Will add a class to the DOM element whenever it is intersecting
+    * @param name The class-name to add
+    */
+    αflag(name: string): void;
+    αflagΞname(): void;
     
     /**
-    * Also trigger when input,textarea or a contenteditable is focused
-    */
-    capture(): EventModifiers;
+    * Will add a class to the DOM element whenever it is intersecting
+    * @param root reference to the parent
+    * @param thresholds 0-1 for a single threshold, 2+ for n slices
 
-    /**
-    * Trigger even if outside of the originating hotkey group
     */
-    global(): EventModifiers;
+    αoptions(root?: IntersectRoot, thresholds?: number): void;
     
-    /**
-    * Allow subsequent hotkey handlers for the same combo
-    * and don't automatically prevent default behaviour of originating
-    * keyboard event
-    */
-    passive(): EventModifiers;
-}
-
-
-
-interface Event {
-    MODIFIERS: EventModifiers;
-}
-
-interface UIEvent {
-    MODIFIERS: UIEventModifiers;
-}
-
-interface MouseEvent {
-    MODIFIERS: MouseEventModifiers;
-}
-
-interface KeyboardEvent {
-    MODIFIERS: KeyboardEventModifiers;
-}
-
-interface PointerEvent {
-    MODIFIERS: PointerEventModifiers;
-}
-
-interface ResizeEvent {
-    MODIFIERS: ImbaResizeEventModifiers;
-}
-
-declare class PointerGesture extends PointerEvent {
-    MODIFIERS: PointerGestureModifiers;
-}
-
-declare class ImbaIntersectEvent extends Event {
+    
+    αoptions(thresholds?: number): void;
+    αoptions(rootMargin: string, thresholds?: number): void;
+    αoptions(rootMargin: string, thresholds?: number): void;
+    αoptions(options: IntersectOptions): void;
+    
+    
     /**
     * The raw IntersectionObserverEntry 
     *
@@ -374,28 +389,61 @@ declare class ImbaIntersectEvent extends Event {
     *
     */
     delta: number;
+}
 
-    MODIFIERS: ImbaIntersectEventModifiers;
+declare class ImbaHotkeyEvent extends Event {
+    
+    /**
+     * 
+     * @param pattern string following pattern from mousetrap
+     * @see https://craig.is/killing/mice 
+     */
+    αoptions(pattern:string): void;
+    
+    /**
+    * Also trigger when input,textarea or a contenteditable is focused
+    */
+    αcapture(): void;
+
+    /**
+    * Trigger even if outside of the originating hotkey group
+    */
+    αglobal(): void;
+    
+    /**
+    * Allow subsequent hotkey handlers for the same combo
+    * and don't automatically prevent default behaviour of originating
+    * keyboard event
+    */
+    αpassive(): void;
 }
 
 declare class ImbaResizeEvent extends UIEvent {
-    MODIFIERS: ImbaResizeEventModifiers;
+    width: number;
+    height: number;
+    rect: DOMRectReadOnly;
+    entry: ResizeObserverEntry;
 }
 
 declare class ImbaSelectionEvent extends Event {
-
-}
-
-declare class ImbaHotkeyEvent extends UIEvent {
-    MODIFIERS: ImbaHotkeyEventModifiers;
+    detail: {
+        start: number;
+        end: number;
+    }
 }
 
 
 interface GlobalEventHandlersEventMap {
-    "touch": PointerGesture;
+    "touch": ImbaTouch;
     "intersect": ImbaIntersectEvent;
+    "selection": ImbaSelectionEvent;
     "hotkey": ImbaHotkeyEvent;
+    "resize": ImbaResizeEvent;
     "__unknown": CustomEvent;
+}
+
+interface HTMLElementEventMap {
+    "resize": ImbaResizeEvent;
 }
 
 interface ImbaEvents {
@@ -501,7 +549,7 @@ interface ImbaEvents {
     progress: ProgressEvent;
     ratechange: Event;
     reset: Event;
-    resize: UIEvent;
+    resize: ImbaResizeEvent;
     scroll: Event;
     securitypolicyviolation: SecurityPolicyViolationEvent;
     seeked: Event;
@@ -514,7 +562,7 @@ interface ImbaEvents {
     suspend: Event;
     timeupdate: Event;
     toggle: Event;
-    touch: PointerGesture;
+    touch: ImbaTouch;
     hotkey: ImbaHotkeyEvent;
     touchcancel: TouchEvent;
     touchend: TouchEvent;
@@ -527,5 +575,5 @@ interface ImbaEvents {
     volumechange: Event;
     waiting: Event;
     wheel: WheelEvent;
-    [event: string]: Event;
+    [event: string]: CustomEvent;
 }

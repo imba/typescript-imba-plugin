@@ -328,6 +328,12 @@ export default class ImbaScript
 		
 		if tok.match('tag.event.start')
 			tok = tok.next
+			
+		if tok.match('tag.event-modifier.start')
+			tok = tok.next
+			
+		if tok.match('tag.event-modifier.name')
+			hit(checker.getEventModifier(ctx.eventName,tok.value),'eventmod')
 
 		if tok.match('tag.event.name')
 			let name = tok.value.replace('@','')
@@ -385,7 +391,7 @@ export default class ImbaScript
 			let checker = getTypeChecker!
 			let meth = checker.getEventModifier(ctx.eventName,name)
 			if meth
-				name = "@{ctx.eventName}.{ctx.eventModifierName}".replace(".___setup","")
+				name = "@{ctx.eventName}.{ctx.eventModifierName}".replace(".options","")
 				res = checker.getSignatureHelpForType(meth,name)
 			
 		if !res and ctx.token.match('parens') and ctx.token.value == '('

@@ -183,6 +183,9 @@ export class Session
 		return diagnostics.filter do !$1.#suppress
 			
 	def sendDiagnosticsEvent(file, project, diags, kind)
+		if kind == 'semanticDiag' and diags.length
+			util.log('sendDiagnisticsPrefilter',diags.slice(0))
+
 		diags = filterDiagnostics(file,project,diags,kind)
 		
 		if kind == 'semanticDiag' and util.isImba(file) and global.ils
@@ -706,6 +709,10 @@ export default def patcher ts
 
 		get isDeprecated
 			valueDeclaration.modifierFlagsCache & ts.ModifierFlags.Deprecated
+			
+		get isDecorator
+			escapedName[0] == 'α'
+			
 			
 		get isStyleProp
 			parent and parent.escapedName == 'imbacss' and (/^[a-zA-ZΞ]/gu).test(escapedName)

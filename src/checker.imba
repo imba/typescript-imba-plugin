@@ -238,12 +238,13 @@ export default class ImbaTypeChecker
 		return res
 		
 	def getEventModifiers eventName
-		let all = props("ImbaEvents.{eventName}.MODIFIERS")
-		all = all.filter do $1.escapedName != '____setup'
+		# let all = props("ImbaEvents.{eventName}.MODIFIERS")
+		let all = props("ImbaEvents.{eventName}")
+		all = all.filter do $1.escapedName != 'αoptions' and $1.escapedName[0] == 'α'
 		return all
 		
 	def getEventModifier eventName, modifierName
-		let ev = sym("ImbaEvents.{eventName}.MODIFIERS.{modifierName}")
+		let ev = sym("ImbaEvents.{eventName}.α{modifierName}")
 		return ev
 		
 	def getTagAttrSymbol tagName,attrName
@@ -504,6 +505,11 @@ export default class ImbaTypeChecker
 			for item in props
 				type(item)
 		return props
+		
+	def valueprops item, withTypes = no
+		let all = self.props(item,withTypes)
+		all = all.filter do !$1.isDecorator
+		return all
 		
 	def allprops item, withTypes = no
 		let typ = type(item)

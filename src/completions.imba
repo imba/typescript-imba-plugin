@@ -280,12 +280,13 @@ export class SymbolCompletion < Completion
 			# anem = name
 		
 		elif cat == 'tagevent'
-			triggers '.='
+			triggers '.=('
 			kind = 'event'
 			name = '@' + name
 		
 		elif cat == 'tageventmod'
 			triggers '.='
+			name = name.slice(1)
 			# check signatures?
 			if tags.detail..match(/^\(/)
 				triggers '('
@@ -335,6 +336,7 @@ export class SymbolCompletion < Completion
 				ns = ns.replace(/^import /,'import * ')
 			
 			# dont be trigger-happy with commitCharacters for imports
+			# should still be if the import compes
 			item.commitCharacters = item.commitCharacters.filter do(item)
 				".!([, ".indexOf(item) == -1
 			
@@ -472,7 +474,6 @@ export default class Completions
 			
 		if flags & CT.TagEventModifier
 			add checker.getEventModifiers(ctx.eventName), kind: 'tageventmod'
-			# props("ImbaEvents.{ctx.eventName}.MODIFIERS"), kind: 'tageventmod'
 			
 		if flags & CT.TagProp
 			add('tagattrs',name: ctx.tagName)
@@ -483,14 +484,14 @@ export default class Completions
 		if flags & CT.Access
 			if ctx.target == null
 				let selfpath = ctx.selfPath
-				let selfprops = checker.props(selfpath)
+				let selfprops = checker.valueprops(selfpath)
 				# || checker.props(loc.thisType)
 				add(selfprops,kind: 'implicitSelf', weight: 300, matchRegex: prefixRegex)
 			else	
 				let typ = checker.inferType(ctx.target,script.doc)
 				util.log('inferred type??',typ)
 				if typ
-					let props = checker.props(typ).filter do !$1.isWebComponent
+					let props = checker.valueprops(typ).filter do !$1.isWebComponent
 					add props, kind: 'access', matchRegex: prefixRegex
 		
 		if flags & CT.Value
