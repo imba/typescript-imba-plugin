@@ -248,6 +248,9 @@ export def toCustomTagIdentifier str
 	'Γ' + toJSIdentifier(str)
 	# toPascalCase(str + '-custom-element')
 
+export def isTagIdentifier str
+	str[0] == 'Γ'
+
 export def jsDocTagTextToString content
 	let out = ''
 	content = [content] unless content isa Array
