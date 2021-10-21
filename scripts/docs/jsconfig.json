@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "allowJs": true,
+        "checkJs": true,
+		"noEmit": false,
+		"declarations": true,
+		"emitDeclarationOnly": true,
+		"skipLibCheck": false,
+		"skipDefaultLibCheck": false,
+		"allowNonTsExtensions": true,
+		"allowUnreachableCode": true,
+		"allowSyntheticDefaultImports": true,
+		"esModuleInterop": true,
+		"suppressExcessPropertyErrors": false,
+		"suppressImplicitAnyIndexErrors": false,
+		"resolveJsonModule": true,
+		"module": "esnext",
+		"target": "esnext",
+		"newLine": "lf",
+		"moduleResolution": "node",
+        "plugins": [
+            {
+                "name": "typescript-imba-plugin"
+            }
+        ],
+        "lib": ["ESNext","DOM"]
+    },
+    "include": [
+        "index.imba",
+        "./test.ts"
+    ]
+}

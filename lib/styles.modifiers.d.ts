@@ -25,24 +25,24 @@ declare namespace imbacss {
     interface αonly { name: 'only-child' };
 
     /** Generally triggered when the user hovers over an element with the cursor (mouse pointer) */
-    interface αhover { };
+    interface αhover { name: 'hover' };
 
     /** Element is being activated by the user. When using a mouse, "activation" typically starts when the user presses down the primary mouse button. */
-    interface αactive { };
+    interface αactive { name: 'active' };
 
-    interface αvisited { };
+    interface αvisited { name: 'visited' };
 
-    interface αlink { };
+    interface αlink { name: 'link' };
 
-    interface αenabled { };
+    interface αenabled { name: 'enabled' };
 
-    interface αchecked { };
+    interface αchecked { name: 'checked' };
 
     /** element has focus */
-    interface αfocus { };
+    interface αfocus { name: 'focus' };
 
     /** element OR descendant of element has focus */
-    interface αfocin { };
+    interface αfocin {};
 
 
     /** @detail (min-width: 480px) */
@@ -57,15 +57,15 @@ declare namespace imbacss {
     interface αxl { media: '(min-width: 1280px)' }
 
     /** @detail (max-width: 479px) */
-    'lt-xs': { media: '(max-width: 479px)' }
+    interface αltΞxs { media: '(max-width: 479px)' }
     /** @detail (max-width: 639px) */
-    'lt-sm': { media: '(max-width: 639px)' }
+    interface αltΞsm { media: '(max-width: 639px)' }
     /** @detail (max-width: 767px) */
-    'lt-md': { media: '(max-width: 767px)' }
+    interface αltΞmd { media: '(max-width: 767px)' }
     /** @detail (max-width: 1023px) */
-    'lt-lg': { media: '(max-width: 1023px)' }
+    interface αltΞlg { media: '(max-width: 1023px)' }
     /** @detail (max-width: 1279px) */
-    'lt-xl': { media: '(max-width: 1279px)' }
+    interface αltΞxl { media: '(max-width: 1279px)' }
 
     // color modifiers
 
@@ -78,15 +78,30 @@ declare namespace imbacss {
      * @detail (prefers-color-scheme: light)
     */
     interface αlight { media: '(prefers-color-scheme: light)' }
-
+    
+    /**
+     * @custom
+     */
     interface αtouch { flag: '_touch_' }
-
+    
+    /**
+     * @custom
+     */
     interface αsuspended { flag: '_suspended_' }
 
+    /**
+     * @custom
+     */
     interface αmove { flag: '_move_' }
-
+    
+    /**
+     * @custom
+     */
     interface αhold { flag: '_hold_' }
-
+    
+    /**
+     * @custom
+     */
     interface αssr { flag: '_ssr_' }
 
     /** 
@@ -111,13 +126,15 @@ declare namespace imbacss {
 
     /** Pseudo-element that is the first child of the selected element 
      * @detail ::before { ... }
+     * @pseudoelement
     */
-    interface αbefore { }
+    interface αbefore { name: '::before' }
 
     /** Pseudo-element that is the last child of the selected element 
+     * @pseudoelement
      * @detail ::after { ... }
     */
-    interface αafter { }
+    interface αafter { name: '::after' }
 
 
     /** 

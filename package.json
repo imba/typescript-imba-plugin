@@ -14,7 +14,8 @@
     },
     "devDependencies": {
         "@types/typescript": "^2.0.0",
-        "imba": "^2.0.0-alpha.173"
+        "imba": "^2.0.0-alpha.173",
+        "marked": "^3.0.7"
     },
     "dependencies": {
         "node-ipc": "^9.1.4"

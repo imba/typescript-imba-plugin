@@ -139,19 +139,28 @@ declare namespace imbacss {
 
     }
 
-    // custom properties
+    /**
+     * @detail padding-(left+right)
+     * @custom
+     */
     interface px extends _ {
         set(x: Ψspacing): void;
         set(left: Ψspacing, right: Ψspacing): void;
     }
 
-    // custom properties
+    /**
+     * @detail padding-(top+bottom)
+     * @custom
+     */
     interface py extends _ {
         set(y: Ψspacing): void;
         set(top: Ψspacing, bottom: Ψspacing): void;
     }
 
-    // custom properties
+    /**
+     * @detail margin-(left+right)
+     * @custom
+     */
     interface mx extends _ {
         set(x: Ψspacing): void;
         set(left: Ψspacing, right: Ψspacing): void;
@@ -162,44 +171,58 @@ declare namespace imbacss {
         set(top: Ψspacing, bottom: Ψspacing): void;
     }
 
-    /** @detail width & height */
+    /** 
+     * @detail width+height 
+     * @custom
+     * */
     interface size extends _ {
         set(y: Ψdimension): void;
     }
 
-    /** @detail justify items & content */
+    /** 
+     * @detail justify-(items+content)
+     * @custom
+     * */
     interface j extends _ {
         set(value: justifyΞcontent): void;
         set(value: justifyΞitems): void;
     }
 
-    /** @detail align items & content */
+    /**
+     * @detail align-(items+content)
+     * @custom
+     * */
     interface a extends _ {
         set(value: alignΞitems): void;
         set(value: alignΞcontent): void;
     }
 
-    /** @detail justify&align items */
+    /**
+     * @proxy placeΞitems
+    */
     interface jai extends _ {
         set(value: alignΞitems): void;
         set(value: justifyΞitems): void;
     }
 
-    /** @detail justify&align content */
+    /**
+     * @proxy placeΞcontent
+     * */
     interface jac extends _ {
         set(value: alignΞcontent): void;
         set(value: justifyΞcontent): void;
     }
 
     /**
-     * @detail justify&align-self
+     * @proxy placeΞself
      */
     interface jas extends _ {
         set(value: alignΞself): void;
         set(value: justifyΞself): void;
     }
     /**
-     * @detail (justify|align)-(items|content)
+     * @detail place-(items+content)
+     * @custom
      */
     interface ja extends _ {
         set(value: alignΞcontent): void;
@@ -208,34 +231,40 @@ declare namespace imbacss {
         set(value: justifyΞitems): void
     }
 
-    /** @detail ◠ border-top-right-radius & border-top-left-radius */
+    /** 
+     * @detail border-top-(left+right)-radius
+     * @custom
+     * */
     interface rdt extends _ {
         set(val: Ψradius | Ψlength | Ψpercentage): void;
     }
 
-    /** @detail ⊂ border-top-left-radius & border-bottom-left-radius */
+    /** 
+     * @detail border-(top+bottom)-left-radius
+     * @custom
+     * */
     interface rdl extends rdt {
 
     }
 
-    /** @detail ◡ border-bottom-left-radius & border-bottom-right-radius */
+    /** 
+     * @detail border-bottom-(left+right)-radius
+     * @custom
+     * */
     interface rdb extends rdt {
 
     }
 
-    /** @detail ⊃ border-top-right-radius & border-bottom-right-radius */
+    /** 
+     * @detail border-(top+bottom)-right-radius
+     * @custom
+     * */
     interface rdr extends rdt {
 
     }
 
     /**
      * Shorthand property combines four of the transition properties into a single property.
-     * 
-     * Syntax: <single-transition>#
-
-     * 
-     * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/CSS/transition)
-     * 
      * @alias tween
     */
     interface transition extends _ {
@@ -262,47 +291,86 @@ declare namespace imbacss {
     interface tween extends transition { }
 
 
-    /** Shorthand for setting transform translateX() */
+    /** 
+     * Shorthand for setting transform translateX() 
+     * @detail transform: translateX(...)
+     * @custom
+     **/
     interface x extends _ {
         set(val: Ψnumber): void;
     }
 
-    /** Shorthand for setting transform translateY() */
+    /** 
+     * Shorthand for setting transform translateY()
+     * @detail transform: translateY(...)
+     * @custom
+     * */
     interface y extends x {
 
     }
 
-    /** Shorthand for setting transform translateZ() */
+    /** 
+     * Shorthand for setting transform translateZ()
+     * @detail transform: translateZ(...)
+     * @custom
+     * */
     interface z extends x {
 
     }
 
-    /** Shorthand for setting transform skeq-x() */
+    /** 
+     * Shorthand for setting transform skewX()
+     * @detail transform: skewX(...)
+     * @custom
+     * */
     interface skewΞx extends _ {
         set(val: Ψnumber): void;
     }
-    /** Shorthand for setting transform skeq-y() */
+    /** 
+     * Shorthand for setting transform skewY() 
+     * @detail transform: skewY(...)
+     * @custom
+     * */
     interface skewΞy extends _ {
         set(val: Ψnumber): void;
     }
-    /** Shorthand for setting transform scale-x() */
+    /** 
+     * Shorthand for setting transform scaleX()
+     * @detail transform: scaleX(...)
+     * @custom
+     * */
     interface scaleΞx extends _ {
         set(val: Ψnumber): void;
     }
-    /** Shorthand for setting transform scale-y() */
+    /** 
+     * Shorthand for setting transform scaleY() 
+     * @detail transform: scaleY(...)
+     * @custom
+     * */
     interface scaleΞy extends _ {
         set(val: Ψnumber): void;
     }
-    /** Shorthand for setting transform scale() */
+    /** 
+     * Shorthand for setting transform scale()
+     * @detail transform: scale(...)
+     * @custom
+     *  */
     interface scale extends _ {
         set(val: Ψnumber): void;
     }
-    /** Shorthand for setting transform rotate() */
+    /** 
+     * Shorthand for setting transform rotate() 
+     * @detail transform: rotate(...)
+     * @custom
+     * */
     interface rotate extends _ {
         set(val: Ψnumber): void;
     }
 
-    /** Shorthand for setting transform skeq-y() */
+    /** 
+     * Shorthand for setting transform skeq-y() 
+     * @custom
+    */
     interface ease extends _ {
         set(duration: Ψtime): void;
         set(timing: ΨtimingΞfunction): void;

@@ -726,6 +726,9 @@ export default def patcher ts
 		get isTagAttr
 			return no if isDeprecated
 			(flags & (ts.SymbolFlags.Property | ts.SymbolFlags.SetAccessor)) && (flags & ts.SymbolFlags.Function) == 0 && !isReadonly && !escapedName.match(/^on\w/)
+			
+		get method?
+			flags & ts.SymbolFlags.Method
 
 	return ts
 	

@@ -1,4 +1,6 @@
 /// import {HTML} from './imba.dom';
+/// <reference lib="dom" />
+
 /// <reference path="./imba.types.d.ts" />
 /// <reference path="./imba.dom.d.ts" />
 /// <reference path="./imba.events.d.ts" />

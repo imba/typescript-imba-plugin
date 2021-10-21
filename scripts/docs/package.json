@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "typescript": "^4.4.4"
+  },
+  
+  "scripts": {
+      "generate": "set TSS_LOG=-traceToConsole true && tsserver"
+  }
+}

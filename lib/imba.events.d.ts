@@ -9,6 +9,8 @@ interface Event {
     αprevent(): void;
     /**
      Stops the event from propagating up the tree. Event listeners for the same event on nodes further up the tree will not be triggered. See Event.stopPropagation()
+     
+     
     */
     αstop(): void;
     /**
@@ -21,37 +23,74 @@ interface Event {
      */
     αcapture(): void;
 
+    /**
+     * Indicates that the listener will never call preventDefault(). If a passive listener does call preventDefault(), the user agent will do nothing other than generate a console warning. This is useful for optimal performance while scrolling etc.
+     * 
+     * @summary indicates that the listener will never call preventDefault()
+     */
     αpassive(): void;
 
-    // αsilence(): void;
-    
     /**
-     * Don't trigger imba.commit from this event handler
+     * By default, Imba will re-render all scheduled tags after any *handled* event. So, Imba won't re-render your application if you click an element that has no attached handlers, but if you've added a `@click` listener somewhere in the chain of elements, `imba.commit` will automatically be called after the event has been handled. 
+    
+    This is usually what you want, but it is useful to be able to override this, especially when dealing with `@scroll` and other events that might fire rapidly.
+    
+     #### Syntax
+    ```imba
+    # Will only trigger when intersection ratio increases
+    <div @click.silent=handler>
+    # Will only trigger when element is more than 50% visible
+    <div @intersect(0.5).in=handler>
+    ```
+     * @summary Don't trigger imba.commit from this event handler
      */
     αsilent(): void;
     
     
-    /** The wait modifier delays the execution of subsequent modifiers and callback. It defaults to wait for 250ms, which can be overridden by passing a number or time as the first/only argument. 
+    /** The wait modifier delays the execution of subsequent modifiers and callback. It defaults to wait for 250ms, which can be overridden by passing a number or time as the first/only argument.
+     * 
+     * @summary pause handler for `n` duration (default 250ms)
      * @detail (time = 500ms)
      */
     αwait(time?: Time): void;
 
     /**
-     * Hello there
+     * The `throttle` modifier ensures the handler is called at most every `n` milliseconds (defaults to 500ms). This can be useful for events that fire very rapidly like `@scroll`, `@pointermove` etc.
+     * 
+     * See `@event.cooldown` and `@event.debounce`.
      * @detail (time = 500ms)
+     * @summary ensures that handler triggers at most every `n` seconds
      */
     αthrottle(time?: Time): void;
+    
+    /**
+     * The `cooldown` modifier ensures the handler is called at most every `n` milliseconds (defaults to 500ms). This can be useful for events that fire very rapidly like `@scroll`, `@pointermove` etc.
+     * 
+     * See `@event.throttle` and `@event.debounce`.
+     * 
+     * @detail (time = 500ms)
+     * @summary disable handler for a duration after trigger
+     */
+    αcooldown(time?: Time): void;
 
     /**
-     * Hello there
+     * The `debounce` modifier ensures that a minimum amount of time has elapsed after the user stops interacting and before calling the handler. This is especially useful, for example, when querying an API and not wanting to perform a request on every keystroke.
+     * `
+     * See `@event.cooldown` and `@event.throttle`.
      * @detail (time = 500ms)
+     * @summary dont trigger until no events has been handled for `n` time
      */
     αdebounce(time?: Time): void;
-
+    
+    /**
+     Stops handling unless event is trusted
+     @see https://developer.mozilla.org/en-US/docs/Web/API/Event/isTrusted
+    */
+    αtrusted(): void;
 
     /** 
-     * Only trigger handler if event.target is the element itself 
-     * 
+     * The `self` event modifier is a handy way of reacting to events only when they are clicked on the actual element you are interacting with and not, for example, a child element. This can be useful for things like modal wrappers when you only want to react when clicking directly.
+     * @summary Only trigger handler if event.target is the element itself 
      */
     αself(): boolean;
 
@@ -68,7 +107,7 @@ interface Event {
     αif(condition: unknown): boolean;
     
     /**
-     * Trigger another event via this handler
+     * Trigger another event via this handler {@link MyClass}
      * @param name The name of the event to trigger
      * @param detail Data associated with the event
      * @detail (name,detail = {})
@@ -77,6 +116,7 @@ interface Event {
      /**
      * Trigger another event via this handler
      * @param detail Data associated with the event
+     * @deprecated
      * */
     αemitΞname(detail?: any): void;
     
@@ -94,6 +134,7 @@ interface Event {
      * If the callback returns a promise, the class
      * will not be removed until said promise has resolved
      * @param target the element on which to add the class. Defaults to the element itself
+     * @deprecated
      **/
     αflagΞname(target?: FlagTarget): void;
 
@@ -212,20 +253,17 @@ interface KeyboardEvent {
 
 interface PointerEvent {
     /**
-    * Only mouse 
-    *
+    * @summary The event was generated by a mouse device.
     */
     αmouse(): boolean;
 
     /**
-    * Only pen 
-    *
+    * @summary The event was generated by a pen or stylus device.
     */
     αpen(): boolean;
 
     /**
-    * Only hand/fingers 
-    *
+    * @summary The event was generated by a touch, such as a finger.
     */
     αtouch(): boolean;
     
@@ -235,19 +273,66 @@ interface PointerEvent {
     αpressure(amount?:number): boolean;
 }
 
+interface DragEvent {
+    
+}
+
 type ModifierElementTarget = Element | string;
 
-declare class ImbaTouch extends PointerEvent {
+/**
+ * To make it easier and more fun to work with touches, Imba includes a custom `@touch` event that combines `@pointerdown` -> `@pointermove` -> `@pointerup` in one convenient handler, with modifiers for commonly needed functionality.
+ */
+declare class ImbaTouch {
+    
+    /** The final X coordinate of the pointer (after modifiers) */
+    x: number;
+    
+    /** The final Y coordinate of the pointer (after modifiers) */
+    y: number;
+    
+    target: Element;
+    
+    /** The X coordinate of the pointer in local (DOM content) coordinates. */
+    get clientX(): number;
+    
+    /** The Y coordinate of the mouse pointer in local (DOM content) coordinates. */
+    get clientY(): number;
     
     /** True if touch is still active */
     get activeΦ(): boolean;
     
     /** True if touch has ended */
     get endedΦ(): boolean;
+    
+    /** Returns true if the `control` key was down when the mouse event was fired. */
+    get ctrlKey(): boolean;
+    
+    /** Returns true if the `alt` key was down when the mouse event was fired. */
+    get altKey(): boolean;
+    
+    /** Returns true if the `shift` key was down when the mouse event was fired. */
+    get shiftKey(): boolean;
+    
+    /** Returns true if the `shift` key was down when the mouse event was fired. */
+    get metaKey(): boolean;
+    
+    /** Indicates the device type that caused the event (mouse, pen, touch, etc.) */
+    get pointerType(): string;
+    
+    /**
+     The identifier is unique, being different from the identifiers of all other active pointer events. Since the value may be randomly generated, it is not guaranteed to convey any particular meaning.
+
+     @summary A unique identifier for the pointer causing the event.
+     * */
+    get pointerId(): number;
 
     /**
     * Only when touch has moved more than threshold
     * @detail (threshold = 4px)
+    * 
+    * @example
+    * // returns 2
+    * globalNS.method1(5, 10);
     */
     αmoved(threshold?: Length): boolean;
 
@@ -293,7 +378,8 @@ declare class ImbaTouch extends PointerEvent {
     αapply(data: object, xName?: string | null, yName?: string | null): boolean;
 
     /**
-    * Convert the coordinates of the touch to some other frame of reference.
+     * A very common need for touches is to convert the coordinates of the touch to some other frame of reference. When dragging you might want to make x,y relative to the container. For a custom slider you might want to convert the coordinates from pixels to relative offset of the slider track. There are loads of other scenarios where you'd want to convert the coordinates to some arbitrary scale and offset. This can easily be achieved with fitting modifiers.
+    * @summary Convert the coordinates of the touch to some other frame of reference.
     * @detail (target?,snap?)
     */
     αfit(): void;
@@ -327,6 +413,25 @@ declare class ImbaTouch extends PointerEvent {
     * @detail (to = 1)
     */
     αround(nearest?: number): void;
+    
+    
+    /**
+     * Add an html class to target for at least 250ms
+     * If the callback returns a promise, the class
+     * will not be removed until said promise has resolved
+     * @param name the class to add
+     * @param target the element on which to add the class. Defaults to the element itself
+     * */
+    αflag(name: string, target?: FlagTarget): void;
+    
+    /**
+     * Add an html class to target for at least 250ms
+     * If the callback returns a promise, the class
+     * will not be removed until said promise has resolved
+     * @param target the element on which to add the class. Defaults to the element itself
+     * @deprecated
+     **/
+    αflagΞname(target?: FlagTarget): void;
 }
 
 
@@ -339,28 +444,97 @@ type IntersectOptions = {
 }
 
 
+/**
+ [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) is a [well-supported](https://caniuse.com/#feat=intersectionobserver) API in modern browsers. It provides a way to asynchronously observe changes in the intersection of a target element with an ancestor element or with a top-level document's viewport. Imba adds a simplified abstraction on top of this via the custom `@intersect` event.
+ 
+ #### Syntax
+ 
+ ```imba
+ # Will only trigger when intersection ratio increases
+ <div @intersect.in=handler>
+ # Will only trigger when element is more than 50% visible
+ <div @intersect(0.5).in=handler>
+ ```
+ 
+ #### Parameters
+
+The `@intersect` events accepts several arguments. You can pass in an object with the same [root](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/root), [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin), and [threshold](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/threshold)  properties supported by [IntersectionObserver](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/IntersectionObserver). 
+
+```imba
+<div @intersect=handler> # default options
+<div @intersect(root: frame, rootMargin: '20px')=handler>
+<div @intersect(threshold: [0,0.5,1])=handler>
+```
+
+For convenience, imba will convert certain arguments into options. A single number between 0 and 1 will map to the [threshold](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/threshold) option:
+```imba
+# n 0-1 adds single threshold at n visibility
+<div @intersect(0)=handler> # {threshold: 0}
+<div @intersect(0.5)=handler> # {threshold: 0.5}
+<div @intersect(1)=handler> # {threshold: 1.0}
+```
+Any number above 1 will add n thresholds, spread evenly:
+```imba
+<div @intersect(2)=handler> # {threshold: [0,1]}
+<div @intersect(3)=handler> # {threshold: [0,0.5,1]}
+<div @intersect(5)=handler> # {threshold: [0,0.25,0.5,0.75,1]}
+# ... and so forth
+```
+An element will map to the [root](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/root) option:
+```imba
+<div @intersect(frame)=handler> # {root: frame}
+<div @intersect(frame,3)=handler> # {root: frame, threshold: [0,0.5,1]}
+```
+A string will map to the [rootMargin](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/rootMargin) option:
+```imba
+<div @intersect("20px 10px")=handler> # {rootMargin: "20px 10px"}
+```
+
+ */
 declare class ImbaIntersectEvent extends Event {
     /**
-    * @detail only when intersection increases
+    The `out` modifier stops the handler unless intersectionRatio has *increased*.
+
+    #### Syntax
+    ```imba
+    # Will only trigger when intersection ratio increases
+    <div @intersect.in=handler>
+    # Will only trigger when element is more than 50% visible
+    <div @intersect(0.5).in=handler>
+    ```
+    @summary Stop handling unless intersectionRatio has increased.
     */
     αin(): boolean;
 
     /**
-    * @detail only when intersection decreases
+     * 
+    The `out` modifier stops the handler unless intersectionRatio has *decreased*.
+    
+    #### Syntax
+    ```imba
+    # Will only trigger when element starts intersecting
+    <div @intersect.out=handler>
+    # Will trigger whenever any part of the div is hidden
+    <div @intersect(1).out=handler>
+    ```
+    @summary Stop handling unless intersectionRatio has decreased.
     */
     αout(): boolean;
-
+    
+    /**
+    The css modifier sets a css variable --ratio on the event target with the current ratio.
+    @summary Set css variable `--ratio` to the intersectionRatio.
+     */
     αcss(): void;
     
     /**
-    * Will add a class to the DOM element whenever it is intersecting
+    * Will add a class to the DOM element when intersecting
     * @param name The class-name to add
     */
     αflag(name: string): void;
-    αflagΞname(): void;
     
     /**
-    * Will add a class to the DOM element whenever it is intersecting
+    * Configuring
     * @param root reference to the parent
     * @param thresholds 0-1 for a single threshold, 2+ for n slices
 
@@ -418,11 +592,20 @@ declare class ImbaHotkeyEvent extends Event {
     αpassive(): void;
 }
 
+/**
+ * The [ResizeObserver](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) interface reports changes to the dimensions of an Element's content or border box. It has [good browser support](https://caniuse.com/#feat=resizeobserver) and is very useful in a wide variety of usecases. ResizeObserver avoids infinite callback loops and cyclic dependencies that are often created when resizing via a callback function. It does this by only processing elements deeper in the DOM in subsequent frames.
+ * 
+ * #### Syntax
+ * ```imba
+ * test
+ * ```
+ */
 declare class ImbaResizeEvent extends UIEvent {
     width: number;
     height: number;
     rect: DOMRectReadOnly;
     entry: ResizeObserverEntry;
+    test: ResizeObserver;
 }
 
 declare class ImbaSelectionEvent extends Event {
@@ -488,7 +671,7 @@ interface ImbaEvents {
     */
     canplaythrough: Event;
     /**
-    * The change event is fired for <input>, <select>, and <textarea> elements when a change to the element's value is committed by the user. 
+    * The change event is fired for `<input>`, `<select>`, and `<textarea>` elements when a change to the element's value is committed by the user. 
     *
     */
     change: Event;
@@ -501,13 +684,22 @@ interface ImbaEvents {
     contextmenu: MouseEvent;
     cuechange: Event;
     dblclick: MouseEvent;
+    
     drag: DragEvent;
+    
     dragend: DragEvent;
+    
     dragenter: DragEvent;
-    dragexit: Event;
+    
     dragleave: DragEvent;
+    
     dragover: DragEvent;
+
     dragstart: DragEvent;
+    
+    /**
+     * @summaryz Fires when an element or text selection is dropped on a valid drop target.
+     */
     drop: DragEvent;
     durationchange: Event;
     emptied: Event;
@@ -516,7 +708,7 @@ interface ImbaEvents {
     focus: FocusEvent;
     focusin: FocusEvent;
     focusout: FocusEvent;
-    gotpointercapture: PointerEvent;
+    
     input: Event;
     invalid: Event;
     intersect: ImbaIntersectEvent;
@@ -527,7 +719,6 @@ interface ImbaEvents {
     loadeddata: Event;
     loadedmetadata: Event;
     loadstart: Event;
-    lostpointercapture: PointerEvent;
     mousedown: MouseEvent;
     mouseenter: MouseEvent;
     mouseleave: MouseEvent;
@@ -538,14 +729,53 @@ interface ImbaEvents {
     pause: Event;
     play: Event;
     playing: Event;
+    
+    
+    /**
+     * @summary A browser fires this event if it concludes the pointer will no longer be able to generate events (for example the related device is deactivated).
+     */
     pointercancel: PointerEvent;
+    /**
+     * @summary Fired when a pointer becomes active buttons state.
+     */
     pointerdown: PointerEvent;
+    /**
+     * @summary Fired when a pointer is moved into the hit test boundaries of an element or one of its descendants, including as a result of a pointerdown event from a device that does not support hover (see pointerdown).
+     */
     pointerenter: PointerEvent;
+    /**
+     * @summary Fired when a pointer is moved out of the hit test boundaries of an element. For pen devices, this event is fired when the stylus leaves the hover range detectable by the digitizer.
+     */
     pointerleave: PointerEvent;
+    /**
+     * @summary Fired when a pointer changes coordinates. This event is also used if the change in pointer state can not be reported by other events.
+     */
     pointermove: PointerEvent;
+    
+    /**
+     * @summary Fired for several reasons including: pointer is moved out of the hit test boundaries of an element; firing the pointerup event for a device that does not support hover (see pointerup); after firing the pointercancel event (see pointercancel); when a pen stylus leaves the hover range detectable by the digitizer.
+     */
     pointerout: PointerEvent;
+    
+    /**
+     * @summary Fired when a pointer is moved into an element's hit test boundaries.
+     */
     pointerover: PointerEvent;
+    /**
+     * @summary Fired when a pointer is no longer active buttons state.
+     */
     pointerup: PointerEvent;
+    
+    /**
+     * @summary Fired when an element receives pointer capture.
+     */
+    gotpointercapture: PointerEvent;
+    
+    /**
+     * @summary Fired after pointer capture is released for a pointer.
+     */
+    lostpointercapture: PointerEvent;
+    
     progress: ProgressEvent;
     ratechange: Event;
     reset: Event;

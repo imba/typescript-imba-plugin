@@ -237,8 +237,10 @@ export default class ImbaTypeChecker
 			res = sym([res,'prototype'])
 		return res
 		
+	def getEvents
+		props("ImbaEvents")
+		
 	def getEventModifiers eventName
-		# let all = props("ImbaEvents.{eventName}.MODIFIERS")
 		let all = props("ImbaEvents.{eventName}")
 		all = all.filter do $1.escapedName != 'αoptions' and $1.escapedName[0] == 'α'
 		return all
@@ -256,9 +258,6 @@ export default class ImbaTypeChecker
 			taginst = getTagSymbolInstance(tagName)
 			res = sym([taginst,key])
 		return res
-		
-			
-		
 
 	def arraytype inner
 		checker.createArrayType(inner or basetypes.any)
@@ -510,6 +509,16 @@ export default class ImbaTypeChecker
 		let all = self.props(item,withTypes)
 		all = all.filter do !$1.isDecorator
 		return all
+		
+	def ownprops item, withTypes = no
+		let typ = type(item)
+		return [] unless typ
+
+		let props = typ.getProperties!
+		if withTypes
+			for item in props
+				type(item)
+		return props
 		
 	def allprops item, withTypes = no
 		let typ = type(item)

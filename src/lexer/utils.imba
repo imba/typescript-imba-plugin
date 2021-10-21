@@ -34,6 +34,10 @@ export def prevToken start, pattern, max = 100000
 export def pascalCase str
 	str.replace(/(^|[\-\_\s])(\w)/g) do $3.toUpperCase!
 
+export def toCustomTagIdentifier str
+	'Γ' + toJSIdentifier(str)
+	# toPascalCase(str + '-custom-element')
+	
 export def computeLineOffsets text, isAtLineStart, textOffset
 	if textOffset === undefined
 		textOffset = 0
@@ -166,3 +170,56 @@ export def fastExtractSymbols text
 	root.all = symbols
 	console.log 'fast outline',text.length,Date.now! - t0
 	return root
+	
+# To avoid collisions etc with symbols we are using
+# greek characters to convert special imba identifiers
+# to valid js identifiers.
+export const ToJSMap = {
+	'-': 'Ξ'
+	'?': 'Φ'
+	'#': 'Ψ'
+	'@': 'α'
+}
+
+const toJSregex = new RegExp("[\-\?\#\@]","gu")
+const toJSreplacer = do(m) ToJSMap[m]
+
+export def toJSIdentifier raw
+	raw.replace(toJSregex,toJSreplacer)
+
+export const ToImbaMap = {
+	'Ξ': '-'
+	'Φ': '?'
+	'Ψ': '#'
+	'Γ': ''
+	'α': '@'
+}
+
+const toImbaRegex = new RegExp("[ΞΦΨΓα]","gu")
+const toImbaReplacer = do(m) ToImbaMap[m]
+
+export def toImbaIdentifier raw
+	raw ? raw.replace(toImbaRegex,toImbaReplacer) : raw
+	
+export def toImbaString str
+	unless typeof str == 'string'
+		# log('cannot convert to imba string',str)
+		return str
+
+	str = str.replace(toImbaRegex,toImbaReplacer)
+	return str
+	
+export def toImbaMessageText str
+	if typeof str == 'string'
+		return toImbaString(str)
+	if str.messageText
+		str.messageText = toImbaMessageText(str.messageText)
+	
+	return str
+	
+
+export def fromJSIdentifier raw
+	toImbaIdentifier(raw)
+	
+export def displayPartsToString parts
+	fromJSIdentifier(global.ts.displayPartsToString(parts))
