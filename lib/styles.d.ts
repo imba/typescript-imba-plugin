@@ -396,4 +396,12 @@ declare namespace imbacss {
     interface ec extends easeΞcolors { }
     /** @proxy easeΞopacity */
     interface eo extends easeΞopacity { }
+    
+    /** 
+     * Set color alias
+     * @custom
+     * */
+    interface hue extends _ {
+        set(val: Ψhue): void;
+    }
 }

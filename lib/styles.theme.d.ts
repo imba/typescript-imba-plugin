@@ -132,24 +132,44 @@ declare namespace imbacss {
 		indigo9: 'hsla(242,47%,34%,1)';
 		/** @color hsla(213,100%,96%,1) */
 		blue0: 'hsla(213,100%,96%,1)';
+		/** @color hsla(213,100%,96%,1) */
+		hue0: 'hsla(213,100%,96%,1)';
 		/** @color hsla(214,94%,92%,1) */
 		blue1: 'hsla(214,94%,92%,1)';
+		/** @color hsla(214,94%,92%,1) */
+		hue1: 'hsla(214,94%,92%,1)';
 		/** @color hsla(213,96%,87%,1) */
 		blue2: 'hsla(213,96%,87%,1)';
+		/** @color hsla(213,96%,87%,1) */
+		hue2: 'hsla(213,96%,87%,1)';
 		/** @color hsla(211,96%,78%,1) */
 		blue3: 'hsla(211,96%,78%,1)';
+		/** @color hsla(211,96%,78%,1) */
+		hue3: 'hsla(211,96%,78%,1)';
 		/** @color hsla(213,93%,67%,1) */
 		blue4: 'hsla(213,93%,67%,1)';
+		/** @color hsla(213,93%,67%,1) */
+		hue4: 'hsla(213,93%,67%,1)';
 		/** @color hsla(217,91%,59%,1) */
 		blue5: 'hsla(217,91%,59%,1)';
+		/** @color hsla(217,91%,59%,1) */
+		hue5: 'hsla(217,91%,59%,1)';
 		/** @color hsla(221,83%,53%,1) */
 		blue6: 'hsla(221,83%,53%,1)';
+		/** @color hsla(221,83%,53%,1) */
+		hue6: 'hsla(221,83%,53%,1)';
 		/** @color hsla(224,76%,48%,1) */
 		blue7: 'hsla(224,76%,48%,1)';
+		/** @color hsla(224,76%,48%,1) */
+		hue7: 'hsla(224,76%,48%,1)';
 		/** @color hsla(225,70%,40%,1) */
 		blue8: 'hsla(225,70%,40%,1)';
+		/** @color hsla(225,70%,40%,1) */
+		hue8: 'hsla(225,70%,40%,1)';
 		/** @color hsla(224,64%,32%,1) */
 		blue9: 'hsla(224,64%,32%,1)';
+		/** @color hsla(224,64%,32%,1) */
+		hue9: 'hsla(224,64%,32%,1)';
 		/** @color hsla(204,100%,97%,1) */
 		sky0: 'hsla(204,100%,97%,1)';
 		/** @color hsla(204,93%,93%,1) */
@@ -450,6 +470,53 @@ declare namespace imbacss {
 		cooler8: 'hsla(217,32%,17%,1)';
 		/** @color hsla(222,47%,11%,1) */
 		cooler9: 'hsla(222,47%,11%,1)';
+	}
+
+	interface Ψhue {
+		/** @color hsla(351,94%,71%,1) */
+		rose: 'hsla(351,94%,71%,1)';
+		/** @color hsla(328,85%,70%,1) */
+		pink: 'hsla(328,85%,70%,1)';
+		/** @color hsla(292,91%,72%,1) */
+		fuchsia: 'hsla(292,91%,72%,1)';
+		/** @color hsla(270,95%,75%,1) */
+		purple: 'hsla(270,95%,75%,1)';
+		/** @color hsla(255,91%,76%,1) */
+		violet: 'hsla(255,91%,76%,1)';
+		/** @color hsla(234,89%,73%,1) */
+		indigo: 'hsla(234,89%,73%,1)';
+		/** @color hsla(213,93%,67%,1) */
+		blue: 'hsla(213,93%,67%,1)';
+		/** @color hsla(198,93%,59%,1) */
+		sky: 'hsla(198,93%,59%,1)';
+		/** @color hsla(187,85%,53%,1) */
+		cyan: 'hsla(187,85%,53%,1)';
+		/** @color hsla(172,66%,50%,1) */
+		teal: 'hsla(172,66%,50%,1)';
+		/** @color hsla(158,64%,51%,1) */
+		emerald: 'hsla(158,64%,51%,1)';
+		/** @color hsla(141,69%,58%,1) */
+		green: 'hsla(141,69%,58%,1)';
+		/** @color hsla(82,77%,55%,1) */
+		lime: 'hsla(82,77%,55%,1)';
+		/** @color hsla(47,95%,53%,1) */
+		yellow: 'hsla(47,95%,53%,1)';
+		/** @color hsla(43,96%,56%,1) */
+		amber: 'hsla(43,96%,56%,1)';
+		/** @color hsla(27,95%,60%,1) */
+		orange: 'hsla(27,95%,60%,1)';
+		/** @color hsla(0,90%,70%,1) */
+		red: 'hsla(0,90%,70%,1)';
+		/** @color hsla(23,5%,63%,1) */
+		warmer: 'hsla(23,5%,63%,1)';
+		/** @color hsla(0,0%,63%,1) */
+		warm: 'hsla(0,0%,63%,1)';
+		/** @color hsla(240,5%,64%,1) */
+		gray: 'hsla(240,5%,64%,1)';
+		/** @color hsla(217,10%,64%,1) */
+		cool: 'hsla(217,10%,64%,1)';
+		/** @color hsla(215,20%,65%,1) */
+		cooler: 'hsla(215,20%,65%,1)';
 	}
 
 	interface Ψfs {
